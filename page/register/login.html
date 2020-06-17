@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>登录/注册</title>
+    <script src="../../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../../css/mui.min.css">
+    <link rel="stylesheet" href="../../css/register/login.css">
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+    </script>
+
+</head>
+
+<body>
+
+    <div class="logo">
+        <img src="../../img/indexBgImg.jpg" alt="">
+    </div>
+
+    <div class="z-index">
+        <div class="logintext">
+            <div class="loginBtn">登录</div>
+            <div class="registerBtn">注册</div>
+            <div class="tipsBox">
+                <div class="tips"></div>
+            </div>
+        </div>
+        <!-- 登录部分 -->
+        <div id="loginBox">
+            <div class="userNum">
+                账号
+                <input type="tel" maxlength="15" name="userNum" id="userNum" placeholder="请输入用户名/手机号" autofocus>
+            </div>
+            <div class="pwd">
+                密码
+                <input type="password" name="pwd" id="pwd" placeholder="请输入登录密码">
+            </div>
+            <div class="remember">
+                <div>
+                    <input type="checkbox" name="remPwd" id="remPwd">&nbsp;&nbsp;
+                    <span>记住密码</span>
+                </div>
+                <div class="forgetPwd"><span>忘记密码？</span></div>
+            </div>
+            <div>
+                <button id="login">登录</button>
+            </div>
+        </div>
+
+        <!-- 注册部分 -->
+
+        <div id="registerBox">
+            <div class="userName">
+                用户名
+                <input type="text" name="userName" id="reUserName" placeholder="请输入用户名" autofocus>
+            </div>
+            <div class="userNum">
+                手机号码
+                <input type="tel" maxlength="11" name="userNum" id="reUserNum" placeholder="请输入手机号码">
+            </div>
+            <div class="verify">
+                验证码
+                <input type="text" name="verify" id="verify" placeholder="请输入验证码">
+                <!-- <span class="getVerify">获取验证码</span> -->
+                <button class="getVerify">获取验证码</button>
+            </div>
+            <div class="pwd">
+                密码
+                <input type="password" name="pwd" id="rePwd" placeholder="请输入密码">
+            </div>
+            <div class="pwd">
+                确认密码
+                <input type="password" name="confirmPwd" id="confirmPwd" placeholder="请再次输入密码">
+            </div>
+            <div class="agree">
+                <div id="agreeBox">
+                    <input type="checkbox" name="agree" id="agree">&nbsp;&nbsp;
+                    <span>已阅读并同意</span>
+                    <span class="clause">《慧业通云服务平台条款》</span>
+                </div>
+
+            </div>
+            <div>
+                <button id="selRegister">注册</button>
+            </div>
+            <!-- <div>
+            <button id="agentRegister">代理注册</button>
+        </div> -->
+        </div>
+    </div>
+
+    <div class="black resTip">
+        <section>
+            <div class="tipCont">将由商务秘书公司代理您的注册平台账号，您需要提供身份证、收款账号等信息给商务秘书公司</div>
+            <section class="cancel">取消</section>
+            <section class="ok">确定</section>
+        </section>
+    </div>
+    <div class="errorBg">
+        <div class="error"></div>
+    </div>
+    <div class="threeBoxBg">
+        <div class="threeBox">
+            <div class="threeTitle">授权划缴税款协议书</div>
+            <div class="scrollBox">
+                <!-- <div class="one">甲方：
+                    <span class="oneName">哈哈哈</span>
+                </div>
+                <div class="two">
+                    乙方：<span class="twoName">哈哈哈</span>
+                </div>
+                <div class="three">
+                    丙方：<span class="threeName">哈哈哈</span>
+                </div> -->
+                <div class="cont">
+                </div>
+            </div>
+            <div class="agreeThreeBox">
+                <div class="disagreeThree">不同意</div>
+                <div class="agreeThree">同意</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 提示更新APP的弹出框 -->
+    <div class="black updateAppTips">
+        <section>
+            <div class="updateApp_tipCont"></div>
+            <div class="updateBtn">确定</div>
+        </section>
+    </div>
+    <div class="black3">
+        <section>
+            <div class="openTips">扫码注册</div>
+            <div class="close">否</div>
+            <div class="open">是</div>
+
+        </section>
+
+    </div>
+</body>
+<script src="../../js/jquery-3.3.1.js"></script>
+<script src="../../js/layer/layer.js"></script>
+<script src="../../js/urlDns.js"></script>
+<script src="../../js/register/login.js"></script>
+
+</html>

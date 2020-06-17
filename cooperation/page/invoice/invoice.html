@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../../../css/mui.min.css">
+    <link rel="stylesheet" href="../../css/invoice/invoice.css">
+    <title>发票管理</title>
+    <script>
+        mui.init();
+    </script>
+</head>
+
+<body>
+    <header>
+        <img class="back" src="../../../img/back_black.png" alt=""> 发票记录
+        <!-- <div class="next">发票抬头</div> -->
+    </header>
+    <ul>
+        <li class="noSubmit">
+            <span>未计税</span>
+            <div>
+                <span class="noSend"></span>
+                <img src="../../../img/next.png" alt="">
+            </div>
+        </li>
+        <li class="ToBack">
+            <span>已计税</span>
+            <div>
+                <span class="waitSend"></span>
+                <img src="../../../img/next.png" alt="">
+            </div>
+        </li>
+        <li class="noExamine">
+            <span>已报税</span>
+            <div>
+                <span class="send"></span>
+                <img src="../../../img/next.png" alt="">
+            </div>
+        </li>
+
+    </ul>
+</body>
+<script src="../../../js/jquery-3.3.1.js"></script>
+<script src="../../../js/urlDns.js"></script>
+<script src="../../js/invoice/invoice.js"></script>
+
+</html>

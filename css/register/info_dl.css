@@ -1,0 +1,279 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    text-align: center;
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    background-color: white;
+    box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+    font-weight: bold;
+    font-size: 16px;
+}
+
+header>img {
+    position: absolute;
+    top: 12px;
+    left: 5px;
+    width: 20px;
+    height: 20px;
+}
+
+.next {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    line-height: 44px;
+    color: #7EB6FF;
+    font-weight: 700;
+}
+
+.userInfoBox {
+    margin-top: 64px;
+}
+
+.userInfoBox,
+.accountInfoBox {
+    background-color: white;
+    padding: 0 15px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.accountInfoBox {
+    margin-top: 20px;
+}
+
+.userInfoBox>div,
+.accountInfoBox>div {
+    width: calc(100% - 30px);
+    height: 46px;
+    line-height: 46px;
+    border-bottom: 1px solid rgb(240, 240, 240);
+    width: 100%;
+    background-color: white;
+}
+
+.userInfoTitle,
+.accountInfoTitle {
+    font-size: 17px;
+    height: 50px;
+    line-height: 50px;
+    font-weight: 800;
+    border: none !important;
+}
+
+.userInfoBox>div:nth-of-type(n + 1),
+.accountInfoBox>div:nth-of-type(n + 1) {
+    display: flex;
+    justify-content: space-between;
+}
+
+.userInfoBox input,
+.accountInfoBox input {
+    padding-right: 0;
+    text-align: right;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    width: 230px;
+    color: #666666;
+}
+
+.userInfoBox img {
+    margin-right: -7px;
+    width: 25px;
+    vertical-align: middle;
+}
+
+.uploadText {
+    color: #666666;
+    font-size: 15px;
+}
+
+#tel {
+    color: #666666;
+}
+
+.last {
+    border: none !important;
+}
+
+.errorBg {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    display: none;
+}
+
+.errorBg .error {
+    position: absolute;
+    padding: 10px 15px;
+    top: calc((100vh - 25px)/2);
+    left: 0;
+    width: 50%;
+    margin-left: 25%;
+    background-color: rgba(126, 182, 255, 0.7);
+    color: white;
+    font-size: 12px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 15px;
+    border-radius: 3px;
+    /* display: none; */
+}
+
+.bgBlack {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.1);
+    z-index: 9;
+}
+
+.tipsBox {
+    position: absolute;
+    left: calc((100% - 270px)/2);
+    width: 270px;
+    background-color: white;
+    border-radius: 13px;
+    text-align: center;
+    padding: 25px 20px 65px 20px;
+    font-size: 14px;
+    color: rgb(153, 153, 153);
+    word-wrap: break-word;
+}
+
+.ok {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 45px;
+    text-align: center;
+    line-height: 45px;
+    color: #7EB6FF;
+    font-size: 16px;
+    border-top: 1px solid #e7e7e7
+}
+
+.success {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+
+.success>img {
+    width: 120px;
+    height: 120px;
+    margin-left: calc((100% - 120px)/2);
+    margin-top: calc((100vh - 120px)/2);
+}
+
+.areaBox {
+    position: relative;
+}
+
+.areaOn {
+    position: absolute;
+    top: 10px;
+    right: -7px;
+    width: 25px;
+    height: 25px;
+}
+
+.area {
+    display: inline-block;
+    width: 70%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    position: absolute;
+    top: 0;
+    right: 15px;
+    text-align: right;
+    /* margin-right: 20px; */
+    color: #666666;
+}
+
+.buiness_info {
+    margin-top: 20px;
+    margin-bottom: 70px;
+}
+
+footer {
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+    background-color: white;
+    border-top: 1px solid #e7e7e7;
+}
+
+footer div {
+    width: calc(100% - 30px);
+    height: 40px;
+    background-color: #7EB6FF;
+    color: white;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 4px;
+    margin-top: 5px;
+    margin-left: 15px;
+}
+
+.range,
+.address {
+    display: inline-block;
+    width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #666666;
+    margin-right: 15px;
+    text-align: right;
+}
+
+.addressBox,
+.rangeBox {
+    position: relative;
+}
+
+.addressBox img,
+.rangeBox img {
+    position: absolute;
+    top: 12px;
+    right: 0px;
+}
+
+#comName {
+    width: 190px;
+}
+
+.yxy_code_boc {
+    display: none;
+}
+
+#yxy_code {
+    width: 100px;
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../../css/mui.min.css">
+    <link rel="stylesheet" href="../../css/register/businessInfo_confirm.css">
+    <title>确认用户信息</title>
+</head>
+
+<body>
+    <header>
+        <div class="pre">上一页</div>
+        商户信息<span class="pageNum" style="color:rgb(153, 153, 153)"></span>
+        <div class="next">下一页</div>
+    </header>
+    <!-- 个人基本信息 -->
+    <div class="userInfoBox">
+        <div class="userInfoTitle">商户基本信息</div>
+        <div>
+            <span>统一社会信用代码</span>
+            <span><div id="creditNum"></div></span>
+        </div>
+        <div>
+            <span>经营者</span>
+            <span id="name"></span>
+        </div>
+        <div>
+            <span>商户名称</span>
+            <span><div id="businessName"></div></span>
+        </div>
+        <div>
+            <span>类型</span>
+            <span><div id="type">个体工商户</div></span>
+        </div>
+        <div>
+            <span>注册日期</span>
+            <span><div id="date"></div></span>
+        </div>
+        <div class="last rangeBox">
+            <span>经营范围</span>
+            <span class="range">
+                <span class="rangeText"></span>
+            <img src="../../img/next.png" alt="">
+            </span>
+        </div>
+
+    </div>
+    <div class="registerBox">
+        <!-- <div>
+            <span>登记地址</span>
+            <span>
+                <div id="address"></div>
+            </span>
+        </div> -->
+        <div>
+            <span>登记机关</span>
+            <span><div id="registerUnit"></div></span>
+        </div>
+        <div>
+            <span>发证日期</span>
+            <span><div id="getDate"></div></span>
+        </div>
+        <div class="last photos">
+            <span>营业执照</span>
+            <span>
+            <img src="../../img/next.png" alt="">
+            </span>
+        </div>
+    </div>
+    <!-- 个人账户信息 -->
+    <div class="accountInfoBox">
+        <div class="accountInfoTitle">基本账户信息</div>
+        <!-- <div>
+            <span>开户地区</span>
+            <span><div id="area_name"></div></span>
+        </div> -->
+        <div>
+            <span>开户行</span>
+            <span><div id="accountBank"></div></span>
+        </div>
+        <div>
+            <span>开户名</span>
+            <span><div id="accountName"></div></span>
+        </div>
+        <div class="last">
+            <span>账号</span>
+            <span><div id="account"></div></span>
+        </div>
+    </div>
+    <!-- <div class="errorBg">
+        <div class="error"></div>
+    </div> -->
+</body>
+<script src="../../js/jquery-3.3.1.js"></script>
+<script src="../../js/urlDns.js"></script>
+<script src="../../js/register/businessInfo_confirm.js"></script>
+
+</html>

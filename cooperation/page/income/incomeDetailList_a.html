@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../../../css/mui.min.css">
+    <link rel="stylesheet" href="../../css/income/incomeDetailList_a.css">
+    <link rel="stylesheet" href="../../../css/mui.picker.min.css">
+    <script src="../../../js/mui.picker.min.js"></script>
+    <title>有单位业者-收入管理详情列表</title>
+</head>
+
+<body>
+    <header>
+        <section class="select_all">全选</section>
+        <img class="back" src="../../../img/back_black.png" alt="">
+        <span style="font-weight: bold;">待提交</span>
+        <div class="next">选择</div>
+    </header>
+
+    <!-- 搜索框 -->
+    <div class="searchBox">
+        <div class="searchIn">
+            <img class="searchImg" src="../../../img/search.png" alt="">
+            <input class="searchCont" type="search" placeholder="请输入劳务、服务名称">
+            <img class="toEmpty" src="../../../img/toEmpty.png" alt="">
+        </div>
+        <div class="search">搜索</div>
+    </div>
+
+    <div class="filterBox">
+        <div>
+            <img class="filterImg" src="../../../img/filter.png" alt="">
+            <span>筛选条件：</span>
+        </div>
+        <img class="nextImg" src="../../../img/next.png" alt="">
+    </div>
+    <div class="filterParamBg">
+        <div class="filterParam">
+            <!-- <div class="selectCom">
+                <span>接受服务单位</span>
+                <div>
+                    <span class="selectComName"></span>
+                    <img src="../../../img/next.png" alt="">
+                </div>
+
+            </div> -->
+            <div class="selectTime">
+                <span>录入时间</span>
+                <div class="timeBox">
+                    <section id="startTime">
+                        <span id="startDate"></span>
+                        <img src="../../../img/calendar.png" alt="">
+                    </section>
+                    至
+                    <section id="endTime">
+                        <span id="endDate"></span>
+                        <img src="../../../img/calendar.png" alt="">
+                    </section>
+
+                </div>
+            </div>
+            <div class="okBox">
+                <div class="reset">重置条件</div>
+                <div class="ok">确定</div>
+            </div>
+        </div>
+        <div class="noneParamBg"></div>
+    </div>
+
+
+
+    <!-- 数据列表 -->
+    <section class="list">
+        <div>
+            <input class="select" name="hh" value="beihai" type="checkbox">
+            <div class="comTime">
+                <span class="comName">北海xxx有限公司</span>
+                <div class="href">
+                    <span class="time">2019-06至2019-07</span>
+                    <img src="../../../img/next.png" alt="">
+                </div>
+            </div>
+            <div class="amount">
+                <span>快递派件</span>
+                <span>10,000,00</span>
+            </div>
+        </div>
+        <div>
+            <input class="select" name="hh" value="beihai2" type="checkbox">
+            <div class="comTime">
+                <span class="comName">北海xxx有限公司</span>
+                <div class="href">
+                    <span class="time">2019-06至2019-07</span>
+                    <img src="../../../img/next.png" alt="">
+                </div>
+            </div>
+            <div class="amount">
+                <span>外卖送餐员</span>
+                <span>10,000,00</span>
+            </div>
+        </div>
+
+    </section>
+    <div class="success">
+        <img src="../../../img/success.png" alt="">
+    </div>
+    <footer>
+        <!-- <div class="del">退回</div> -->
+        <div class="submit">确认</div>
+    </footer>
+</body>
+<script src="../../../js/jquery-3.3.1.js"></script>
+<script src="../../../js/urlDns.js"></script>
+<script src="../../js/income/incomeDetailList_a.js"></script>
+
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../../../css/mui.min.css">
+    <link rel="stylesheet" href="../../css/query/user_status_query.css">
+    <title>用户状态统计</title>
+    <script>
+        mui.init();
+    </script>
+</head>
+
+<body>
+    <header>
+        <img class="back" src="../../../img/back_black.png" alt=""> 用户状态统计
+        <!-- <div class="next">新增</div> -->
+    </header>
+    <div class="userTypeBox">
+        <div class="user_com">单位用户</div>
+        <div class="user_free">业者用户</div>
+        <div class="user_cooperator">合作伙伴</div>
+        <!-- <div class="tip"></div> -->
+    </div>
+
+    <div class="user_numTip">
+        <div>注册状态</div>
+        <div>用户数量</div>
+    </div>
+    <div class="inserver">
+        <div>服务中</div>
+        <div class="user_num"></div>
+    </div>
+
+    <ul class="com_ul">
+        <li class="noSubmit">
+            <span>待营销经理确认</span>
+            <div>
+                <span class="com_djlqr"></span>
+            </div>
+        </li>
+        <li class="ToBack">
+            <span>待主管审核</span>
+            <div>
+                <span class="com_dzgsh"></span>
+            </div>
+        </li>
+        
+        <li class="completed">
+            <span>主管审核退回</span>
+            <div>
+                <span class="com_zgshth"></span>
+            </div>
+        </li>
+        <li class="confirmed">
+            <span>待完善资料</span>
+            <div>
+                <span class="com_dwszl"></span>
+            </div>
+        </li>
+
+        <li class="confirmed">
+            <span>待单位确认</span>
+            <div>
+                <span class="com_ddwqr"></span>
+            </div>
+        </li>
+        <li class="confirmed">
+            <span>单位退回</span>
+            <div>
+                <span class="com_dwth"></span>
+            </div>
+        </li>
+        
+    </ul>
+
+    <ul class="free_ul">
+        <li class="noSubmit">
+            <span>待审核服务费</span>
+            <div>
+                <span class="free_dshfwf"></span>
+            </div>
+        </li>
+        <li class="ToBack">
+            <span>服务费用不通过</span>
+            <div>
+                <span class="free_fwfybtg"></span>
+            </div>
+        </li>
+       
+        <li class="completed">
+            <span>待设置服务费</span>
+            <div>
+                <span class="free_dszfwf"></span>
+            </div>
+        </li>
+        <li class="confirmed">
+            <span>待单位确认</span>
+            <div>
+                <span class="free_ddwqr"></span>
+            </div>
+        </li>
+
+        <li class="confirmed">
+            <span>单位退回</span>
+            <div>
+                <span class="free_dwth"></span>
+            </div>
+        </li>
+        <li class="confirmed">
+            <span>待完善个人信息</span>
+            <div>
+                <span class="free_dwsfrxx"></span>
+            </div>
+        </li>
+        <li class="confirmed">
+            <span>待确认个人信息</span>
+            <div>
+                <span class="free_dqrgrxx"></span>
+            </div>
+        </li>   
+        <li class="confirmed">
+            <span>个人信息不通过</span>
+            <div>
+                <span class="free_grxxbtg"></span>
+            </div>
+        </li> 
+        <li class="confirmed">
+            <span>待完善资料</span>
+            <div>
+                <span class="free_dwszl"></span>
+            </div>
+        </li> 
+        <li class="confirmed">
+            <span>待主管审核</span>
+            <div>
+                <span class="free_dzgsh"></span>
+            </div>
+        </li> 
+        <li class="confirmed">
+            <span>主管退回</span>
+            <div>
+                <span class="free_zgth"></span>
+            </div>
+        </li> 
+        <li class="confirmed">
+            <span>待业者确认资料</span>
+            <div>
+                <span class="free_dyzqrzl"></span>
+            </div>
+        </li> 
+        <li class="confirmed">
+            <span>业者退回</span>
+            <div>
+                <span class="free_yzth"></span>
+            </div>
+        </li> 
+        
+    </ul>
+
+    <ul class="cooper_ul">
+        <li class="noSubmit">
+            <span>待审核服务费</span>
+            <div>
+                <span class="cooper_dshfwf"></span>
+            </div>
+        </li>
+        <li class="ToBack">
+            <span>服务费用不通过</span>
+            <div>
+                <span class="cooper_fwfybtg"></span>
+            </div>
+        </li>
+        <li class="completed">
+            <span>待完善个人信息</span>
+            <div>
+                <span class="cooper_dwsgrxx"></span>
+            </div>
+        </li>
+        <li class="confirmed">
+            <span>待确认个人信息</span>
+            <div>
+                <span class="cooper_dqrgrxx"></span>
+            </div>
+        </li>
+        <li class="confirmed">
+            <span>个人信息不通过</span>
+            <div>
+                <span class="cooper_grxxbtg"></span>
+            </div>
+        </li>
+        <li class="confirmed">
+            <span>待完善资料</span>
+            <div>
+                <span class="cooper_dwszl"></span>
+            </div>
+        </li>
+
+        <li class="confirmed">
+            <span>待主管审核</span>
+            <div>
+                <span class="cooper_dzgsh"></span>
+            </div>
+        </li>
+        <li class="confirmed">
+            <span>主管退回</span>
+            <div>
+                <span class="cooper_zgth"></span>
+            </div>
+        </li>
+        <li class="confirmed">
+            <span>待合作伙伴确认资料</span>
+            <div>
+                <span class="cooper_dhzhbqrzl"></span>
+            </div>
+        </li>
+        <li class="confirmed">
+            <span>合作伙伴退回</span>
+            <div>
+                <span class="cooper_hzhbth"></span>
+            </div>
+        </li>
+        
+    </ul>
+</body>
+<script src="../../../js/jquery-3.3.1.js"></script>
+<script src="../../../js/urlDns.js"></script>
+<script src="../../js/query/user_status_query.js"></script>
+
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<script src="../../../js/mui.min.js"></script>
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/incomeMana/incomeMana.css">
+		<title>收入管理</title>
+		<script type="text/javascript">
+			mui.init();
+		</script>
+	</head>
+	<body>
+		<header>
+			<img class="back" src="../../../img/back_black.png"  alt=""/>
+			<div class="toggleBox">
+				<div class="input_com">单位录入</div>
+				<div class="input_free">业者录入</div>
+			</div>
+		</header>
+		
+		<ul>
+		    <div id="input_com">
+		        <li class="noSubmit">
+		            <span>待业者确认</span>
+		            <div>
+		                <span class="noSubmitNum"></span>
+		                <img src="../../../img/next.png" alt="">
+		            </div>
+		        </li>
+		        <li class="noExamine">
+		            <span>业者退回</span>
+		            <div>
+		                <span class="noExamineNum"></span>
+		                <img src="../../../img/next.png" alt="">
+		            </div>
+		        </li>
+		        <li class="ToBack">
+		            <span>待商秘公司确认</span>
+		            <div>
+		                <span class="ToBackNum"></span>
+		                <img src="../../../img/next.png" alt="">
+		            </div>
+		        </li>
+		        <li class="completed">
+		            <span>商秘公司退回</span>
+		            <div>
+		                <span class="completedNum"></span>
+		                <img src="../../../img/next.png" alt="">
+		            </div>
+		        </li>
+		        <li class="confirmed">
+		            <span>已完成</span>
+		            <div>
+		                <span class="confirmedNum"></span>
+		                <img src="../../../img/next.png" alt="">
+		            </div>
+		        </li>
+		    </div>
+		    <div id="input_free">
+		        <li class="noSubmit">
+		            <span>待商秘公司审核</span>
+		            <div>
+		                <span class="noSubmitNum"></span>
+		                <img src="../../../img/next.png" alt="">
+		            </div>
+		        </li>
+		        <li class="noExamine">
+		            <span>商秘公司退回</span>
+		            <div>
+		                <span class="noExamineNum"></span>
+		                <img src="../../../img/next.png" alt="">
+		            </div>
+		        </li>
+		        <li class="ToBack">
+		            <span>完成</span>
+		            <div>
+		                <span class="ToBackNum"></span>
+		                <img src="../../../img/next.png" alt="">
+		            </div>
+		        </li>
+		
+		    </div>
+		
+		</ul>
+	</body>
+	<script src="../../../js/jquery-3.3.1.js"></script>
+	<script src="../../../js/urlDns.js"></script>
+	<script src="../../js/incomeMana/incomeMana.js"></script>
+</html>

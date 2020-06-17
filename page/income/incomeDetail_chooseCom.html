@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../../css/mui.min.css">
+    <title>发票抬头</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            position: relative;
+            text-align: center;
+            line-height: 44px;
+            width: 100%;
+            height: 44px;
+            background-color: white;
+            box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+        }
+        
+        header>img {
+            position: absolute;
+            top: 12px;
+            left: 5px;
+            width: 20px;
+            height: 20px;
+        }
+        
+        .next {
+            color: #7EB6FF;
+            position: absolute;
+            right: 10px;
+            top: 0;
+            line-height: 44px;
+        }
+        
+        .comBox {
+            width: 100%;
+            background-color: white;
+            margin-top: 20px;
+        }
+        
+        .comBox>div {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 15px;
+            height: 46px;
+            line-height: 46px;
+            border-bottom: 1px solid rgb(231, 231, 231);
+        }
+        
+        .comBox>div>div {
+            font-size: 12px;
+            color: rgb(153, 153, 153);
+        }
+        
+        .comBox>div:nth-last-of-type(1) {
+            border: none;
+        }
+        
+        .comInfo {
+            width: 26px;
+            height: 26px;
+            margin-top: 14px;
+        }
+        
+        .defalt {
+            font-size: 14px;
+            margin-left: 3px;
+            background-color: rgba(126, 182, 255, 0.2);
+            border-radius: 2px;
+        }
+        
+        label {
+            font-size: 15px;
+        }
+    </style>
+    <script>
+        mui.init();
+    </script>
+</head>
+
+<body>
+    <header>
+        <img class="back" src="../../img/back_black.png" alt=""> 发票抬头
+        <div class="next">新增</div>
+    </header>
+    <div class="comBox">
+        <!-- <div class="">
+            <section>
+                <label for="北海xxxxxxxx有限公司">北海xxx有限公司</label>
+                <span class="defalt">默认</span>
+            </section>
+            <div class="edit">编辑</div>
+        </div>
+        <div class="">
+            <label for="北海xxxxxxxx有限公司">北海xxx有限公司</label>
+            <div class="edit">编辑</div>
+        </div>
+        <div class="">
+            <label for="北海xxxxxxxx有限公司">北海xxx有限公司</label>
+            <div class="edit">编辑</div>
+        </div> -->
+    </div>
+</body>
+<script src="../../js/jquery-3.3.1.js"></script>
+<script src="../../js/urlDns.js"></script>
+<script>
+    mui.init();
+
+    var pass_app = localStorage.getItem("pass_app");
+    var tel_app = localStorage.getItem("tel_app");
+    var code_app = localStorage.getItem("code_app");
+    // console.log("tel_app：" + tel_app);
+    // console.log("pass_app：" + pass_app);
+
+    // 返回
+    $(".back").click(() => {
+        history.back();
+    });
+
+    $.post(urlDns + "/control_app/yz/tt/list", {
+        pass_app: pass_app,
+        tel_app: tel_app,
+        code_app: code_app
+    }, function(data) {
+        console.log(JSON.stringify(data));
+        if (data.result == 0) {
+            // 需要重新登录
+            if (window.plus) {
+                goToLogin("../register/login.html");
+            } else {
+                document.addEventListener('plusready', goToLogin, false);
+            }
+        } else {
+            var htmlStr = "";
+            for (var i = 0; i < data.rows.length; i++) {
+                htmlStr += `
+                <div class="item" id="${data.rows[i].id}" value="${data.rows[i].name}">
+                    <label>${data.rows[i].name}</label>
+                    <div id="${data.rows[i].id}" class="edit">编辑</div>
+                </div>
+            `;
+            }
+            $(".comBox").html(htmlStr);
+        }
+
+    });
+
+    // 新增发票抬头
+    $(".next").click(() => {
+        location.href = "./newAHeader.html?type=0";
+    });
+
+    // 编辑发票抬头
+    $(document).on("click", ".edit", function() {
+        var headerId = $(this).attr("id");
+        sessionStorage.setItem("headerId", headerId);
+        location.href = "./updateHeader.html?type=1";
+    });
+
+    // 监听发票抬头被选中
+    $(document).on("click", ".comBox .item", function() {
+        var selectHeaderName = $(this).attr("value");
+        var selectHeaderId = $(this).attr("id");
+        sessionStorage.setItem("selectHeaderName", selectHeaderName);
+        sessionStorage.setItem("selectHeaderId", selectHeaderId);
+        history.back();
+    });
+</script>
+
+</html>

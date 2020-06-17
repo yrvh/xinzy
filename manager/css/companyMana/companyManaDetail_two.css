@@ -1,0 +1,83 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    color: #333333;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    background-color: white;
+    box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+    font-weight: bold;
+    font-size: 16px;
+    z-index: 99;
+}
+
+.pre {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    color: #7EB6FF;
+    line-height: 44px;
+}
+
+.next {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    line-height: 44px;
+    color: #7EB6FF;
+}
+
+.bodyBox {
+    width: 100%;
+    background-color: white;
+    margin-top: 64px;
+    padding: 0 15px;
+}
+
+.title {
+    width: 100%;
+    height: 46px;
+    line-height: 46px;
+    font-weight: 800;
+    font-size: 17px;
+}
+
+.contBox>div {
+    position: relative;
+    width: 100%;
+    height: 46px;
+    border-bottom: 1px solid rgb(240, 240, 240);
+}
+
+.contBox>div img {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    right: -5px;
+    top: 10px;
+}
+
+.contBox>div span {
+    line-height: 44px;
+}
+
+.name {
+    position: absolute;
+    left: 0;
+}
+
+.account {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    color: #666666;
+}

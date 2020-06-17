@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../../css/mui.min.css">
+    <link rel="stylesheet" href="../../css/register/info_com_detail_dl.css">
+    <script src="../../js/mui.picker.min.js"></script>
+    <link rel="stylesheet" href="../../css/mui.picker.min.css">
+    <title>商户信息</title>
+</head>
+
+<body>
+    <header>
+        <img class="back" src="../../img/back_black.png" alt=""> 公司信息
+        <div class="save">提交</div>
+    </header>
+    <!-- 个人基本信息 -->
+    <div class="userInfoBox">
+        <div class="userInfoTitle">公司基本信息</div>
+        <div class="rangeBox" id="logo_com">
+            <span>公司商标</span>
+            <span class="range">
+                <img id="com_logo" src="../../img/logo_com_default.png" alt="">
+            <img src="../../img/next.png" alt="">
+            </span>
+        </div>
+        <div id="code_com">
+            <span>统一社会信用代码</span>
+            <input type="text" maxlength="18">
+        </div>
+        <div id="name_com">
+            <span>单位名称</span>
+            <input type="text">
+        </div>
+        <div id="name_abbr_com">
+            <span>单位名称缩写</span>
+            <input type="text">
+        </div>
+        <div id="capital_com">
+            <span>注册资本（万）</span>
+            <input type="number">
+        </div>
+
+        <div class="rangeBox" id="type_com">
+            <span>单位类型</span>
+            <span class="range">
+                <span class="rangeText"></span>
+            <img src="../../img/next.png" alt="">
+            </span>
+        </div>
+        <div class="rangeBox" id="place_com">
+            <span>住所</span>
+            <span class="range">
+                <span class="rangeText"></span>
+            <img src="../../img/next.png" alt="">
+            </span>
+        </div>
+        <div class="rangeBox" id="address_com">
+            <span>详细地址</span>
+            <span class="range">
+                <span class="rangeText"></span>
+            <img src="../../img/next.png" alt="">
+            </span>
+        </div>
+
+        <div id="tel_com">
+            <span>固定电话</span>
+            <input type="tel" maxlength="12">
+        </div>
+        <div class="rangeBox" id="date_com">
+            <span>成立日期</span>
+            <span class="range">
+                <span class="rangeText"></span>
+            <img src="../../img/next.png" alt="">
+            </span>
+        </div>
+        <div id="term_com">
+            <span>经营期限</span>
+            <input type="text">
+        </div>
+        <div class="rangeBox" id="range_com">
+            <span>业务范围</span>
+            <span class="range">
+                <span class="rangeText"></span>
+            <img src="../../img/next.png" alt="">
+            </span>
+        </div>
+
+        <div class="rangeBox" id="business_com">
+            <span>主营业务</span>
+            <span class="range">
+                <span class="rangeText"></span>
+            <img src="../../img/next.png" alt="">
+            </span>
+        </div>
+        <div id="office_com">
+            <span>公司登记机关</span>
+            <input type="text">
+        </div>
+        <div class="rangeBox" id="cer_time_com">
+            <span>发证日期</span>
+            <span class="range">
+                <span class="rangeText"></span>
+            <img src="../../img/next.png" alt="">
+            </span>
+        </div>
+        <div class="rangeBox" id="cer_photo_com">
+            <span>营业执照</span>
+            <span class="range">
+                <span class="rangeText">未上传</span>
+            <img src="../../img/next.png" alt="">
+            </span>
+        </div>
+    </div>
+
+    <!-- 法定代表人信息 -->
+    <div class="userInfoBox fr_info">
+        <div class="userInfoTitle">法定代表人信息</div>
+        <div id="name_fr">
+            <span>法定代表人姓名</span>
+            <input type="text">
+        </div>
+        <div id="cer_type_fr">
+            <span>证件类型</span>
+            <div style="color: #666666;font-size:14px;">身份证</div>
+        </div>
+        <div id="cer_num_fr">
+            <span>证件号码</span>
+            <input type="text" maxlength="18">
+        </div>
+        <div class="rangeBox" id="cer_photo_fr">
+            <span>证件照片</span>
+            <span class="range">
+                <span class="rangeText">未上传</span>
+            <img src="../../img/next.png" alt="">
+            </span>
+        </div>
+        <div id="tel_fr">
+            <span>手机号码</span>
+            <input type="tel" disabled maxlength="11">
+        </div>
+        <div id="email_fr">
+            <span>电子邮箱</span>
+            <input type="email" maxlength="35">
+        </div>
+    </div>
+
+    <!-- 联系人信息 -->
+    <div class="userInfoBox lxr_info">
+        <div class="userInfoTitle">联系人信息
+            <img id="in_off" src="../../img/off.png" alt="">
+        </div>
+        <div id="name_lxr">
+            <span>联系人姓名</span>
+            <input type="text">
+        </div>
+        <div id="cer_type_lxr">
+            <span>证件类型</span>
+            <div style="color: #666666;font-size:14px;">身份证</div>
+        </div>
+        <div id="cer_num_lxr">
+            <span>证件号码</span>
+            <input type="text" maxlength="18">
+        </div>
+        <div class="rangeBox" id="cer_photo_lxr">
+            <span>证件照片</span>
+            <span class="range">
+                    <span class="rangeText">未上传</span>
+            <img src="../../img/next.png" alt="">
+            </span>
+        </div>
+        <div id="tel_lxr">
+            <span>手机号码</span>
+            <input type="text" class='tel_lxr' disabled maxlength="11">
+        </div>
+        <div id="email_lxr">
+            <span>电子邮箱</span>
+            <input type="email" maxlength="35">
+        </div>
+    </div>
+
+    <!-- 账户信息 -->
+    <div class="accountInfoBox">
+        <div class="accountInfoTitle">公司账户信息</div>
+
+        <div>
+            <span>开户行</span>
+            <input type="text" id="accountBank">
+        </div>
+        <div>
+            <span>开户名</span>
+            <input type="text" id="accountName">
+        </div>
+        <div class="last">
+            <span>账号</span>
+            <input type="text" id="account" maxlength="19">
+        </div>
+    </div>
+
+    <!-- 协议模板 -->
+    <div class="userInfoBox xieyi_info">
+        <div class="rangeBox">
+            <span>与业者的协议模板</span>
+            <span class="range">
+                <span class="rangeText"></span>
+            <img src="../../img/next.png" alt="">
+            </span>
+        </div>
+    </div>
+    <div class="errorBg">
+        <div class="error"></div>
+    </div>
+</body>
+<script src="../../js/jquery-3.3.1.js"></script>
+<script src="../../js/urlDns.js"></script>
+<script src="../../js/layer/layer.js"></script>
+<script src="../../static/regions.js"></script>
+<script src="../../js/register/info_com_detail_dl.js"></script>
+
+
+</html>

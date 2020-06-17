@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../../css/mui.min.css">
+    <link rel="stylesheet" href="../../css/scale.css">
+    <title>营业执照</title>
+    <style>
+        body {
+            background-color: white;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            text-align: center;
+            width: 100%;
+            height: 44px;
+            line-height: 44px;
+            background-color: white;
+            box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        header>img {
+            position: absolute;
+            top: 12px;
+            left: 5px;
+            width: 20px;
+            height: 20px;
+        }
+        
+        .photoBox {
+            position: relative;
+            width: 220px;
+            height: 160px;
+            margin: 0 auto;
+        }
+        
+        .photoBox:nth-of-type(1) {
+            margin-top: 80px;
+        }
+        
+        .photoBox:nth-of-type(2) {
+            margin-top: 50px;
+        }
+        
+        .bgImg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .up,
+        .down {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 2;
+            width: 180px;
+            height: 120px;
+        }
+        
+        .Certific {
+            /* display: none; */
+            width: 60%;
+            height: 60%;
+            position: absolute;
+            /* top: calc((100vh - 250px)/2); */
+            /* left: calc((100% - 300px)/2); */
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img class="back" src="../../img/back_black.png" alt=""> <span class="title">营业执照</span>
+    </header>
+    <!-- <div class="photoBox">
+        <img class="bgImg" src="../../img/idCardBgImg.jpg" alt="">
+        <img class="up" src="../../img/IDCard1.png" alt="">
+    </div> -->
+    <!-- <div class="photoBox">
+        <img class="bgImg" src="../../img/idCardBgImg.jpg" alt="">
+        <img class="down" src="../../img/IDCard2.png" alt="">
+    </div> -->
+    <div class="list">
+        <img src="" alt="" class="Certific">
+    </div>
+    <section class="imgzoom_pack">
+        <div class="imgzoom_x">X</div>
+        <div class="imgzoom_img"><img src="" /></div>
+    </section>
+</body>
+<script src="../../js/jquery-3.3.1.js"></script>
+<script src="../../js/urlDns.js"></script>
+<script src="../../js/scale.js"></script>
+<script>
+    mui.init();
+
+    // 监听点击查看大图
+    document.addEventListener("DOMContentLoaded", function(event) {
+        ImagesZoom.init({
+            "elem": ".list"
+        });
+    }, false);
+    var pass_app = localStorage.getItem("pass_app");
+    var tel_app = localStorage.getItem("tel_app");
+    var code_app = localStorage.getItem("code_app");
+    // console.log("tel_app：" + tel_app);
+    // console.log("pass_app：" + pass_app);
+
+    $.post(urlDns + "/control_app/yz/info/showUI", {
+        type: 2,
+        pass_app: pass_app,
+        tel_app: tel_app,
+        code_app: code_app
+    }, function(data) {
+        console.log(JSON.stringify(data));
+        if (data.result == 0) {
+            // 需要重新登录
+            if (window.plus) {
+                goToLogin("../register/login.html");
+            } else {
+                document.addEventListener('plusready', goToLogin, false);
+            }
+        } else {
+            // if (data.status == 1) {
+            $(".Certific").attr("src", data.CertificUpUrl);
+            var width = $(".Certific").width();
+            var height = $(".Certific").height();
+            console.log(width)
+            console.log(height)
+            $(".Certific").css("top", "calc((100vh - " + height + "px)/2)")
+            $(".Certific").css("left", "calc((100% - " + width + "px)/2)")
+                // }
+        }
+
+
+    });
+
+    $(".back").click(() => {
+        history.back();
+    });
+</script>
+
+</html>

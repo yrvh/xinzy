@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../../css/mui.min.css">
+    <link rel="stylesheet" href="../../css/register/free_coopera.css">
+    <script src="../../js/mui.picker.min.js"></script>
+    <link rel="stylesheet" href="../../css/mui.picker.min.css">
+    <title>完善信息</title>
+</head>
+
+<body>
+    <header>
+        <img class="back" src="../../img/back_black.png" alt=""> 完善个人信息
+        <div class="next">完成</div>
+    </header>
+    <!-- 个人基本信息 -->
+    <div class="userInfoBox">
+        <div class="userInfoTitle">个人基本信息</div>
+        <div>
+            <span>姓名</span>
+            <span><input id="realName" type="text" autofocus></span>
+        </div>
+        <div>
+            <span>手机号码</span>
+            <span id="tel">15959961026</span>
+        </div>
+        <div>
+            <span>电子邮箱</span>
+            <span><input id="email" type="email" maxlength="35"></span>
+        </div>
+        <div>
+            <span>身份证号码</span>
+            <span><input id="idNumber" type="text" maxlength="18"></span>
+        </div>
+        <div class="last uploadIdCard">
+            <span>证件照片</span>
+            <span class="upload">
+                <span class="uploadText">未上传</span>
+            <img src="../../img/next.png" alt="">
+            </span>
+        </div>
+        <div class="last incomeRange">
+            <span>年收入范围(元)</span>
+            <span id="incomeRangeText" style="color: #666666;font-size: 15px;"></span>
+        </div>
+    </div>
+    <!-- 个人账户信息 -->
+    <div class="accountInfoBox">
+        <div class="accountInfoTitle">个人账户信息</div>
+        <div class="areaBox">
+            <span>开户行</span>
+            <div>
+                <!-- <span ids="" class="area"></span> -->
+                <input type="text" id="accountBank" class="">
+            </div>
+
+        </div>
+        <div>
+            <span>开户名</span>
+            <span><input id="accountName" value="" type="text"></span>
+        </div>
+        <div class="last">
+            <span>账号</span>
+            <span><input id="account" type="text" oninput="if(value.length>19)value=value.slice(0,20)" ></span>
+        </div>
+    </div>
+    <div class="accountInfoBox">
+        <div class="yxy_code_box">
+            <span>营销员工号(选填)</span>
+            <span><input id="yxy_code" type="text" maxlength="4"></span>
+        </div>
+    </div>
+    <div class="errorBg">
+        <div class="error"></div>
+    </div>
+    <section class="bgBlack">
+        <div class="tipsBox">
+            <div class="tipsCont">
+            </div>
+            <div class="ok">好的</div>
+        </div>
+    </section>
+    <div class="success">
+        <img src="../../img/success.png" alt="">
+    </div>
+</body>
+<script>
+    mui.init();
+</script>
+<script src="../../js/jquery-3.3.1.js"></script>
+<script src="../../js/layer/layer.js"></script>
+<script src="../../js/urlDns.js"></script>
+<script src="../../js/register/free_coopera.js"></script>
+
+</html>

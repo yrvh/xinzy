@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../../css/mui.min.css">
+    <link rel="stylesheet" href="../../css/home/home.css">
+    <title>业者首页</title>
+</head>
+
+<body>
+    <!-- 头部轮播图 -->
+    <div class="mui-slider">
+        <div class="mui-slider-group mui-slider-loop">
+            <!--支持循环，需要重复图片节点-->
+            <div class="mui-slider-item mui-slider-item-duplicate">
+                <a href="#"><img src="../../img/slider1.jpg" /></a>
+            </div>
+            <div class="mui-slider-item">
+                <a href="#"><img src="../../img/indexBgImg.png" /></a>
+            </div>
+            <div class="mui-slider-item">
+                <a href="#"><img src="../../img/slider1.jpg" /></a>
+            </div>
+
+            <!--支持循环，需要重复图片节点-->
+            <div class="mui-slider-item mui-slider-item-duplicate">
+                <a href="#"><img src="../../img/indexBgImg.png" /></a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="line"></div>
+    <div class="home_income">
+        <div class="income">
+            <img src="../../img/income.png" alt="">
+            <div>收入管理</div>
+        </div>
+        <div class="invoice">
+            <img src="../../img/invoice.png" alt="">
+            <div>开票信息</div>
+        </div>
+        <div class="taxes">
+            <img src="../../img/taxes.png" alt="">
+            <div>纳税记录</div>
+        </div>
+
+    </div>
+</body>
+<script src="../../js/jquery-3.3.1.js"></script>
+<script src="../../js/urlDns.js"></script>
+<script src="../../js/home/home.js"></script>
+<script>
+    mui.init();
+    var gallery = mui('.mui-slider');
+    gallery.slider({
+        interval: 3000 //自动轮播周期，若为0则不自动播放，默认为0；
+    });
+</script>
+
+</html>

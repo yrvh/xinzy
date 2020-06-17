@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../../../css/mui.min.css">
+    <link rel="stylesheet" href="../../../css/mui.picker.min.css">
+    <script src="../../../js/mui.picker.min.js"></script>
+    <link rel="stylesheet" href="../../css/check/check_income_detail.css">
+    <title>合作伙伴-名下业务-收入详情</title>
+</head>
+
+<body>
+    <header>
+        <img class="back" src="../../../img/back_black.png" alt="">
+        <span>收入信息</span>
+        <!-- <div class="next">保存</div> -->
+    </header>
+
+    <div class="detailBox detailBox_name">
+
+        <div style="padding-right:5px">
+            <span>姓名</span>
+            <!-- ！！！！！！渲染时用最后一个类名！！！！！！！！！ -->
+            <input class="serverName name" disabled/>
+        </div>
+        <div>
+            <span>收款方式</span>
+            <div class="serverContBox">
+                <span class="serverCont income_type"></span>
+                <img src="../../../img/next.png" alt="">
+            </div>
+        </div>
+
+        <div style="padding-right:5px">
+            <span>收款账户</span>
+            <input class="amount amountNum income_account" disabled/>
+        </div>
+    </div>
+    <div class="accptCom">
+        <span>接受服务单位</span>
+        <div>
+            <span class="comName"></span>
+            <img src="../../../img/next.png" alt="">
+        </div>
+    </div>
+    <div class="detailBox">
+
+        <div style="padding-right:5px">
+            <span>劳务、服务名称</span>
+            <input class="serverName bus_name" disabled/>
+        </div>
+        <div>
+            <span>劳务、服务内容</span>
+            <div class="serverContBox bus_content_box">
+                <span class="serverCont bus_content"></span>
+                <img src="../../../img/next.png" alt="">
+            </div>
+        </div>
+        <div>
+            <span>服务周期</span>
+            <div class="timeBox">
+                <!-- <section id="startTime">
+                    <span id="startDate">2019-08</span>
+                    <img src="../../../img/calendar.png" alt="">
+                </section>
+                至
+                <section id="endTime">
+                    <span id="endDate">2019-09</span>
+                    <img src="../../../img/calendar.png" alt="">
+                </section> -->
+
+            </div>
+        </div>
+        <div style="padding-right:5px">
+            <span>支付金额</span>
+            <input class="amount amountNum" disabled/>
+        </div>
+    </div>
+    <!-- 退回/确认 -->
+    <footer>
+        <div class="return">退回</div>
+        <div class="ok">确认</div>
+    </footer>
+
+    <!-- 审核通过时显示 -->
+    <div class="incomeTitle">
+        私人账户净收入
+    </div>
+    <div class="income">
+        <div style="padding-right:5px">
+            <span>应收入总额</span>
+            <input class="amount incomeNum" value="3,000.00" />
+        </div>
+        <div style="padding-right:5px">
+            <span>未到账</span>
+            <input class="amount didntIncome" />
+        </div>
+        <div style="padding-right:5px">
+            <span>已到账</span>
+            <input class="amount didIncome" />
+        </div>
+    </div>
+
+    <!-- 审核退回时显示 -->
+    <div class="returnTitle">退回原因：</div>
+    <div class="returnCont"></div>
+
+    <div class="success">
+        <img src="../../../img/success.png" alt="">
+    </div>
+</body>
+<script src="../../../js/jquery-3.3.1.js"></script>
+<script src="../../../js/urlDns.js"></script>
+<script src="../../js/check/check_income_detail.js"></script>
+
+</html>

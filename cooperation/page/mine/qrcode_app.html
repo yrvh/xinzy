@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../../../css/mui.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+            color: #333333;
+        }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 99;
+            text-align: center;
+            width: 100%;
+            height: 44px;
+            line-height: 44px;
+            background-color: white;
+            box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        header>img {
+            position: absolute;
+            top: 12px;
+            left: 5px;
+            width: 20px;
+            height: 20px;
+        }
+        
+        .cont {
+            position: relative;
+            width: calc(100% - 40px);
+            height: 125vw;
+            background-color: white;
+            margin-left: 20px;
+            margin-top: 64px;
+        }
+        
+        .belong {
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            padding-top: 20px;
+        }
+        
+        .qrcode_img {
+            position: absolute;
+            width: 90%;
+            left: 5%;
+            top: 70px;
+        }
+        
+        .saveImg_box {
+            width: 100%;
+            text-align: center;
+            color: #7EB6FF;
+            font-weight: bold;
+            position: absolute;
+            bottom: 25px;
+            left: 0;
+        }
+    </style>
+    <title>二维码-app</title>
+</head>
+
+<body>
+    <header>
+        <img class="back" src="../../../img/back_black.png" alt=""> 慧业通推荐二维码
+    </header>
+    <div class="cont">
+        <div class="belong">
+            <span>推荐人：</span>
+            <span class="realname"></span>
+        </div>
+        <img class="qrcode_img" src="" alt="">
+        <div class="saveImg_box"><span class="saveImg">保存图片</span></div>
+    </div>
+</body>
+<script src="../../../js/jquery-3.3.1.js"></script>
+<script src="../../../js/layer/layer.js"></script>
+<script src="../../../js/urlDns.js"></script>
+<script>
+    mui.init();
+
+    // 返回
+    $(".back").click(() => {
+        mui.back();
+    });
+
+    var pass_app = localStorage.getItem("pass_app");
+    var tel_app = localStorage.getItem("tel_app");
+    var code_app = localStorage.getItem("code_app");
+    var realname = localStorage.getItem("realname");
+    console.log(realname)
+    $(".realname").text(realname);
+
+    $.post(urlDns + "/control_app/yz/info/get_Cert", {
+        pass_app: pass_app,
+        tel_app: tel_app,
+        code_app: code_app
+    }, function(data) {
+        console.log(JSON.stringify(data));
+        if (data.result == 0) {
+            // 需要重新登录
+            if (window.plus) {
+                goToLogin("../register/login.html");
+            } else {
+                document.addEventListener('plusready', goToLogin, false);
+            }
+        } else {
+            $(".qrcode_img").attr("src", data.appqrurl);
+        }
+
+    });
+</script>
+
+</html>

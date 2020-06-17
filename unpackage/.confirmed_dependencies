@@ -1,0 +1,1179 @@
+{
+  "index.html": {
+    "refer": [
+      "page/freeInfo.html",
+      "page/chooseIdentity.html",
+      "page/message.html",
+      "page/mine.html",
+      "page/home.html",
+      "page/login.html",
+      "page/onLineContract.html",
+      "page/home/message.html",
+      "page/home/mine.html",
+      "page/home/home.html",
+      "page/register/login.html"
+    ],
+    "resources": [
+      "page/home.html",
+      "page/mine.html",
+      "page/home/home.html"
+    ]
+  },
+  "page/freeInfo.html": {
+    "refer": [
+      "page/upLoadIdCard.html",
+      "index.html",
+      "page/selectCompany.html",
+      "page/chooseIdentity.html"
+    ],
+    "resources": []
+  },
+  "page/upLoadIdCard.html": {
+    "refer": [
+      "page/freeInfo.html",
+      "index.html",
+      "page/chooseIdentity.html"
+    ],
+    "resources": []
+  },
+  "page/selectCompany.html": {
+    "refer": [
+      "page/acceptCom.html",
+      "page/businessCom.html",
+      "page/freeInfo.html"
+    ],
+    "resources": []
+  },
+  "page/acceptCom.html": {
+    "refer": [
+      "page/selectCompany.html",
+      "page/onLineContract.html",
+      "page/upLoadContract.html"
+    ],
+    "resources": []
+  },
+  "page/businessCom.html": {
+    "refer": [
+      "page/selectCompany.html",
+      "main.html",
+      "page/audit.html"
+    ],
+    "resources": []
+  },
+  "page/chooseIdentity.html": {
+    "refer": [
+      "page/freeInfo.html",
+      "index.html",
+      "page/login.html"
+    ],
+    "resources": []
+  },
+  "page/onLineContract.html": {
+    "refer": [
+      "page/acceptCom.html",
+      "main.html",
+      "index.html"
+    ],
+    "resources": []
+  },
+  "main.html": {
+    "resources": [
+      "page/home.html"
+    ],
+    "refer": [
+      "page/message.html",
+      "page/onLineContract.html",
+      "page/mine.html",
+      "page/home.html",
+      "page/businessCom.html"
+    ]
+  },
+  "page/upLoadContract.html": {
+    "refer": [
+      "page/acceptCom.html",
+      "main.html"
+    ],
+    "resources": []
+  },
+  "page/home.html": {
+    "refer": [
+      "page/income.html"
+    ],
+    "resources": []
+  },
+  "page/income.html": {
+    "refer": [
+      "page/incomeDetailList.html",
+      "page/incomeDetail.html"
+    ],
+    "resources": []
+  },
+  "page/incomeDetailList.html": {
+    "refer": [
+      "page/income.html",
+      "page/incomeDetail.html"
+    ],
+    "resources": []
+  },
+  "page/login.html": {
+    "refer": [
+      "page/chooseIdentity.html",
+      "index.html",
+      "page/audit.html"
+    ],
+    "resources": []
+  },
+  "page/incomeDetail.html": {
+    "refer": [
+      "page/incomeDetail_chooseCom.html",
+      "page/incomeDetailList.html",
+      "page/textPage.html",
+      "page/income.html"
+    ],
+    "resources": []
+  },
+  "page/incomeDetail_chooseCom.html": {
+    "refer": [
+      "page/incomeDetail.html",
+      "page/newAHeader.html"
+    ],
+    "resources": []
+  },
+  "page/newAHeader.html": {
+    "refer": [
+      "page/incomeDetail_chooseCom.html",
+      "page/textPage.html"
+    ],
+    "resources": []
+  },
+  "page/textPage.html": {
+    "refer": [
+      "page/incomeDetail.html",
+      "page/newAHeader.html",
+      "page/income/incomeDetail.html",
+      "page/income/newAHeader.html",
+      "page/register/businessInfo_comfirm.html",
+      "page/register/incomeInfo_comfirm.html",
+      "page/register/twoContract_comfirm.html",
+      "page/register/audit.html",
+      "page/register/businessInfo_confirm.html",
+      "page/income/updateHeader.html",
+      "page/income/income_acceptCom/incomeDetail_a.html",
+      "page/invoice/invoiceDetail.html",
+      "page/income/income_acceptCom/incomeDetailList_a.html",
+      "page/income/income_acceptCom/income_a.html",
+      "page/register/incomeInfo_confirm.html"
+    ],
+    "resources": []
+  },
+  "page/register/login.html": {
+    "refer": [
+      "page/register/chooseIdentity.html",
+      "index.html",
+      "page/register/audit.html",
+      "page/register/freeInfo.html",
+      "page/register/xzyClause.html",
+      "page/register/businessCom.html",
+      "page/register/twoContract_confirm.html",
+      "page/register/onLineContract.html",
+      "page/register/findPwd.html",
+      "manager/page/index.html",
+      "cooperation/page/index.html",
+      "page/register/scan_res.html",
+      "page/register/incomeInfo_confirm.html"
+    ],
+    "resources": [
+      "page/register/chooseIdentity.html",
+      "manifest.json"
+    ]
+  },
+  "page/register/freeInfo.html": {
+    "refer": [
+      "page/register/upLoadIdCard.html",
+      "page/register/selectCompany.html",
+      "page/register/chooseIdentity.html",
+      "page/register/login.html",
+      "page/register/onLineContract.html",
+      "page/register/audit.html"
+    ],
+    "resources": []
+  },
+  "page/register/chooseIdentity.html": {
+    "refer": [
+      "page/register/freeInfo.html",
+      "page/register/login.html",
+      "page/register/selectCompany.html",
+      "page/register/cooperation_com.html"
+    ],
+    "resources": []
+  },
+  "page/register/upLoadIdCard.html": {
+    "refer": [
+      "page/register/freeInfo.html",
+      "page/register/onLineContract.html"
+    ],
+    "resources": [
+      "_doc/zip_UP9%6VVVGILHA(2%60$5$6%7D_1.png"
+    ]
+  },
+  "page/register/selectCompany.html": {
+    "refer": [
+      "page/register/acceptCom.html",
+      "page/register/businessCom.html",
+      "page/register/freeInfo.html",
+      "page/register/chooseIdentity.html",
+      "page/register/scan.html"
+    ],
+    "resources": []
+  },
+  "page/register/businessCom.html": {
+    "refer": [
+      "page/register/selectCompany.html",
+      "page/register/audit.html",
+      "page/register/onLineContract.html",
+      "page/register/upLoadContract.html",
+      "page/register/login.html"
+    ],
+    "resources": []
+  },
+  "page/register/acceptCom.html": {
+    "refer": [
+      "page/register/selectCompany.html",
+      "page/register/upLoadContract.html",
+      "page/register/onLineContract.html",
+      "page/register/onLineContract_acceptCom.html"
+    ],
+    "resources": []
+  },
+  "page/income/incomeDetailList.html": {
+    "refer": [
+      "page/income/incomeDetail.html",
+      "page/income/income.html"
+    ],
+    "resources": []
+  },
+  "page/home/home.html": {
+    "refer": [
+      "page/income/income.html",
+      "page/invoice/invoice.html",
+      "page/taxes/taxes.html",
+      "page/income/income_acceptCom/income_a.html",
+      "page/register/login.html"
+    ],
+    "resources": []
+  },
+  "page/income/income.html": {
+    "refer": [
+      "page/income/incomeDetailList.html",
+      "page/income/incomeDetail.html",
+      "index.html",
+      "page/home/home.html"
+    ],
+    "resources": []
+  },
+  "page/income/incomeDetail.html": {
+    "refer": [
+      "page/income/incomeDetailList.html",
+      "page/income/incomeDetail_chooseCom.html",
+      "page/textPage.html",
+      "page/income/income.html"
+    ],
+    "resources": []
+  },
+  "page/income/incomeDetail_chooseCom.html": {
+    "refer": [
+      "page/income/incomeDetail.html",
+      "page/income/newAHeader.html",
+      "page/income/updateHeader.html",
+      "page/invoice/invoice.html",
+      "page/register/login.html"
+    ],
+    "resources": []
+  },
+  "page/income/newAHeader.html": {
+    "refer": [
+      "page/textPage.html",
+      "page/income/incomeDetail_chooseCom.html",
+      "page/income/header_contract.html"
+    ],
+    "resources": []
+  },
+  "page/register/upLoadContract.html": {
+    "refer": [
+      "page/register/acceptCom.html",
+      "page/register/audit.html",
+      "page/register/businessCom.html",
+      "page/register/onLineContract.html"
+    ],
+    "resources": []
+  },
+  "page/register/onLineContract.html": {
+    "refer": [
+      "page/register/acceptCom.html",
+      "page/register/audit.html",
+      "page/register/businessCom.html",
+      "page/register/onLineContract_acceptCom.html",
+      "page/register/upLoadContract.html",
+      "page/register/freeInfo.html",
+      "page/register/login.html"
+    ],
+    "resources": []
+  },
+  "page/register/audit.html": {
+    "refer": [
+      "page/register/freeInfo_confirm.html",
+      "page/register/freeInfo.html"
+    ],
+    "resources": []
+  },
+  "page/register/freeInfo_confirm.html": {
+    "refer": [
+      "page/register/audit.html",
+      "page/register/idCardPhotos.html",
+      "page/register/businessInfo_comfirm.html",
+      "page/register/businessInfo_confirm.html",
+      "page/register/login.html"
+    ],
+    "resources": []
+  },
+  "page/register/idCardPhotos.html": {
+    "refer": [
+      "page/register/freeInfo_confirm.html",
+      "page/register/businessInfo_comfirm.html",
+      "page/register/businessInfo_confirm.html"
+    ],
+    "resources": []
+  },
+  "page/register/businessInfo_comfirm.html": {
+    "refer": [
+      "page/register/freeInfo_confirm.html",
+      "page/textPage.html",
+      "page/register/idCardPhotos.html",
+      "page/register/incomeInfo_comfirm.html"
+    ],
+    "resources": []
+  },
+  "page/register/incomeInfo_comfirm.html": {
+    "refer": [
+      "page/register/businessInfo_comfirm.html",
+      "page/textPage.html",
+      "page/register/twoContract_comfirm.html"
+    ],
+    "resources": []
+  },
+  "page/register/twoContract_comfirm.html": {
+    "refer": [
+      "page/register/incomeInfo_comfirm.html",
+      "page/textPage.html",
+      "page/register/login.html"
+    ],
+    "resources": []
+  },
+  "page/register/xzyClause.html": {
+    "refer": [
+      "page/register/login.html"
+    ],
+    "resources": []
+  },
+  "page/register/businessInfo_confirm.html": {
+    "refer": [
+      "page/textPage.html",
+      "page/register/idCardPhotos.html",
+      "page/register/incomeInfo_confirm.html",
+      "page/register/freeInfo_confirm.html"
+    ],
+    "resources": []
+  },
+  "page/register/incomeInfo_confirm.html": {
+    "refer": [
+      "page/register/twoContract_confirm.html",
+      "page/register/businessInfo_confirm.html",
+      "page/register/login.html",
+      "page/register/businessComContract_comfirm.html",
+      "page/textPage.html",
+      "page/register/twoContractImg_confirm.html"
+    ],
+    "resources": []
+  },
+  "page/register/twoContract_confirm.html": {
+    "refer": [
+      "page/register/incomeInfo_confirm.html",
+      "page/register/login.html",
+      "page/register/businessComContract_comfirm.html"
+    ],
+    "resources": []
+  },
+  "page/register/onLineContract_acceptCom.html": {
+    "refer": [
+      "page/register/acceptCom.html",
+      "page/register/onLineContract.html"
+    ],
+    "resources": []
+  },
+  "page/register/businessComContract_comfirm.html": {
+    "refer": [
+      "page/register/incomeInfo_confirm.html",
+      "page/register/login.html",
+      "page/register/twoContract_confirm.html",
+      "index.html"
+    ],
+    "resources": []
+  },
+  "page/invoice/invoiceDetailList.html": {
+    "refer": [
+      "page/invoice/invoice.html",
+      "page/invoice/invoiceDetail.html"
+    ],
+    "resources": []
+  },
+  "page/invoice/invoice.html": {
+    "refer": [
+      "page/invoice/invoiceDetailList.html",
+      "page/income/incomeDetail_chooseCom.html"
+    ],
+    "resources": []
+  },
+  "page/income/header_contract.html": {
+    "refer": [
+      "page/income/newAHeader.html",
+      "page/income/updateHeader.html",
+      "page/income/incomeDetail_chooseCom.html"
+    ],
+    "resources": []
+  },
+  "page/income/updateHeader.html": {
+    "refer": [
+      "page/income/incomeDetail_chooseCom.html",
+      "page/income/header_contract.html",
+      "page/textPage.html"
+    ],
+    "resources": []
+  },
+  "page/invoice/invoiceDetail.html": {
+    "refer": [
+      "page/invoice/invoiceDetailList.html",
+      "page/textPage.html"
+    ],
+    "resources": []
+  },
+  "page/home/personalInfo.html": {
+    "refer": [
+      "page/home/mine.html",
+      "page/home/idCardPhotos.html"
+    ],
+    "resources": []
+  },
+  "page/home/mine.html": {
+    "refer": [
+      "page/home/personalInfo.html",
+      "page/home/changePwd.html",
+      "page/home/contract_text.html",
+      "page/home/businessInfo.html",
+      "page/home/incomeInfo.html",
+      "page/home/businessContract_text.html",
+      "page/home/acceptComContract_text.html",
+      "page/home/contract_img.html",
+      "page/home/setting.html"
+    ],
+    "resources": []
+  },
+  "page/home/changePwd.html": {
+    "refer": [
+      "page/home/mine.html",
+      "page/home/setting.html"
+    ],
+    "resources": []
+  },
+  "page/home/contract_text.html": {
+    "refer": [
+      "page/home/mine.html"
+    ],
+    "resources": []
+  },
+  "page/home/idCardPhotos.html": {
+    "refer": [
+      "page/home/personalInfo.html"
+    ],
+    "resources": []
+  },
+  "page/home/certificate.html": {
+    "refer": [
+      "page/home/businessInfo.html"
+    ],
+    "resources": []
+  },
+  "page/home/businessInfo.html": {
+    "refer": [
+      "page/home/certificate.html",
+      "page/home/businessRange.html"
+    ],
+    "resources": []
+  },
+  "page/home/businessRange.html": {
+    "refer": [
+      "page/home/businessInfo.html"
+    ],
+    "resources": []
+  },
+  "page/income/income_acceptCom/income_a.html": {
+    "refer": [
+      "page/income/income_acceptCom/incomeDetailList_a.html"
+    ],
+    "resources": [
+      "page/income/income_acceptCom/incomeDetailList_a.html"
+    ]
+  },
+  "page/income/income_acceptCom/incomeDetailList_a.html": {
+    "refer": [
+      "page/income/income_acceptCom/incomeDetail_a.html",
+      "page/income/income_acceptCom/income_a.html"
+    ],
+    "resources": []
+  },
+  "page/income/income_acceptCom/incomeDetail_a.html": {
+    "refer": [
+      "page/income/income_acceptCom/incomeDetailList_a.html",
+      "page/textPage.html",
+      "page/income/income_acceptCom/income_a.html"
+    ],
+    "resources": []
+  },
+  "page/home/setting.html": {
+    "refer": [
+      "page/home/changePwd.html",
+      "page/register/login.html"
+    ],
+    "resources": []
+  },
+  "manager/page/index.html": {
+    "resources": [
+      "manager/page/tabPage/home.html"
+    ],
+    "refer": [
+      "manager/page/tabPage/mine.html",
+      "manager/page/tabPage/message.html",
+      "manager/page/tabPage/home.html"
+    ]
+  },
+  "page/register/findPwd.html": {
+    "refer": [
+      "page/register/login.html",
+      "page/register/resetPwd.html"
+    ],
+    "resources": []
+  },
+  "page/register/resetPwd.html": {
+    "refer": [
+      "page/register/login.html"
+    ],
+    "resources": []
+  },
+  "manager/page/tabPage/home.html": {
+    "refer": [
+      "manager/page/companyMana/companyMana.html",
+      "manager/page/contractMana/contractMana.html",
+      "manager/page/taxesMana/taxesMana.html",
+      "manager/page/staffMana/staffMana.html"
+    ],
+    "resources": []
+  },
+  "manager/page/companyMana/companyMana.html": {
+    "refer": [
+      "manager/page/companyMana/companyManaList_wait.html",
+      "manager/page/companyMana/companyManaList_toBack.html",
+      "manager/page/companyMana/companyManaList_pass.html",
+      "manager/page/companyMana/contract_wait.html",
+      "page/register/login.html"
+    ],
+    "resources": []
+  },
+  "manager/page/companyMana/companyManaList_wait.html": {
+    "refer": [
+      "manager/page/companyMana/companyMana.html",
+      "manager/page/companyMana/companyManaDetail_one.html",
+      "manager/page/companyMana/contract_wait.html"
+    ],
+    "resources": []
+  },
+  "manager/page/companyMana/companyManaList_toBack.html": {
+    "refer": [
+      "manager/page/companyMana/companyMana.html",
+      "manager/page/companyMana/companyManaDetail_one.html"
+    ],
+    "resources": []
+  },
+  "manager/page/companyMana/companyManaList_pass.html": {
+    "refer": [
+      "manager/page/companyMana/companyMana.html",
+      "manager/page/companyMana/companyManaDetail_one.html",
+      "page/register/login.html"
+    ],
+    "resources": []
+  },
+  "manager/page/companyMana/companyManaDetail_one.html": {
+    "refer": [
+      "manager/page/companyMana/companyManaList_pass.html",
+      "manager/page/companyMana/companyManaList_wait.html",
+      "manager/page/companyMana/companyManaDetail_two.html",
+      "manager/page/companyMana/companyManaList_toBack.html",
+      "manager/page/companyMana/idCardPhotos_fr.html",
+      "manager/page/companyMana/certificPhoto.html",
+      "manager/page/companyMana/address.html",
+      "manager/page/companyMana/business_range.html",
+      "manager/page/companyMana/idCardPhotos_lxr.html",
+      "manager/page/companyMana/major_business.html",
+      "manager/page/companyMana/com_logo.html"
+    ],
+    "resources": []
+  },
+  "manager/page/companyMana/companyManaDetail_two.html": {
+    "refer": [
+      "manager/page/companyMana/companyManaDetail_one.html",
+      "manager/page/companyMana/bankAccount.html",
+      "manager/page/companyMana/contract_p_b.html",
+      "manager/page/companyMana/contract_wait.html",
+      "page/register/login.html"
+    ],
+    "resources": []
+  },
+  "manager/page/companyMana/bankAccount.html": {
+    "refer": [
+      "manager/page/companyMana/companyManaDetail_two.html"
+    ],
+    "resources": []
+  },
+  "manager/page/companyMana/contract_p_b.html": {
+    "refer": [
+      "manager/page/companyMana/companyManaDetail_two.html"
+    ],
+    "resources": []
+  },
+  "manager/page/companyMana/contract_wait.html": {
+    "refer": [
+      "manager/page/companyMana/companyManaList_wait.html",
+      "manager/page/companyMana/companyMana.html",
+      "manager/page/companyMana/companyManaDetail_two.html",
+      "manager/page/companyMana/toBack_reason.html"
+    ],
+    "resources": []
+  },
+  "manager/page/companyMana/toBack_reason.html": {
+    "refer": [
+      "manager/page/companyMana/companyManaList_wait.html"
+    ],
+    "resources": []
+  },
+  "manager/page/contractMana/contractMana.html": {
+    "refer": [
+      "manager/page/contractMana/com_com.html",
+      "manager/page/contractMana/com_free.html",
+      "manager/page/contractMana/three.html"
+    ],
+    "resources": []
+  },
+  "manager/page/contractMana/com_free.html": {
+    "refer": [
+      "manager/page/contractMana/contractMana.html"
+    ],
+    "resources": []
+  },
+  "manager/page/contractMana/three.html": {
+    "refer": [
+      "manager/page/contractMana/contractMana.html"
+    ],
+    "resources": []
+  },
+  "manager/page/contractMana/com_com.html": {
+    "refer": [
+      "manager/page/contractMana/contractMana.html"
+    ],
+    "resources": []
+  },
+  "manager/page/taxesMana/taxesMana.html": {
+    "refer": [
+      "manager/page/taxesMana/city_building_taxes.html",
+      "manager/page/taxesMana/edu_addit_taxes.html",
+      "manager/page/taxesMana/local_edu_taxes.html"
+    ],
+    "resources": []
+  },
+  "manager/page/taxesMana/city_building_taxes.html": {
+    "refer": [
+      "manager/page/taxesMana/taxesMana.html"
+    ],
+    "resources": []
+  },
+  "manager/page/taxesMana/edu_addit_taxes.html": {
+    "refer": [
+      "manager/page/taxesMana/taxesMana.html"
+    ],
+    "resources": []
+  },
+  "manager/page/taxesMana/local_edu_taxes.html": {
+    "refer": [
+      "manager/page/taxesMana/taxesMana.html"
+    ],
+    "resources": []
+  },
+  "manager/page/tabPage/mine.html": {
+    "refer": [
+      "manager/page/mine/com_info.html",
+      "manager/page/mine/account_info.html",
+      "manager/page/mine/setting.html"
+    ],
+    "resources": []
+  },
+  "manager/page/mine/changePwd.html": {
+    "refer": [
+      "manager/page/mine/setting.html"
+    ],
+    "resources": []
+  },
+  "manager/page/mine/setting.html": {
+    "refer": [
+      "manager/page/mine/changePwd.html",
+      "page/register/login.html"
+    ],
+    "resources": []
+  },
+  "manager/page/mine/account_info.html": {
+    "refer": [
+      "manager/page/mine/bank_account.html"
+    ],
+    "resources": []
+  },
+  "manager/page/mine/bank_account.html": {
+    "refer": [
+      "manager/page/mine/account_info.html"
+    ],
+    "resources": []
+  },
+  "manager/page/staffMana/beingUse.html": {
+    "refer": [
+      "manager/page/staffMana/staffMana.html",
+      "manager/page/staffMana/staffInfo_edit.html",
+      "manager/page/staffMana/business_out.html"
+    ],
+    "resources": []
+  },
+  "manager/page/staffMana/staffMana.html": {
+    "refer": [
+      "manager/page/staffMana/beingUse.html",
+      "manager/page/staffMana/newAStaff.html",
+      "manager/page/staffMana/stopUsing.html"
+    ],
+    "resources": []
+  },
+  "manager/page/staffMana/staffInfo_edit.html": {
+    "refer": [
+      "manager/page/staffMana/beingUse.html",
+      "manager/page/staffMana/idCardPt_noEdit.html",
+      "manager/page/staffMana/idCardPt_edit.html"
+    ],
+    "resources": []
+  },
+  "manager/page/staffMana/staffInfo_notEdit.html": {
+    "refer": [
+      "manager/page/staffMana/idCard.html",
+      "manager/page/staffMana/business_out_delStaff.html",
+      "manager/page/staffMana/stopUsing.html",
+      "manager/page/staffMana/idCardPt_noEdit.html"
+    ],
+    "resources": []
+  },
+  "manager/page/staffMana/idCard.html": {
+    "refer": [
+      "manager/page/staffMana/staffInfo_notEdit.html"
+    ],
+    "resources": []
+  },
+  "manager/page/staffMana/business_out.html": {
+    "refer": [
+      "manager/page/staffMana/beingUse.html",
+      "manager/page/staffMana/business_in.html",
+      "manager/page/staffMana/staffMana.html"
+    ],
+    "resources": []
+  },
+  "manager/page/staffMana/business_in.html": {
+    "refer": [
+      "manager/page/staffMana/business_out.html",
+      "manager/page/staffMana/beingUse.html"
+    ],
+    "resources": []
+  },
+  "manager/page/staffMana/business_out_delStaff.html": {
+    "refer": [
+      "manager/page/staffMana/staffInfo_notEdit.html"
+    ],
+    "resources": []
+  },
+  "manager/page/mine/com_info.html": {
+    "refer": [
+      "manager/page/mine/idCardPhotos.html",
+      "manager/page/mine/certificPhoto.html",
+      "manager/page/mine/address.html",
+      "manager/page/mine/business_range.html",
+      "manager/page/mine/major_business.html",
+      "manager/page/mine/idCardPhotos_fr.html",
+      "manager/page/mine/com_logo.html"
+    ],
+    "resources": []
+  },
+  "manager/page/mine/idCardPhotos.html": {
+    "refer": [
+      "manager/page/mine/com_info.html"
+    ],
+    "resources": []
+  },
+  "manager/page/companyMana/idCardPhotos_fr.html": {
+    "refer": [
+      "manager/page/companyMana/companyManaDetail_one.html"
+    ],
+    "resources": []
+  },
+  "manager/page/companyMana/certificPhoto.html": {
+    "refer": [
+      "manager/page/companyMana/companyManaDetail_one.html"
+    ],
+    "resources": []
+  },
+  "manager/page/mine/certificPhoto.html": {
+    "refer": [
+      "manager/page/mine/com_info.html"
+    ],
+    "resources": []
+  },
+  "manager/page/staffMana/newAStaff.html": {
+    "refer": [
+      "manager/page/staffMana/uploadIdCard.html",
+      "manager/page/staffMana/staffMana.html"
+    ],
+    "resources": []
+  },
+  "manager/page/staffMana/uploadIdCard.html": {
+    "refer": [
+      "manager/page/staffMana/newAStaff.html"
+    ],
+    "resources": []
+  },
+  "manager/page/staffMana/idCardPt_noEdit.html": {
+    "refer": [
+      "manager/page/staffMana/staffInfo_edit.html",
+      "manager/page/staffMana/staffInfo_notEdit.html"
+    ],
+    "resources": []
+  },
+  "manager/page/staffMana/idCardPt_edit.html": {
+    "refer": [
+      "manager/page/staffMana/staffInfo_edit.html"
+    ],
+    "resources": []
+  },
+  "manager/page/companyMana/address.html": {
+    "refer": [
+      "manager/page/companyMana/companyManaDetail_one.html"
+    ],
+    "resources": []
+  },
+  "manager/page/mine/address.html": {
+    "refer": [
+      "manager/page/mine/com_info.html"
+    ],
+    "resources": []
+  },
+  "manager/page/companyMana/business_range.html": {
+    "refer": [
+      "manager/page/companyMana/companyManaDetail_one.html"
+    ],
+    "resources": []
+  },
+  "manager/page/mine/business_range.html": {
+    "refer": [
+      "manager/page/mine/com_info.html"
+    ],
+    "resources": []
+  },
+  "manager/page/companyMana/idCardPhotos_lxr.html": {
+    "refer": [
+      "manager/page/companyMana/companyManaDetail_one.html"
+    ],
+    "resources": []
+  },
+  "manager/page/companyMana/major_business.html": {
+    "refer": [
+      "manager/page/companyMana/companyManaDetail_one.html"
+    ],
+    "resources": []
+  },
+  "manager/page/mine/major_business.html": {
+    "refer": [
+      "manager/page/mine/com_info.html"
+    ],
+    "resources": []
+  },
+  "manager/page/mine/idCardPhotos_fr.html": {
+    "refer": [
+      "manager/page/mine/com_info.html"
+    ],
+    "resources": []
+  },
+  "manager/page/companyMana/com_logo.html": {
+    "refer": [
+      "manager/page/companyMana/companyManaDetail_one.html"
+    ],
+    "resources": []
+  },
+  "manager/page/mine/com_logo.html": {
+    "refer": [
+      "manager/page/mine/com_info.html"
+    ],
+    "resources": []
+  },
+  "manager/page/staffMana/stopUsing.html": {
+    "refer": [
+      "manager/page/staffMana/staffInfo_notEdit.html",
+      "manager/page/staffMana/staffMana.html"
+    ],
+    "resources": []
+  },
+  "page/home/incomeInfo.html": {
+    "refer": [
+      "page/register/login.html"
+    ],
+    "resources": []
+  },
+  "page/register/cooperation_com.html": {
+    "refer": [
+      "page/register/chooseIdentity.html",
+      "page/register/cooperation_contract_accept.html"
+    ],
+    "resources": []
+  },
+  "page/register/cooperation_contract_accept.html": {
+    "refer": [
+      "page/register/cooperation_com.html",
+      "page/register/onLineContract.html",
+      "page/register/cooperation_contract_com.html"
+    ],
+    "resources": []
+  },
+  "page/register/cooperation_contract_com.html": {
+    "refer": [
+      "page/register/cooperation_com.html",
+      "page/register/cooperation_contract_accept.html",
+      "page/register/freeInfo.html",
+      "page/register/free_coopera.html"
+    ],
+    "resources": []
+  },
+  "page/register/free_coopera.html": {
+    "refer": [
+      "page/register/cooperation_contract_com.html",
+      "page/register/upLoadIdCard.html",
+      "page/register/cooperation_upLoadIdCard.html",
+      "page/register/audit.html"
+    ],
+    "resources": []
+  },
+  "cooperation/page/tabPage/home.html": {
+    "refer": [
+      "cooperation/page/income/income_a.html",
+      "cooperation/page/taxes/taxes.html",
+      "cooperation/page/invoice/invoice.html",
+      "cooperation/page/check/check.html"
+    ],
+    "resources": []
+  },
+  "cooperation/page/index.html": {
+    "resources": [
+      "cooperation/page/tabPage/home.html"
+    ],
+    "refer": [
+      "cooperation/page/tabPage/home.html",
+      "cooperation/page/tabPage/message.html",
+      "cooperation/page/tabPage/mine.html"
+    ]
+  },
+  "cooperation/page/tabPage/mine.html": {
+    "refer": [
+      "cooperation/page/mine/personalInfo.html",
+      "cooperation/page/mine/incomeInfo.html",
+      "cooperation/page/mine/setting.html",
+      "cooperation/page/mine/qrcode_wx.html",
+      "cooperation/page/mine/qrcode_app.html"
+    ],
+    "resources": []
+  },
+  "cooperation/page/mine/setting.html": {
+    "refer": [
+      "page/register/login.html"
+    ],
+    "resources": []
+  },
+  "cooperation/page/check/check.html": {
+    "refer": [
+      "cooperation/page/check/check_income.html"
+    ],
+    "resources": []
+  },
+  "cooperation/page/check/check_income.html": {
+    "refer": [
+      "cooperation/page/check/check_income_list.html",
+      "cooperation/page/check/check.html"
+    ],
+    "resources": []
+  },
+  "cooperation/page/check/check_income_list.html": {
+    "refer": [
+      "cooperation/page/check/check_income.html"
+    ],
+    "resources": []
+  },
+  "page/register/cooperation_upLoadIdCard.html": {
+    "refer": [
+      "page/register/free_coopera.html"
+    ],
+    "resources": [
+      "_doc/zip_UP9%6VVVGILHA(2%60$5$6%7D_1.png"
+    ]
+  },
+  "page/register/scan.html": {
+    "refer": [
+      "page/register/selectCompany.html"
+    ],
+    "resources": []
+  },
+  "page/register/scan_res.html": {
+    "refer": [
+      "page/register/register_dl.html",
+      "page/register/selectCompany.html",
+      "page/register/login.html"
+    ],
+    "resources": []
+  },
+  "page/register/register_dl.html": {
+    "refer": [
+      "page/register/xzyClause_dl.html",
+      "page/register/audit.html",
+      "page/register/login.html",
+      "page/register/info_dl.html",
+      "page/register/info_com_detail_dl.html"
+    ],
+    "resources": []
+  },
+  "page/register/xzyClause_dl.html": {
+    "refer": [
+      "page/register/register_dl.html"
+    ],
+    "resources": []
+  },
+  "page/register/info_dl.html": {
+    "refer": [
+      "page/register/inch_photo_upload.html",
+      "page/register/upLoadIdCard_dl.html",
+      "page/register/businessRange_dl.html",
+      "page/register/address_dl.html",
+      "page/register/audit.html",
+      "page/register/login.html"
+    ],
+    "resources": []
+  },
+  "page/register/inch_photo_upload.html": {
+    "refer": [
+      "page/register/info_dl.html"
+    ],
+    "resources": []
+  },
+  "page/register/upLoadIdCard_dl.html": {
+    "refer": [
+      "page/register/info_dl.html"
+    ],
+    "resources": []
+  },
+  "page/register/businessRange_dl.html": {
+    "refer": [
+      "page/register/info_dl.html"
+    ],
+    "resources": []
+  },
+  "page/register/address_dl.html": {
+    "refer": [
+      "page/register/info_dl.html"
+    ],
+    "resources": []
+  },
+  "page/register/info_com_detail_dl.html": {
+    "refer": [
+      "page/register/com_dl_detail/address_detail.html",
+      "page/register/com_dl_detail/business_license.html",
+      "page/register/com_dl_detail/range_business.html",
+      "page/register/com_dl_detail/upLoadIdCard_fr.html",
+      "page/register/com_dl_detail/upLoadIdCard_lxr.html",
+      "page/register/com_dl_detail/agreementTem_com_dl.html",
+      "page/register/com_dl_detail/main_business.html",
+      "page/register/login.html",
+      "page/register/register_dl.html"
+    ],
+    "resources": [
+      "_doc/zip_UP9%6VVVGILHA(2%60$5$6%7D_1.png"
+    ]
+  },
+  "page/register/com_dl_detail/address_detail.html": {
+    "refer": [
+      "page/register/info_com_detail_dl.html"
+    ],
+    "resources": []
+  },
+  "page/register/com_dl_detail/business_license.html": {
+    "refer": [
+      "page/register/info_com_detail_dl.html"
+    ],
+    "resources": []
+  },
+  "page/register/com_dl_detail/range_business.html": {
+    "refer": [
+      "page/register/info_com_detail_dl.html"
+    ],
+    "resources": []
+  },
+  "page/register/com_dl_detail/upLoadIdCard_fr.html": {
+    "refer": [
+      "page/register/info_com_detail_dl.html"
+    ],
+    "resources": []
+  },
+  "page/register/com_dl_detail/upLoadIdCard_lxr.html": {
+    "refer": [
+      "page/register/info_com_detail_dl.html"
+    ],
+    "resources": [
+      "_doc/zip_UP9%6VVVGILHA(2%60$5$6%7D_1.png",
+      "_doc/zip_T)3L%8%7B_$Q3TQ%7BB(2%605K@SD.png"
+    ]
+  },
+  "page/register/com_dl_detail/agreementTem_com_dl.html": {
+    "refer": [
+      "page/register/info_com_detail_dl.html"
+    ],
+    "resources": []
+  },
+  "page/register/com_dl_detail/main_business.html": {
+    "refer": [
+      "page/register/info_com_detail_dl.html"
+    ],
+    "resources": []
+  },
+  "cooperation/page/income/incomeDetailList_a.html": {
+    "refer": [
+      "cooperation/page/income/income_a.html"
+    ],
+    "resources": []
+  },
+  "cooperation/page/income/income_a.html": {
+    "refer": [
+      "cooperation/page/income/incomeDetailList_a.html"
+    ],
+    "resources": []
+  }
+}

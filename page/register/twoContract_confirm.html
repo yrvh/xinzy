@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../../css/mui.min.css">
+    <title>确认双方协议</title>
+    <style>
+        html,
+        body {
+            width: 100%;
+            /* height: 100%; */
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 44px;
+            background-color: white;
+            box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+            text-align: center;
+            line-height: 44px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        header>img {
+            position: absolute;
+            top: 12px;
+            left: 5px;
+            width: 20px;
+            height: 20px;
+        }
+        
+        .title {
+            width: 100%;
+            height: 50px;
+            background-color: white;
+            margin-top: 65px;
+            line-height: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 5px 15px;
+            padding-bottom: 60px;
+        }
+        
+        .first,
+        .second {
+            width: 100%;
+            height: 30px;
+            background-color: white;
+            padding: 0 15px;
+            padding-bottom: 40px;
+            font-size: 14px;
+        }
+        
+        .cont {
+            width: 100%;
+            word-wrap: break-word;
+            background-color: white;
+            padding: 0 15px;
+            margin-top: 64px;
+            margin-bottom: 20px;
+            padding-top: 10px;
+            overflow: scroll;
+        }
+        
+        p {
+            margin: 0;
+        }
+        
+        .btnBox {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            width: 100%;
+            height: 50px;
+            background-color: white;
+            border-top: 1px solid #eeeeee;
+        }
+        
+        .refuse {
+            color: #7EB6FF;
+        }
+        
+        .refuse,
+        .agree {
+            width: calc((100% - 30px)/2);
+            height: 40px;
+            margin-top: 5px;
+            margin-left: 10px;
+            border-radius: 4px;
+            border: 1px solid rgb(204, 204, 204);
+            text-align: center;
+            line-height: 40px;
+        }
+        
+        .agree {
+            color: white;
+            background-color: rgb(231, 231, 231);
+            border-color: white;
+        }
+        
+        .next {
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #7EB6FF;
+            line-height: 44px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img class="back" src="../../img/back_black.png" alt=""> 接受服务单位协议<span style="color:rgb(153, 153, 153)">(4/5)</span>
+        <div class="next">下一页</div>
+    </header>
+    <!-- <div class="title">关于*****的协议书</div>
+    <div class="first">甲方：<span></span></div>
+    <div class="second">乙方：<span></span></div> -->
+    <div class="cont"></div>
+    <!-- <div class="btnBox">
+        <div class="refuse">退回</div>
+        <div class="agree">同意</div>
+    </div> -->
+</body>
+<script src="../../js/jquery-3.3.1.js"></script>
+<script src="../../js/urlDns.js"></script>
+<script>
+    var tel_app = localStorage.getItem("tel_app");
+    var pass_app = localStorage.getItem("pass_app");
+    var code_app = localStorage.getItem("code_app");
+
+    // 返回
+    $(".back").click(() => {
+        history.back();
+    });
+    // 下一页
+    $(".next").click(() => {
+        location.href = "./businessComContract_comfirm.html";
+    });
+
+    var tel = sessionStorage.getItem("tel");
+    // var userId = sessionStorage.getItem("userId");
+    // console.log(userId);
+    $.post(urlDns + "/user_app/yz/checkUI", {
+        tel: tel,
+        tel_app: tel_app,
+        pass_app: pass_app,
+        code_app: code_app
+    }, function(data) {
+        console.log(JSON.stringify(data.xytext));
+        if (data.result == 0) {
+            // 需要重新登录
+            if (window.plus) {
+                goToLogin("./login.html");
+            } else {
+                document.addEventListener('plusready', goToLogin, false);
+            }
+        } else {
+            $(".cont").html(data.xytext);
+            if ($(document.body).height() < $(window).height() - 50) {
+                // 减掉的135是除了$(".cont")以外其他元素的高度
+                $(".cont").css("height", "calc(100vh - 65px)");
+                $(".cont").css("margin-bottom", "0");
+                // $(".agree").css("background-color", "#7EB6FF");
+                // $(".agree").click(() => {
+                //     $.post(urlDns + "/user_app/yz/check", {
+                //         userid: userId
+                //     }, (data) => {
+                //         console.log(JSON.stringify(data));
+                //         if (data.status == 1) {
+                //             sessionStorage.clear();
+                //             location.href = "./login.html";
+                //         }
+                //     });
+                // });
+            }
+        }
+
+    });
+
+    // // 监听当用户滑动到底部才允许同意协议
+    // $(window).scroll(() => {
+    //     if ($(this).scrollTop() + $(this).height() == $(document).height()) {
+    //         $(".agree").css("background-color", "#7EB6FF");
+    //         $(".agree").click(() => {
+    //             $.post(urlDns + "/user_app/yz/check", {
+    //                 userid: userId
+    //             }, (data) => {
+    //                 console.log(JSON.stringify(data));
+    //                 if (data.status == 1) {
+
+    //                     sessionStorage.clear();
+    //                     location.href = "./login.html";
+    //                 }
+    //             });
+
+    //         });
+    //     }
+    // });
+
+    // // 当协议内容不超过一页时
+    // if ($(document.body).height() < $(window).height() - 50) {
+    //     // 减掉的135是除了$(".cont")以外其他元素的高度
+    //     $(".cont").css("height", "calc(100vh - 65px)");
+    //     $(".cont").css("margin-bottom", "0");
+    //     // $(".agree").css("background-color", "#7EB6FF");
+    //     // $(".agree").click(() => {
+    //     //     $.post(urlDns + "/user_app/yz/check", {
+    //     //         userid: userId
+    //     //     }, (data) => {
+    //     //         console.log(JSON.stringify(data));
+    //     //         if (data.status == 1) {
+    //     //             sessionStorage.clear();
+    //     //             location.href = "./login.html";
+    //     //         }
+    //     //     });
+    //     // });
+    // }
+
+    // // 退回
+    // $(".refuse").click(() => {
+    //     sessionStorage.setItem("type", "return");
+    //     location.href = "../textPage.html";
+    // });
+</script>
+
+</html>

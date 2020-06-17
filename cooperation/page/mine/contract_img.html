@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../../../css/mui.min.css">
+    <link rel="stylesheet" href="../../../css/scale.css">
+    <title>确认双方协议</title>
+    <style>
+        html,
+        body {
+            width: 100%;
+            /* height: 100%; */
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 44px;
+            background-color: white;
+            box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+            text-align: center;
+            line-height: 44px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        header>img {
+            position: absolute;
+            top: 12px;
+            left: 5px;
+            width: 20px;
+            height: 20px;
+        }
+        
+        .refuse {
+            color: #7EB6FF;
+        }
+        
+        .refuse,
+        .agree {
+            width: calc((100% - 30px)/2);
+            height: 40px;
+            margin-top: 5px;
+            margin-left: 10px;
+            border-radius: 4px;
+            border: 1px solid rgb(204, 204, 204);
+            text-align: center;
+            line-height: 40px;
+        }
+        
+        .agree {
+            color: white;
+            background-color: rgb(231, 231, 231);
+            border-color: white;
+        }
+        
+        .photosBox {
+            width: 100%;
+            /* height: calc(100vh - 64px); */
+            margin-top: 64px;
+            background-color: white;
+            overflow: hidden;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+        
+        .imgBox {
+            width: 26vw;
+            height: 26vw;
+            float: left;
+            border: 1px solid #cccccc;
+            margin: 3vw 0 0 calc((100vw - 78vw)/4);
+        }
+        
+        .imgBox>img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img class="back" src="../../../img/back_black.png" alt=""> 接受服务单位协议
+    </header>
+    <div class="photosBox list">
+        <!-- <div class="imgBox">
+            <img src="../../img/IDCard1.png" alt="">
+        </div> -->
+    </div>
+    <section class="imgzoom_pack">
+        <div class="imgzoom_x">X</div>
+        <div class="imgzoom_img"><img src="" /></div>
+    </section>
+</body>
+<script src="../../../js/jquery-3.3.1.js"></script>
+<script src="../../../js/urlDns.js"></script>
+<script src="../../../js/scale.js"></script>
+<script>
+    // 返回
+    $(".back").click(() => {
+        mui.back();
+    });
+
+
+
+
+    var pass_app = localStorage.getItem("pass_app");
+    var tel_app = localStorage.getItem("tel_app");
+    var code_app = localStorage.getItem("code_app");
+    // console.log("tel_app：" + tel_app);
+    // console.log("pass_app：" + pass_app);
+
+
+    $.post(urlDns + "/control_app/yz/info/showUI", {
+        type: 4,
+        pass_app: pass_app,
+        tel_app: tel_app,
+        code_app: code_app
+    }, function(data) {
+        console.log(JSON.stringify(data));
+        if (data.result == 0) {
+            // 需要重新登录
+            if (window.plus) {
+                goToLogin("../register/login.html");
+            } else {
+                document.addEventListener('plusready', goToLogin, false);
+            }
+        } else {
+            console.log(data.imgs.length)
+                // if (data.status == 1) {
+            var htmlStr = "";
+            for (var i = 0; i < data.imgs.length; i++) {
+                htmlStr += `
+                    <div class="imgBox">
+                        <img src="${data.imgs[i].url}" alt="">
+                    </div>
+                `;
+            }
+            $(".photosBox").html(htmlStr);
+
+            // }
+
+        }
+
+
+    });
+
+    // 当协议内容不超过一页
+    setTimeout(() => {
+        if ($(document.body).height() < $(window).height() - 50) {
+            // 减掉的114是除了$(".cont")以外其他元素的高度
+            $(".photosBox").css("height", "calc(100vh - 64px)");
+            $(".photosBox").css("margin-bottom", 0);
+        }
+    }, 500);
+
+    // setTimeout(() => {
+    //     document.addEventListener("onload", function(event) {
+    //         ImagesZoom.init({
+    //             "elem": ".list"
+    //         });
+    //     }, false);
+    // }, 1500)
+
+    // window.onload = function() {
+    //         // 监听点击查看大图
+    //         // document.addEventListener("DOMContentLoaded", function(event) {
+    //         // ImagesZoom.init({
+    //         //     "elem": ".list"
+    //         // });
+    //         // }, false);
+    //         ImagesZoom.init({
+    //             "elem": ".list"
+    //         });
+    //     }
+    $(document).on("onload", "body", function() {
+        ImagesZoom.init({
+            "elem": ".list"
+        });
+    })
+</script>
+
+</html>

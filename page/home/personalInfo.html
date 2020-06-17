@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../../css/mui.min.css">
+    <link rel="stylesheet" href="../../css/home/personalInfo.css">
+    <title>确认用户信息</title>
+</head>
+
+<body>
+    <header>
+        <img class="back" src="../../img/back_black.png" alt=""> 个人信息
+    </header>
+    <!-- 个人基本信息 -->
+    <div class="userInfoBox">
+        <div class="userInfoTitle">个人基本信息</div>
+        <div>
+            <span>姓名</span>
+            <span><div id="realName"></div></span>
+        </div>
+        <div>
+            <span>手机号码</span>
+            <span id="tel"></span>
+        </div>
+        <div>
+            <span>电子邮箱</span>
+            <span><div id="email"></div></span>
+        </div>
+        <div>
+            <span>身份证号码</span>
+            <span><div id="idNumber"></div></span>
+        </div>
+        <div class="last uploadIdCard">
+            <span>证件照片</span>
+            <span class="upload">
+                <!-- <span class="uploadText">未上传</span> -->
+            <img src="../../img/next.png" alt="">
+            </span>
+        </div>
+    </div>
+    <!-- 个人账户信息 -->
+    <div class="accountInfoBox">
+        <div class="accountInfoTitle">个人账户信息</div>
+        <!-- <div>
+            <span>开户地区</span>
+            <span><div id="area_name"></div></span>
+        </div> -->
+        <div>
+            <span>开户行</span>
+            <span><div id="accountBank"></div></span>
+        </div>
+        <div>
+            <span>开户名</span>
+            <span><div id="accountName"></div></span>
+        </div>
+        <div class="last">
+            <span>账号</span>
+            <span><div id="account"></div></span>
+        </div>
+    </div>
+
+</body>
+<script src="../../js/jquery-3.3.1.js"></script>
+<script src="../../js/urlDns.js"></script>
+<script src="../../js/home/personalInfo.js"></script>
+
+</html>

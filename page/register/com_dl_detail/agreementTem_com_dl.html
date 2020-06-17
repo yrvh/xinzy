@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../../../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../../../css/mui.min.css">
+    <script src="../../../js/mui.picker.min.js"></script>
+    <link rel="stylesheet" href="../../../css/mui.picker.min.css">
+    <title>协议模板</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            color: #333333;
+        }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            text-align: center;
+            width: 100%;
+            height: 44px;
+            line-height: 44px;
+            background-color: white;
+            box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        header>img {
+            position: absolute;
+            top: 12px;
+            left: 5px;
+            width: 20px;
+            height: 20px;
+        }
+        
+        .save {
+            position: absolute;
+            color: #7EB6FF;
+            right: 15px;
+            top: 0px;
+        }
+        
+        .rangeBox {
+            padding-left: 10px;
+            width: 100%;
+            height: 46px;
+            margin-top: 66px;
+            line-height: 46px;
+            background-color: white;
+            position: relative;
+        }
+        
+        .range img {
+            width: 25px;
+            position: absolute;
+            top: 10px;
+            right: 0px;
+        }
+        
+        .rangeText {
+            position: absolute;
+            top: 0;
+            right: 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-align: right;
+            width: 170px;
+            display: inline-block;
+            color: #666666;
+            font-size: 14px;
+            margin-right: 15px;
+        }
+        
+        #text {
+            margin-top: 20px;
+            width: 100%;
+            height: calc(100vh - 152px);
+            border: none;
+            padding-top: 20px 10px;
+        }
+        
+        #textOne {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img class="back" src="../../../img/back_black.png" alt=""> 协议模板
+        <div class="save">保存</div>
+    </header>
+    <div class="rangeBox">
+        <span>协议模板</span>
+        <span class="range">
+                <span class="rangeText"></span>
+        <img src="../../../img/next.png" alt="">
+        </span>
+    </div>
+    <div id="textOne"></div>
+    <div>
+        <textarea name="" id="text" cols="30" rows="10"></textarea>
+    </div>
+</body>
+<script src="../../../js/jquery-3.3.1.js"></script>
+<script src="../../../js/layer/layer.js"></script>
+<script src="../../../js/urlDns.js"></script>
+<script>
+    // 返回
+    $(".back").click(() => {
+        history.back();
+    })
+
+    // $.ajaxSetup({
+    //     async: true
+    // });
+    var tel = sessionStorage.getItem("tel");
+    var uid = sessionStorage.getItem("uid");
+
+    var model_type = [];
+
+    // 获取协议模板的类型
+    $.post(urlDns + "/api/reg_dl/sf/get_xy_model_list", {
+        uid: uid
+    }, function(data) {
+        var data = JSON.stringify(data);
+        data = data.replace(/id/g, "value");
+        data = data.replace(/name/g, "text");
+        model_type = JSON.parse(data);
+        $(".rangeText").text(model_type[0].text)
+        var index = model_type[0].index;
+        getXieyi(index);
+    });
+
+
+
+    // 选择模板类型
+    $(".rangeBox").click(() => {
+        var popPicker = new mui.PopPicker();
+        popPicker.setData(model_type);
+        popPicker.show(function(selectItems) {
+            console.log(selectItems[0].index);
+            // getProData(selectItems[0].value, selectItems[0].text);
+            $(".rangeText").text(selectItems[0].text)
+                // sessionStorage.setItem("model_type_index", selectItems[0].index);
+            var index = selectItems[0].index;
+            console.log(index)
+            getXieyi(index);
+        });
+    });
+
+    // 获取相应模板的协议内容
+    function getXieyi(index) {
+        console.log(index + "+" + uid)
+
+        $.post(urlDns + "/api/reg_dl/sf/get_xy_model_show", {
+            uid: uid,
+            index: index
+        }, function(data) {
+            console.log(JSON.stringify(data));
+            $("#textOne").html(data.text);
+            var a = $("#textOne").text();
+            $("#text").val(a);
+        })
+
+    }
+
+    // 如果已经保存过数据，重新进来查看
+    var xieyiText = sessionStorage.getItem("xieyiText");
+    var xieyiType = sessionStorage.getItem("xieyiType");
+    if (xieyiType) {
+        $("#rangeText").text(xieyiType);
+        $("#textOne").html(xieyiText);
+    }
+    // 保存
+    $(".save").click(() => {
+        var xieyiText = $("#textOne").html();
+        console.log(xieyiText);
+        var xieyiType = $("#rangeText").text();
+        sessionStorage.setItem("xieyiText", xieyiText);
+        sessionStorage.setItem("xieyiType", xieyiType);
+        history.back();
+
+    });
+</script>
+
+</html>
