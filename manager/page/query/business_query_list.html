@@ -7,10 +7,381 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../../../js/mui.min.js"></script>
     <link rel="stylesheet" href="../../../css/mui.min.css">
-    <link rel="stylesheet" href="../../css/query/business_query_list.css">
     <link rel="stylesheet" href="../../../css/mui.picker.min.css">
     <script src="../../../js/mui.picker.min.js"></script>
     <title>业务查询列表</title>
+		
+		<style type="text/css">
+			body {
+			    margin: 0;
+			    padding: 0;
+			    color: #333333;
+			}
+			
+			header {
+			    position: fixed;
+			    top: 0;
+			    left: 0;
+			    z-index: 99;
+			    text-align: center;
+			    line-height: 44px;
+			    width: 100%;
+			    height: 44px;
+			    background-color: white;
+			    box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+			}
+			
+			header>img {
+			    position: absolute;
+			    top: 12px;
+			    left: 5px;
+			    width: 20px;
+			    height: 20px;
+			}
+			
+			header>div {
+			    position: absolute;
+			    top: 0;
+			    right: 5px;
+			    height: 44px;
+			    line-height: 44px;
+			}
+			
+			header>div>span {
+			    color: #999999;
+			}
+			
+			.next {
+			    line-height: 44px;
+			    color: #7EB6FF;
+			    margin-right: 10px;
+			}
+			
+			.list {
+			    margin-top: 152px;
+			    margin-bottom: 20px;
+			}
+			
+			.list>div {
+			    position: relative;
+			    width: 100%;
+			    background-color: white;
+			    margin-top: 10px;
+			}
+			
+			.list>div:nth-of-type(1) {
+			    margin-top: 20px;
+			}
+			
+			
+			/* .list>div:nth-last-of-type(1) {
+			    margin-bottom: 10px;
+			} */
+			
+			.list>div>div {
+			    width: 100%;
+			    display: flex;
+			    justify-content: space-between;
+			}
+			
+			.list>div img {
+			    width: 25px;
+			    height: 25px;
+			    vertical-align: middle;
+			}
+			
+			.list>div>div:nth-of-type(1) {
+			    height: 40px;
+			    line-height: 40px;
+			    border-bottom: 1px solid rgb(240, 240, 240);
+			    font-size: 14px;
+			    padding: 0 5px 0 15px;
+			}
+			
+			.time {
+			    color: #999999;
+			}
+			
+			.amount {
+			    height: 30px;
+			    line-height: 30px;
+			    font-size: 12px;
+			    color: #999999;
+			    padding: 0 15px 0 15px;
+			}
+			
+			.searchBox {
+			    /* display: none; */
+			    position: fixed;
+			    top: 44px;
+			    left: 0;
+			    z-index: 99;
+			    width: 100%;
+			    height: 44px;
+			    padding: 7px 0 7px 15px;
+			    background-color: #F2F2F2;
+			}
+			
+			.searchIn {
+			    position: relative;
+			    width: calc(100% - 60px);
+			    height: 30px;
+			    background-color: white;
+			    border-radius: 3px;
+			    box-sizing: border-box;
+			}
+			
+			.searchIn>input {
+			    position: absolute;
+			    top: 0;
+			    left: 25px;
+			    padding: 0;
+			    width: 80%;
+			    height: 30px;
+			    font-size: 14px;
+			    text-align: left;
+			    background-color: white;
+			}
+			
+			.searchIn>input::placeholder {
+			    font-size: 12px;
+			}
+			
+			.searchImg {
+			    position: absolute;
+			    top: 7.5px;
+			    left: 5px;
+			    width: 15px;
+			    height: 15px;
+			}
+			
+			.toEmpty {
+			    position: absolute;
+			    top: 7.5px;
+			    right: 10px;
+			    width: 15px;
+			    height: 15px;
+			}
+			
+			.search {
+			    position: absolute;
+			    top: 0;
+			    right: 15px;
+			    line-height: 44px;
+			    font-size: 14px;
+			    color: #7EB6FF;
+			}
+			
+			footer {
+			    position: fixed;
+			    bottom: 0;
+			    left: 0;
+			    width: 100%;
+			    height: 50px;
+			    background-color: white;
+			    font-size: 12px;
+			}
+			
+			.del,
+			.submit {
+			    position: absolute;
+			    top: 0;
+			    width: calc((100% - 45px)/2);
+			    height: 40px;
+			    margin-top: 5px;
+			    border-radius: 4px;
+			}
+			
+			.del div:nth-of-type(1),
+			.submit div:nth-of-type(1) {
+			    font-weight: bold;
+			}
+			
+			.del div:nth-of-type(2),
+			.submit div:nth-of-type(2) {
+			    color: #999999;
+			}
+			
+			.del {
+			    left: 0;
+			    margin-left: 15px;
+			    text-align: left;
+			}
+			
+			.submit {
+			    right: 0;
+			    margin-right: 15px;
+			    text-align: right;
+			}
+			
+			.select {
+			    display: none;
+			    position: absolute;
+			    top: 11px;
+			    left: 10px;
+			}
+			
+			.filterBox {
+			    position: fixed;
+			    top: 88px;
+			    left: 0;
+			    z-index: 99;
+			    /* display: none; */
+			    width: 100%;
+			    height: 44px;
+			    color: rgb(153, 153, 153);
+			    background-color: white;
+			    padding: 0 5px 0 15px;
+			    font-size: 14px;
+			    line-height: 44px;
+			    border-bottom: 1px solid rgb(240, 240, 240);
+			}
+			
+			.nextImg {
+			    position: absolute;
+			    top: 8px;
+			    right: 5px;
+			    width: 25px;
+			    height: 25px;
+			}
+			
+			.filterImg {
+			    position: relative;
+			    top: 2px;
+			    width: 15px;
+			    height: 15px;
+			}
+			
+			.filterParam {
+			    background-color: white;
+			}
+			
+			.selectTime {
+			    padding: 0 15px;
+			    display: flex;
+			    justify-content: space-between;
+			    width: 100%;
+			    height: 44px;
+			    background-color: white;
+			    border-bottom: 1px solid rgb(240, 240, 240);
+			    line-height: 44px;
+			    font-size: 14px;
+			}
+			
+			.timeBox {
+			    width: 75%;
+			    display: flex;
+			    justify-content: space-between;
+			}
+			
+			#startTime,
+			#endTime {
+			    display: flex;
+			    justify-content: space-around;
+			    /* position: relative; */
+			    width: 40%;
+			    height: 30px;
+			    border: 1px solid rgb(204, 204, 204);
+			    border-radius: 4px;
+			    margin-top: 8px;
+			}
+			
+			#startTime>img,
+			#endTime>img {
+			    width: 16px;
+			    height: 16px;
+			    margin-top: 5px;
+			}
+			
+			#startTime>span,
+			#endTime>span {
+			    font-size: 13px;
+			    line-height: 30px;
+			}
+			
+			#startDate,
+			#endDate {
+			    color: #666666;
+			}
+			
+			.selectCom {
+			    display: flex;
+			    justify-content: space-between;
+			    width: calc(100% - 30px);
+			    margin-left: 15px;
+			    height: 44px;
+			    line-height: 44px;
+			    border-bottom: 1px solid rgb(240, 240, 240);
+			}
+			
+			.selectCom>div {
+			    position: relative;
+			}
+			
+			.selectCom>div span {
+			    right: 15px;
+			}
+			
+			.selectCom span {
+			    font-size: 14px;
+			}
+			
+			.selectCom img {
+			    width: 25px;
+			    height: 25px;
+			    position: absolute;
+			    top: -35px;
+			    right: -9px;
+			}
+			
+			.okBox {
+			    position: relative;
+			    width: 100%;
+			    height: 44px;
+			}
+			
+			.okBox div {
+			    top: 8px;
+			    position: absolute;
+			    width: calc((100% - 45px)/2);
+			    height: 28px;
+			    border-radius: 4px;
+			    font-size: 14px;
+			    text-align: center;
+			    line-height: 28px;
+			}
+			
+			.ok {
+			    right: 15px;
+			    color: white;
+			    background-color: #7EB6FF;
+			}
+			
+			.reset {
+			    left: 8px;
+			    color: #7EB6FF;
+			    border: 1px solid rgb(204, 204, 204);
+			}
+			
+			.filterParamBg {
+			    display: none;
+			    position: absolute;
+			    background-color: rgba(0, 0, 0, 0.2);
+			    z-index: 10;
+			    top: 133px;
+			    left: 0;
+			    width: 100%;
+			    height: calc(100vh - 133px);
+			}
+			
+			.noneParamBg {
+			    width: 100%;
+			    height: calc(100vh - 223px);
+			    position: absolute;
+			    bottom: 0;
+			    left: 0;
+			}
+		</style>
 </head>
 
 <body>
@@ -117,6 +488,314 @@
 	</body>
 	<script src="../../../js/jquery-3.3.1.js"></script>
 	<script src="../../../js/urlDns.js"></script>
-	<script src="../../js/query/business_query_list.js"></script>
+	
+	<script type="text/javascript">
+		mui.init();
+		// 返回
+		$(".back").click(() => {
+		    history.back();
+		});
+		
+		var pass_app = localStorage.getItem("pass_app");
+		var tel_app = localStorage.getItem("tel_app");
+		var code_app = localStorage.getItem("code_app");
+		
+		// 录入方式addtype（业者录入为："yz"    单位录入:"sf"）
+		// 状态码income_status（1：待业者确认，3：业者退回，2.待秘书公司确认，5：秘书公司退回，6：完成）
+		// 获取录入方式
+		var addtype = sessionStorage.getItem("addtype");
+		// 获取状态码
+		var income_status = sessionStorage.getItem("income_status");
+		
+		// 渲染标题
+		if (addtype == "sf") {
+		    if (income_status == 1) {
+		        $("header span").text("待业者确认");
+		    }
+		    if (income_status == 3) {
+		        $("header span").text("业者退回");
+		    }
+		    if (income_status == 2) {
+		        $("header span").text("待商秘公司确认");
+		    }
+		    if (income_status == 5) {
+		        $("header span").text("商秘公司退回");
+		    }
+		    if (income_status == 6) {
+		        $("header span").text("已完成");
+		    }
+		}
+		if (addtype == "yz") {
+		    if (income_status == 2) {
+		        $("header span").text("待商秘公司审核");
+		    }
+		    if (income_status == 5) {
+		        $("header span").text("商秘公司退回");
+		    }
+		    if (income_status == 6) {
+		        $("header span").text("完成");
+		    }
+		}
+		
+		
+		// 请求数据
+		$.post(urlDns + "/control_app/hhr/zf/list", {
+		    // 状态
+		    status: income_status,
+		    // 录入方式
+		    addtype: addtype,
+		    // 第几页
+		    page: 1,
+		    // 一页的条数
+		    rows: 20,
+		    // 搜索框的内容
+		    name: "",
+		    // 过滤条件的开始时间和结束时间
+		    startdate: "",
+		    enddate: "",
+		    // 过滤条件的单位ID
+		    sfid: "",
+		    // 过滤条件的业者ID
+		    yzid: "",
+		    pass_app: pass_app,
+		    tel_app: tel_app,
+		    code_app: code_app
+		}, function(data) {
+		    console.log(JSON.stringify(data));
+		    if (data.result == 0) {
+		        // 需要重新登录
+		        if (window.plus) {
+		            goToLogin("../../register/login.html");
+		        } else {
+		            document.addEventListener('plusready', goToLogin, false);
+		        }
+		    } else {
+		        var htmlStr = "";
+		        for (var i = 0; i < data.rows.length; i++) {
+		            htmlStr += `
+		                <div>
+		                    <input class="select" name="hh" value="beihai" type="checkbox">
+		                    <div class="comTime">
+		                        <span class="comName">${data.rows[i].realname}</span>
+		                        <div class="href" detailId="${data.rows[i].id}">
+		                            <span class="time">${data.rows[i].zq}</span>
+		                            <img src="../../img/next.png" alt="">
+		                        </div>
+		                    </div>
+		                    <div class="amount">
+		                        <span>${data.rows[i].name}</span>
+		                        <span>${data.rows[i].fkmoney}</span>
+		                    </div>
+		                </div>
+		            `;
+		        }
+		        $(".list").html(htmlStr);
+		    }
+		
+		});
+		
+		
+		// 跳转详情页面
+		$(document).on("click", ".list .href", function(e) {
+		    var detailId = $(this).attr("detailId");
+		    console.log(detailId)
+		    sessionStorage.setItem('incomeDetailId', detailId);
+		    // page.chooseType();
+		    location.href = "./tax_query_detail.html";
+		});
+		
+		
+		// 展开/收起过滤条件
+		var open = false;
+		$(".filterBox").click(() => {
+		    open = !open;
+		    if (open == true) {
+		        $(".nextImg").attr("src", "../../../img/down.png");
+		        $(".filterParamBg").css("display", "block");
+		    } else {
+		        $(".nextImg").attr("src", "../../../img/next.png");
+		        $(".filterParamBg").css("display", "none");
+		    }
+		});
+		
+		// 点击空白收起过滤条件
+		$(".noneParamBg").click(() => {
+		    $(".filterParamBg").css("display", "none");
+		    $(".nextImg").attr("src", "../../../img/next.png");
+		    open = !open;
+		});
+		
+		// 当点击搜索框的时候，把筛选条件框收起来
+		$(".searchBox").click(() => {
+		    $(".nextImg").attr("src", "../../../img/next.png");
+		    $(".filterParamBg").css("display", "none");
+		    open = !open;
+		});
+		
+		
+		// 选择筛选的日期
+		$("#startTime").on("click", starTimeLen);
+		$("#endTime").on("click", endTimeLen);
+		var year = new Date().getFullYear();
+		var month = new Date().getMonth() + 1;
+		var nowdate = new Date().getDate();
+		// 默认时间为当前月份
+		$("#startDate").text(year + "-" + format(month) + "-" + format(nowdate));
+		$("#endDate").text(year + "-" + format(month) + "-" + format(nowdate));
+		
+		// 格式化时间
+		function format(num) {
+		    if (num < 10) {
+		        return "0" + num;
+		    } else {
+		        return num
+		    }
+		}
+		
+		// 服务周期开始时间
+		function starTimeLen() {
+		    var dtPicker = new mui.DtPicker({
+		        type: 'date',
+		        // beginDate: new Date(year, 00),
+		        endDate: new Date(year, month - 1, nowdate)
+		    });
+		    /*  type参数：'datetime'-完整日期视图(年月日时分)
+		            'date'--年视图(年月日)
+		            'time' --时间视图(时分)
+		            'month'--月视图(年月)
+		            'hour'--时视图(年月日时)
+		    */
+		    dtPicker.show(function(selectItems) {
+		        var y = selectItems.y.text; //获取选择的年
+		        var m = selectItems.m.text; //获取选择的月
+		        var d = selectItems.d.text; //获取选择的日
+		        var date = y + "-" + m + "-" + d;
+		        $("#startDate").text(date);
+		    })
+		}
+		
+		// 服务周期结束时间
+		function endTimeLen() {
+		    var dtPicker = new mui.DtPicker({
+		        type: 'date',
+		        // beginDate: new Date(year, 00),
+		        endDate: new Date(year, month - 1, nowdate)
+		    });
+		
+		    dtPicker.show(function(selectItems) {
+		        var y = selectItems.y.text; //获取选择的年
+		        var m = selectItems.m.text; //获取选择的月
+		        var d = selectItems.d.text; //获取选择的日
+		        var date = y + "-" + m + "-" + d;
+		        $("#endDate").text(date);
+		    });
+		}
+		
+		
+		// 重置筛选条件
+		$(".reset").click(() => {
+		    $(".selectComName").text("");
+		    $("#startDate").text(year + "-" + format(month));
+		    $("#endDate").text(year + "-" + format(month));
+		});
+		
+		// ================================================
+		var comArr = [];
+		$.post(urlDns + "/control_app/yz/tt/list", {
+		        pass_app: pass_app,
+		        tel_app: tel_app,
+		        code_app: code_app
+		    },
+		    function(data) {
+		        // console.log(JSON.stringify(data))
+		        for (var i = 0; i < data.rows.length; i++) {
+		            comArr.push({ "value": data.rows[i].id, "text": data.rows[i].name });
+		        }
+		        // console.log(JSON.stringify(comArr))
+		    });
+		
+		// 选择接受服务单位
+		$(".selectCom").on("click", selectCom);
+		
+		function selectCom() {
+		    var popPicker = new mui.PopPicker();
+		    popPicker.setData(comArr)
+		        // [{ value: 'ywj', text: '北海骄龙网络有限公司' },
+		        //     { value: 'aaa', text: 'xxxxxxx有限公司' },
+		        //     { value: 'lj', text: 'xxxxxxx有限公司' },
+		        //     { value: 'ymt', text: 'xxxxxxx有限公司' },
+		        // ]
+		    popPicker.show(function(selectItems) {
+		        $(".selectComName").text(selectItems[0].text);
+		        $(".selectComName").attr("id", selectItems[0].value);
+		        // console.log(selectItems[0].text);
+		        // console.log(selectItems[0].value);
+		    })
+		}
+		// ================================================
+		
+		
+		
+		// 加载下一页
+		$(window).scroll(function() {
+		    if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+		        page = page + 1;
+		        console.log(page)
+		        $.post(urlDns + "/control_app/yz/fp/list", {
+		            // 状态  待提交0
+		            status: status,
+		            // 第几页
+		            page: page,
+		            // 一页的条数
+		            rows: 20,
+		            // 搜索框的内容
+		            name: "",
+		            // 过滤条件的开始时间和结束时间
+		            startdate: "",
+		            enddate: "",
+		            // 过滤条件的发票抬头
+		            comid: "",
+		            pass_app: pass_app,
+		            tel_app: tel_app,
+		            code_app: code_app
+		        }, function(data) {
+		            console.log(JSON.stringify(data));
+		            if (data.result == 0) {
+		                // 需要重新登录
+		                if (window.plus) {
+		                    goToLogin("../register/login.html");
+		                } else {
+		                    document.addEventListener('plusready', goToLogin, false);
+		                }
+		            } else {
+		                if (data.rows.length > 0) {
+		                    var htmlStr = "";
+		                    for (var i = 0; i < data.rows.length; i++) {
+		                        htmlStr += `
+		                            <div class="${data.rows[i].id}">
+		                                <input class="select" name="hh" value="beihai" type="checkbox">
+		                                <div class="comTime">
+		                                    <span class="comName">${data.rows[i].comname}</span>
+		                                    <div class="href" detailId="${data.rows[i].id}">
+		                                        <span class="time">${data.rows[i].addtime}</span>
+		                                        <img src="../../img/next.png" alt="">
+		                                    </div>
+		                                </div>
+		                                <div class="amount">
+		                                    <span>${data.rows[i].name}</span>
+		                                    <span>${data.rows[i].money}</span>
+		                                </div>
+		                            </div>
+		                        `;
+		                    }
+		                    $(".list").append(htmlStr);
+		                }
+		            }
+		
+		
+		        });
+		    }
+		});
+	</script>
 </html>
 

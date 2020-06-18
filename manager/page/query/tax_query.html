@@ -7,11 +7,117 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../../../js/mui.min.js"></script>
     <link rel="stylesheet" href="../../../css/mui.min.css">
-    <link rel="stylesheet" href="../../css/query/tax_query.css">
     <title>报税查询</title>
     <script>
         mui.init();
     </script>
+		
+		<style type="text/css">
+			body {
+			    margin: 0;
+			    padding: 0;
+			    color: #333333;
+			}
+			
+			header {
+			    position: fixed;
+			    top: 0;
+			    left: 0;
+			    z-index: 99;
+			    text-align: center;
+			    line-height: 44px;
+			    width: 100%;
+			    height: 44px;
+			    /* font-weight: bold; */
+			    background-color: white;
+			    box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+			}
+			
+			header>img {
+			    position: absolute;
+			    top: 12px;
+			    left: 5px;
+			    width: 20px;
+			    height: 20px;
+			}
+			
+			header>div {
+			    position: absolute;
+			    top: 0;
+			    right: 5px;
+			    height: 44px;
+			    line-height: 44px;
+			}
+			
+			.next {
+			    line-height: 44px;
+			    color: #7EB6FF;
+			    margin-right: 10px;
+			}
+			
+			ul {
+			    list-style: none;
+			    padding: 0;
+			    margin: 20px 0 0 0;
+			}
+			
+			li {
+			    display: flex;
+			    justify-content: space-between;
+			    width: 100%;
+			    height: 46px;
+			    background-color: white;
+			    margin-bottom: 2px;
+			    line-height: 46px;
+			    padding: 0 5px 0 15px;
+			    box-sizing: border-box;
+			}
+			
+			li img {
+			    width: 25px;
+			    height: 25px;
+			    vertical-align: middle;
+			}
+			
+			li>div>span {
+			    color: rgb(153, 153, 153);
+			}
+			
+			.com_ul,.free_ul{
+			    margin-top: 64px;
+			}
+			
+			.free_ul{
+			    display: none;
+			}
+			
+			.change{
+			    position: absolute;
+			    left: calc((100% - 200px)/2);
+			    top: 5px;
+			    width: 200px;
+			    height: 34px;
+			    background-color: white;
+			    border-radius: 4px;
+			    display: flex;
+			    border: 1px solid #7EB6FF;
+			}
+			
+			.com_write,.free_write{
+			    width: 100px;
+			    text-align: center;
+			    line-height: 34px;
+			
+			}
+			.com_write{
+			    background-color: #7EB6FF;
+			    color: white;
+			}
+			
+			.free_write{
+			    color: #7EB6FF;
+			}
+		</style>
 </head>
 
 <body>
@@ -76,6 +182,147 @@
 </body>
 <script src="../../../js/jquery-3.3.1.js"></script>
 <script src="../../../js/urlDns.js"></script>
-<script src="../../js/query/tax_query.js"></script>
+
+<script type="text/javascript">
+	// 返回
+	$(".back").click(()=>{
+		sessionStorage.removeItem("addtype");
+		sessionStorage.removeItem("income_status");
+	   history.back();
+	})
+	var pass_app = localStorage.getItem("pass_app");
+	var tel_app = localStorage.getItem("tel_app");
+	var code_app = localStorage.getItem("code_app");
+	
+	getInfo(0)   // 初次加载时, 获取页面信息 0:单位录入   1:业者录入
+	
+	// 单位录入
+	$(".com_write").click(()=>{
+	    $(".com_write").css("background-color","#7EB6FF");
+	    $(".com_write").css("color","white");
+	    $(".free_write").css("background-color","white");
+	    $(".free_write").css("color","#7EB6FF");
+	    $(".com_ul").css("display","block");
+	    $(".free_ul").css("display","none");
+			
+			getInfo(0) // 重新获取单位录入的 页面数据信息
+	})
+	
+	// 业者录入
+	$(".free_write").click(()=>{
+	    $(".free_write").css("background-color","#7EB6FF");
+	    $(".free_write").css("color","white");
+	    $(".com_write").css("background-color","white");
+	    $(".com_write").css("color","#7EB6FF");
+	    $(".free_ul").css("display","block");
+	    $(".com_ul").css("display","none");
+	
+	    getInfo(1) // 重新获取业者录入的 页面数据信息
+	})
+	
+	
+	
+	// 判断下一个 页面返回来是处在 单位录入还是业者录入的界面
+	var addtype = sessionStorage.getItem("addtype");
+	if (addtype == "sf") {
+		$(".com_write").css("background-color","#7EB6FF");
+		$(".com_write").css("color","white");
+		$(".free_write").css("background-color","white");
+		$(".free_write").css("color","#7EB6FF");
+		$(".com_ul").css("display","block");
+		$(".free_ul").css("display","none");
+	}
+	if (addtype == "yz") {
+		$(".free_write").css("background-color","#7EB6FF");
+		$(".free_write").css("color","white");
+		$(".com_write").css("background-color","white");
+		$(".com_write").css("color","#7EB6FF");
+		$(".free_ul").css("display","block");
+		$(".com_ul").css("display","none");
+	}
+	
+	
+	// 跳转列表
+	// 录入方式addtype（业者录入为："yz"    单位录入:"sf"）
+	// ========单位录入=======
+	$(".com_wait").click(() => {
+		sessionStorage.setItem("addtype", "sf");
+		sessionStorage.setItem("income_status", 1);
+		location.href = './tax_query_list.html';
+	});
+	
+	$(".com_fail").click(() => {
+		sessionStorage.setItem("addtype", "sf");
+		sessionStorage.setItem("income_status", 2);
+		location.href = './tax_query_list.html';
+	});
+	
+	$(".com_success").click(() => {
+		sessionStorage.setItem("addtype", "sf");
+		sessionStorage.setItem("income_status", 3);
+		location.href = './tax_query_list.html';
+	});
+	
+	
+	// =======业者录入============
+	$(".free_wait").click(() => {
+		sessionStorage.setItem("addtype", "yz");
+		sessionStorage.setItem("income_status", 2);
+		location.href = './tax_query_list.html';
+	});
+	
+	$(".free_fail").click(() => {
+		sessionStorage.setItem("addtype", "yz");
+		sessionStorage.setItem("income_status", 5);
+		location.href = './tax_query_list.html';
+	});
+	
+	$(".free_success").click(() => {
+		sessionStorage.setItem("addtype", "yz");
+		sessionStorage.setItem("income_status", 6);
+		location.href = './tax_query_list.html';
+	});
+	
+	
+	// 请求数据的函数
+	function getInfo(enterType) {
+		enterType = enterType.toString()
+		
+		mui.post(urlDns + "/control_app/ms/fr_zg/zf/index",{
+		    // 0.单位录入1.业者录入
+		    type:"0",
+		    tel_app:tel_app,
+		    pass_app:pass_app,
+		    code_app:code_app
+		},function(data){
+		    console.log(JSON.stringify(data))
+				if (data.result == 0) {
+					// 需要重新登录
+					if (window.plus) {
+						goToLogin("../../register/login.html");
+					} 
+					else {
+						document.addEventListener('plusready', goToLogin, false);
+					}
+				} 
+				else {
+					// 单位录入
+					if(enterType == '0') {
+						$(".com_w").text(data.send);
+						$(".com_f").text(data.yz_nopass);
+						$(".com_s").text(data.yz_pass);
+					}
+				
+					// 业者录入
+					if(enterType == '1') {
+						$(".free_w").text(data.wait_check);
+						$(".free_f").text(data.ms_nopass);
+						$(".free_s").text(data.ms_pass);
+					}
+				
+				}
+		})
+	}
+</script>
 
 </html>

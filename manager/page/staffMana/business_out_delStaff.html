@@ -7,10 +7,195 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../../../js/mui.min.js"></script>
     <link rel="stylesheet" href="../../../css/mui.min.css">
-    <link rel="stylesheet" href="../../css/staffMana/business_out_delStaff.css">
     <script src="../../../js/mui.picker.min.js"></script>
     <link rel="stylesheet" href="../../../css/mui.picker.min.css">
     <title>接收业务</title>
+		
+		<style type="text/css">
+			body {
+			    padding: 0;
+			    margin: 0;
+			    font-size: 16px;
+			    color: #333333;
+			}
+			
+			header {
+			    position: fixed;
+			    top: 0;
+			    left: 0;
+			    z-index: 99;
+			    width: 100%;
+			    height: 44px;
+			    box-shadow: 0 2px 2px 0 rgb(231, 231, 231);
+			    background-color: white;
+			    text-align: center;
+			    line-height: 44px;
+			    font-weight: bold;
+			}
+			
+			header>img {
+			    position: absolute;
+			    width: 20px;
+			    height: 20px;
+			    top: 11px;
+			    left: 5px;
+			}
+			
+			header>div {
+			    position: absolute;
+			    top: 0;
+			    right: 10px;
+			    color: #7eb6ff;
+			}
+			
+			.staffNameBox {
+			    position: fixed;
+			    top: 64px;
+			    left: 0;
+			    z-index: 99;
+			    width: 100%;
+			    height: 40px;
+			    background-color: white;
+			}
+			
+			.staffNameBox span {
+			    position: absolute;
+			    top: 0;
+			    left: 15px;
+			    line-height: 40px;
+			}
+			
+			.staffNameBox img {
+			    position: absolute;
+			    right: 7px;
+			    top: 8px;
+			    width: 25px;
+			    height: 25px;
+			}
+			
+			.cont {
+			    width: 100%;
+			    position: absolute;
+			    top: 104px;
+			    left: 0;
+			}
+			
+			.title {
+			    width: 100%;
+			    height: 20px;
+			    font-size: 12px;
+			    line-height: 20px;
+			    padding-left: 15px;
+			}
+			
+			.item {
+			    position: relative;
+			    width: 100%;
+			    height: 46px;
+			    background-color: white;
+			    border: 1px solid rgb(231, 231, 231);
+			}
+			
+			.select {
+			    position: absolute;
+			    top: 15px;
+			    left: 10px;
+			}
+			
+			.comImg {
+			    position: absolute;
+			    top: 6px;
+			    left: 15px;
+			    width: 34px;
+			    height: 34px;
+			}
+			
+			.comName {
+			    position: absolute;
+			    left: 55px;
+			    width: calc(100% - 200px);
+			    line-height: 46px;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;
+			    font-size: 15px;
+			}
+			
+			.freeName {
+			    position: absolute;
+			    left: 15px;
+			    width: 60%;
+			    line-height: 46px;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;
+			}
+			
+			.bg {
+			    position: fixed;
+			    top: 44px;
+			    left: 0;
+			    z-index: 99;
+			    width: 100%;
+			    height: 20px;
+			    background-color: #efeff4;
+			}
+			
+			footer {
+			    position: fixed;
+			    bottom: 0;
+			    left: 0;
+			    width: 100%;
+			    height: 50px;
+			    background-color: white;
+			}
+			
+			footer span {
+			    line-height: 50px;
+			    margin-left: 15px;
+			    color: #7eb6ff;
+			}
+			
+			.success {
+			    display: none;
+			    width: 100%;
+			    height: 100vh;
+			    position: fixed;
+			    top: 0;
+			    left: 0;
+			    z-index: 9999;
+			}
+			
+			.success>img {
+			    width: 120px;
+			    height: 120px;
+			    margin-left: calc((100% - 120px)/2);
+			    margin-top: calc((100vh - 120px)/2);
+			}
+			
+			.acceptStaffTips {
+			    position: absolute;
+			    right: 80px;
+			    font-size: 14px;
+			    color: #666666;
+			    line-height: 46px;
+			}
+			
+			.acceptStaff {
+			    position: absolute;
+			    right: 10px;
+			    top: 8px;
+			    width: 70px;
+			    height: 30px;
+			    border: 1px solid rgb(204, 204, 204);
+			    border-radius: 4px;
+			    font-size: 14px;
+			    color: #666666;
+			    line-height: 30px;
+			    text-align: right;
+			    padding-right: 5px;
+			}
+		</style>
 </head>
 
 <body>
@@ -48,6 +233,275 @@
 <script src="../../../js/jquery-3.3.1.js"></script>
 <script src="../../../js/layer/layer.js"></script>
 <script src="../../../js/urlDns.js"></script>
-<script src="../../js/staffMana/business_out_delStaff.js"></script>
 
+<script type="text/javascript">
+	var pass_app = localStorage.getItem("pass_app");
+	var tel_app = localStorage.getItem("tel_app");
+	var code_app = localStorage.getItem("code_app");
+	// console.log("tel_app：" + tel_app);
+	// console.log("pass_app：" + pass_app);
+	
+	// 返回
+	$(".back").click(() => {
+	    sessionStorage.removeItem("del_staff_id");
+	    history.back();
+	});
+	// 同步请求
+	// $.ajaxSetup({
+	//     async: false
+	// });
+	
+	// 要删除员工的id
+	var del_staff_id = sessionStorage.getItem("del_staff_id");
+	console.log(del_staff_id)
+	
+	// 业务员列表
+	var staffArr = [];
+	
+	// 被删除的业务员名字
+	var delStaffName = "";
+	
+	$(function() {
+	    var index = layer.load(1, {
+	        // 数组中第一个参数是button的透明度
+	        // 第二个是背景颜色
+	        shade: [0.3, "white"]
+	    });
+	
+	    var ajaxPost = $.ajax({
+	        url: urlDns + "/control_app/ms/auto_bussiness/getKhbyuser_auto",
+	        // 当参数为数组时，直接传过去后台接收不到，要设置traditional: true
+	        traditional: true,
+	        type: 'post',
+	        dataType: "json",
+	        data: {
+	            "outemployeeid": del_staff_id,
+	            "pass_app": pass_app,
+	            "tel_app": tel_app
+	        },
+	        timeout: 120000, //2分钟超时
+	        //请求成功
+	        success: function(data) {
+	            console.log(JSON.stringify(data));
+	            layer.close(index);
+	            if (data.result == 0) {
+	                if (window.plus) {
+	                    goToLogin("../../../page/register/login.html");
+	                } else {
+	                    document.addEventListener('plusready', goToLogin, false);
+	                }
+	            } else {
+	                delStaffName = data[0].outusername;
+	                // 总的html代码
+	                var htmlStr = "";
+	                // 单位的html代码
+	                var htmlStr_com = '';
+	                // 业者的html代码
+	                var htmlStr_free = '';
+	                for (var i = 0; i < data.length; i++) {
+	                    if (data[i].usertype == 1) {
+	                        // usertype == 1 业者  2 单位
+	                        htmlStr_free += `
+	                        <div class="item">
+	                            <div class="freeName" id="${data[i].id}">${data[i].name}</div>
+	                            <span class="acceptStaffTips">接手人：</span>
+	                            <div class="acceptStaff" id_msid="${data[i].id + '_' + data[i].msid}" id="${data[i].id}" msid="${data[i].msid}">${data[i].msname}</div>
+	                        </div>
+	                    `;
+	                    }
+	                    if (data[i].usertype == 2) {
+	                        // usertype == 1 业者  2 单位
+	
+	                        // 如果有公司图标，用公司图标，没上传的给默认图片
+	                        if (data[i].icon != "") {
+	                            htmlStr_com += `
+	                            <div class="item">
+	                                <img class="comImg" src="${data[i].icon}" alt="">
+	                                <div class="comName" id="${data[i].id}">${data[i].name}</div>
+	                                <span class="acceptStaffTips">接手人：</span>
+	                                <div class="acceptStaff" id_msid="${data[i].id + '_' + data[i].msid}" id="${data[i].id}" msid="${data[i].msid}">${data[i].msname}</div>
+	                            </div>
+	                        `;
+	                        } else {
+	                            htmlStr_com += `
+	                            <div class="item">
+	                                <img class="comImg" src="../../../img/com_default_Icon.png" alt="">
+	                                <div class="comName" id="${data[i].id}">${data[i].name}</div>
+	                                <span class="acceptStaffTips">接手人：</span>
+	                                <div class="acceptStaff" id_msid="${data[i].id + '_' + data[i].msid}" id="${data[i].id}" msid="${data[i].msid}">${data[i].msname}</div>
+	                            </div>
+	                        `;
+	                        }
+	
+	                    }
+	                }
+	                if (htmlStr_com != "") {
+	                    htmlStr_com = '<div class="title">单位用户</div>' + htmlStr_com;
+	                }
+	                if (htmlStr_free != "") {
+	                    htmlStr_free = '<div class="title">业者用户</div>' + htmlStr_free;
+	                }
+	                htmlStr = htmlStr_com + htmlStr_free;
+	                $(".cont").html(htmlStr);
+	                $(".staff").text(data.outusername);
+	                $(".staff").text(delStaffName);
+	            }
+	
+	        },
+	        error: function(XMLHttpRequest, textStatus, errorThrown) {
+	            layer.close(index);
+	            if (textStatus == 'timeout') {
+	                ajaxPost.abort();
+	                alert("请求超时");
+	            }
+	            if (textStatus == 'error') {
+	                ajaxPost.abort();　
+	                alert("请求错误" + errorThrown);
+	            }
+	        }
+	    });
+	
+	    // 获取除了要删除的员工以外的所有业务员
+	    var getStaffData = $.ajax({
+	        url: urlDns + "/control_app/ms/auto_bussiness/getUser",
+	        // 当参数为数组时，直接传过去后台接收不到，要设置traditional: true
+	        traditional: true,
+	        type: 'post',
+	        dataType: "json",
+	        data: {
+	            "outemployeeid": del_staff_id,
+	            "pass_app": pass_app,
+	            "tel_app": tel_app,
+	            "code_app": code_app
+	        },
+	        timeout: 120000, //2分钟超时
+	        //请求成功
+	        success: function(data) {
+	            console.log(JSON.stringify(data));
+	            layer.close(index);
+	            if (data.result == 0) {
+	                // 需要重新登录
+	                if (window.plus) {
+	                    goToLogin("../../../page/register/login.html");
+	                } else {
+	                    document.addEventListener('plusready', goToLogin, false);
+	                }
+	            } else {
+	                for (var i = 0; i < data.length; i++) {
+	                    var object = {};
+	                    object.value = data[i].id;
+	                    object.text = data[i].name;
+	                    staffArr.push(object);
+	                }
+	            }
+	
+	        },
+	        error: function(XMLHttpRequest, textStatus, errorThrown) {
+	            layer.close(index);
+	            if (textStatus == 'timeout') {
+	                getStaffData.abort();
+	                alert("请求超时");
+	            }
+	            if (textStatus == 'error') {
+	                getStaffData.abort();　
+	                alert("请求错误" + errorThrown);
+	            }
+	        }
+	    });
+	
+	
+	});
+	
+	// 弹出所有可选接手人
+	$(document).on("click", ".acceptStaff", function() {
+	    var _this = $(this);
+	    var thisId = $(this).attr("id");
+	
+	    var popPicker = new mui.PopPicker();
+	    popPicker.setData(staffArr)
+	        // [{ value: 'ywj', text: '北海骄龙网络有限公司' },
+	        //     { value: 'aaa', text: 'xxxxxxx有限公司' },
+	        //     { value: 'lj', text: 'xxxxxxx有限公司' },
+	        //     { value: 'ymt', text: 'xxxxxxx有限公司' },
+	        // ]
+	    popPicker.show(function(selectItems) {
+	        var id_msid = thisId + "_" + selectItems[0].value;
+	        _this.attr("id_msid", id_msid);
+	        _this.attr("msid", selectItems[0].value);
+	        _this.text(selectItems[0].text);
+	    })
+	
+	
+	});
+	
+	
+	// 确定
+	$(".accept").click(() => {
+	    var idArr = [];
+	
+	    // 遍历得到所有的id_msid
+	    $(".acceptStaff").each(function() {
+	        // console.log($(this).attr("id_msid"));
+	        idArr.push($(this).attr("id_msid"));
+	    });
+	    // console.log(JSON.stringify(idArr))
+	
+	    // 分配业务及删除请求
+	    var index = layer.load(1, {
+	        // 数组中第一个参数是button的透明度
+	        // 第二个是背景颜色
+	        shade: [0.3, "white"]
+	    });
+	    var ajaxPost = $.ajax({
+	        url: urlDns + "/control_app/ms/auto_bussiness/yw_aoto_change",
+	        // 当参数为数组时，直接传过去后台接收不到，要设置traditional: true
+	        traditional: true,
+	        type: 'post',
+	        dataType: "json",
+	        data: {
+	            // 要删除的员工id
+	            "outid": del_staff_id,
+	            // 要分配的业务
+	            "datas": idArr,
+	            // 业务员的状态 1删除  2停用
+	            "type": 2,
+	            "pass_app": pass_app,
+	            "tel_app": tel_app,
+	            "code_app": code_app
+	        },
+	        timeout: 120000, //2分钟超时
+	        //请求成功
+	        success: function(data) {
+	            console.log(JSON.stringify(data));
+	            layer.close(index);
+	            if (data.result == 0) {
+	                // 需要重新登录
+	                if (window.plus) {
+	                    goToLogin("../../../page/register/login.html");
+	                } else {
+	                    document.addEventListener('plusready', goToLogin, false);
+	                }
+	            } else {
+	                $(".success").css("display", "block");
+	                setTimeout(() => {
+	                    $(".success").css("display", "none");
+	                    history.go(-2);
+	                }, 1000);
+	            }
+	
+	        },
+	        error: function(XMLHttpRequest, textStatus, errorThrown) {
+	            layer.close(index);
+	            if (textStatus == 'timeout') {
+	                ajaxPost.abort();
+	                alert("请求超时");
+	            }
+	            if (textStatus == 'error') {
+	                ajaxPost.abort();　
+	                alert("请求错误" + errorThrown);
+	            }
+	        }
+	    });
+	});
+</script>
 </html>

@@ -7,11 +7,344 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../../../js/mui.min.js"></script>
     <link rel="stylesheet" href="../../../css/mui.min.css">
-    <link rel="stylesheet" href="../../css/staffMana/beingUse.css">
     <script src="../../../js/mui.picker.min.js"></script>
     <link rel="stylesheet" href="../../../css/mui.picker.min.css">
-
     <title>员工列表_使用中</title>
+		
+		<style type="text/css">
+			body {
+			    margin: 0;
+			    padding: 0;
+			    font-size: 16px;
+			    color: #333333;
+			}
+			
+			header {
+			    position: fixed;
+			    top: 0;
+			    left: 0;
+			    z-index: 999;
+			    text-align: center;
+			    line-height: 44px;
+			    width: 100%;
+			    height: 44px;
+			    background-color: white;
+			    font-weight: bold;
+			    box-shadow: 0 2px 2px 0 rgb(231, 231, 231);
+			}
+			
+			header>img {
+			    position: absolute;
+			    top: 12px;
+			    left: 5px;
+			    width: 20px;
+			    height: 20px;
+			}
+			
+			header>div {
+			    height: 44px;
+			    line-height: 44px;
+			}
+			
+			header>div>span {
+			    color: #999999;
+			}
+			
+			.next {
+			    position: absolute;
+			    top: 0;
+			    right: 0;
+			    line-height: 44px;
+			    color: #7EB6FF;
+			    margin-right: 10px;
+			}
+			
+			.comBox {
+			    position: absolute;
+			    top: 88px;
+			    left: 0;
+			    width: 100%;
+			    background-color: white;
+			    margin-top: 20px;
+			    margin-bottom: 70px;
+			}
+			
+			.item {
+			    position: relative;
+			    display: flex;
+			    justify-content: space-between;
+			    width: 100%;
+			    height: 46px;
+			    border-top: 1px solid #e7e7e7;
+			}
+			
+			.select {
+			    display: none;
+			    position: absolute;
+			    left: 10px;
+			    top: 16px;
+			    z-index: 99;
+			}
+			
+			.comInfoBox {
+			    position: absolute;
+			    top: 0;
+			    left: 0px;
+			    width: 50%;
+			}
+			
+			.comInfoBox>div {
+			    display: inline-block;
+			    width: 100%;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;
+			    position: absolute;
+			    top: 0;
+			    left: 10px;
+			    line-height: 46px;
+			}
+			
+			.tel {
+			    position: absolute;
+			    line-height: 45px;
+			    top: 0;
+			    right: 30px;
+			    color: #999999;
+			}
+			
+			.comBox>div:nth-last-of-type(1) {
+			    border: none;
+			}
+			
+			.comTitle {
+			    width: 100%;
+			    margin: 0;
+			    box-sizing: border-box;
+			    height: 45px;
+			    border: none;
+			    line-height: 45px;
+			    font-weight: bold;
+			    padding: 10px 0 0 15px;
+			    line-height: 30px;
+			}
+			
+			.comImg {
+			    width: 34px;
+			    height: 34px;
+			    margin-top: 6px;
+			    margin-left: 15px;
+			    border-radius: 3px;
+			}
+			
+			.comInfo {
+			    position: absolute;
+			    top: 10px;
+			    right: 5px;
+			    width: 26px;
+			    height: 26px;
+			}
+			
+			.searchBox {
+			    /* display: none; */
+			    position: fixed;
+			    top: 44px;
+			    left: 0;
+			    z-index: 999;
+			    width: 100%;
+			    height: 44px;
+			    padding: 7px 0 7px 15px;
+			    border-bottom: 1px solid rgb(231, 231, 231);
+			    background-color: #efeff4;
+			}
+			
+			.searchIn {
+			    position: relative;
+			    width: calc(100% - 60px);
+			    height: 30px;
+			    background-color: white;
+			    border-radius: 3px;
+			    box-sizing: border-box;
+			}
+			
+			.searchIn>input {
+			    position: absolute;
+			    top: 0;
+			    left: 25px;
+			    padding: 0;
+			    width: 80%;
+			    height: 30px;
+			    font-size: 14px;
+			    text-align: left;
+			    background-color: white;
+			}
+			
+			.searchIn>input::placeholder {
+			    font-size: 12px;
+			}
+			
+			.searchImg {
+			    position: absolute;
+			    top: 7.5px;
+			    left: 5px;
+			    width: 15px;
+			    height: 15px;
+			}
+			
+			.toEmpty {
+			    position: absolute;
+			    top: 7.5px;
+			    right: 10px;
+			    width: 15px;
+			    height: 15px;
+			}
+			
+			.search {
+			    position: absolute;
+			    top: 0;
+			    right: 15px;
+			    line-height: 44px;
+			    font-size: 14px;
+			    color: #7EB6FF;
+			}
+			
+			.statusBox {
+			    display: none;
+			    position: relative;
+			    line-height: 46px;
+			    width: 100%;
+			    height: 46px;
+			    background-color: white;
+			    margin-top: 2px;
+			}
+			
+			.statusBox>span {
+			    position: absolute;
+			    top: 0;
+			    left: 0;
+			    margin-left: 10px;
+			}
+			
+			.statusBox>div {
+			    position: absolute;
+			    right: 0;
+			    top: 0;
+			    height: 46px;
+			}
+			
+			.status {
+			    margin-right: 35px;
+			    line-height: 46px;
+			    color: #999999;
+			}
+			
+			.statusBox img {
+			    position: absolute;
+			    right: 0;
+			    top: 10px;
+			    width: 26px;
+			    height: 26px;
+			    margin-right: 5px;
+			}
+			
+			footer {
+			    width: 100%;
+			    height: 50px;
+			    position: fixed;
+			    left: 0;
+			    bottom: 0;
+			    z-index: 99;
+			    background-color: white;
+			}
+			
+			.distrib,
+			.stopUsing {
+			    width: calc(100% - 20px);
+			    height: 40px;
+			    position: absolute;
+			    left: 10px;
+			    top: 5px;
+			    background-color: #7EB6FF;
+			    border-radius: 4px;
+			    text-align: center;
+			    line-height: 40px;
+			    color: white;
+			}
+			
+			.stopUsing {
+			    display: none;
+			    background-color: white;
+			    color: #7EB6FF;
+			    display: none;
+			    border: 1px solid rgb(204, 204, 204);
+			}
+			
+			.staffBox {
+			    display: none;
+			    position: absolute;
+			    right: 10px;
+			    top: 0;
+			    line-height: 46px;
+			    font-size: 14px;
+			    color: #999999;
+			}
+			
+			.select_all {
+			    position: absolute;
+			    line-height: 46px;
+			    color: #7EB6FF;
+			    top: 0;
+			    left: 10px;
+			    display: none;
+			}
+			
+			.errorBg {
+			    width: 100%;
+			    height: 100vh;
+			    position: absolute;
+			    top: 0;
+			    left: 0;
+			    z-index: 999;
+			    display: none;
+			}
+			
+			.errorBg .error {
+			    position: absolute;
+			    padding: 10px 15px;
+			    top: calc((100vh - 25px)/2);
+			    left: 0;
+			    width: 50%;
+			    margin-left: 25%;
+			    background-color: rgba(126, 182, 255, 0.7);
+			    color: white;
+			    font-size: 12px;
+			    text-align: center;
+			    line-height: 20px;
+			    font-size: 15px;
+			    border-radius: 3px;
+			}
+			
+			.toDetail {
+			    width: 100%;
+			}
+			
+			.success {
+			    display: none;
+			    width: 100%;
+			    height: 100vh;
+			    position: fixed;
+			    top: 0;
+			    left: 0;
+			    z-index: 9999;
+			}
+			
+			.success>img {
+			    width: 120px;
+			    height: 120px;
+			    margin-left: calc((100% - 120px)/2);
+			    margin-top: calc((100vh - 120px)/2);
+			}
+		</style>
 </head>
 
 <body>
@@ -76,6 +409,361 @@
 <script src="../../../js/jquery-3.3.1.js"></script>
 <script src="../../../js/urlDns.js"></script>
 <script src="../../../js/layer/layer.js"></script>
-<script src="../../js/staffMana/beingUse.js"></script>
 
+<script type="text/javascript">
+	var pass_app = localStorage.getItem("pass_app");
+	var tel_app = localStorage.getItem("tel_app");
+	var code_app = localStorage.getItem("code_app");
+	// console.log("tel_app：" + tel_app);
+	// console.log("pass_app：" + pass_app);
+	
+	// 返回
+	$(".back").click(() => {
+	    history.back();
+	});
+	
+	var page = 1;
+	
+	$(function() {
+	    var index = layer.load(1, {
+	        // 数组中第一个参数是button的透明度
+	        // 第二个是背景颜色
+	        shade: [0.3, "white"]
+	    });
+	    var getData = $.ajax({
+	        url: urlDns + "/control_app/ms/employee_manage/list",
+	        type: 'post',
+	        dataType: "json",
+	        timeout: 120000, //2分钟超时
+	        data: {
+	            // 第几页
+	            "page": 1,
+	            // 页数大小
+	            "rows": 20,
+	            // 搜索框的内容
+	            "name": "",
+	            // 状态：1使用中 2停用
+	            "status": 1,
+	            "pass_app": pass_app,
+	            "tel_app": tel_app,
+	            "code_app": code_app
+	        },
+	        //请求成功
+	        success: function(data) {
+	            console.log(JSON.stringify(data));
+	            layer.close(index);
+	            if (data.result == 0) {
+	                // 需要重新登录
+	                if (window.plus) {
+	                    goToLogin("../../../page/register/login.html");
+	                } else {
+	                    document.addEventListener('plusready', goToLogin, false);
+	                }
+	            } else {
+	                var htmlStr = "";
+	                for (var i = 0; i < data.rows.length; i++) {
+	                    htmlStr += `
+	                    <div class="item">
+	                        <input class="select" name="hh" value="${data.rows[i].id}" type="checkbox">
+	                        <section class="toDetail" staffId="${data.rows[i].id}">
+	                            <div class="comInfoBox">
+	                                <div id="">${data.rows[i].name}</div>
+	                            </div>
+	                            <span class="tel">${data.rows[i].tel}</span>
+	                            <img class="comInfo" src="../../../img/next.png" alt="">
+	                        </section>
+	
+	                    </div>
+	                `;
+	                }
+	                $(".companyBox").html(htmlStr);
+	            }
+	
+	        },
+	        error: function(XMLHttpRequest, textStatus, errorThrown) {
+	            layer.close(index);
+	            if (textStatus == 'timeout') {
+	                getData.abort();　
+	                alert("请求超时");
+	            }
+	            if (textStatus == 'error') {
+	                getData.abort();　
+	                alert("请求错误" + errorThrown);
+	            }
+	        }
+	    });
+	});
+	
+	// 选择按钮
+	var flag = false;
+	$(".next").click(() => {
+	    flag = !flag;
+	    if (flag == true) {
+	        $(".next").text("取消选择");
+	        $(".select").css("display", "block");
+	        $(".comInfoBox").css("left", "20px");
+	        $(".staffBox").css("display", "block");
+	        $(".searchBox").css("display", "none");
+	        $(".statusBox").css("display", "block");
+	        $(".back").css("display", "none");
+	        $(".select_all").css("display", "block");
+	        $(".distrib").css("display", "none");
+	        $(".stopUsing").css("display", "block");
+	        $(".comBox").css("top", "44px");
+	    } else {
+	        $(":checkbox[name='hh']").prop("checked", false);
+	        $(".next").text("选择");
+	        $(".select").css("display", "none");
+	        $(".comInfoBox").css("left", "0px");
+	        $(".staffBox").css("display", "none");
+	        $(".searchBox").css("display", "block");
+	        $(".statusBox").css("display", "none");
+	        $(".select_all").css("display", "none");
+	        $(".back").css("display", "block");
+	        $(".stopUsing").css("display", "none");
+	        $(".distrib").css("display", "block");
+	        $(".comBox").css("top", "88px");
+	    }
+	
+	});
+	
+	
+	// 搜索
+	$(".search").click(() => {
+	    var name = $("#name").val();
+	    var index = layer.load(1, {
+	        // 数组中第一个参数是button的透明度
+	        // 第二个是背景颜色
+	        shade: [0.3, "white"]
+	    });
+	    var getData = $.ajax({
+	        url: urlDns + "/control_app/ms/employee_manage/list",
+	        type: 'post',
+	        dataType: "json",
+	        timeout: 120000, //2分钟超时
+	        data: {
+	            // 第几页
+	            "page": 1,
+	            // 页数大小
+	            "rows": 20,
+	            // 搜索框的内容
+	            "name": name,
+	            // 状态：1使用中 2停用
+	            "status": 1,
+	            "pass_app": pass_app,
+	            "tel_app": tel_app,
+	            "code_app": code_app
+	        },
+	        //请求成功
+	        success: function(data) {
+	            console.log(JSON.stringify(data));
+	            layer.close(index);
+	            if (data.result == 0) {
+	                // 需要重新登录
+	                if (window.plus) {
+	                    goToLogin("../../../page/register/login.html");
+	                } else {
+	                    document.addEventListener('plusready', goToLogin, false);
+	                }
+	            } else {
+	                var htmlStr = "";
+	                for (var i = 0; i < data.rows.length; i++) {
+	                    htmlStr += `
+	                    <div class="item">
+	                        <input class="select" name="hh" value="${data.rows[i].id}" type="checkbox">
+	                        <section class="toDetail" staffId="${data.rows[i].id}">
+	                            <div class="comInfoBox">
+	                                <div id="">${data.rows[i].name}</div>
+	                            </div>
+	                            <span class="tel">${data.rows[i].tel}</span>
+	                            <img class="comInfo" src="../../../img/next.png" alt="">
+	                        </section>
+	
+	                    </div>
+	                `;
+	                }
+	                $(".companyBox").html(htmlStr);
+	                page = 1;
+	            }
+	
+	        },
+	        error: function(XMLHttpRequest, textStatus, errorThrown) {
+	            layer.close(index);
+	            if (textStatus == 'timeout') {
+	                getData.abort();　
+	                alert("请求超时");
+	            }
+	            if (textStatus == 'error') {
+	                getData.abort();　
+	                alert("请求错误" + errorThrown);
+	            }
+	        }
+	    });
+	});
+	
+	
+	// 给用户弹出错误提示的方法
+	function errorTips(info) {
+	    $(".error").text(info);
+	    $(".errorBg").css("display", "block");
+	    $('.errorBg').click(() => {
+	        $(".errorBg").css("display", "none");
+	    });
+	    setTimeout(function() {
+	        $(".errorBg").css("display", "none");
+	    }, 1500);
+	}
+	
+	// 清空搜索框
+	$(".toEmpty").click(() => {
+	    $(".searchIn>input").val("");
+	});
+	
+	
+	// 跳转详情页面
+	$(document).on("click", ".companyBox .toDetail", function(e) {
+	    var staffId = $(this).attr("staffId");
+	    console.log(staffId)
+	        // 存储员工的ID
+	    sessionStorage.setItem('staffId', staffId);
+	    // page.chooseType();
+	    location.href = "./staffInfo_edit.html";
+	});
+	
+	// 全选按钮
+	$(".select_all").click(() => {
+	    $(":checkbox[name='hh']").prop("checked", "checked");
+	});
+	
+	
+	// 停用
+	$(".stopUsing").click(() => {
+	    var value = $('input[type=checkbox]:checked').map(function() { return this.value });
+	    // console.log(JSON.stringify(value));
+	    if (value.length == 0) {
+	        // 没选择公司，提示用户
+	        errorTips("请选择单位");
+	    } else {
+	        var index = layer.load(1, {
+	            // 数组中第一个参数是button的透明度
+	            // 第二个是背景颜色
+	            shade: [0.3, "white"]
+	        });
+	        var ids = [];
+	        for (var i = 0; i < value.length; i++) {
+	            a = value[i];
+	            console.log(value[i]);
+	            ids.push(a);
+	        }
+	        // console.log(ids instanceof Array)
+	        // console.log(JSON.stringify(ids))
+	
+	        var ajaxPost = $.ajax({
+	            url: urlDns + "/control_app/ms/employee_manage/edit_status",
+	            // 当参数为数组时，直接传过去后台接收不到，要设置traditional: true
+	            traditional: true,
+	            type: 'post',
+	            dataType: "json",
+	            data: {
+	                "id": ids,
+	                // 要停用，状态传2
+	                "status": 2,
+	                "pass_app": pass_app,
+	                "tel_app": tel_app,
+	                "code_app": code_app
+	            },
+	            timeout: 120000, //2分钟超时
+	            //请求成功
+	            success: function(data) {
+	                console.log(JSON.stringify(data));
+	                layer.close(index);
+	                if (data.result == 0) {
+	                    // 需要重新登录
+	                    if (window.plus) {
+	                        goToLogin("../../../page/register/login.html");
+	                    } else {
+	                        document.addEventListener('plusready', goToLogin, false);
+	                    }
+	                } else {
+	                    $(".success").css("display", "block");
+	                    setTimeout(() => {
+	                        $(".success").css("display", "none");
+	                        location.reload();
+	                    }, 1000);
+	                }
+	
+	            },
+	            error: function(XMLHttpRequest, textStatus, errorThrown) {
+	                layer.close(index);
+	                if (textStatus == 'timeout') {
+	                    ajaxPost.abort();
+	                    alert("请求超时");
+	                }
+	                if (textStatus == 'error') {
+	                    ajaxPost.abort();　
+	                    alert("请求错误" + errorThrown);
+	                }
+	            }
+	        });
+	    }
+	});
+	
+	// 业务调配
+	$(".distrib").click(() => {
+	    location.href = "./business_out.html";
+	});
+	
+	
+	// 加载下一页
+	$(window).scroll(function() {
+	    if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+	        page = page + 1;
+	        $.post(urlDns + "/control_app/ms/employee_manage/list", {
+	            // 第几页
+	            page: page,
+	            // 页数大小
+	            rows: 20,
+	            // 搜索框的内容
+	            name: "",
+	            // 状态：1使用中 2停用
+	            status: 1,
+	            pass_app: pass_app,
+	            tel_app: tel_app,
+	            code_app: code_app
+	        }, (data) => {
+	            console.log(JSON.stringify(data));
+	            if (data.result == 0) {
+	                // 需要重新登录
+	                if (window.plus) {
+	                    goToLogin("../../../page/register/login.html");
+	                } else {
+	                    document.addEventListener('plusready', goToLogin, false);
+	                }
+	            } else {
+	                if (data.rows.length > 0) {
+	                    var htmlStr = "";
+	                    for (var i = 0; i < data.rows.length; i++) {
+	                        htmlStr += `
+	                        <div class="item">
+	                            <input class="select" name="hh" value="${data.rows[i].id}" type="checkbox">
+	                            <section class="toDetail" staffId="${data.rows[i].id}">
+	                                <div class="comInfoBox">
+	                                    <div id="">${data.rows[i].name}</div>
+	                                </div>
+	                                <span class="tel">${data.rows[i].tel}</span>
+	                                <img class="comInfo" src="../../../img/next.png" alt="">
+	                            </section>
+	    
+	                        </div>
+	                    `;
+	                    }
+	                    $(".companyBox").append(htmlStr);
+	                }
+	            }
+	
+	
+	        });
+	    }
+	});
+</script>
 </html>

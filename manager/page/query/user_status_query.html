@@ -7,11 +7,141 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../../../js/mui.min.js"></script>
     <link rel="stylesheet" href="../../../css/mui.min.css">
-    <link rel="stylesheet" href="../../css/query/user_status_query.css">
     <title>用户状态统计</title>
     <script>
         mui.init();
     </script>
+		
+		<style type="text/css">
+			body {
+			    margin: 0;
+			    padding: 0;
+			    color: #333333;
+			}
+			
+			header {
+			    position: fixed;
+			    top: 0;
+			    left: 0;
+			    z-index: 99;
+			    text-align: center;
+			    line-height: 44px;
+			    width: 100%;
+			    height: 44px;
+			    font-weight: bold;
+			    background-color: white;
+			    box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+			}
+			
+			header>img {
+			    position: absolute;
+			    top: 12px;
+			    left: 5px;
+			    width: 20px;
+			    height: 20px;
+			}
+			
+			header>div {
+			    position: absolute;
+			    top: 0;
+			    right: 5px;
+			    height: 44px;
+			    line-height: 44px;
+			}
+			
+			.next {
+			    line-height: 44px;
+			    color: #7EB6FF;
+			    margin-right: 10px;
+			}
+			
+			ul {
+			    list-style: none;
+			    padding: 0;
+			    margin: 20px 0 0 0;
+			}
+			
+			li {
+			    display: flex;
+			    justify-content: space-between;
+			    width: 100%;
+			    height: 46px;
+			    background-color: white;
+			    margin-bottom: 2px;
+			    line-height: 46px;
+			    padding: 0 15px 0 15px;
+			    box-sizing: border-box;
+			}
+			
+			li img {
+			    width: 25px;
+			    height: 25px;
+			    vertical-align: middle;
+			}
+			
+			li>div>span {
+			    color: rgb(153, 153, 153);
+			}
+			
+			.userTypeBox{
+			    position: fixed;
+			    top: 44px;
+			    left: 0;
+			    z-index: 99;
+			    width: 100%;
+			    height: 45px;
+			    background-color: white;
+			    display: flex;
+			    justify-content: space-around;
+			}
+			
+			.userTypeBox div{
+			    line-height: 45px;
+			    
+			    box-sizing: border-box;
+			}
+			
+			.user_com{
+			    border-bottom: 3px solid #7EB6FF;
+			}
+			.user_free,.user_cooperator{
+			    border: none;
+			}
+			.user_numTip{
+			    position: fixed;
+			    top: 88px;
+			    left: 0;
+			    z-index: 99;
+			    width: 100%;
+			    height: 30px;
+			    line-height: 30px;
+			    font-size: 14px;
+			    padding: 0 15px;
+			    display: flex;
+			    justify-content: space-between;
+			    background-color: #efeff4;
+			}
+			
+			.inserver{
+			    position: fixed;
+			    top: 118px;
+			    left: 0;
+			    z-index: 99;
+			    width: 100%;
+			    height: 46px;
+			    padding: 0 15px;
+			    line-height: 46px;
+			    background-color: white;
+			    display: flex;
+			    justify-content: space-between;
+			}
+			.com_ul,.free_ul,.cooper_ul{
+			    margin-top: 184px;
+			}
+			.free_ul,.cooper_ul{
+			    display: none;
+			}
+		</style>
 </head>
 
 <body>
@@ -228,6 +358,126 @@
 </body>
 <script src="../../../js/jquery-3.3.1.js"></script>
 <script src="../../../js/urlDns.js"></script>
-<script src="../../js/query/user_status_query.js"></script>
+
+<script type="text/javascript">
+	var pass_app = localStorage.getItem("pass_app");
+	var tel_app = localStorage.getItem("tel_app");
+	var code_app = localStorage.getItem("code_app");
+	
+	// 返回
+	$(".back").click(()=>{
+	    history.back();
+	})
+	
+	$.post(urlDns + "/control_app/ms/fr/user/userCount",{
+	    usertype:"2",
+	    tel_app:tel_app,
+	    pass_app:pass_app,
+	    code_app:code_app
+	},function(data){
+	    console.log(JSON.stringify(data))
+	    $(".user_num").text(data.dw_8);
+	    $(".com_djlqr").text(data.dw_6);
+	    $(".com_dzgsh").text(data.dw_1);
+	    $(".com_zgshth").text(data.dw_11);
+	    $(".com_dwszl").text(data.dw_3);
+	    $(".com_ddwqr").text(data.dw_2);
+	    $(".com_dwth").text(data.dw_22);
+	})
+	
+	// usertype  2单位 1业者 11合作伙伴
+	$(".user_com").click(()=>{
+	    // 单位
+	    $(".user_com").css("border-bottom","3px solid #7EB6FF")
+	    $(".user_free").css("border","none")
+	    $(".user_cooperator").css("border","none")
+	
+	    $(".com_ul").css("display","block")
+	    $(".free_ul").css("display","none")
+	    $(".cooper_ul").css("display","none")
+	
+	    $.post(urlDns + "/control_app/ms/fr/user/userCount",{
+	        usertype:"2",
+	        tel_app:tel_app,
+	        pass_app:pass_app,
+	        code_app:code_app
+	    },function(data){
+	        console.log(JSON.stringify(data))
+	        $(".user_num").text(data.dw_8);
+	        $(".com_djlqr").text(data.dw_6);
+	        $(".com_dzgsh").text(data.dw_1);
+	        $(".com_zgshth").text(data.dw_11);
+	        $(".com_dwszl").text(data.dw_3);
+	        $(".com_ddwqr").text(data.dw_2);
+	        $(".com_dwth").text(data.dw_22);
+	    })
+	})
+	$(".user_free").click(()=>{
+	    // 业者
+	    $(".user_free").css("border-bottom","3px solid #7EB6FF")
+	    $(".user_com").css("border","none")
+	    $(".user_cooperator").css("border","none")
+	
+	    $(".free_ul").css("display","block")
+	    $(".com_ul").css("display","none")
+	    $(".cooper_ul").css("display","none")
+	
+	    $.post(urlDns + "/control_app/ms/fr/user/userCount",{
+	        usertype:"1",
+	        tel_app:tel_app,
+	        pass_app:pass_app,
+	        code_app:code_app
+	    },function(data){
+	        console.log(JSON.stringify(data))
+	        $(".user_num").text(data.yz_8);
+	        $(".free_dshfwf").text(data.yz_1);
+	        $(".free_fwfybtg").text(data.yz_11);
+	        $(".free_dszfwf").text(data.yz_111);
+	        $(".free_ddwqr").text(data.yz_5);
+	        $(".free_dwth").text(data.yz_55);
+	        $(".free_dwsfrxx").text(data.yz_33);
+	        $(".free_dqrgrxx").text(data.yz_2);
+	        $(".free_grxxbtg").text(data.yz_22);
+	        $(".free_dwszl").text(data.yz_3);
+	        $(".free_dzgsh").text(data.yz_7);
+	        $(".free_zgth").text(data.yz_77);
+	        $(".free_dyzqrzl").text(data.yz_4);
+	        $(".free_yzth").text(data.yz_44);
+	    })
+	})
+	$(".user_cooperator").click(()=>{
+	    // 合作伙伴
+	    $(".user_cooperator").css("border-bottom","3px solid #7EB6FF")
+	    $(".user_free").css("border","none")
+	    $(".user_com").css("border","none")
+	
+	    $(".cooper_ul").css("display","block")
+	    $(".com_ul").css("display","none")
+	    $(".free_ul").css("display","none")
+	
+	
+	    $.post(urlDns + "/control_app/ms/fr/user/userCount",{
+	        usertype:"11",
+	        tel_app:tel_app,
+	        pass_app:pass_app,
+	        code_app:code_app
+	    },function(data){
+	        console.log(JSON.stringify(data))
+	        $(".user_num").text(data.hhr_8);
+	        $(".cooper_dshfwf").text(data.hhr_1);
+	        $(".cooper_fwfybtg").text(data.hhr_11);
+	        $(".cooper_dwsgrxx").text(data.hhr_33);
+	        $(".cooper_dqrgrxx").text(data.hhr_2);
+	        $(".cooper_grxxbtg").text(data.hhr_22);
+	        $(".cooper_dwszl").text(data.hhr_3);
+	        $(".cooper_dzgsh").text(data.hhr_7);
+	        $(".cooper_zgth").text(data.hhr_77);
+	        $(".cooper_dhzhbqrzl").text(data.hhr_4);
+	        $(".cooper_hzhbth").text(data.hhr_44);
+	    })
+	})
+	
+	
+</script>
 
 </html>
