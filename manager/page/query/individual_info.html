@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="../../../css/mui.min.css">
 		<script src="../../../js/mescroll.min.js"></script>
 		<link rel="stylesheet" href="../../../css/mescroll.min.css">
-		<title>查询--用户查询--个人信息</title>
+		<title>查询--用户查询--公司信息</title>
 
 		<style type="text/css">
 			body {
@@ -47,6 +47,14 @@
 				height: 44px;
 			}
 
+			.com-status {
+				width: 100%;
+				line-height: 44px;
+				background-color: #fff;
+				margin: 20px 0;
+				padding: 0 15px;
+			}
+
 			ul {
 				list-style: none;
 				padding: 0 15px;
@@ -55,7 +63,7 @@
 			}
 
 			li {
-				border-bottom: 1px solid #eee;
+				border-bottom: 1px solid #ddd;
 				display: flex;
 				justify-content: space-between;
 				width: 100%;
@@ -75,18 +83,15 @@
 				color: rgb(153, 153, 153);
 			}
 
-			.per-IDcard,
-			.account-num,
-			.income-scope,
-			.taxes-type,
-			.taxes-added,
-			.taxes-income {
+			.info-title {
+				line-height: 50px;
+				font-weight: 800;
+				font-size: 17px;
+			}
+
+			.com-range,.com-license,.account-num {
 				border: none !important;
 			}
-			
-			.row { background-color: #eee; line-height: 28px; }
-			
-			.pay-amount-li { font-weight: 700; color: #0062CC;}
 		</style>
 	</head>
 
@@ -95,31 +100,95 @@
 			<img class="back" src="../../../img/back_black.png" alt=""> 公司信息
 		</header>
 		<div class="the-place"></div>
-		
-		<ul class="added-info">
-			<li class="added-name">
-				<span>增值税</span>
+		<div class="com-status">注册状态: <span>待主管审核</span></div>
+		<!-- 商户基本信息 -->
+		<ul class="com-info">
+			<div class="info-title">商户基本信息</div>
+			<li class="com-creditcode">
+				<span>统一社会信用代码</span>
 				<div>
-					<span class="added-name-li"></span>
+					<span class="com-creditcode-li"></span>
 				</div>
 			</li>
-			<li class="added-percent">
-				<span>征收率</span>
+			<li class="com-operator">
+				<span>经营者</span>
 				<div>
-					<span class="per-code-li"></span>
+					<span class="com-operator-li"></span>
 				</div>
 			</li>
-			<li class="added-percent">
-				<span>纳税方式</span>
+			<li class="com-name">
+				<span>商户名称</span>
 				<div>
-					<span class="per-code-li"></span>
+					<span class="com-name-li"></span>
+				</div>
+			</li>
+			<li class="com-type">
+				<span>类型</span>
+				<div>
+					<span class="com-type-li"></span>
+				</div>
+			</li>
+			<li class="com-date">
+				<span>注册日期</span>
+				<div>
+					<span class="com-date-li"></span>
+				</div>
+			</li>
+			<li class="com-range">
+				<span>经营范围</span>
+				<div>
+					<span class="com-range-li"></span>
 					<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
-			<li class="added-percent">
-				<span>核定定额 (元)</span>
+		</ul>
+		
+		<ul>
+			<li class="com-address">
+				<span>登记地址</span>
 				<div>
-					<span class="per-code-li"></span>
+					<span class="com-address-li"></span>
+				</div>
+			</li>
+			<li class="com-organ">
+				<span>登记机关</span>
+				<div>
+					<span class="com-organ-li"></span>
+				</div>
+			</li>
+			<li class="com-issue">
+				<span>发证日期</span>
+				<div>
+					<span class="com-issue-li"></span>
+				</div>
+			</li>
+			<li class="com-license">
+				<span>营业执照</span>
+				<div>
+					<span class="com-license-li"></span>
+					<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+		</ul>
+
+		<ul class="account-info">
+			<div class="info-title">公司账户信息</div>
+			<li class="account-bank">
+				<span>开户行</span>
+				<div>
+					<span class="account-bank-li"></span>
+				</div>
+			</li>
+			<li class="account-name">
+				<span>开户名</span>
+				<div>
+					<span class="account-name-li"></span>
+				</div>
+			</li>
+			<li class="account-num">
+				<span>账号</span>
+				<div>
+					<span class="account-num-li"></span>
 				</div>
 			</li>
 		</ul>

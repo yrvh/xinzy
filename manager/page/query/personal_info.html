@@ -47,6 +47,14 @@
 				height: 44px;
 			}
 
+			.per-status {
+				width: 100%;
+				line-height: 44px;
+				background-color: #fff;
+				margin: 20px 0;
+				padding: 0 15px;
+			}
+
 			ul {
 				list-style: none;
 				padding: 0 15px;
@@ -75,6 +83,12 @@
 				color: rgb(153, 153, 153);
 			}
 
+			.info-title {
+				line-height: 50px;
+				font-weight: 800;
+				font-size: 17px;
+			}
+
 			.per-IDcard,
 			.account-num,
 			.income-scope,
@@ -85,8 +99,6 @@
 			}
 			
 			.row { background-color: #eee; line-height: 28px; }
-			
-			.pay-amount-li { font-weight: 700; color: #0062CC;}
 		</style>
 	</head>
 
@@ -95,31 +107,97 @@
 			<img class="back" src="../../../img/back_black.png" alt=""> 公司信息
 		</header>
 		<div class="the-place"></div>
-		
-		<ul class="added-info">
-			<li class="added-name">
-				<span>增值税</span>
+		<div class="per-status">注册状态: <span>待完善资料</span></div>
+		<!-- 公司基本信息 -->
+		<ul class="personal_info">
+			<div class="info-title">个人基本信息</div>
+			<li class="per-name">
+				<span>姓名</span>
 				<div>
-					<span class="added-name-li"></span>
+					<span class="per-name-li"></span>
 				</div>
 			</li>
-			<li class="added-percent">
-				<span>征收率</span>
+			<li class="per-tel">
+				<span>手机号码</span>
 				<div>
-					<span class="per-code-li"></span>
+					<span class="per-tel-li"></span>
 				</div>
 			</li>
-			<li class="added-percent">
-				<span>纳税方式</span>
+			<li class="per-email">
+				<span>电子邮箱</span>
 				<div>
-					<span class="per-code-li"></span>
+					<span class="per-email-li"></span>
+				</div>
+			</li>
+			<li class="per-IDcard">
+				<span>身份证号码</span>
+				<div>
+					<span class="per-IDcard-li"></span>
+				</div>
+			</li>
+			<li class="per-IDcard">
+				<span>证件照片</span>
+				<div>
+					<span class="per-IDcard-li"></span>
 					<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
-			<li class="added-percent">
+		</ul>
+
+		<ul class="account-info">
+			<div class="info-title">个人账户信息</div>
+			<li class="account-bank">
+				<span>开户机构</span>
+				<div>
+					<span class="account-bank-li"></span>
+				</div>
+			</li>
+			<li class="account-name">
+				<span>开户名</span>
+				<div>
+					<span class="account-name-li"></span>
+				</div>
+			</li>
+			<li class="account-num">
+				<span>账号</span>
+				<div>
+					<span class="account-num-li"></span>
+				</div>
+			</li>
+		</ul>
+
+		<ul class="income-info">
+			<div class="info-title">收入信息</div>
+			<li class="income-scope">
+				<span>收入范围(元)</span>
+				<div>
+					<span class="income-scope-li"></span>
+				</div>
+			</li>
+		</ul>
+
+		<ul class="taxes-info">
+			<div class="info-title">纳税信息</div>
+			<li class="taxes-type">
+				<span>行业类型</span>
+				<div>
+					<span class="taxes-type-li"></span>
+				</div>
+			</li>
+			
+			<div class="added row">增值税 (按月)</div>
+			<li class="taxes-added">
 				<span>核定定额 (元)</span>
 				<div>
-					<span class="per-code-li"></span>
+					<span class="taxes-added-li"></span>
+				</div>
+			</li>
+			
+			<div class="income row">个人所得税</div>
+			<li class="taxes-income">
+				<span>核定定额(元)</span>
+				<div>
+					<span class="taxes-income-li"></span>
 				</div>
 			</li>
 		</ul>
