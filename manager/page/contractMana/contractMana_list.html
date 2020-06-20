@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="../../../css/mui.min.css">
 	<script src="../../../js/mescroll.min.js"></script>
 	<link rel="stylesheet" href="../../../css/mescroll.min.css">
-	<title>查询--用户查询--公司信息</title>
+	<title>协议审核--协议列表</title>
 	
 	<style type="text/css">
 		body { margin: 0; padding: 0; font-size: 16px; color: #333333; }
@@ -35,195 +35,28 @@
 		
 		li>div>span { color: rgb(153, 153, 153); }
 		
-		.info-title { line-height: 50px; font-weight: 800; font-size: 17px;}
-		
-		.com-license,.corp-email,.account-num,.comfree-contract {border: none !important;}
+	
+		.com-license{border: none !important;}
 	</style>
 </head>
 
 <body>
 	<header>
-			<img class="back" src="../../../img/back_black.png" alt=""> 公司信息
+			<img class="back" src="../../../img/back_black.png" alt=""> <span>公司与单位协议</span>
 	</header>
 	<div class="the-place"></div>
-	<div class="com-status">注册状态: <span>待主管审核</span></div>
-	<!-- 公司基本信息 -->
+	
 	<ul class="com-info">
-		<div class="info-title">公司基本信息</div>
 		<li class="com-logo">
-				<span>公司商标</span>
+				<span>2020-01-20 14: 16</span>
 				<div>
-						<span class="com-logo-li"></span>
-						<img src="../../../img/next.png" alt="">
+						<span class="com-logo-li">查看</span>
 				</div>
 		</li>
 		<li class="com-creditcode">
-				<span>统一社会信用代码</span>
+				<span>2020-02-20 15:39</span>
 				<div>
-						<span class="com-creditcode-li"></span>
-				</div>
-		</li>
-		<li class="com-name">
-				<span>单位名称</span>
-				<div>
-						<span class="com-name-li"></span>
-				</div>
-		</li>
-		<li class="com-acronym">
-				<span>单位名称缩写</span>
-				<div>
-						<span class="com-acronym-li"></span>
-						<img src="../../../img/next.png" alt="">
-				</div>
-		</li>
-		<li class="com-fund">
-				<span>注册资本</span>
-				<div>
-						<span class="com-fund-li"></span>
-				</div>
-		</li>
-		<li class="com-type">
-				<span>单位类型</span>
-				<div>
-						<span class="com-type-li"></span>
-				</div>
-		</li>
-		<li class="com-address">
-				<span>住所</span>
-				<div>
-						<span class="com-address-li"></span>
-						<img src="../../../img/next.png" alt="">
-				</div>
-		</li>
-		<li class="com-detailaddr">
-				<span>详细地址</span>
-				<div>
-						<span class="com-detailaddr-li"></span>
-						<img src="../../../img/next.png" alt="">
-				</div>
-		</li>
-		<li class="com-fixedtel">
-				<span>固定电话</span>
-				<div>
-						<span class="com-fixedtel-li"></span>
-				</div>
-		</li>
-		<li class="com-regidate">
-				<span>成立日期</span>
-				<div>
-						<span class="com-regidate-li"></span>
-				</div>
-		</li>
-		<li class="com-deadline">
-				<span>经营期限</span>
-				<div>
-						<span class="com-deadline-li"></span>
-				</div>
-		</li>
-		<li class="com-range">
-				<span>业务范围</span>
-				<div>
-						<span class="com-range-li"></span>
-						<img src="../../../img/next.png" alt="">
-				</div>
-		</li>
-		<li class="com-major">
-				<span>主营业务</span>
-				<div>
-						<span class="com-major-li"></span>
-						<img src="../../../img/next.png" alt="">
-				</div>
-		</li>
-		<li class="com-organ">
-				<span>公司登记机关</span>
-				<div>
-						<span class="com-organ-li"></span>
-				</div>
-		</li>
-		<li class="com-issue">
-				<span>发证日期</span>
-				<div>
-						<span class="com-issue-li"></span>
-				</div>
-		</li>
-		<li class="com-license">
-				<span>营业执照</span>
-				<div>
-						<span class="com-license-li"></span>
-						<img src="../../../img/next.png" alt="">
-				</div>
-		</li>
-	</ul>
-	
-	<ul class="corp-info">
-		<div class="info-title">法定代表人信息</div>
-		<li class="corp-name">
-				<span>法人代表姓名</span>
-				<div>
-						<span class="corp-name-li"></span>
-				</div>
-		</li>
-		<li class="corp-type">
-				<span>证件类型</span>
-				<div>
-						<span class="corp-type-li"></span>
-						<img src="../../../img/next.png" alt="">
-				</div>
-		</li>
-		<li class="corp-number">
-				<span>证件号码</span>
-				<div>
-						<span class="corp-number-li"></span>
-				</div>
-		</li>
-		<li class="corp-photo">
-				<span>证件照片</span>
-				<div>
-						<span class="corp-photo-li"></span>
-						<img src="../../../img/next.png" alt="">
-				</div>
-		</li>
-		<li class="corp-tel">
-				<span>手机号码</span>
-				<div>
-						<span class="corp-tel-li"></span>
-				</div>
-		</li>
-		<li class="corp-email">
-				<span>电子邮箱</span>
-				<div>
-						<span class="corp-email-li"></span>
-				</div>
-		</li>
-	</ul>
-	
-	<ul class="account-info">
-		<div class="info-title">公司账户信息</div>
-		<li class="account-bank">
-				<span>开户行</span>
-				<div>
-						<span class="account-bank-li"></span>
-				</div>
-		</li>
-		<li class="account-name">
-				<span>开户名</span>
-				<div>
-						<span class="account-name-li"></span>
-				</div>
-		</li>
-		<li class="account-num">
-				<span>账号</span>
-				<div>
-						<span class="account-num-li"></span>
-				</div>
-		</li>
-	</ul>
-	
-	<ul class="com-free">
-		<li class="comfree-contract">
-				<span>与业者的协议模板</span>
-				<div>
-						<span class="comfree-contract-li"></span>
+						<span class="com-creditcode-li">审核</span>
 				</div>
 		</li>
 	</ul>
@@ -375,3 +208,4 @@
 	});
 </script>
 </html>
+

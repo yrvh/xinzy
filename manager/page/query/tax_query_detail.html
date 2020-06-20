@@ -47,40 +47,19 @@
 				height: 44px;
 			}
 
-			ul {
-				list-style: none;
-				padding: 0 15px;
-				margin-bottom: 20px;
-				background-color: #fff;
-			}
+			ul { list-style: none; padding: 0 15px; margin-bottom: 20px; background-color: #fff;}
 
-			li {
-				border-bottom: 1px solid #eee;
-				display: flex;
-				justify-content: space-between;
-				width: 100%;
-				height: 46px;
-				margin-bottom: 2px;
-				line-height: 46px;
-				box-sizing: border-box;
-			}
-
-			li img {
-				width: 25px;
-				height: 25px;
-				vertical-align: middle;
-			}
+			li { border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; width: 100%; height: 46px; margin-bottom: 2px; line-height: 46px; box-sizing: border-box; }
+			
+			li>div { display: flex; align-items: center; justify-content: space-between;}
+			
+			li img { width: 25px; height: 25px; }
 
 			li>div>span {
 				color: rgb(153, 153, 153);
 			}
 
-			.per-IDcard,
-			.account-num,
-			.income-scope,
-			.taxes-type,
-			.taxes-added,
-			.taxes-income {
+			.per-code,.taxtype-loc-edu,.pay-date,.taxtype-cycle {
 				border: none !important;
 			}
 			
@@ -111,49 +90,49 @@
 			</li>
 		</ul>
 		
-		<ul class="type-info">
-			<li class="tax-type">
-				<span>电子邮箱</span>
+		<ul class="taxtype-info">
+			<li class="taxtype-type">
+				<span>征收方式</span>
 				<div>
-					<span class="tax-type-li"></span>
+					<span class="taxtype-type-li"></span>
 				</div>
 			</li>
-			<li class="tax-cycle">
-				<span>电子邮箱</span>
+			<li class="taxtype-cycle">
+				<span>申报周期</span>
 				<div>
-					<span class="tax-cycle-li"></span>
+					<span class="taxtype-cycle-li"></span>
 				</div>
 			</li>
 			
 			<div class="row">应纳税款: 200.00</div>
-			<li class="tax-added">
+			<li class="taxtype-added">
 				<span>增值税</span>
 				<div>
-					<span class="tax-added-li"></span>
+					<span class="taxtype-added-li"></span>
 				</div>
 			</li>
-			<li class="tax-income">
+			<li class="taxtype-income">
 				<span>个人所得税</span>
 				<div>
-					<span class="tax-income-li"></span>
+					<span class="taxtype-income-li"></span>
 				</div>
 			</li>
-			<li class="tax-city">
+			<li class="taxtype-city">
 				<span>城市维护建设税</span>
 				<div>
-					<span class="tax-city-li"></span>
+					<span class="taxtype-city-li"></span>
 				</div>
 			</li>
-			<li class="tax-edu">
+			<li class="taxtype-edu">
 				<span>教育费附加税</span>
 				<div>
-					<span class="tax-edu-li"></span>
+					<span class="taxtype-edu-li"></span>
 				</div>
 			</li>
-			<li class="tax-loc-edu">
+			<li class="taxtype-loc-edu">
 				<span>地方教育费附加税</span>
 				<div>
-					<span class="tax-loc-edu-li"></span>
+					<span class="taxtype-loc-edu-li"></span>
 				</div>
 			</li>
 		</ul>
@@ -173,7 +152,7 @@
 			</li>
 		</ul>
 
-		<ul class="taxes-info">
+		<!-- <ul class="taxes-info">
 			<div class="info-title">纳税信息</div>
 			<li class="taxes-type">
 				<span>行业类型</span>
@@ -197,7 +176,7 @@
 					<span class="taxes-income-li"></span>
 				</div>
 			</li>
-		</ul>
+		</ul> -->
 
 	</body>
 	<script src="../../../js/jquery-3.3.1.js"></script>

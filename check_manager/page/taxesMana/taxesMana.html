@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../../../js/mui.min.js"></script>
     <link rel="stylesheet" href="../../../css/mui.min.css">
-    <title>协议管理</title>
+    <title>税收政策</title>
 		
 		<style type="text/css">
 			body {
@@ -105,59 +105,36 @@
 
 <body>
     <header>
-        <img class="back" src="../../../img/back_black.png" alt=""> 协议模板
+        <img class="back" src="../../../img/back_black.png" alt=""> 税收政策
         <!-- <div class="header">
             <div class="user_com">单位用户</div>
             <div class="user_free">业者用户</div>
         </div> -->
     </header>
     <ul class="company">
-        <li class="and_com">
-            <span>公司与单位协议</span>
+        <li class="city_building">
+            <span>城市建设维护税</span>
             <div>
                 <span class="waitCheck"></span>
                 <img src="../../../img/next.png" alt="">
             </div>
         </li>
-        <li class="and_free">
-            <span>公司与业者协议</span>
+        <li class="edu_addit">
+            <span>教育费附加</span>
             <div>
                 <span class="pass"></span>
                 <img src="../../../img/next.png" alt="">
             </div>
         </li>
-				<li class="and_coop">
-				    <span>公司与合作伙伴协议</span>
-				    <div>
-				        <span class="pass"></span>
-				        <img src="../../../img/next.png" alt="">
-				    </div>
-				</li>
-        <li class="three">
-            <span>三方协议</span>
+        <li class="local_edu_addit">
+            <span>地方教育费附加</span>
             <div>
                 <span class="toBack"></span>
                 <img src="../../../img/next.png" alt="">
             </div>
         </li>
-				<li class="and_entrust">
-				    <span>委托协议上传</span>
-				    <div>
-				        <span class="pass"></span>
-				        <img src="../../../img/next.png" alt="">
-				    </div>
-				</li>
 
     </ul>
-		<ul class="company-free">
-			<li class="and_entrust">
-			    <span>单位与业者的协议模板</span>
-			    <div>
-			        <span class="pass"></span>
-			        <img src="../../../img/next.png" alt="">
-			    </div>
-			</li>
-		</ul>
 
 </body>
 <script src="../../../js/jquery-3.3.1.js"></script>
@@ -170,35 +147,19 @@
 	    mui.back();
 	});
 	
-	// 公司与单位的协议
-	$(".and_com").click(() => {
-	    location.href = "./com_company.html";
+	// 城市建设维护税
+	$(".city_building").click(() => {
+	    location.href = "./city_building_taxes.html";
 	});
 	
-	// 公司与业者的协议
-	$(".and_free").click(() => {
-	    location.href = "./com_free.html";
+	// 教育费附加
+	$(".edu_addit").click(() => {
+	    location.href = "./edu_addit_taxes.html";
 	});
 	
-	// 公司与合作伙伴的协议
-	$(".and_coop").click(() => {
-	    location.href = "./com_coop.html";
-	});
-	
-	// 三方协议
-	$(".three").click(() => {
-	    location.href = "./three.html";
-	});
-	
-	//委托协议上传
-	$(".and_entrust").click(() => {
-	    location.href = "./entrust.html";
-	});
-	
-	
-	// 单位与业者的协议模板
-	$(".and_free").click(() => {
-	    location.href = "./company_free.html";
+	// 地方教育费附加
+	$(".local_edu_addit").click(() => {
+	    location.href = "./local_edu_taxes.html";
 	});
 </script>
 
