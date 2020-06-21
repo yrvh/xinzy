@@ -9,6 +9,43 @@
     <link rel="stylesheet" href="../../../css/mui.min.css">
     <link rel="stylesheet" href="../../css/tabPage/home.css">
     <title>主管首页</title>
+		
+		<style type="text/css">
+			body {
+			    margin: 0;
+			    padding: 0;
+			    font-size: 16px;
+			}
+			
+			.mui-slider .mui-slider-group .mui-slider-item img {
+			    height: 220px;
+			}
+			
+			.home_income {
+			    width: 100%;
+			    height: 200px;
+			    background-color: white !important;
+			}
+			
+			.line {
+			    width: 100%;
+			    height: 30px;
+			    background-color: white;
+			}
+			
+			.home_income>div {
+			    width: 25%;
+			    text-align: center;
+			    float: left;
+			    font-size: 13px;
+			}
+			
+			.home_income>div>img {
+			    margin-top: 10px;
+			    width: 48px;
+			    height: 48px;
+			}
+		</style>
 </head>
 
 <body>
@@ -62,6 +99,31 @@
 <script src="../../../js/jquery-3.3.1.js"></script>
 <script src="../../../js/layer/layer.js"></script>
 <script src="../../../js/urlDns.js"></script>
-<script src="../../js/tabPage/home.js"></script>
+
+<script type="text/javascript">
+	mui.init();
+	
+	// 收入管理
+	$(".user_mana").click(() => {
+	    mui.openWindow('../income/income_a.html');
+	});
+	
+	// 发票管理
+	$(".staff_mana").click(() => {
+	    mui.openWindow('../invoice/invoice.html');
+	});
+	
+	// 纳税记录
+	$(".contract_mana").click(() => {
+	    mui.openWindow('../taxes/taxes.html');
+	});
+	
+	// 名下业者/单位查询
+	$(".taxes_setting").click(() => {
+	    mui.openWindow('../check/check.html');
+	});
+	
+	// 代理注册
+</script>
 
 </html>
