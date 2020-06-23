@@ -765,10 +765,11 @@ $(".agreeThree").click(() => {
 	});
 });
 
+// 从本地提取密码
 $(function() {
 	var strName = localStorage.getItem('keyName');
 	var strPass = localStorage.getItem('keyPass');
-	if (strName) {
+	if (strName!=null) {
 		$('#userNum').val(strName);
 		$('#pwd').val(strPass);
 		$("#remPwd").attr("checked", "true");
