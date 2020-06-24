@@ -6,7 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<script src="../../../js/mui.min.js"></script>
 		<link rel="stylesheet" href="../../../css/mui.min.css">
-		<title>收入管理</title>
+		<title>--审核主管--收入管理--</title>
 		<script type="text/javascript">
 			mui.init();
 		</script>
@@ -142,10 +142,10 @@
 		var pass_app = localStorage.getItem("pass_app");
 		var tel_app = localStorage.getItem("tel_app");
 		var code_app = localStorage.getItem("code_app");
-		// console.log(pass_app)
-		// console.log(tel_app)
-		// console.log(code_app)
-		getInfo(0) // 初次加载时, 获取页面信息 0:单位录入   1:业者录入
+		
+		if (addtype==undefined){
+			getInfo(0)   // 初次加载时, 获取页面信息 0:单位录入   1:业者录入
+		}
 		
 		// 角色切换
 		$(".input_com").click(() => {
@@ -157,6 +157,7 @@
 			$("#input_com").css("display", "block");
 			getInfo(0) // 重新获取单位录入的 页面数据信息
 		});
+		
 		$(".input_free").click(() => {
 			$(".input_free").css("background-color", "#7EB6FF");
 			$(".input_free").css("color", "white");
@@ -177,6 +178,7 @@
 			$(".input_free").css("color", "#7EB6FF");
 			$("#input_free").css("display", "none");
 			$("#input_com").css("display", "block");
+			getInfo(0)
 		}
 		if (addtype == "yz") {
 			$(".input_free").css("background-color", "#7EB6FF");
@@ -185,9 +187,9 @@
 			$(".input_com").css("color", "#7EB6FF");
 			$("#input_com").css("display", "none");
 			$("#input_free").css("display", "block");
+			getInfo(1)
 		}
-		
-		// 跳转列表
+		// 跳转到列表页
 		// 录入方式addtype（业者录入为："yz"    单位录入:"sf"）
 		// 状态码income_status（1：待业者确认，3：业者退回，2.待秘书公司确认，5：秘书公司退回，6：完成）
 		// ========单位录入=======

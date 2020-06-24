@@ -7,10 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../../../js/mui.min.js"></script>
     <link rel="stylesheet" href="../../../css/mui.min.css">
-    <title>报税查询</title>
-    <script>
-        mui.init();
-    </script>
+    <title>审核主管: 纳税设置审核</title>
+		<script type="text/javascript">
+			mui.init();
+		</script>
 		
 		<style type="text/css">
 			body {
@@ -83,11 +83,11 @@
 			    color: rgb(153, 153, 153);
 			}
 			
-			.com_ul,.free_ul{
+			.com-ul,.free-ul{
 			    margin-top: 64px;
 			}
 			
-			.free_ul{
+			.free-ul{
 			    display: none;
 			}
 			
@@ -103,18 +103,18 @@
 			    border: 1px solid #7EB6FF;
 			}
 			
-			.com_write,.free_write{
+			.input_com,.input_free{
 			    width: 100px;
 			    text-align: center;
 			    line-height: 34px;
 			
 			}
-			.com_write{
+			.input_com{
 			    background-color: #7EB6FF;
 			    color: white;
 			}
 			
-			.free_write{
+			.input_free{
 			    color: #7EB6FF;
 			}
 		</style>
@@ -124,30 +124,30 @@
     <header>
         <img class="back" src="../../../img/back_black.png" alt="">
         <div class="change">
-            <div class="com_write">有单位</div>
-            <div class="free_write">没有单位</div>
+            <div class="input_com">有单位</div>
+            <div class="input_free">没有单位</div>
         </div>
     </header>
 
-    <ul class="com_ul">
-        <li class="com_normal">
+    <ul class="com-ul">
+        <li class="com-normal">
             <span>正常</span>
             <div>
-                <span class="com_w"></span>
+                <span class="com-normal-li"></span>
                 <img src="../../../img/next.png" alt="">
             </div>
         </li>
-        <li class="com_checking">
+        <li class="com-checking">
             <span>审核中</span>
             <div>
-                <span class="com_f"></span>
+                <span class="com-checking-li"></span>
                 <img src="../../../img/next.png" alt="">
             </div>
         </li>
-        <li class="com_back">
+        <li class="com-back">
             <span>审核退回</span>
             <div>
-                <span class="com_s"></span>
+                <span class="com-back-li"></span>
                 <img src="../../../img/next.png" alt="">
             </div>
         </li>
@@ -155,129 +155,132 @@
 
     </ul>
 
-    <ul class="free_ul">
-        <li class="free_normal">
+    <ul class="free-ul">
+        <li class="free-normal">
             <span>正常</span>
             <div>
-                <span class="free_w"></span>
+                <span class="free-normal-li"></span>
                 <img src="../../../img/next.png" alt="">
             </div>
         </li>
-        <li class="free_checking">
+        <li class="free-checking">
             <span>审核中</span>
             <div>
-                <span class="free_f"></span>
+                <span class="free-checking-li"></span>
                 <img src="../../../img/next.png" alt="">
             </div>
         </li>
-        <li class="free_back">
+        <li class="free-back">
             <span>审核退回</span>
             <div>
-                <span class="free_s"></span>
+                <span class="free-back-li"></span>
                 <img src="../../../img/next.png" alt="">
             </div>
         </li>
         
     </ul>
 </body>
+
 <script src="../../../js/jquery-3.3.1.js"></script>
 <script src="../../../js/urlDns.js"></script>
 
 <script type="text/javascript">
 	// 返回
-	$(".back").click(()=>{
+	$(".back").click(() => {
 		sessionStorage.removeItem("addtype");
 		sessionStorage.removeItem("income_status");
-	   history.back();
-	})
+		history.back();
+	});
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
 	
-	getInfo(0)   // 初次加载时, 获取页面信息 0:单位录入   1:业者录入
 	
-	// 单位录入
-	$(".com_write").click(()=>{
-	    $(".com_write").css("background-color","#7EB6FF");
-	    $(".com_write").css("color","white");
-	    $(".free_write").css("background-color","white");
-	    $(".free_write").css("color","#7EB6FF");
-	    $(".com_ul").css("display","block");
-	    $(".free_ul").css("display","none");
+	if (addtype==undefined){
+		getInfo(0)   // 初次加载时, 获取页面信息 0:单位录入   1:业者录入
+	}   
+	
+	// 角色切换
+	$(".input_com").click(()=>{
+	    $(".input_com").css("background-color","#7EB6FF");
+	    $(".input_com").css("color","white");
+	    $(".input_free").css("background-color","white");
+	    $(".input_free").css("color","#7EB6FF");
+	    $(".com-ul").css("display","block");
+	    $(".free-ul").css("display","none");
 			
 			getInfo(0) // 重新获取单位录入的 页面数据信息
 	})
-	
-	// 业者录入
-	$(".free_write").click(()=>{
-	    $(".free_write").css("background-color","#7EB6FF");
-	    $(".free_write").css("color","white");
-	    $(".com_write").css("background-color","white");
-	    $(".com_write").css("color","#7EB6FF");
-	    $(".free_ul").css("display","block");
-	    $(".com_ul").css("display","none");
+
+	$(".input_free").click(()=>{
+	    $(".input_free").css("background-color","#7EB6FF");
+	    $(".input_free").css("color","white");
+	    $(".input_com").css("background-color","white");
+	    $(".input_com").css("color","#7EB6FF");
+	    $(".free-ul").css("display","block");
+	    $(".com-ul").css("display","none");
 	
 	    getInfo(1) // 重新获取业者录入的 页面数据信息
 	})
 	
-	
-	
 	// 判断下一个 页面返回来是处在 单位录入还是业者录入的界面
 	var addtype = sessionStorage.getItem("addtype");
 	if (addtype == "sf") {
-		$(".com_write").css("background-color","#7EB6FF");
-		$(".com_write").css("color","white");
-		$(".free_write").css("background-color","white");
-		$(".free_write").css("color","#7EB6FF");
-		$(".com_ul").css("display","block");
-		$(".free_ul").css("display","none");
+		$(".input_com").css("background-color","#7EB6FF");
+		$(".input_com").css("color","white");
+		$(".input_free").css("background-color","white");
+		$(".input_free").css("color","#7EB6FF");
+		$(".com-ul").css("display","block");
+		$(".free-ul").css("display","none");
+		getInfo(0)
 	}
 	if (addtype == "yz") {
-		$(".free_write").css("background-color","#7EB6FF");
-		$(".free_write").css("color","white");
-		$(".com_write").css("background-color","white");
-		$(".com_write").css("color","#7EB6FF");
-		$(".free_ul").css("display","block");
-		$(".com_ul").css("display","none");
+		$(".input_free").css("background-color","#7EB6FF");
+		$(".input_free").css("color","white");
+		$(".input_com").css("background-color","white");
+		$(".input_com").css("color","#7EB6FF");
+		$(".free-ul").css("display","block");
+		$(".com-ul").css("display","none");
+		getInfo(1)
 	}
 	
 	
 	// 跳转列表
 	// 录入方式addtype（业者录入为："yz"    单位录入:"sf"）
-	// ========单位录入=======
-	$(".com_normal").click(() => {
+	// ========有单位=======
+	$(".com-normal").click(() => {
 		sessionStorage.setItem("addtype", "sf");
 		sessionStorage.setItem("income_status", 1);
 		location.href = './tax_list.html';
 	});
 	
-	$(".com_checking").click(() => {
+	$(".com-checking").click(() => {
 		sessionStorage.setItem("addtype", "sf");
 		sessionStorage.setItem("income_status", 2);
 		location.href = './tax_list.html';
 	});
 	
-	$(".com_back").click(() => {
+	$(".com-back").click(() => {
 		sessionStorage.setItem("addtype", "sf");
 		sessionStorage.setItem("income_status", 3);
 		location.href = './tax_list.html';
 	});
 	
 	
-	// =======业者录入============
-	$(".free_normal").click(() => {
+	// =======没有单位============
+	$(".free-normal").click(() => {
 		sessionStorage.setItem("addtype", "yz");
 		sessionStorage.setItem("income_status", 2);
 		location.href = './tax_list.html';
 	});
 	
-	$(".free_checking").click(() => {
+	$(".free-checking").click(() => {
 		sessionStorage.setItem("addtype", "yz");
 		sessionStorage.setItem("income_status", 5);
 		location.href = './tax_list.html';
 	});
 	
-	$(".free_back").click(() => {
+	$(".free-back").click(() => {
 		sessionStorage.setItem("addtype", "yz");
 		sessionStorage.setItem("income_status", 6);
 		location.href = './tax_list.html';
@@ -289,11 +292,11 @@
 		enterType = enterType.toString()
 		
 		mui.post(urlDns + "/control_app/ms/fr_zg/zf/index",{
-		    // 0.单位录入1.业者录入
-		    type:"0",
+		    // 0.有单位  2.没有单位
 		    tel_app:tel_app,
 		    pass_app:pass_app,
-		    code_app:code_app
+		    code_app:code_app,
+				type: enterType
 		},function(data){
 		    console.log(JSON.stringify(data))
 				if (data.result == 0) {
@@ -306,18 +309,18 @@
 					}
 				} 
 				else {
-					// 单位录入
+					// 有单位
 					if(enterType == '0') {
-						$(".com_w").text(data.send);
-						$(".com_f").text(data.yz_nopass);
-						$(".com_s").text(data.yz_pass);
+						$(".com-normal-li").text(data.send);
+						$(".com-checking-li").text(data.yz_nopass);
+						$(".com-back-li").text(data.yz_pass);
 					}
 				
-					// 业者录入
+					// 没有单位
 					if(enterType == '1') {
-						$(".free_w").text(data.wait_check);
-						$(".free_f").text(data.ms_nopass);
-						$(".free_s").text(data.ms_pass);
+						$(".free-normal-li").text(data.wait_check);
+						$(".free-checking-li").text(data.ms_nopass);
+						$(".free-back-li").text(data.ms_pass);
 					}
 				
 				}

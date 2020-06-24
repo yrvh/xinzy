@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="../../../css/mui.min.css">
 	<link rel="stylesheet" href="../../../css/mui.picker.min.css">
 	<script src="../../../js/mui.picker.min.js"></script>
-	<title>审核主管--收入管理--</title>
+	<title>审核主管--收入管理--列表页</title>
 
 	<style type="text/css">
 		body {
@@ -377,14 +377,14 @@
 <body>
 	<header>
 		<img class="back" src="../../../img/back_black.png" alt="">
-		<span>待业者确认</span>
+		<span></span>
 		<!-- <div class="next">选择</div> -->
 	</header>
 	<!-- 搜索框 -->
 	<div class="searchBox">
 		<div class="searchIn">
 			<img class="searchImg" src="../../../img/search.png" alt="">
-			<input class="searchCont" type="search" placeholder="请输入业者姓名/手机号码">
+			<input class="searchCont" type="search" placeholder="请输入名称">
 			<img class="toEmpty" src="../../../img/toEmpty.png" alt="">
 		</div>
 		<div class="search">搜索</div>
@@ -843,7 +843,7 @@
 		if ($(window).scrollTop() + $(window).height() == $(document).height()) {
 			page = page + 1;
 			console.log(page)
-			$.post(urlDns + "/control_app/yz/fp/list", {
+			$.post(urlDns + "/control_app/ms/fr_zg/zf/list", {
 				// 状态  待提交0
 				status: status,
 				// 第几页
