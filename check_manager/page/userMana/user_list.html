@@ -451,7 +451,7 @@
 		var tel_app = localStorage.getItem("tel_app");
 		var code_app = localStorage.getItem("code_app");
 
-		// 获取录入方式
+		// 获取以哪种角色进入
 		var addtype = sessionStorage.getItem("addtype");
 		// 获取状态码
 		var income_status = sessionStorage.getItem("income_status");
@@ -463,13 +463,16 @@
 			if (income_status == 1) {
 				$("header span").text("审核通过");
 			}
-			if (income_status == 2) {
-				$("header span").text("审核退回");
-			}
+			// if (income_status == 2) {
+			// 	$("header span").text("审核退回");
+			// }
 
-		getInfoList() //调用函数初始化 界面上要展示的数据列表 
+		
 		var page = 1 // 设置当前 在第几个页面
 		// 通过搜索框输入的内容, 单位id 业者id, 请求数据类型的列表
+		
+		getInfoList() //调用函数初始化 界面上要展示的数据列表 
+		
 		function getInfoList(tel = '') {
 			console.log("lx列表")
 			// 请求数据
@@ -477,7 +480,7 @@
 				// 状态
 				status: income_status,
 				// 录入方式
-				addtype: addtype,
+				usertype: addtype,
 				// 第几页
 				page: page,
 				// 一页的条数
@@ -507,13 +510,13 @@
 								<div class="comTime">
 										<span class="comName">${data.rows[i].name}</span>
 										<div class="href" detailId="${data.rows[i].id}">
-												<span class="time">${data.rows[i].zq}</span>
+												<span class="time">${data.rows[i].details}</span>
 												<img src="../../../img/next.png" alt="">
 										</div>
 								</div>
 								<div class="amount">
-										<span>${data.rows[i].comname}</span>
-										<span>${data.rows[i].fkmoney}</span>
+									<span>${data.rows[i].comname}</span>
+									<span>${data.rows[i].fkmoney}</span>
 								</div>
 						</div>
 					`;
@@ -551,19 +554,16 @@
 				page = page + 1;
 				console.log(page)
 				$.post(urlDns + "/control_app/ms/fr/user/list", {
-					// 状态  待提交0
-					status: status,
+					// 状态
+					status: income_status,
+					// 录入方式
+					usertype: addtype,
 					// 第几页
 					page: page,
 					// 一页的条数
 					rows: 20,
 					// 搜索框的内容
 					tel: "",
-					// 过滤条件的开始时间和结束时间
-					startdate: "",
-					enddate: "",
-					// 过滤条件的发票抬头
-					comid: "",
 					pass_app: pass_app,
 					tel_app: tel_app,
 					code_app: code_app

@@ -2,210 +2,568 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<script src="../../../js/mui.min.js"></script>
 	<link rel="stylesheet" href="../../../css/mui.min.css">
-	<script src="../../../js/mescroll.min.js"></script>
-	<link rel="stylesheet" href="../../../css/mescroll.min.css">
-	<title>协议审核--协议列表</title>
-	
+	<link rel="stylesheet" href="../../../css/mui.picker.min.css">
+	<script src="../../../js/mui.picker.min.js"></script>
+	<title>公司主管--协议管理--列表页</title>
+
 	<style type="text/css">
-		body { margin: 0; padding: 0; font-size: 16px; color: #333333; }
-		
-		header { position: fixed;
-			top: 0; left: 0; text-align: center; width: 100%;
-			height: 44px; line-height: 44px; background-color: white;
+		body {
+			margin: 0;
+			padding: 0;
+			color: #333333;
+		}
+
+		header {
+			box-sizing: border-box;
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 99;
+			text-align: center;
+			line-height: 44px;
+			width: 100%;
+			height: 44px;
+			background-color: white;
 			box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
-			font-weight: bold; font-size: 16px; z-index: 99; }
-		
-		.back { width: 20px; height: 20px; position: absolute; top: 12px; left: 5px; color: #7EB6FF; }		
-		
-		.the-place { width: 100%; height: 44px; }
-		
-		.com-status { width: 100%; line-height: 44px; background-color: #fff; margin: 20px 0; padding: 0 15px;}
-		
-		ul { list-style: none; padding: 0 15px; margin-bottom: 20px; background-color: #fff;}
-		
-		li { border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; width: 100%; height: 46px; margin-bottom: 2px; line-height: 46px; box-sizing: border-box; }
-		
-		li>div { display: flex; align-items: center; justify-content: space-between;}
-		
-		li img { width: 25px; height: 25px; }
-		
-		li>div>span { color: rgb(153, 153, 153); }
-		
-	
-		.com-license{border: none !important;}
+		}
+
+		header>img {
+			position: absolute;
+			top: 12px;
+			left: 5px;
+			width: 20px;
+			height: 20px;
+		}
+
+		header>div {
+			position: absolute;
+			top: 0;
+			right: 5px;
+			height: 44px;
+			line-height: 44px;
+		}
+
+		header>div>span {
+			color: #999999;
+		}
+
+		.next {
+			line-height: 44px;
+			color: #7EB6FF;
+			margin-right: 10px;
+		}
+
+		.list {
+			margin-top: 60px;
+			margin-bottom: 20px;
+		}
+
+		.list>div {
+			position: relative;
+			width: 100%;
+			background-color: white;
+			margin-top:2px;
+		}
+
+		.list>div:nth-of-type(1) {
+			margin-top: 20px;
+		}
+
+
+		/* .list>div:nth-last-of-type(1) {
+			margin-bottom: 10px;
+	} */
+
+		.list>div>div {
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.list>div img {
+			width: 25px;
+			height: 25px;
+			vertical-align: middle;
+		}
+
+		.list>div>div:nth-of-type(1) {
+			height: 40px;
+			line-height: 40px;
+			border-bottom: 1px solid rgb(240, 240, 240);
+			font-size: 14px;
+			padding: 0 5px 0 15px;
+		}
+
+		.time {
+			color: #999999;
+		}
+
+		.amount {
+			height: 30px;
+			line-height: 30px;
+			font-size: 12px;
+			color: #999999;
+			padding: 0 15px 0 15px;
+		}
+
+		.searchBox {
+			/* display: none; */
+			
+			position: fixed;
+			top: 44px;
+			left: 0;
+			z-index: 99;
+			width: 100%;
+			height: 44px;
+			padding: 7px 0 7px 15px;
+			background-color: #F2F2F2;
+		}
+
+		.searchIn {
+			position: relative;
+			width: calc(100% - 60px);
+			height: 30px;
+			background-color: white;
+			border-radius: 3px;
+			box-sizing: border-box;
+		}
+
+		.searchIn>input {
+			position: absolute;
+			top: 0;
+			left: 25px;
+			padding: 0;
+			width: 80%;
+			height: 30px;
+			font-size: 14px;
+			text-align: left;
+			background-color: white;
+		}
+
+		.searchIn>input::placeholder {
+			font-size: 12px;
+		}
+
+		.searchImg {
+			position: absolute;
+			top: 7.5px;
+			left: 5px;
+			width: 15px;
+			height: 15px;
+		}
+
+		.toEmpty {
+			position: absolute;
+			top: 7.5px;
+			right: 10px;
+			width: 15px;
+			height: 15px;
+		}
+
+		.search {
+			position: absolute;
+			top: 0;
+			right: 15px;
+			line-height: 44px;
+			font-size: 14px;
+			color: #7EB6FF;
+		}
+
+		footer {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 50px;
+			background-color: white;
+			font-size: 12px;
+		}
+
+		.del,
+		.submit {
+			position: absolute;
+			top: 0;
+			width: calc((100% - 45px)/2);
+			height: 40px;
+			margin-top: 5px;
+			border-radius: 4px;
+		}
+
+		.del div:nth-of-type(1),
+		.submit div:nth-of-type(1) {
+			font-weight: bold;
+		}
+
+		.del div:nth-of-type(2),
+		.submit div:nth-of-type(2) {
+			color: #999999;
+		}
+
+		.del {
+			left: 0;
+			margin-left: 15px;
+			text-align: left;
+		}
+
+		.submit {
+			right: 0;
+			margin-right: 15px;
+			text-align: right;
+		}
+
+		.select {
+			display: none;
+			position: absolute;
+			top: 11px;
+			left: 10px;
+		}
+
+		.filterBox {
+			position: fixed;
+			top: 88px;
+			left: 0;
+			z-index: 99;
+			/* display: none; */
+			width: 100%;
+			height: 44px;
+			color: rgb(153, 153, 153);
+			background-color: white;
+			padding: 0 5px 0 15px;
+			font-size: 14px;
+			line-height: 44px;
+			border-bottom: 1px solid rgb(240, 240, 240);
+		}
+
+		.nextImg {
+			position: absolute;
+			top: 8px;
+			right: 5px;
+			width: 25px;
+			height: 25px;
+		}
+
+		.filterImg {
+			position: relative;
+			top: 2px;
+			width: 15px;
+			height: 15px;
+		}
+
+		.filterParam {
+			background-color: white;
+		}
+
+		.selectTime {
+			padding: 0 15px;
+			display: flex;
+			justify-content: space-between;
+			width: 100%;
+			height: 44px;
+			background-color: white;
+			border-bottom: 1px solid rgb(240, 240, 240);
+			line-height: 44px;
+			font-size: 14px;
+		}
+
+		.timeBox {
+			width: 75%;
+			display: flex;
+			justify-content: space-between;
+		}
+
+		#startTime,
+		#endTime {
+			display: flex;
+			justify-content: space-around;
+			/* position: relative; */
+			width: 40%;
+			height: 30px;
+			border: 1px solid rgb(204, 204, 204);
+			border-radius: 4px;
+			margin-top: 8px;
+		}
+
+		#startTime>img,
+		#endTime>img {
+			width: 16px;
+			height: 16px;
+			margin-top: 5px;
+		}
+
+		#startTime>span,
+		#endTime>span {
+			font-size: 13px;
+			line-height: 30px;
+		}
+
+		#startDate,
+		#endDate {
+			color: #666666;
+		}
+
+		.free-com {
+			width: 92%;
+			margin: 0 auto;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			height: 44px;
+			border-bottom: 1px solid rgb(240, 240, 240);
+		}
+
+		.free-com>div {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.free-com span {
+			font-size: 14px;
+		}
+
+		.free-com img {
+			width: 25px;
+			height: 25px;
+			/* vertical-align: center; */
+		}
+
+		.okBox {
+			position: relative;
+			width: 100%;
+			height: 44px;
+		}
+
+		.okBox div {
+			top: 8px;
+			position: absolute;
+			width: calc((100% - 45px)/2);
+			height: 28px;
+			border-radius: 4px;
+			font-size: 14px;
+			text-align: center;
+			line-height: 28px;
+		}
+
+		.ok {
+			right: 15px;
+			color: white;
+			background-color: #7EB6FF;
+		}
+
+		.reset {
+			left: 8px;
+			color: #7EB6FF;
+			border: 1px solid rgb(204, 204, 204);
+		}
+
+		.filterParamBg {
+			display: none;
+			position: absolute;
+			background-color: rgba(0, 0, 0, 0.2);
+			z-index: 10;
+			top: 133px;
+			left: 0;
+			width: 100%;
+			height: calc(100vh - 133px);
+		}
+
+		.noneParamBg {
+			width: 100%;
+			height: calc(100vh - 310px);
+			position: absolute;
+			bottom: 0;
+			left: 0;
+		}
 	</style>
 </head>
-
 <body>
 	<header>
-			<img class="back" src="../../../img/back_black.png" alt=""> <span>公司与单位协议</span>
+		<img class="back" src="../../../img/back_black.png" alt="">
+		<span></span>
+		<!-- <div class="next">选择</div> -->
 	</header>
-	<div class="the-place"></div>
-	
-	<ul class="com-info">
-		<li class="com-logo">
-				<span>2020-01-20 14: 16</span>
-				<div>
-						<span class="com-logo-li">查看</span>
+
+	<!-- 数据列表 -->
+	<section class="list">
+<!-- 		<div>
+			<div class="comTime">
+				<span class="comName">协议标题 协议时间</span>
+				<div class="href" detailId="${data.rows[i].id}">
+					<span class="time">默认</span>
+					<img src="../../../img/next.png" alt="">
 				</div>
-		</li>
-		<li class="com-creditcode">
-				<span>2020-02-20 15:39</span>
-				<div>
-						<span class="com-creditcode-li">审核</span>
+			</div>
+		</div>
+		
+		<div>
+			<div class="comTime">
+				<span class="comName">协议标题 协议时间</span>
+				<div class="href" detailId="${data.rows[i].id}">
+					<span class="time">默认</span>
+					<img src="../../../img/next.png" alt="">
 				</div>
-		</li>
-	</ul>
-	
+			</div>
+		</div> -->
+		
+	</section>
+	<!-- <footer>
+			<div class="del">
+					<div>200,000.00</div>
+					<div>已开票金额</div>
+			</div>
+			<div class="submit">
+					<div>0.00</div>
+					<div>未开票余额</div>
+			</div>
+	</footer> -->
 </body>
 <script src="../../../js/jquery-3.3.1.js"></script>
 <script src="../../../js/urlDns.js"></script>
-<script src="../../../js/layer/layer.js"></script>
 
 <script type="text/javascript">
+	mui.init();
+	// 返回
+	$(".back").click(() => {
+		history.back();
+	});
+
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
-	// console.log("tel_app：" + tel_app);
-	// console.log("pass_app：" + pass_app);
+
+	// 获取状态码
+	var income_status = sessionStorage.getItem("income_status");
+	// 渲染标题
+	if (income_status == 3) {
+		$("header span").text("公司与单位的协议");
+	}
+	if (income_status == 5) {
+		$("header span").text("公司与业者的协议");
+	}
+	if (income_status == 11) {
+		$("header span").text("公司与合作伙伴的协议");
+	}
+	if (income_status == 4) {
+		$("header span").text("三方协议");
+	}
+	if (income_status == 9) {
+		$("header span").text("委托协议上传");
+	}
+	if (income_status == 2) {
+		$("header span").text("单位与业者的协议模板");
+	}
+
 	
-	// 返回
-	$(".back").click(() => {
-	    mui.back();
+	var page = 1 // 设置当前 在第几个页面
+	// 通过搜索框输入的内容, 单位id 业者id, 请求数据类型的列表
+	getInfoList() //调用函数初始化 界面上要展示的数据列表
+
+
+	function getInfoList() {
+		// 请求数据
+		mui.post(urlDns + "/control_app/ms/xieyi_fr/list", {
+			// 进入的状态
+			type: income_status,
+			// 第几页
+			page: page,
+			// 一页的条数
+			rows: 20,
+			pass_app: pass_app,
+			tel_app: tel_app,
+			code_app: code_app
+		}, function(data) {
+			// console.log(JSON.stringify(data));
+			if (data.result == 0) {
+				// 需要重新登录
+				if (window.plus) {
+					goToLogin("../../register/login.html");
+				} else {
+					document.addEventListener('plusready', goToLogin, false);
+				}
+			} else {
+				$(".list").html(''); // 发起请求之前,先清空页面
+				var htmlStr = "";
+				for (let i = 0; i < data.rows.length; i++) {
+					htmlStr +=
+					`
+					<div>
+						<div class="comTime">
+							<span class="comName">${data.rows[i].title} ${data.rows[i].addtime}</span>
+							<div class="href" detailId="${data.rows[i].id}">
+								<span class="time">${data.rows[i].status==1? '默认':'查看'}</span>
+								<img src="../../../img/next.png" alt="">
+							</div>
+						</div>
+					</div>
+				`;
+				}
+				$(".list").html(htmlStr);
+			}
+		});
+	}
+
+
+	// 跳转详情页面
+	$(document).on("click", ".list .href", function(e) {
+		var detailId = $(this).attr("detailId");
+		console.log(detailId)
+		sessionStorage.setItem('detailId', detailId);
+		location.href = "./contractMana_detail.html";
 	});
-	
-	$(function() {
-	    var index = layer.load(1, {
-	        // 数组中第一个参数是button的透明度
-	        // 第二个是背景颜色
-	        shade: [0.3, "white"]
-	    });
-	    var getData = $.ajax({
-	        url: urlDns + "/control_app/ms/info/showInfo_step01",
-	        type: 'post',
-	        dataType: "json",
-	        timeout: 120000, //2分钟超时
-	        data: {
-	            "pass_app": pass_app,
-	            "tel_app": tel_app,
-	            "code_app": code_app
-	        },
-	        //请求成功
-	        success: function(data) {
-	            console.log(data.cname)
-	            console.log(JSON.stringify(data));
-	            layer.close(index);
-	            if (data.result == 0) {
-	                // 需要重新登录
-	                if (window.plus) {
-	                    goToLogin("../../../page/register/login.html");
-	                } else {
-	                    document.addEventListener('plusready', goToLogin, false);
-	                }
-	            } else {
-	                if (data.icon != "/img/R.png") {
-	                    console.log(data.icon)
-	                    $(".logo").attr("src", data.icon);
-	                } else {
-	                    $(".logo").attr("src", "../../../img/com_default_Icon.png");
-	                }
-	                $("#creditNum").text(data.xycode);
-	                $("#name").text(data.cname);
-	                $("#businessName").text(data.cname_py);
-	                $("#type").text(data.cTypeName);
-	                $(".rangeText").text(data.area);
-	                $(".addressText").text(data.address);
-	                $("#telephone").text(data.tel);
-	                $("#date").text(data.creattime);
-	                $(".scope").text(data.businessRange);
-	                $(".mainBusiness").text(data.zybusiness);
-	                $("#registerUnit").text(data.registerCompany);
-	                $("#getDate").text(data.getCartTime);
-	
-	                console.log(data.ishavelxr)
-	                if (data.ishavelxr == 1) {
-	                    // 启用了联系人
-	                    $(".contacts").css("display", "block");
-	                    // 法人信息
-	                    console.log(data.realname_fr)
-	                    $("#ceoName").text(data.realname_fr);
-	                    $("#ceoCertifiType").text("身份证");
-	                    $("#ceoNum").text(data.idcard_fr);
-	                    $("#ceotTel").text(data.tel_fr);
-	                    $("#ceoEmail").text(data.email_fr);
-	                    // 联系人信息
-	                    $("#contactsName").text(data.realname);
-	                    $("#ceoCertifiType").text("身份证");
-	                    $("#certificatesNum").text(data.idcard);
-	                    $("#contactsTel").text(data.usertel);
-	                    $("#contactsEmail").text(data.email);
-	                } else {
-	                    // 未启用联系人，没有联系人信息
-	                    $(".contacts").css("display", "none");
-	                    // 法人信息
-	                    $("#ceoName").text(data.realname);
-	                    $("#ceoCertifiType").text("身份证");
-	                    $("#ceoNum").text(data.idcard);
-	                    $("#ceotTel").text(data.usertel);
-	                    $("#ceoEmail").text(data.email);
-	                }
-	            }
-	
-	        },
-	        error: function(XMLHttpRequest, textStatus, errorThrown) {
-	            layer.close(index);
-	            if (textStatus == 'timeout') {
-	                getData.abort();　
-	                alert("请求超时");
-	            }
-	            if (textStatus == 'error') {
-	                getData.abort();　
-	                alert("请求错误" + errorThrown);
-	            }
-	        }
-	    });
-	});
-	
-	// 公司商标照片
-	$(".com_logo").click(() => {
-	    location.href = "./com_logo.html";
-	});
-	
-	// 法人证件照片
-	$(".idcardPhotos").click(() => {
-	    location.href = "./idCardPhotos_fr.html";
-	});
-	
-	// 联系人证件照片
-	$(".idcardPhotos_lxr").click(() => {
-	    location.href = "./idCardPhotos_lxr.html";
-	});
-	
-	
-	// 营业执照
-	$(".photos").click(() => {
-	    location.href = "./certificPhoto.html";
-	});
-	
-	// 详细地址
-	$(".addressBox").click(() => {
-	    location.href = "./address.html";
-	});
-	
-	
-	// 业务范围
-	$(".business_range").click(() => {
-	    location.href = "./business_range.html";
-	});
-	
-	// 主营业务
-	$(".major_business").click(() => {
-	    location.href = "./major_business.html";
+
+
+	// 加载下一页
+	$(window).scroll(function() {
+		if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+			page = page + 1;
+			console.log(page)
+			$.post(urlDns + "/control_app/ms/xieyi_fr/list", {
+				// 进入的状态
+				type: income_status,
+				// 第几页
+				page: page,
+				// 一页的条数
+				rows: 20,
+				pass_app: pass_app,
+				tel_app: tel_app,
+				code_app: code_app
+			}, function(data) {
+				console.log(JSON.stringify(data));
+				if (data.result == 0) {
+					// 需要重新登录
+					if (window.plus) {
+						goToLogin("../register/login.html");
+					} else {
+						document.addEventListener('plusready', goToLogin, false);
+					}
+				} else {
+					if (data.rows.length > 0) {
+						var htmlStr = "";
+						for (var i = 0; i < data.rows.length; i++) {
+							htmlStr +=
+								`
+								<div class="${data.rows[i].id}">
+									<div class="comTime">
+										<span class="comName">${data.rows[i].title} ${data.rows[i].addtime}</span>
+										<div class="href" detailId="${data.rows[i].id}">
+											<span class="time">${data.rows[i].status==1? '默认':'查看'}</span>
+											<img src="../../../img/next.png" alt="">
+										</div>
+									</div>
+								</div>
+								`;
+						}
+						$(".list").append(htmlStr);
+					}
+				}
+
+
+			});
+		}
 	});
 </script>
 </html>
-

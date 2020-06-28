@@ -112,35 +112,35 @@
         </div> -->
     </header>
     <ul class="company">
-        <li class="and_com">
+        <li class="and-com">
             <span>公司与单位协议</span>
             <div>
                 <span class="waitCheck"></span>
                 <img src="../../../img/next.png" alt="">
             </div>
         </li>
-        <li class="and_free">
+        <li class="and-free">
             <span>公司与业者协议</span>
             <div>
                 <span class="pass"></span>
                 <img src="../../../img/next.png" alt="">
             </div>
         </li>
-				<li class="and_coop">
+				<li class="and-coop">
 				    <span>公司与合作伙伴协议</span>
 				    <div>
 				        <span class="pass"></span>
 				        <img src="../../../img/next.png" alt="">
 				    </div>
 				</li>
-        <li class="three">
+        <li class="and-three">
             <span>三方协议</span>
             <div>
                 <span class="toBack"></span>
                 <img src="../../../img/next.png" alt="">
             </div>
         </li>
-				<li class="and_entrust">
+				<li class="and-entrust">
 				    <span>委托协议上传</span>
 				    <div>
 				        <span class="pass"></span>
@@ -149,8 +149,8 @@
 				</li>
 
     </ul>
-		<ul class="company-free">
-			<li class="and_entrust">
+		<ul class="com">
+			<li class="com-free">
 			    <span>单位与业者的协议模板</span>
 			    <div>
 			        <span class="pass"></span>
@@ -167,38 +167,45 @@
 <script type="text/javascript">
 	// 返回
 	$(".back").click(() => {
-	    mui.back();
+		sessionStorage.removeItem("income_status");
+		mui.back();
 	});
 	
 	// 公司与单位的协议
-	$(".and_com").click(() => {
-	    location.href = "./com_company.html";
+	$(".and-com").click(() => {
+		sessionStorage.setItem("income_status", 3);
+	  location.href = "./contractMana_list.html";
 	});
 	
 	// 公司与业者的协议
-	$(".and_free").click(() => {
-	    location.href = "./com_free.html";
+	$(".and-free").click(() => {
+		sessionStorage.setItem("income_status", 5);
+	  location.href = "./contractMana_list.html";
 	});
 	
 	// 公司与合作伙伴的协议
-	$(".and_coop").click(() => {
-	    location.href = "./com_coop.html";
+	$(".and-coop").click(() => {
+		sessionStorage.setItem("income_status", 11);
+	  location.href = "./contractMana_list.html";
 	});
 	
 	// 三方协议
-	$(".three").click(() => {
-	    location.href = "./three.html";
+	$(".and-three").click(() => {
+		sessionStorage.setItem("income_status", 4);
+	  location.href = "./contractMana_list.html";
 	});
 	
 	//委托协议上传
-	$(".and_entrust").click(() => {
-	    location.href = "./entrust.html";
+	$(".and-entrust").click(() => {
+		sessionStorage.setItem("income_status", 9);
+	  location.href = "./contractMana_list.html";
 	});
 	
 	
 	// 单位与业者的协议模板
-	$(".and_free").click(() => {
-	    location.href = "./company_free.html";
+	$(".com-free").click(() => {
+		sessionStorage.setItem("income_status", 2);
+	   location.href = "./contractMana_list.html";
 	});
 </script>
 

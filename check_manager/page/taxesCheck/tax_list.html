@@ -501,66 +501,44 @@
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
 	
-	// 录入方式addtype（业者录入为："yz"    单位录入:"sf"）
-	// 状态码income_status（1：待业者确认，3：业者退回，2.待秘书公司确认，5：秘书公司退回，6：完成）
-	// 获取录入方式
+	// 获取进入方式
 	var addtype = sessionStorage.getItem("addtype");
 	// 获取状态码
 	var income_status = sessionStorage.getItem("income_status");
 	
 	// 渲染标题
-	if (addtype == "sf") {
-		if (income_status == 1) {
-			$("header span").text("待业者确认");
-		}
-		if (income_status == 3) {
-			$("header span").text("业者退回");
-		}
-		if (income_status == 2) {
-			$("header span").text("待商秘公司确认");
-		}
-		if (income_status == 5) {
-			$("header span").text("商秘公司退回");
-		}
-		if (income_status == 6) {
-			$("header span").text("已完成");
-		}
+	if (income_status == 1) {
+		$("header span").text("正常");
 	}
-	if (addtype == "yz") {
-		if (income_status == 2) {
-			$("header span").text("待商秘公司审核");
-		}
-		if (income_status == 5) {
-			$("header span").text("商秘公司退回");
-		}
-		if (income_status == 6) {
-			$("header span").text("完成");
-		}
+	if (income_status == 0) {
+		$("header span").text("审核中");
+	}
+	if (income_status == 2) {
+		$("header span").text("审核退回");
 	}
 	
-	getInfoList()   //调用函数初始化 界面上要展示的数据列表 
 	var page = 1   // 设置当前 在第几个页面
 	// 通过搜索框输入的内容, 单位id 业者id, 请求数据类型的列表
-	function getInfoList(name='',startdate='',enddate='',sfid='',yzid='') {
+	
+	getInfoList()   //调用函数初始化 界面上要展示的数据列表 
+	
+	function getInfoList(name='') {
 		// 请求数据
-		mui.post(urlDns + "/control_app/ms/fr_zg/zf/list", {
+		mui.post(urlDns + "/share/bs_app/list", {
 			// 状态
-			status: income_status,
-			// 录入方式
-			addtype: addtype,
+			taxstatus: income_status,
+			// 进入方式
+			yztype: addtype,
 			// 第几页
 			page: page,
 			// 一页的条数
 			rows: 20,
 			// 搜索框的内容
-			name,
-			// 过滤条件的开始时间和结束时间
-			startdate,
-			enddate,		
+			name,		
 			// 过滤条件的单位ID
-			sfid,
+			// sfid,
 			// 过滤条件的业者ID
-			yzid,
+			// yzid,
 			pass_app: pass_app,
 			tel_app: tel_app,
 			code_app: code_app
@@ -843,20 +821,17 @@
 		if ($(window).scrollTop() + $(window).height() == $(document).height()) {
 			page = page + 1;
 			console.log(page)
-			$.post(urlDns + "/control_app/yz/fp/list", {
-				// 状态  待提交0
-				status: status,
+			$.post(urlDns + "/share/bs_app/list", {
+				// 状态
+				taxstatus: income_status,
+				// 进入方式
+				yztype: addtype,
 				// 第几页
 				page: page,
 				// 一页的条数
 				rows: 20,
 				// 搜索框的内容
 				name: "",
-				// 过滤条件的开始时间和结束时间
-				startdate: "",
-				enddate: "",
-				// 过滤条件的发票抬头
-				comid: "",
 				pass_app: pass_app,
 				tel_app: tel_app,
 				code_app: code_app

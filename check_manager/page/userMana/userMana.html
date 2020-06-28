@@ -150,13 +150,13 @@
                 <img src="../../../img/next.png" alt="">
             </div>
         </li>
-        <li class="com-back">
+        <!-- <li class="com-back">
             <span>审核退回</span>
             <div>
                 <span class="com-back-li"></span>
                 <img src="../../../img/next.png" alt="">
             </div>
-        </li>
+        </li> -->
     </ul>
 
 		<ul class="free-ul">
@@ -174,13 +174,13 @@
 		            <img src="../../../img/next.png" alt="">
 		        </div>
 		    </li>
-		    <li class="free-back">
+		    <!-- <li class="free-back">
 		        <span>审核退回</span>
 		        <div>
 		            <span class="free-back-li"></span>
 		            <img src="../../../img/next.png" alt="">
 		        </div>
-		    </li>
+		    </li> -->
 		</ul>
 		
     <ul class="coop-ul">
@@ -198,13 +198,13 @@
                 <img src="../../../img/next.png" alt="">
             </div>
         </li>
-        <li class="coop-back">
+        <!-- <li class="coop-back">
             <span>审核退回</span>
             <div>
                 <span class="coop-back-li"></span>
                 <img src="../../../img/next.png" alt="">
             </div>
-        </li>
+        </li> -->
     </ul>
 </body>
 
@@ -239,7 +239,7 @@
 		$(".free-ul").css("display","none");
 		$(".coop-ul").css("display","none");
 			
-			getInfo(2) // 重新获取单位录入的 页面数据信息
+			getInfo(2) // 重新获取单位的 页面数据信息
 	})
 
 	$(".input_free").click(()=>{
@@ -253,7 +253,7 @@
 		$(".free-ul").css("display","block");
 		$(".coop-ul").css("display","none");
 	
-		getInfo(1) // 重新获取业者录入的 页面数据信息
+		getInfo(1) // 重新获取业者的 页面数据信息
 	})
 	
 	$(".input_coop").click(()=>{
@@ -267,10 +267,10 @@
 		$(".free-ul").css("display","none");
 		$(".coop-ul").css("display","block");
 			
-		getInfo(11) // 重新获取业者录入的 页面数据信息
+		getInfo(11) // 重新获取合作伙伴的 页面数据信息
 	})
 	
-	// 判断下一个 页面返回来是处在 单位录入还是业者录入的界面
+	// 判断下一个 页面返回来是处在 单位  业者   伙伴 的界面
 	var addtype = sessionStorage.getItem("addtype");
 	if (addtype == "2") {
 		$(".input_com").css("background-color","#7EB6FF");
@@ -324,11 +324,11 @@
 		location.href = './user_list.html';
 	});
 	
-	$(".com-back").click(() => {
-		sessionStorage.setItem("addtype", "2");
-		sessionStorage.setItem("income_status", 2);
-		location.href = './user_list.html';
-	});
+	// $(".com-back").click(() => {
+	// 	sessionStorage.setItem("addtype", "2");
+	// 	sessionStorage.setItem("income_status", 2);
+	// 	location.href = './user_list.html';
+	// });
 	
 	
 	// =======业者用户============
@@ -344,11 +344,11 @@
 		location.href = './user_list.html';
 	});
 	
-	$(".free-back").click(() => {
-		sessionStorage.setItem("addtype", "1");
-		sessionStorage.setItem("income_status", 2);
-		location.href = './user_list.html';
-	});
+	// $(".free-back").click(() => {
+	// 	sessionStorage.setItem("addtype", "1");
+	// 	sessionStorage.setItem("income_status", 2);
+	// 	location.href = './user_list.html';
+	// });
 	
 	// =======合作伙伴============
 	$(".coop-wait").click(() => {
@@ -363,11 +363,11 @@
 		location.href = './user_list.html';
 	});
 	
-	$(".coop-back").click(() => {
-		sessionStorage.setItem("addtype", "11");
-		sessionStorage.setItem("income_status", 2);
-		location.href = './user_list.html';
-	});
+	// $(".coop-back").click(() => {
+	// 	sessionStorage.setItem("addtype", "11");
+	// 	sessionStorage.setItem("income_status", 2);
+	// 	location.href = './user_list.html';
+	// });
 	
 	
 	// 请求数据的函数
@@ -383,39 +383,39 @@
 				usertype: enterType
 		},function(data){
 			console.log("请求成功了")
-		    console.log(JSON.stringify(data))
-				if (data.result == 0) {
-					// 需要重新登录
-					if (window.plus) {
-						goToLogin("../../register/login.html");
-					} 
-					else {
-						document.addEventListener('plusready', goToLogin, false);
-					}
+			console.log(JSON.stringify(data))
+			if (data.result == 0) {
+				// 需要重新登录
+				if (window.plus) {
+					goToLogin("../../register/login.html");
 				} 
 				else {
-					// 单位用户
-					if(enterType == '2') {
-						$(".com-wait-li").text(data.res_size);
-						$(".com-pass-li").text(data.pass_size);
-						$(".com-back-li").text(data.yz_pass);
-					}
-				
-					// 业者用户
-					if(enterType == '1') {
-						$(".free-wait-li").text(data.res_size);
-						$(".free-pass-li").text(data.pass_size);
-						$(".free-back-li").text(data.ms_pass);
-					}
-					
-					// 合作伙伴
-					if(enterType == '11') {
-						$(".free-wait-li").text(data.res_size);
-						$(".free-pass-li").text(data.pass_size);
-						$(".free-back-li").text(data.ms_pass);
-					}
-				
+					document.addEventListener('plusready', goToLogin, false);
 				}
+			} 
+			else {
+				// 单位用户
+				if(enterType == '2') {
+					$(".com-wait-li").text(data.res_size);
+					$(".com-pass-li").text(data.pass_size);
+					// $(".com-back-li").text(data.yz_pass);
+				}
+			
+				// 业者用户
+				if(enterType == '1') {
+					$(".free-wait-li").text(data.res_size);
+					$(".free-pass-li").text(data.pass_size);
+					// $(".free-back-li").text(data.ms_pass);
+				}
+				
+				// 合作伙伴
+				if(enterType == '11') {
+					$(".free-wait-li").text(data.res_size);
+					$(".free-pass-li").text(data.pass_size);
+					// $(".free-back-li").text(data.ms_pass);
+				}
+			
+			}
 		})
 	}
 </script>

@@ -90,7 +90,7 @@
 <body>
     <header>
         <img class="back" src="../../../img/back_black.png" alt="">
-        <span class="title">劳务、服务内容</span>
+        <span class="title"></span>
         <!-- <div class="next">确定</div> -->
     </header>
     <div class="textBox">
@@ -108,6 +108,11 @@
     $(".back").click(() => {
         history.back();
     });
+		
+		// 获取标题
+		var title = sessionStorage.getItem("title")
+		// 获取进入状态
+		var stu = sessionStorage.getItem("status")
 
     // 获取数据ID
     var incomeDetailId = sessionStorage.getItem("incomeDetailId");

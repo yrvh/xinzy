@@ -502,7 +502,7 @@
 	var addtype = sessionStorage.getItem("addtype");
 	// 获取状态码
 	var income_status = sessionStorage.getItem("income_status");
-
+	
 	// 渲染标题
 	if (addtype == "sf") {
 		if (income_status == 1) {
@@ -533,14 +533,18 @@
 		}
 	}
 
-	getInfoList()   //调用函数初始化 界面上要展示的数据列表 
+	
 	var page = 1   // 设置当前 在第几个页面
 	// 通过搜索框输入的内容, 单位id 业者id, 请求数据类型的列表
+	
+	getInfoList()   //调用函数初始化 界面上要展示的数据列表 
+	
 	function getInfoList(name='',startdate='',enddate='',sfid='',yzid='') {
+
 		// 请求数据
 		mui.post(urlDns + "/control_app/ms/fr_zg/zf/list", {
 			// 状态
-			status: income_status,
+			income_status: income_status,
 			// 录入方式
 			addtype: addtype,
 			// 第几页
@@ -731,7 +735,7 @@
 	$(document).on("click", ".list .href", function(e) {
 		var detailId = $(this).attr("detailId");
 		console.log(detailId)
-		sessionStorage.setItem('incomeDetailId', detailId);
+		sessionStorage.setItem('detailId', detailId);
 		// page.chooseType();
 		location.href = "./incomeManaDetail.html";
 	});
@@ -845,7 +849,7 @@
 			console.log(page)
 			$.post(urlDns + "/control_app/ms/fr_zg/zf/list", {
 				// 状态  待提交0
-				status: status,
+				income_status: income_status,
 				// 第几页
 				page: page,
 				// 一页的条数
@@ -875,21 +879,21 @@
 						for (var i = 0; i < data.rows.length; i++) {
 							htmlStr +=
 								`
-															<div class="${data.rows[i].id}">
-																	<input class="select" name="hh" value="beihai" type="checkbox">
-																	<div class="comTime">
-																			<span class="comName">${data.rows[i].comname}</span>
-																			<div class="href" detailId="${data.rows[i].id}">
-																					<span class="time">${data.rows[i].addtime}</span>
-																					<img src="../../img/next.png" alt="">
-																			</div>
-																	</div>
-																	<div class="amount">
-																			<span>${data.rows[i].name}</span>
-																			<span>${data.rows[i].money}</span>
-																	</div>
-															</div>
-													`;
+								<div class="${data.rows[i].id}">
+										<input class="select" name="hh" value="beihai" type="checkbox">
+										<div class="comTime">
+												<span class="comName">${data.rows[i].comname}</span>
+												<div class="href" detailId="${data.rows[i].id}">
+														<span class="time">${data.rows[i].addtime}</span>
+														<img src="../../img/next.png" alt="">
+												</div>
+										</div>
+										<div class="amount">
+												<span>${data.rows[i].name}</span>
+												<span>${data.rows[i].money}</span>
+										</div>
+								</div>
+								`;
 						}
 						$(".list").append(htmlStr);
 					}
