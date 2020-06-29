@@ -1,59 +1,25 @@
 <!DOCTYPE html>
-<html lang="">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="../../../js/mui.min.js"></script>
-    <link rel="stylesheet" href="../../../css/mui.min.css">
-    <title>业务查询</title>
-    <script>
-        mui.init();
-    </script>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<script src="../../../js/mui.min.js"></script>
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<title>--公司主管--查询--业务查询--</title>
+		<script type="text/javascript">
+			mui.init();
+		</script>
 		
 		<style type="text/css">
-			body {
-			    margin: 0;
-			    padding: 0;
-			    color: #333333;
-			}
+			body { margin: 0; padding: 0; color: #333333; }
+			header { position: relative; width: 100%; height: 44px; background-color: white; box-shadow: 0 2px 2px 0 rgba(231,231,231,1);}
 			
-			header {
-			    position: fixed;
-			    top: 0;
-			    left: 0;
-			    z-index: 99;
-			    text-align: center;
-			    line-height: 44px;
-			    width: 100%;
-			    height: 44px;
-			    /* font-weight: bold; */
-			    background-color: white;
-			    box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
-			}
-			
-			header>img {
-			    position: absolute;
-			    top: 12px;
-			    left: 5px;
-			    width: 20px;
-			    height: 20px;
-			}
-			
-			header>div {
-			    position: absolute;
-			    top: 0;
-			    right: 5px;
-			    height: 44px;
-			    line-height: 44px;
-			}
-			
-			.next {
-			    line-height: 44px;
-			    color: #7EB6FF;
-			    margin-right: 10px;
-			}
+			.toggleBox { margin: 0 auto; transform: translateY(7px); width: 200px; height: 30px; border: 1px solid #7EB6FF; border-radius: 4px; overflow: hidden; display: flex; justify-content: space-between; }
+			.toggleBox>div { font-size: 14px; text-align: center; width: 100px; height: 28px; line-height: 30px; }
+			.input_com { background-color: #7EB6FF; color: white; }
+			.input_free { color: #7EB6FF; }
+			header>img { position: absolute; top: 12px; left: 5px; width: 20px; height: 20px; }
 			
 			ul {
 			    list-style: none;
@@ -83,254 +49,211 @@
 			    color: rgb(153, 153, 153);
 			}
 			
-			.com_ul,.free_ul{
-			    margin-top: 64px;
-			}
-			
-			.free_ul{
+			#input_free {
 			    display: none;
 			}
-			
-			.change{
-			    position: absolute;
-			    left: calc((100% - 200px)/2);
-			    top: 5px;
-			    width: 200px;
-			    height: 34px;
-			    background-color: white;
-			    border-radius: 4px;
-			    display: flex;
-			    border: 1px solid #7EB6FF;
-			}
-			
-			.com_write,.free_write{
-			    width: 100px;
-			    text-align: center;
-			    line-height: 34px;
-			
-			}
-			.com_write{
-			    background-color: #7EB6FF;
-			    color: white;
-			}
-			
-			.free_write{
-			    color: #7EB6FF;
-			}
 		</style>
-</head>
-
-<body>
-    <header>
-        <img class="back" src="../../../img/back_black.png" alt=""> 
-        <div class="change">
-            <div class="com_write">单位录入</div>
-            <div class="free_write">业者录入</div>
-        </div>
-    </header>
-
-    <ul class="com_ul">
-        <li class="com_dyzqr_li">
-            <span>待业者确认</span>
-            <div>
-                <span class="com_dyzqr"></span>
-                <img src="../../../img/next.png" alt="">
-            </div>
-        </li>
-        <li class="com_yzth_li">
-            <span>业者退回</span>
-            <div>
-                <span class="com_yzth"></span>
-                <img src="../../../img/next.png" alt="">
-            </div>
-        </li>
-        
-        <!-- <li class="completed">
-            <span>待企业付款</span>
-            <div>
-                <span class="com_zgshth"></span>
-                <img src="../../../img/next.png" alt="">
-            </div>
-        </li> -->
-        <li class="com_dsmgsqr_li">
-            <span>待商秘公司确认</span>
-            <div>
-                <span class="com_dsmgsqr"></span>
-                <img src="../../../img/next.png" alt="">
-            </div>
-        </li>
-
-        <li class="com_smgsth_li">
-            <span>商秘公司退回</span>
-            <div>
-                <span class="com_smgsth"></span>
-                <img src="../../../img/next.png" alt="">
-            </div>
-        </li>
-        <li class="com_ywc_li">
-            <span>已完成</span>
-            <div>
-                <span class="com_ywc"></span>
-                <img src="../../../img/next.png" alt="">
-            </div>
-        </li>
-        
-    </ul>
-
-    <ul class="free_ul">
-        <li class="free_dsmgsqr_li">
-            <span>待商秘公司确认</span>
-            <div>
-                <span class="free_dsmgsqr"></span>
-                <img src="../../../img/next.png" alt="">
-            </div>
-        </li>
-        <li class="free_smgsth_li">
-            <span>商秘公司退回</span>
-            <div>
-                <span class="free_smgsth"></span>
-                <img src="../../../img/next.png" alt="">
-            </div>
-        </li>
-        <li class="free_ywc_li">
-            <span>已完成</span>
-            <div>
-                <span class="free_ywc"></span>
-                <img src="../../../img/next.png" alt="">
-            </div>
-        </li>
-        
-        
-    </ul>
-</body>
-<script src="../../../js/jquery-3.3.1.js"></script>
-<script src="../../../js/urlDns.js"></script>
-
-<script type="text/javascript">
-	// 返回
-	$(".back").click(()=>{
-		sessionStorage.removeItem("addtype");
-		sessionStorage.removeItem("income_status");
-	   history.back();
-	})
-	var pass_app = localStorage.getItem("pass_app");
-	var tel_app = localStorage.getItem("tel_app");
-	var code_app = localStorage.getItem("code_app");
-	
-	getInfo(0)   // 初次加载时, 获取页面信息 0:单位录入   1:业者录入
-	
-	// 单位录入
-	$(".com_write").click(()=>{
-	    $(".com_write").css("background-color","#7EB6FF");
-	    $(".com_write").css("color","white");
-	    $(".free_write").css("background-color","white");
-	    $(".free_write").css("color","#7EB6FF");
-	    $(".com_ul").css("display","block");
-	    $(".free_ul").css("display","none");
-			
-			getInfo(0) // 重新获取单位录入的 页面数据信息
-	})
-	
-	// 业者录入
-	$(".free_write").click(()=>{
-	    $(".free_write").css("background-color","#7EB6FF");
-	    $(".free_write").css("color","white");
-	    $(".com_write").css("background-color","white");
-	    $(".com_write").css("color","#7EB6FF");
-	    $(".free_ul").css("display","block");
-	    $(".com_ul").css("display","none");
-	
-	    getInfo(1) // 重新获取业者录入的 页面数据信息
-	})
-	
-	
-	
-	// 判断下一个 页面返回来是处在 单位录入还是业者录入的界面
-	var addtype = sessionStorage.getItem("addtype");
-	if (addtype == "sf") {
-		$(".com_write").css("background-color","#7EB6FF");
-		$(".com_write").css("color","white");
-		$(".free_write").css("background-color","white");
-		$(".free_write").css("color","#7EB6FF");
-		$(".com_ul").css("display","block");
-		$(".free_ul").css("display","none");
-	}
-	if (addtype == "yz") {
-		$(".free_write").css("background-color","#7EB6FF");
-		$(".free_write").css("color","white");
-		$(".com_write").css("background-color","white");
-		$(".com_write").css("color","#7EB6FF");
-		$(".free_ul").css("display","block");
-		$(".com_ul").css("display","none");
-	}
-	
-	
-	// 跳转列表
-	// 录入方式addtype（业者录入为："yz"    单位录入:"sf"）
-	// 状态码income_status（1：待业者确认，3：业者退回，2.待秘书公司确认，5：秘书公司退回，6：完成）
-	// ========单位录入=======
-	$(".com_dyzqr_li").click(() => {
-		sessionStorage.setItem("addtype", "sf");
-		sessionStorage.setItem("income_status", 1);
-		location.href = './business_query_list.html';
-	});
-	
-	$(".com_yzth_li").click(() => {
-		sessionStorage.setItem("addtype", "sf");
-		sessionStorage.setItem("income_status", 3);
-		location.href = './business_query_list.html';
-	});
-	
-	$(".com_dsmgsqr_li").click(() => {
-		sessionStorage.setItem("addtype", "sf");
-		sessionStorage.setItem("income_status", 2);
-		location.href = './business_query_list.html';
-	});
-	
-	$(".com_smgsth_li").click(() => {
-		sessionStorage.setItem("addtype", "sf");
-		sessionStorage.setItem("income_status", 5);
-		location.href = './business_query_list.html';
-	});
-	
-	$(".com_ywc_li").click(() => {
-		sessionStorage.setItem("addtype", "sf");
-		sessionStorage.setItem("income_status", 6);
-		location.href = './business_query_list.html';
-	});
-	
-	// =======业者录入============
-	$(".free_dsmgsqr_li").click(() => {
-		sessionStorage.setItem("addtype", "yz");
-		sessionStorage.setItem("income_status", 2);
-		location.href = './business_query_list.html';
-	});
-	
-	$(".free_smgsth_li").click(() => {
-		sessionStorage.setItem("addtype", "yz");
-		sessionStorage.setItem("income_status", 5);
-		location.href = './business_query_list.html';
-	});
-	
-	$(".free_ywc_li").click(() => {
-		sessionStorage.setItem("addtype", "yz");
-		sessionStorage.setItem("income_status", 6);
-		location.href = './business_query_list.html';
-	});
-	
-	
-	// 请求数据的函数
-	function getInfo(enterType) {
-		enterType = enterType.toString()
+	</head>
+	<body>
+		<header>
+			<img class="back" src="../../../img/back_black.png"  alt=""/>
+			<div class="toggleBox">
+				<div class="input_com">单位录入</div>
+				<div class="input_free">业者录入</div>
+			</div>
+		</header>
 		
-		mui.post(urlDns + "/control_app/ms/fr_zg/zf/index",{
-		    // 0.单位录入1.业者录入
-		    type:"0",
-		    tel_app:tel_app,
-		    pass_app:pass_app,
-		    code_app:code_app
-		},function(data){
-		    console.log(JSON.stringify(data))
+		<ul>
+		    <div id="input_com">
+		        <li class="noSubmit">
+		            <span>待业者确认</span>
+		            <div>
+		                <span class="noSubmitNum"></span>
+		                <img src="../../../img/next.png" alt="">
+		            </div>
+		        </li>
+		        <li class="noExamine">
+		            <span>业者退回</span>
+		            <div>
+		                <span class="noExamineNum"></span>
+		                <img src="../../../img/next.png" alt="">
+		            </div>
+		        </li>
+		        <li class="ToBack">
+		            <span>待商秘公司确认</span>
+		            <div>
+		                <span class="ToBackNum"></span>
+		                <img src="../../../img/next.png" alt="">
+		            </div>
+		        </li>
+		        <li class="completed">
+		            <span>商秘公司退回</span>
+		            <div>
+		                <span class="completedNum"></span>
+		                <img src="../../../img/next.png" alt="">
+		            </div>
+		        </li>
+		        <li class="confirmed">
+		            <span>已完成</span>
+		            <div>
+		                <span class="confirmedNum"></span>
+		                <img src="../../../img/next.png" alt="">
+		            </div>
+		        </li>
+		    </div>
+		    <div id="input_free">
+		        <li class="noSubmit">
+		            <span>待商秘公司审核</span>
+		            <div>
+		                <span class="noSubmitNum"></span>
+		                <img src="../../../img/next.png" alt="">
+		            </div>
+		        </li>
+		        <li class="noExamine">
+		            <span>商秘公司退回</span>
+		            <div>
+		                <span class="noExamineNum"></span>
+		                <img src="../../../img/next.png" alt="">
+		            </div>
+		        </li>
+		        <li class="ToBack">
+		            <span>完成</span>
+		            <div>
+		                <span class="ToBackNum"></span>
+		                <img src="../../../img/next.png" alt="">
+		            </div>
+		        </li>
+		
+		    </div>
+		
+		</ul>
+	</body>
+	<script src="../../../js/jquery-3.3.1.js"></script>
+	<script src="../../../js/urlDns.js"></script>
+	
+	<script type="text/javascript">
+		// 返回
+		$(".back").click(() => {
+			sessionStorage.removeItem("addtype");
+			sessionStorage.removeItem("income_status");
+			history.back();
+		});
+		
+		var pass_app = localStorage.getItem("pass_app");
+		var tel_app = localStorage.getItem("tel_app");
+		var code_app = localStorage.getItem("code_app");
+		
+		if (addtype==undefined){
+			getInfo(0)   // 初次加载时, 获取页面信息 0:单位录入   1:业者录入
+		}
+		
+		// 角色切换
+		$(".input_com").click(() => {
+			$(".input_com").css("background-color", "#7EB6FF");
+			$(".input_com").css("color", "white");
+			$(".input_free").css("background-color", "white");
+			$(".input_free").css("color", "#7EB6FF");
+			$("#input_free").css("display", "none");
+			$("#input_com").css("display", "block");
+			getInfo(0) // 重新获取单位录入的 页面数据信息
+		});
+		
+		$(".input_free").click(() => {
+			$(".input_free").css("background-color", "#7EB6FF");
+			$(".input_free").css("color", "white");
+			$(".input_com").css("background-color", "white");
+			$(".input_com").css("color", "#7EB6FF");
+			$("#input_com").css("display", "none");
+			$("#input_free").css("display", "block");
+			getInfo(1) // 重新获取业者录入的 页面数据信息
+		
+		});
+		
+		// 判断下一个 页面返回来是处在 单位录入还是业者录入的界面
+		var addtype = sessionStorage.getItem("addtype");
+		if (addtype == "sf") {
+			$(".input_com").css("background-color", "#7EB6FF");
+			$(".input_com").css("color", "white");
+			$(".input_free").css("background-color", "white");
+			$(".input_free").css("color", "#7EB6FF");
+			$("#input_free").css("display", "none");
+			$("#input_com").css("display", "block");
+			getInfo(0)
+		}
+		if (addtype == "yz") {
+			$(".input_free").css("background-color", "#7EB6FF");
+			$(".input_free").css("color", "white");
+			$(".input_com").css("background-color", "white");
+			$(".input_com").css("color", "#7EB6FF");
+			$("#input_com").css("display", "none");
+			$("#input_free").css("display", "block");
+			getInfo(1)
+		}
+		// 跳转到列表页
+		// 录入方式addtype（业者录入为："yz"    单位录入:"sf"）
+		// 状态码income_status（1：待业者确认，3：业者退回，2.待秘书公司确认，5：秘书公司退回，6：完成）
+		// ========单位录入=======
+		$("#input_com .noSubmit").click(() => {
+			sessionStorage.setItem("addtype", "sf");
+			sessionStorage.setItem("income_status", 1);
+			location.href = './business_query_list.html';
+		});
+		
+		$("#input_com .noExamine").click(() => {
+			sessionStorage.setItem("addtype", "sf");
+			sessionStorage.setItem("income_status", 3);
+			location.href = './business_query_list.html';
+		});
+		
+		$("#input_com .ToBack").click(() => {
+			sessionStorage.setItem("addtype", "sf");
+			sessionStorage.setItem("income_status", 2);
+			location.href = './business_query_list.html';
+		});
+		
+		$("#input_com .completed").click(() => {
+			sessionStorage.setItem("addtype", "sf");
+			sessionStorage.setItem("income_status", 5);
+			location.href = './business_query_list.html';
+		});
+		
+		$("#input_com .confirmed").click(() => {
+			sessionStorage.setItem("addtype", "sf");
+			sessionStorage.setItem("income_status", 6);
+			location.href = './business_query_list.html';
+		});
+		
+		// =======业者录入============
+		$("#input_free .noSubmit").click(() => {
+			sessionStorage.setItem("addtype", "yz");
+			sessionStorage.setItem("income_status", 2);
+			location.href = './business_query_list.html';
+		});
+		
+		$("#input_free .noExamine").click(() => {
+			sessionStorage.setItem("addtype", "yz");
+			sessionStorage.setItem("income_status", 5);
+			location.href = './business_query_list.html';
+		});
+		
+		$("#input_free .ToBack").click(() => {
+			sessionStorage.setItem("addtype", "yz");
+			sessionStorage.setItem("income_status", 6);
+			location.href = './business_query_list.html';
+		});
+		
+		
+		// 请求数据的函数
+		function getInfo(enterType) {
+			enterType = enterType.toString()
+			
+			mui.get(urlDns + "/control_app/ms/fr_zg/zf/index", {
+				pass_app: pass_app,
+				tel_app: tel_app,
+				code_app: code_app,
+				type: enterType
+			}, function(data) {
+				// console.log(JSON.stringify(data));
 				if (data.result == 0) {
 					// 需要重新登录
 					if (window.plus) {
@@ -343,23 +266,24 @@
 				else {
 					// 单位录入
 					if(enterType == '0') {
-						$(".com_dyzqr").text(data.send);
-						$(".com_yzth").text(data.yz_nopass);
-						$(".com_dsmgsqr").text(data.yz_pass);
-						$(".com_smgsth").text(data.ms_nopass);
-						$(".com_ywc").text(data.ms_pass);
+						$("#input_com .noSubmitNum").text(data.send);
+						$("#input_com .noExamineNum").text(data.yz_nopass);
+						$("#input_com .ToBackNum").text(data.ms_pass);
+						$("#input_com .completedNum").text(data.ms_nopass);
+						$("#input_com .confirmedNum").text(data.yz_pass);
 					}
-				
+		
 					// 业者录入
 					if(enterType == '1') {
-						$(".free_dsmgsqr").text(data.wait_check);
-						$(".free_smgsth").text(data.ms_nopass);
-						$(".free_ywc").text(data.ms_pass);
+						$("#input_free .noSubmitNum").text(data.wait_check);
+						$("#input_free .noExamineNum").text(data.ms_pass);
+						$("#input_free .ToBackNum").text(data.ms_nopass);
 					}
-				
+		
 				}
-		})
-	}
-</script>
-
+		
+			});
+		}
+		
+	</script>
 </html>

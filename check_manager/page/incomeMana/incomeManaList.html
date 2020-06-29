@@ -539,7 +539,7 @@
 	
 	getInfoList()   //调用函数初始化 界面上要展示的数据列表 
 	
-	function getInfoList(name='',startdate='',enddate='',sfid='',yzid='') {
+	function getInfoList(name='',startdate='',enddate='',sfid='',yzid=0) {
 
 		// 请求数据
 		mui.post(urlDns + "/control_app/ms/fr_zg/zf/list", {
@@ -744,11 +744,6 @@
 	// ================================================
 	let comArr = [];   // 该数组存放请求回来的 所有单位
 	$.get(urlDns + "/control_app/ms/fr_zg/zf/get_sfData", {
-		// 状态
-		status: income_status,
-		// 录入方式
-		addtype: addtype,
-		
 		pass_app: pass_app,
 		tel_app: tel_app,
 		code_app: code_app
@@ -773,41 +768,43 @@
 		}
 	});
 
-	let freeArr = [];   // 该数组存放请求回来的 所有业者
-	$.get(urlDns + "/control_app/ms/fr_zg/zf/get_yzData", {
-		// 状态
-		status: income_status,
-		// 录入方式
-		addtype: addtype,
-		
-		pass_app: pass_app,
-		tel_app: tel_app,
-		code_app: code_app
-	}, function(data) {
-		// console.log(JSON.stringify(data));
-		if (data.result == 0) {
-			// 需要重新登录
-			if (window.plus) {
-				goToLogin("../../register/login.html");
-			} else {
-				document.addEventListener('plusready', goToLogin, false);
+	let freeArr   // 该数组存放请求回来的 所有业者
+	getFreeArr()
+	function getFreeArr(id=0) {
+		freeArr = []
+		// console.log("执行了获得业者列表的函数:"+ id)
+		$.get(urlDns + "/control_app/ms/fr_zg/zf/get_yzData", {
+			pass_app: pass_app,
+			tel_app: tel_app,
+			code_app: code_app,
+			sfid: id
+		}, function(data) {
+			// console.log(JSON.stringify(data));
+			if (data.result == 0) {
+				// 需要重新登录
+				if (window.plus) {
+					goToLogin("../../register/login.html");
+				} else {
+					document.addEventListener('plusready', goToLogin, false);
+				}
+			} 
+			else {
+				for (let i = 0; i < data.rows.length; i++) {
+					freeArr.push({
+						"value": data.rows[i].id,
+						"text": data.rows[i].name
+					});
+				}
+				// console.log(JSON.stringify(freeArr))
 			}
-		} 
-		else {
-			for (let i = 0; i < data.rows.length; i++) {
-				freeArr.push({
-					"value": data.rows[i].id,
-					"text": data.rows[i].name
-				});
-			}
-			// console.log(JSON.stringify(freeArr))
-		}
-	});
+		});
+	}
+	
 	
 	
 	// 点击 接受服务单位
 	$(".selectCom").on("click", selectCom);
-
+	
 	function selectCom() {
 		var popPicker = new mui.PopPicker();
 		popPicker.setData(comArr)
@@ -819,6 +816,7 @@
 		popPicker.show(function(selectItems) {
 			$(".selectComName").text(selectItems[0].text);
 			$(".selectComName").attr("id", selectItems[0].value);
+			getFreeArr($(".selectComName").attr("id"))
 		})
 	}
 	

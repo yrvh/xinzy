@@ -103,18 +103,18 @@
 			    border: 1px solid #7EB6FF;
 			}
 			
-			.com_write,.free_write{
+			.input_com,.input_free{
 			    width: 100px;
 			    text-align: center;
 			    line-height: 34px;
 			
 			}
-			.com_write{
+			.input_com{
 			    background-color: #7EB6FF;
 			    color: white;
 			}
 			
-			.free_write{
+			.input_free{
 			    color: #7EB6FF;
 			}
 		</style>
@@ -124,8 +124,8 @@
     <header>
         <img class="back" src="../../../img/back_black.png" alt="">
         <div class="change">
-            <div class="com_write">有单位</div>
-            <div class="free_write">没有单位</div>
+            <div class="input_com">有单位</div>
+            <div class="input_free">没有单位</div>
         </div>
     </header>
 
@@ -133,21 +133,21 @@
         <li class="com_wait">
             <span>待申报</span>
             <div>
-                <span class="com_w"></span>
+                <span class="com_w_li"></span>
                 <img src="../../../img/next.png" alt="">
             </div>
         </li>
         <li class="com_fail">
             <span>申报失败</span>
             <div>
-                <span class="com_f"></span>
+                <span class="com_f_li"></span>
                 <img src="../../../img/next.png" alt="">
             </div>
         </li>
         <li class="com_success">
             <span>申报成功</span>
             <div>
-                <span class="com_s"></span>
+                <span class="com_s_li"></span>
                 <img src="../../../img/next.png" alt="">
             </div>
         </li>
@@ -159,21 +159,21 @@
         <li class="free_wait">
             <span>待申报</span>
             <div>
-                <span class="free_w"></span>
+                <span class="free_w_li"></span>
                 <img src="../../../img/next.png" alt="">
             </div>
         </li>
         <li class="free_fail">
             <span>申报失败</span>
             <div>
-                <span class="free_f"></span>
+                <span class="free_f_li"></span>
                 <img src="../../../img/next.png" alt="">
             </div>
         </li>
         <li class="free_success">
             <span>申报成功</span>
             <div>
-                <span class="free_s"></span>
+                <span class="free_s_li"></span>
                 <img src="../../../img/next.png" alt="">
             </div>
         </li>
@@ -194,92 +194,94 @@
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
 	
-	getInfo(0)   // 初次加载时, 获取页面信息 0:单位录入   1:业者录入
+	if (typeof(addtype)=='undefined'){
+		getInfo(0)   // 初次加载时, 获取页面信息 0:有单位   1:没有单位
+	}
 	
-	// 单位录入
-	$(".com_write").click(()=>{
-	    $(".com_write").css("background-color","#7EB6FF");
-	    $(".com_write").css("color","white");
-	    $(".free_write").css("background-color","white");
-	    $(".free_write").css("color","#7EB6FF");
+	// 有单位
+	$(".input_com").click(()=>{
+	    $(".input_com").css("background-color","#7EB6FF");
+	    $(".input_com").css("color","white");
+	    $(".input_free").css("background-color","white");
+	    $(".input_free").css("color","#7EB6FF");
 	    $(".com_ul").css("display","block");
 	    $(".free_ul").css("display","none");
 			
-			getInfo(0) // 重新获取单位录入的 页面数据信息
+			getInfo(0) // 重新获取有单位的 页面数据信息
 	})
 	
-	// 业者录入
-	$(".free_write").click(()=>{
-	    $(".free_write").css("background-color","#7EB6FF");
-	    $(".free_write").css("color","white");
-	    $(".com_write").css("background-color","white");
-	    $(".com_write").css("color","#7EB6FF");
+	// 没有单位
+	$(".input_free").click(()=>{
+	    $(".input_free").css("background-color","#7EB6FF");
+	    $(".input_free").css("color","white");
+	    $(".input_com").css("background-color","white");
+	    $(".input_com").css("color","#7EB6FF");
 	    $(".free_ul").css("display","block");
 	    $(".com_ul").css("display","none");
 	
-	    getInfo(1) // 重新获取业者录入的 页面数据信息
+	    getInfo(1) // 重新获取没有单位的 页面数据信息
 	})
 	
 	
 	
-	// 判断下一个 页面返回来是处在 单位录入还是业者录入的界面
+	// 判断下一个 页面返回来是处在 有单位还是没有单位的界面
 	var addtype = sessionStorage.getItem("addtype");
-	if (addtype == "sf") {
-		$(".com_write").css("background-color","#7EB6FF");
-		$(".com_write").css("color","white");
-		$(".free_write").css("background-color","white");
-		$(".free_write").css("color","#7EB6FF");
+	if (addtype == "0") {
+		$(".input_com").css("background-color","#7EB6FF");
+		$(".input_com").css("color","white");
+		$(".input_free").css("background-color","white");
+		$(".input_free").css("color","#7EB6FF");
 		$(".com_ul").css("display","block");
 		$(".free_ul").css("display","none");
 	}
-	if (addtype == "yz") {
-		$(".free_write").css("background-color","#7EB6FF");
-		$(".free_write").css("color","white");
-		$(".com_write").css("background-color","white");
-		$(".com_write").css("color","#7EB6FF");
+	if (addtype == "1") {
+		$(".input_free").css("background-color","#7EB6FF");
+		$(".input_free").css("color","white");
+		$(".input_com").css("background-color","white");
+		$(".input_com").css("color","#7EB6FF");
 		$(".free_ul").css("display","block");
 		$(".com_ul").css("display","none");
 	}
 	
 	
 	// 跳转列表
-	// 录入方式addtype（业者录入为："yz"    单位录入:"sf"）
-	// ========单位录入=======
+	// 录入方式addtype（没有单位为："1"    有单位:"0"）
+	// ========有单位=======
 	$(".com_wait").click(() => {
-		sessionStorage.setItem("addtype", "sf");
-		sessionStorage.setItem("income_status", 1);
+		sessionStorage.setItem("addtype", "0");
+		sessionStorage.setItem("income_status", 0);
 		location.href = './tax_query_list.html';
 	});
 	
 	$(".com_fail").click(() => {
-		sessionStorage.setItem("addtype", "sf");
+		sessionStorage.setItem("addtype", "0");
 		sessionStorage.setItem("income_status", 2);
 		location.href = './tax_query_list.html';
 	});
 	
 	$(".com_success").click(() => {
-		sessionStorage.setItem("addtype", "sf");
-		sessionStorage.setItem("income_status", 3);
+		sessionStorage.setItem("addtype", "0");
+		sessionStorage.setItem("income_status", 1);
 		location.href = './tax_query_list.html';
 	});
 	
 	
-	// =======业者录入============
+	// =======没有单位============
 	$(".free_wait").click(() => {
-		sessionStorage.setItem("addtype", "yz");
-		sessionStorage.setItem("income_status", 2);
+		sessionStorage.setItem("addtype", "1");
+		sessionStorage.setItem("income_status", 0);
 		location.href = './tax_query_list.html';
 	});
 	
 	$(".free_fail").click(() => {
-		sessionStorage.setItem("addtype", "yz");
-		sessionStorage.setItem("income_status", 5);
+		sessionStorage.setItem("addtype", "1");
+		sessionStorage.setItem("income_status", 2);
 		location.href = './tax_query_list.html';
 	});
 	
 	$(".free_success").click(() => {
-		sessionStorage.setItem("addtype", "yz");
-		sessionStorage.setItem("income_status", 6);
+		sessionStorage.setItem("addtype", "1");
+		sessionStorage.setItem("income_status", 1);
 		location.href = './tax_query_list.html';
 	});
 	
@@ -288,14 +290,14 @@
 	function getInfo(enterType) {
 		enterType = enterType.toString()
 		
-		mui.post(urlDns + "/control_app/ms/fr_zg/zf/index",{
-		    // 0.单位录入1.业者录入
-		    type:"0",
+		mui.post(urlDns + "/share/bs_app/index",{
+		    // 0.有单位1.没有单位
+		    yztype: enterType,
 		    tel_app:tel_app,
 		    pass_app:pass_app,
 		    code_app:code_app
 		},function(data){
-		    console.log(JSON.stringify(data))
+		    // console.log(JSON.stringify(data))
 				if (data.result == 0) {
 					// 需要重新登录
 					if (window.plus) {
@@ -306,18 +308,18 @@
 					}
 				} 
 				else {
-					// 单位录入
+					// 有单位
 					if(enterType == '0') {
-						$(".com_w").text(data.send);
-						$(".com_f").text(data.yz_nopass);
-						$(".com_s").text(data.yz_pass);
+						$(".com_w_li").text(data.w_bs);
+						$(".com_f_li").text(data.n_bs);
+						$(".com_s_li").text(data.y_bs);
 					}
 				
-					// 业者录入
+					// 没有单位
 					if(enterType == '1') {
-						$(".free_w").text(data.wait_check);
-						$(".free_f").text(data.ms_nopass);
-						$(".free_s").text(data.ms_pass);
+						$(".free_w_li").text(data.w_bs);
+						$(".free_f_li").text(data.n_bs);
+						$(".free_s_li").text(data.y_bs);
 					}
 				
 				}

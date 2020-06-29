@@ -492,7 +492,7 @@
 					`
 					<div>
 						<div class="comTime">
-							<div class="comName">${data.rows[i].title} ${data.rows[i].addtime} <span>${data.rows[i].status==1? '默认':''}</span></div>
+							<div class="comName">${data.rows[i].title} ${data.rows[i].addtime} <span style="color: #dff; font-weight:700; font-style:oblique; font-size: 13px;">${data.rows[i].stauts}==1? "默认":""</span></div>
 							<div class="href" detailId="${data.rows[i].id}">
 								<span class="time">${data.rows[i].status==1? '查看':'审核'}</span>
 								<img src="../../../img/next.png" alt="">
@@ -510,7 +510,6 @@
 	// 跳转详情页面
 	$(document).on("click", ".list .href", function(e) {
 		var detailId = $(this).attr("detailId");
-		console.log(detailId)
 		sessionStorage.setItem('detailId', detailId);
 		location.href = "./contractMana_detail.html";
 	});
@@ -548,7 +547,7 @@
 								`
 								<div>
 									<div class="comTime">
-										<div class="comName">${data.rows[i].title} ${data.rows[i].addtime} <span>${data.rows[i].status==1? '默认':''}</span></div>
+										<div class="comName">${data.rows[i].title} ${data.rows[i].addtime} <span style="color: #dff; font-weight:700; font-style:oblique; font-size: 13px;">${data.rows[i].stauts}==1? "默认":""</span></div>
 										<div class="href" detailId="${data.rows[i].id}">
 											<span class="time">${data.rows[i].status==1? '查看':'审核'}</span>
 											<img src="../../../img/next.png" alt="">

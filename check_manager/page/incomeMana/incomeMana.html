@@ -143,7 +143,7 @@
 		var tel_app = localStorage.getItem("tel_app");
 		var code_app = localStorage.getItem("code_app");
 		
-		if (addtype==undefined){
+		if (typeof(addtype)=='undefined'){
 			getInfo(0)   // 初次加载时, 获取页面信息 0:单位录入   1:业者录入
 		}
 		
