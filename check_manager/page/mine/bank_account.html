@@ -7,134 +7,127 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../../../js/mui.min.js"></script>
     <link rel="stylesheet" href="../../../css/mui.min.css">
-    <link rel="stylesheet" href="../../css/tabPage/home.css">
-    <title>我的-主管</title>
-    <script>
-        mui.init();
-    </script>
+    <title>银行账号</title>
 		
 		<style type="text/css">
 			body {
-			    color: #333333;
 			    margin: 0;
 			    padding: 0;
+			    font-size: 16px;
+			    color: #333333;
 			}
 			
 			header {
 			    position: fixed;
 			    top: 0;
 			    left: 0;
-			    z-index: 99;
+			    text-align: center;
 			    width: 100%;
-			    height: 88px;
+			    height: 44px;
+			    line-height: 44px;
+			    background-color: white;
+			    box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+			    font-weight: bold;
+			    font-size: 16px;
+			    z-index: 99;
+			}
+			
+			.back {
+			    width: 20px;
+			    height: 20px;
+			    position: absolute;
+			    top: 12px;
+			    left: 5px;
+			    color: #7EB6FF;
+			    /* font-weight: 100; */
+			}
+			
+			.contBox {
+			    width: 100%;
 			    background-color: white;
 			    padding: 0 15px;
+			    margin-top: 64px;
 			}
 			
-			.userName {
-			    font-size: 17px;
-			    font-weight: bold;
-			    /* line-height: 50px; */
-			    margin-top: 20px;
-			}
-			
-			.tel {
-			    font-size: 14px;
-			    margin-top: 10px;
-			    /* line-height: 25px; */
-			}
-			
-			.InfoBox {
-			    width: 100%;
-			    margin-top: 100px;
-			    background-color: white;
-			}
-			
-			.InfoBox>div,
-			.changePwd>div {
-			    position: relative;
+			.contBox>div {
 			    width: 100%;
 			    height: 46px;
-			    padding: 0 15px;
-			    border-bottom: 1px solid rgb(231, 231, 231);
+			    display: flex;
+			    justify-content: space-between;
+			    border-bottom: 1px solid rgb(240, 240, 240);
 			}
 			
-			.InfoBox>div:nth-last-of-type(1) {
+			.contBox>div:nth-last-of-type(1) {
 			    border: none;
 			}
 			
-			.InfoBox>div img,
-			.changePwd>div img {
-			    position: absolute;
-			    top: 11px;
-			    right: 6px;
-			    width: 25px;
-			    height: 25px;
-			}
-			
-			.InfoBox>div span,
-			.changePwd>div span {
-			    font-size: 16px;
+			.contBox>div span {
 			    line-height: 46px;
 			}
 			
-			.changePwd {
-			    background-color: white;
-			    margin-top: 20px;
+			.contBox>div span:nth-last-of-type(1) {
+			    color: #666666;
 			}
 		</style>
 </head>
 
 <body>
     <header>
-        <div class="userName"></div>
-        <div class="tel"></div>
+        <img class="back" src="../../../img/back_black.png" alt="">银行账号
     </header>
-    <section class="InfoBox">
-        <div class="comInfo">
-            <span>公司信息</span>
-            <img src="../../../img/next.png" alt="">
-        </div>
-        <div class="accountInfo">
-            <span>账户信息</span>
-            <img src="../../../img/next.png" alt="">
-        </div>
-    </section>
-    <section class="changePwd">
+
+    <div class="contBox">
+        <!-- <div>
+            <span>开户地区</span>
+            <span class="area_name"></span>
+        </div> -->
         <div>
-            <span>设置</span>
-            <img src="../../../img/next.png" alt="">
+            <span>开户行</span>
+            <span class="organization"></span>
         </div>
-    </section>
+        <div>
+            <span>开户名</span>
+            <span class="name"></span>
+        </div>
+        <div>
+            <span>账号</span>
+            <span class="code"></span>
+        </div>
+    </div>
 </body>
 <script src="../../../js/jquery-3.3.1.js"></script>
 <script src="../../../js/urlDns.js"></script>
 <script src="../../../js/layer/layer.js"></script>
 
 <script type="text/javascript">
-	mui.init();
-	
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
-	console.log("tel_app：" + tel_app);
-	console.log("pass_app：" + pass_app);
+	// console.log("tel_app：" + tel_app);
+	// console.log("pass_app：" + pass_app);
 	
-	// 请求用户名和手机号
+	// 返回
+	$(".back").click(() => {
+	    history.back();
+	});
+	
+	// 获取银行卡信息的id
+	var bankId = sessionStorage.getItem('bankId');
+	
+	// 请求数据
 	$(function() {
 	    var index = layer.load(1, {
 	        // 数组中第一个参数是button的透明度
 	        // 第二个是背景颜色
 	        shade: [0.3, "white"]
 	    });
-	
-	
 	    var getData = $.ajax({
-	        url: urlDns + "/control_app/ms/info/index",
+	        url: urlDns + "/control_app/ms/info/showInfo_step03",
 	        type: 'post',
 	        dataType: "json",
 	        timeout: 120000, //2分钟超时
 	        data: {
+	            "card_id": bankId,
 	            "pass_app": pass_app,
 	            "tel_app": tel_app,
 	            "code_app": code_app
@@ -151,8 +144,11 @@
 	                    document.addEventListener('plusready', goToLogin, false);
 	                }
 	            } else {
-	                $(".userName").text(data.username);
-	                $(".tel").text(data.tel);
+	                // $(".area_name").text(data.area_name.replace("_", " "));
+	                $(".organization").text(data.khh);
+	                $(".name").text(data.kh_name);
+	                $(".code").text(data.code.replace(/\D/g, '').replace(/(....)(?=.)/g, '$1 '));
+	
 	            }
 	
 	        },
@@ -168,21 +164,6 @@
 	            }
 	        }
 	    });
-	});
-	
-	// 公司信息
-	$(".comInfo").click(() => {
-	    mui.openWindow('../mine/com_info.html');
-	});
-	
-	// 账户信息
-	$(".accountInfo").click(() => {
-	    mui.openWindow('../mine/account_info.html');
-	});
-	
-	// 设置
-	$(".changePwd").click(() => {
-	    mui.openWindow('../mine/setting.html');
 	});
 </script>
 

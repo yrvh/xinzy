@@ -7,14 +7,286 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../../js/mui.min.js"></script>
     <link rel="stylesheet" href="../../css/mui.min.css">
-    <link rel="stylesheet" href="../../css/register/incomeInfo_confirm.css">
     <title>收入纳税信息</title>
+		
+		<style type="text/css">
+			body {
+			    margin: 0;
+			    padding: 0;
+			    font-size: 16px;
+			    color: #333333;
+			}
+			
+			header {
+			    position: fixed;
+			    top: 0;
+			    left: 0;
+			    text-align: center;
+			    width: 100%;
+			    height: 44px;
+			    line-height: 44px;
+			    background-color: white;
+			    box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+			    font-weight: bold;
+			    font-size: 16px;
+			}
+			
+			header>img {
+			    position: absolute;
+			    top: 12px;
+			    left: 5px;
+			    width: 20px;
+			    height: 20px;
+			}
+			
+			.pre,
+			.next {
+			    position: absolute;
+			    top: 0;
+			    line-height: 44px;
+			    color: #7EB6FF;
+			    font-weight: 700;
+			}
+			
+			.pre {
+			    left: 10px;
+			}
+			
+			.next {
+			    right: 10px;
+			}
+			
+			section {
+			    width: 100%;
+			}
+			
+			section div {
+			    padding: 0 15px;
+			}
+			
+			.incomeBox {
+			    margin-top: 66px;
+			}
+			
+			.taxesBox {
+			    margin-top: 20px;
+			}
+			
+			.incomeBox,
+			.taxesBox {
+			    background-color: white;
+			}
+			
+			.incomeTitle,
+			.taxesTitle {
+			    width: 100%;
+			    height: 50px;
+			    color: #333333;
+			    font-size: 17px;
+			    font-weight: bold;
+			    line-height: 50px;
+			    padding-top: 8px;
+			}
+			
+			.imcomeNumBox,
+			.taxes,
+			.personalIncome,
+			.valueAdded {
+			    width: 100%;
+			    height: 46px;
+			    display: flex;
+			    justify-content: space-between;
+			    background-color: white;
+			    line-height: 46px;
+			    font-size: 15px;
+			    color: #333333;
+			}
+			
+			.valueAddedTitle,
+			.personalIncomeTitle {
+			    height: 20px;
+			    font-size: 12px;
+			    line-height: 20px;
+			    color: #333333;
+			}
+			
+			.incomeNum,
+			.type,
+			.valueAddedNum,
+			.personalIncomeNum {
+			    color: #666666;
+			    font-size: 14px;
+			}
+			
+			.btnBox {
+			    display: none;
+			    position: fixed;
+			    bottom: 0;
+			    left: 0;
+			    display: flex;
+			    width: 100%;
+			    height: 50px;
+			    background-color: white;
+			    border-top: 1px solid #eeeeee;
+			}
+			
+			.refuse,
+			.agree {
+			    position: absolute;
+			    width: calc((100% - 30px)/2);
+			    height: 40px;
+			    margin-top: 5px;
+			    /* margin-left: 10px; */
+			    border-radius: 4px;
+			    border: 1px solid rgb(204, 204, 204);
+			    text-align: center;
+			    line-height: 40px;
+			}
+			
+			.refuse {
+			    color: #7EB6FF;
+			    left: 10px;
+			}
+			
+			.agree {
+			    color: white;
+			    right: 10px;
+			    background-color: #7EB6FF;
+			    border-color: white;
+			}
+			
+			.success {
+			    display: none;
+			    width: 100%;
+			    height: 100vh;
+			    position: fixed;
+			    top: 0;
+			    left: 0;
+			    z-index: 9999;
+			}
+			
+			.success>img {
+			    width: 120px;
+			    height: 120px;
+			    margin-left: calc((100% - 120px)/2);
+			    margin-top: calc((100vh - 120px)/2);
+			}
+			
+			.errorBg {
+			    width: 100%;
+			    height: 100vh;
+			    position: absolute;
+			    top: 0;
+			    left: 0;
+			    z-index: 999;
+			    display: none;
+			}
+			
+			.errorBg .error {
+			    position: absolute;
+			    padding: 10px 15px;
+			    top: calc((100vh - 25px)/2);
+			    left: 0;
+			    width: 50%;
+			    margin-left: 25%;
+			    background-color: rgba(126, 182, 255, 0.7);
+			    color: white;
+			    font-size: 12px;
+			    text-align: center;
+			    line-height: 20px;
+			    font-size: 15px;
+			    border-radius: 3px;
+			}
+			
+			.threeBoxBg {
+			    display: none;
+			    position: fixed;
+			    top: 0;
+			    left: 0;
+			    z-index: 100;
+			    width: 100%;
+			    height: 100vh;
+			    background-color: rgba(16, 16, 16, 0.1);
+			}
+			
+			.threeBox {
+			    position: absolute;
+			    top: calc((100vh - 450px)/2);
+			    left: calc((100% - 300px)/2);
+			    width: 300px;
+			    height: 450px;
+			    background-color: white;
+			    border-radius: 4px;
+			}
+			
+			.threeTitle {
+			    position: absolute;
+			    top: 0;
+			    left: 0;
+			    width: 100%;
+			    height: 50px;
+			    text-align: center;
+			    line-height: 50px;
+			    background-color: #7EB6FF;
+			    color: white;
+			    font-size: 16px;
+			    border-radius: 4px 4px 0 0;
+			    z-index: 9;
+			}
+			
+			.scrollBox {
+			    overflow: scroll;
+			    padding-top: 70px;
+			    width: 100%;
+			    height: 390px;
+			    /* background-color: pink; */
+			}
+			
+			.one,
+			.two,
+			.three,
+			.cont,
+			.agreeThreeBox {
+			    padding: 0 12px 0 15px;
+			}
+			
+			.agreeThreeBox {
+			    position: absolute;
+			    display: flex;
+			    justify-content: space-between;
+			    bottom: 0;
+			    left: 0;
+			    width: 100%;
+			    height: 50px;
+			}
+			
+			.disagreeThree,
+			.agreeThree {
+			    width: 48%;
+			    height: 40px;
+			    border-radius: 4px;
+			    text-align: center;
+			    font-size: 16px;
+			    line-height: 40px;
+			    box-sizing: border-box;
+			}
+			
+			.disagreeThree {
+			    color: #7EB6FF;
+			    border: 1px solid #cccccc;
+			}
+			
+			.agreeThree {
+			    background-color: #7EB6FF;
+			    color: white;
+			}
+		</style>
 </head>
 
 <body>
     <header>
         <div class="pre">上一页</div>
-        收入纳税信息<span class="pageNum" style="color:rgb(153, 153, 153)"></span>
+        收入纳税信息<span class="pageNum" style="color:rgb(153, 153, 153)">(3/3)</span>
         <div class="next">下一页</div>
     </header>
     <section class="incomeBox">
@@ -81,6 +353,307 @@
 </body>
 <script src="../../js/jquery-3.3.1.js"></script>
 <script src="../../js/urlDns.js"></script>
-<script src="../../js/register/incomeInfo_confirm.js"></script>
+
+<script type="text/javascript">
+	mui.init();
+	
+	var tel_app = localStorage.getItem("tel_app");
+	var pass_app = localStorage.getItem("pass_app");
+	var code_app = localStorage.getItem("code_app");
+	
+	$(".comfirm").click(() => {
+	    location.href = "../../main.html";
+	});
+	
+	// 返回
+	$(".pre").click(() => {
+	    history.back();
+	});
+	
+	var tel = sessionStorage.getItem("tel");
+	// 判断和单位的协议是文本还是图片
+	var xytype;
+	// 判断业者是否有单位
+	var ishave_dw;
+	// ajax请求默认异步请求，但xytype变量在里面赋值还没有完，底下的代码就执行完了，
+	// xytype的值可能用的原来的值，所以将请求设置为同步请求
+	$.ajaxSettings.async = false;
+	$.post(urlDns + "/user_app/yz/checkUI", {
+	    tel: tel,
+	    tel_app: tel_app,
+	    pass_app: pass_app,
+	    code_app: code_app
+	}, function(data) {
+	    if (data.result == 0) {
+	        // 需要重新登录
+	        if (window.plus) {
+	            goToLogin("./login.html");
+	        } else {
+	            document.addEventListener('plusready', goToLogin, false);
+	        }
+	    } else {
+	        localStorage.setItem("ishave_dw", data.ishave_dw);
+	        localStorage.setItem("userType", data.userType);
+	        console.log(JSON.stringify(data));
+	        console.log("用户类型：" + data.userType)
+	            // console.log(data.zzshdde);
+	            // console.log(data.gshdde);
+	        console.log(data.ishave_dw);
+	        // console.log(data.dlregid);
+	        // zzsjntype增值税是按月还是按季，1.按月 2. 按季度 3.按年
+	        console.log(data.zzsjntype);
+	        if (data.zzsjntype == 1) {
+	            $(".valueAddedTitle").text("增值税（按月）");
+	        } else if (data.zzsjntype == 2) {
+	            $(".valueAddedTitle").text("增值税（按季）");
+	        } else if (data.zzsjntype == 3) {
+	            $(".valueAddedTitle").text("增值税（按年）");
+	        }
+	        if (data.dlregid == 0) {
+	            // 自行注册
+	            $(".next").css("display", "none");
+	            $(".btnBox").css("display", "block");
+	        }
+	        if (data.dlregid > 0) {
+	            // 代理注册
+	            $(".next").css("display", "block");
+	            $(".btnBox").css("display", "none");
+	            if (data.ishave_dw == 1) {
+	                // 有单位
+	                $(".pageNum").text("(3/5)");
+	            }
+	            if (data.ishave_dw == 0) {
+	                // 无单位
+	                $(".pageNum").text("(3/4)");
+	            }
+	        }
+	
+	        xytype = data.xytype;
+	        ishave_dw = data.ishave_dw;
+	        console.log("收入范围：" + data.monthsy)
+	            // 收入范围
+	        $(".incomeNum").text(data.monthsy);
+	        // 行业类型
+	        $(".type").text(data.hyname);
+	        // 增值税核定定额
+	        $(".valueAddedNum").text(data.zzshdde);
+	        // 个税核定定额
+	        $(".personalIncomeNum").text(data.gshdde);
+	    }
+	
+	});
+	// console.log(xytype);
+	
+	// 下一页的跳转地址
+	var nextUrl;
+	if (ishave_dw == 1) {
+	    sessionStorage.setItem("ishave_dw", 1);
+	    // 有单位
+	
+	    // xytype为1，协议是文本，为2是图片
+	    if (xytype == 1) {
+	        // 和单位的协议是文本
+	        nextUrl = "./twoContract_confirm.html";
+	    }
+	    if (xytype == 2) {
+	        // 和单位的协议是图片
+	        nextUrl = "./twoContractImg_confirm.html";
+	    }
+	
+	}
+	if (ishave_dw == 0) {
+	    sessionStorage.setItem("ishave_dw", 0);
+	    // 无单位
+	    nextUrl = "./businessComContract_comfirm.html";
+	}
+	
+	// 下一页
+	$(".next").click(() => {
+	    location.href = nextUrl;
+	});
+	
+	// 同意按钮
+	$(".agree").click(() => {
+	    $.post(urlDns + "/user_app/yz/check", {
+	        tel_app: tel_app,
+	        pass_app: pass_app,
+	        code_app: code_app
+	    }, function(data) {
+	        if (data.result == 0) {
+	            // 需要重新登录
+	            if (window.plus) {
+	                goToLogin("./login.html");
+	            } else {
+	                document.addEventListener('plusready', goToLogin, false);
+	            }
+	        } else {
+	            // sessionStorage.clear();
+	            // $(".success").css("display", "block");
+	            // setTimeout(() => {
+	            //     $(".success").css("display", "none");
+	            //     location.href = "./login.html";
+	            // }, 1000);
+	            getContrat();
+	        }
+	
+	    });
+	
+	});
+	
+	// 退回
+	$(".refuse").click(() => {
+	    sessionStorage.setItem("type", "return");
+	    location.href = "../textPage.html";
+	});
+	
+	// 弹出三方协议
+	function getContrat() {
+	    $(".threeBoxBg").css("display", "block");
+	
+	    var threeContractPost = $.ajax({
+	        url: urlDns + "/user_app/yz/check_3_xieyiUI",
+	        type: 'post',
+	        dataType: "json",
+	        data: {
+	            "tel_app": tel_app,
+	            "pass_app": pass_app,
+	            "code_app": code_app
+	        },
+	        timeout: 120000, //2分钟超时
+	        //请求成功
+	        success: function(data) {
+	            console.log(JSON.stringify(data));
+	            console.log("用户类型：" + data.userType)
+	            if (data.result == 0) {
+	                location.reload();
+	            } else {
+	
+	                $(".cont").html(data.text);
+	
+	            }
+	
+	        },
+	        error: function(XMLHttpRequest, textStatus, errorThrown) {
+	            console.log(textStatus)
+	            if (textStatus == 'timeout') {
+	                threeContractPost.abort();
+	                alert("请求超时");
+	                $(".threeBoxBg").css("display", "none");
+	            }
+	            if (textStatus == 'error') {
+	                console.log(errorThrown)
+	                threeContractPost.abort();　
+	                $(".threeBoxBg").css("display", "none");
+	                alert("请求错误" + errorThrown);
+	
+	            }
+	        }
+	    });
+	}
+	
+	// 同意三方协议
+	$(".agreeThree").click(() => {
+	    var userType = localStorage.getItem("userType");
+	    var index = layer.load(1, {
+	        // 数组中第一个参数是button的透明度
+	        // 第二个是背景颜色
+	        shade: [0.3, "white"]
+	    });
+	    var agreeContractPost = $.ajax({
+	        url: urlDns + "/user_app/yz/check_3_xieyi",
+	        type: 'post',
+	        dataType: "json",
+	        data: {
+	            "tel_app": tel_app,
+	            "pass_app": pass_app,
+	            "code_app": code_app
+	        },
+	        timeout: 120000, //2分钟超时
+	        //请求成功
+	        success: function(data) {
+	            console.log(JSON.stringify(data));
+	            layer.close(index);
+	            if (data.result == 0) {
+	                location.reload();
+	            } else {
+	                // 合作伙伴
+	                if (userType == 11) {
+	                    // 审核全部完成，进入首页
+	                    location.href = "../../cooperation/page/index.html";
+	                }
+	
+	                // 业者
+	                if (userType == 1) {
+	                    location.href = "../../index.html";
+	                }
+	
+	            }
+	        },
+	        error: function(XMLHttpRequest, textStatus, errorThrown) {
+	            layer.close(index);
+	            if (textStatus == 'timeout') {
+	                agreeContractPost.abort();
+	                alert("请求超时");
+	            }
+	            if (textStatus == 'error') {
+	                agreeContractPost.abort();
+	                alert("请求错误" + errorThrown);
+	            }
+	        }
+	    });
+	})
+	
+	// 不同意三方协议
+	$(".disagreeThree").click(() => {
+	    var userType = localStorage.getItem("userType");
+	
+	    var index = layer.load(1, {
+	        // 数组中第一个参数是button的透明度
+	        // 第二个是背景颜色
+	        shade: [0.3, "white"]
+	    });
+	    var agreeContractPost = $.ajax({
+	        url: urlDns + "/user_app/yz/uncheck_3_xieyi",
+	        type: 'post',
+	        dataType: "json",
+	        data: {
+	            "tel_app": tel_app,
+	            "pass_app": pass_app,
+	            "code_app": code_app
+	        },
+	        timeout: 120000, //2分钟超时
+	        //请求成功
+	        success: function(data) {
+	            console.log(JSON.stringify(data));
+	            layer.close(index);
+	            if (data.result == 0) {
+	                location.reload();
+	            } else {
+	                // 合作伙伴
+	                if (userType == 11) {
+	                    // 审核全部完成，进入首页
+	                    location.href = "../../cooperation/page/index.html";
+	                }
+	
+	                // 业者
+	                if (userType == 1) {
+	                    location.href = "../../index.html";
+	                }
+	            }
+	        },
+	        error: function(XMLHttpRequest, textStatus, errorThrown) {
+	            layer.close(index);
+	            if (textStatus == 'timeout') {
+	                agreeContractPost.abort();
+	                alert("请求超时");
+	            }
+	            if (textStatus == 'error') {
+	                agreeContractPost.abort();
+	                alert("请求错误" + errorThrown);
+	            }
+	        }
+	    });
+	})
+</script>
 
 </html>

@@ -6,7 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<script src="../../../js/mui.min.js"></script>
 		<link rel="stylesheet" href="../../../css/mui.min.css">
-		<title>代理注册</title>
+		<title>--合作伙伴--代理注册--</title>
 		<script type="text/javascript">
 			mui.init();
 		</script>
@@ -58,8 +58,8 @@
 		<header>
 			<img class="back" src="../../../img/back_black.png"  alt=""/>
 			<div class="toggleBox">
-				<div class="input_com">单位录入</div>
-				<div class="input_free">业者录入</div>
+				<div class="input_com">单位用户</div>
+				<div class="input_free">业者用户</div>
 			</div>
 		</header>
 		
@@ -128,10 +128,10 @@
 		var pass_app = localStorage.getItem("pass_app");
 		var tel_app = localStorage.getItem("tel_app");
 		var code_app = localStorage.getItem("code_app");
-		// console.log(pass_app)
-		// console.log(tel_app)
-		// console.log(code_app)
-		getInfo(0) // 初次加载时, 获取页面信息 0:单位录入   1:业者录入
+		
+		if (typeof(addtype)=='undefined'){
+			getInfo(0)   // 初次加载时, 获取页面信息 0:单位用户   1:业者用户
+		}
 		
 		// 角色切换
 		$(".input_com").click(() => {
@@ -141,7 +141,7 @@
 			$(".input_free").css("color", "#7EB6FF");
 			$("#input_free").css("display", "none");
 			$("#input_com").css("display", "block");
-			getInfo(0) // 重新获取单位录入的 页面数据信息
+			getInfo(0) // 重新获取单位用户的 页面数据信息
 		});
 		$(".input_free").click(() => {
 			$(".input_free").css("background-color", "#7EB6FF");
@@ -150,11 +150,11 @@
 			$(".input_com").css("color", "#7EB6FF");
 			$("#input_com").css("display", "none");
 			$("#input_free").css("display", "block");
-			getInfo(1) // 重新获取业者录入的 页面数据信息
+			getInfo(1) // 重新获取业者用户的 页面数据信息
 		
 		});
 		
-		// 判断下一个 页面返回来是处在 单位录入还是业者录入的界面
+		// 判断下一个 页面返回来是处在 单位用户还是业者用户的界面
 		var addtype = sessionStorage.getItem("addtype");
 		if (addtype == "sf") {
 			$(".input_com").css("background-color", "#7EB6FF");
@@ -163,6 +163,7 @@
 			$(".input_free").css("color", "#7EB6FF");
 			$("#input_free").css("display", "none");
 			$("#input_com").css("display", "block");
+			getInfo(0)
 		}
 		if (addtype == "yz") {
 			$(".input_free").css("background-color", "#7EB6FF");
@@ -171,11 +172,11 @@
 			$(".input_com").css("color", "#7EB6FF");
 			$("#input_com").css("display", "none");
 			$("#input_free").css("display", "block");
+			getInfo(1)
 		}
 		
 		// 跳转列表
-		// 录入方式addtype（业者录入为："yz"    单位录入:"sf")
-		// ========单位录入=======
+		// ========单位用户=======
 		$("#input_com .serve").click(() => {
 			sessionStorage.setItem("addtype", "sf");
 			sessionStorage.setItem("income_status", 1);
@@ -194,7 +195,7 @@
 			location.href = './agent_list.html';
 		});
 		
-		// =======业者录入============
+		// =======业者用户============
 		$("#input_free .serve").click(() => {
 			sessionStorage.setItem("addtype", "yz");
 			sessionStorage.setItem("income_status", 4);
@@ -235,14 +236,14 @@
 					}
 				} 
 				else {
-					// 单位录入
+					// 单位用户
 					if(enterType == '0') {
 						$("#input_com .serve").text(data.send);
 						$("#input_com .register").text(data.yz_nopass);
 						$("#input_com .relieve").text(data.ms_pass);
 					}
 		
-					// 业者录入
+					// 业者用户
 					if(enterType == '1') {
 						$("#input_free .serve").text(data.wait_check);
 						$("#input_free .register").text(data.ms_pass);

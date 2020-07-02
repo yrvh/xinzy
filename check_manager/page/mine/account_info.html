@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../../../css/mui.min.css">
+    
+		<style type="text/css">
+			body {
+			    margin: 0;
+			    padding: 0;
+			    font-size: 16px;
+			    color: #333333;
+			}
+			
+			header {
+			    position: relative;
+			    text-align: center;
+			    line-height: 44px;
+			    width: 100%;
+			    height: 44px;
+			    background-color: white;
+			    box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+			    font-weight: bold;
+			}
+			
+			header>img {
+			    position: absolute;
+			    top: 12px;
+			    left: 5px;
+			    width: 20px;
+			    height: 20px;
+			}
+			
+			header>div {
+			    position: absolute;
+			    top: 0;
+			    right: 5px;
+			    height: 44px;
+			    line-height: 44px;
+			}
+			
+			.next {
+			    line-height: 44px;
+			    color: #7EB6FF;
+			    margin-right: 10px;
+			}
+			
+			.bodyBox {
+			    width: 100%;
+			    background-color: white;
+			    margin-top: 20px;
+			    padding: 0 15px;
+			}
+			
+			.title {
+			    width: 100%;
+			    height: 46px;
+			    line-height: 46px;
+			    font-weight: 800;
+			    font-size: 17px;
+			}
+			
+			.contBox>div {
+			    position: relative;
+			    width: 100%;
+			    height: 46px;
+			    border-bottom: 1px solid rgb(240, 240, 240);
+			}
+			
+			.contBox>div img {
+			    position: absolute;
+			    width: 25px;
+			    height: 25px;
+			    right: -5px;
+			    top: 10px;
+			}
+			
+			.contBox>div span {
+			    line-height: 44px;
+			}
+			
+			.name {
+			    position: absolute;
+			    left: 0;
+			}
+			
+			.account {
+			    position: absolute;
+			    top: 0;
+			    right: 25px;
+			    color: #666666;
+			}
+		</style>
+
+    <title>账户信息</title>
+</head>
+
+<body>
+    <header>
+        <img class="back" src="../../../img/back_black.png" alt=""> 账户信息
+    </header>
+    <div class="bodyBox">
+        <div class="title">基本账户信息</div>
+        <div class="contBox">
+
+            <!-- <div>
+                <span class="name">中国银行</span>
+                <span class="account">***************8574</span>
+                <img src="../../../img/next.png" alt="">
+            </div>
+            <div>
+                <span class="name">中国银行</span>
+                <span class="account">***************8574</span>
+                <img src="../../../img/next.png" alt="">
+            </div> -->
+
+        </div>
+    </div>
+</body>
+<script src="../../../js/jquery-3.3.1.js"></script>
+<script src="../../../js/urlDns.js"></script>
+<script src="../../../js/layer/layer.js"></script>
+
+
+<script type="text/javascript">
+	var pass_app = localStorage.getItem("pass_app");
+	var tel_app = localStorage.getItem("tel_app");
+	var code_app = localStorage.getItem("code_app");
+	// console.log("tel_app：" + tel_app);
+	// console.log("pass_app：" + pass_app);
+	
+	// 返回
+	$(".back").click(() => {
+	    mui.back();
+	});
+	
+	
+	$(function() {
+	    var index = layer.load(1, {
+	        // 数组中第一个参数是button的透明度
+	        // 第二个是背景颜色
+	        shade: [0.3, "white"]
+	    });
+	    var getData = $.ajax({
+	        url: urlDns + "/control_app/ms/info/showInfo_step02",
+	        type: 'post',
+	        dataType: "json",
+	        timeout: 120000, //2分钟超时
+	        data: {
+	            "pass_app": pass_app,
+	            "tel_app": tel_app,
+	            "code_app": code_app
+	        },
+	        //请求成功
+	        success: function(data) {
+	            console.log(JSON.stringify(data));
+	            layer.close(index);
+	            if (data.result == 0) {
+	                // 需要重新登录
+	                if (window.plus) {
+	                    goToLogin("../../../page/register/login.html");
+	                } else {
+	                    document.addEventListener('plusready', goToLogin, false);
+	                }
+	            } else {
+	                for (var i = 0; i < data.rows.length; i++) {
+	                    var htmlStr = `
+	                    <div bankId="${data.rows[i].id}">
+	                        <span class="name">${data.rows[i].khh}</span>
+	                        <span class="account">${data.rows[i].code.replace(/^(\d{4})\d+(\d{4})$/,"**** $2")}</span>
+	                        <img src="../../../img/next.png" alt="">
+	                    </div>
+	                `;
+	                }
+	                $(".contBox").html(htmlStr);
+	            }
+	
+	
+	        },
+	        error: function(XMLHttpRequest, textStatus, errorThrown) {
+	            layer.close(index);
+	            if (textStatus == 'timeout') {
+	                getData.abort();　
+	                alert("请求超时");
+	            }
+	            if (textStatus == 'error') {
+	                getData.abort();　
+	                alert("请求错误" + errorThrown);
+	            }
+	        }
+	    });
+	});
+	
+	// 跳转详细银行账号信息
+	$(document).on("click", ".contBox>div", function(e) {
+	    var bankId = $(this).attr("bankId");
+	    console.log(bankId)
+	        // 存储ID
+	    sessionStorage.setItem('bankId', bankId);
+	    location.href = "./bank_account.html";
+	});
+</script>
+
+</html>

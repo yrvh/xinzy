@@ -137,7 +137,10 @@
 	    mui.back();
 	});
 
+	// 获取id
 	var detailId = sessionStorage.getItem("detailId");
+	// 定义一个存储 劳动服务内容的变量
+	let detail_content = ''
 	
 	$(function() {
 	    var index = layer.load(1, {
@@ -158,7 +161,7 @@
 	        },
 	        //请求成功
 	        success: function(data) {
-	            console.log(JSON.stringify(data));
+	            // console.log(JSON.stringify(data));
 	            layer.close(index);
 	            if (data.result == 0) {
 	                // 需要重新登录
@@ -186,6 +189,8 @@
 								$(".service-con-li").text(data.descripts);
 								$(".service-cycle-li").text(data.zq);
 								$(".pay-amount-li").text(data.allmoney);
+								// formatMoney(data.allmoney,2,'¥')
+								detail_content = data.descripts
 	            }
 	
 	        },
@@ -206,7 +211,8 @@
 	// 劳动服务内容
 	$(".service-con").click(() => {
 		sessionStorage.setItem("title","劳动服务内容")
-		sessionStorage.setItem("status","income_con")
+		sessionStorage.setItem("detail_content",detail_content)
+		sessionStorage.setItem("user_type","411")
 	  location.href = "../business_content.html";
 	});
 </script>

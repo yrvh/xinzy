@@ -3,8 +3,8 @@
     "id" : "H5B141A43", /*应用的标识，创建应用时自动生成，勿手动修改*/
     "name" : "慧业通", /*应用名称，程序桌面图标名称*/
     "version" : {
-        "name" : "1.1.05", /*应用版本名称*/
-        "code" : "83"
+        "name" : "1.1.06", /*应用版本名称*/
+        "code" : 84
     },
     "description" : "", /*应用描述信息*/
     "icons" : {
@@ -64,29 +64,29 @@
                 "password" : "", /*Android应用打包使用密钥库中证书的密码*/
                 "aliasname" : "", /*Android应用打包使用密钥库中证书的别名*/
                 "permissions" : [
+                    "<uses-feature android:name=\"android.hardware.camera\"/>",
+                    "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
+                    "<uses-permission android:name=\"android.permission.CAMERA\"/>",
                     "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
+                    "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
+                    "<uses-permission android:name=\"android.permission.INTERNET\"/>",
+                    "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
                     "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
                     "<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>",
-                    "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
                     "<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
-                    "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
-                    "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
-                    "<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>",
-                    "<uses-permission android:name=\"android.permission.CAMERA\"/>",
-                    "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
-                    "<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
-                    "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
-                    "<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>",
                     "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
+                    "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
                     "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
-                    "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
-                    "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
-                    "<uses-feature android:name=\"android.hardware.camera\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
                     "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
                 ]
             },
@@ -106,14 +106,14 @@
 
                         /*iPhone iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*/
                         "settings-normal" : "", /*iPhone设置页面程序图标，分辨率：29x29*/
-                        "app@2x" : "C:/Users/Administrator/Desktop/交接文件/img/Icon/ios/Icon_120x120.png",
-                        "app@3x" : "C:/Users/Administrator/Desktop/交接文件/img/Icon/ios/Icon_180x180.png",
-                        "settings@3x" : "C:/Users/Administrator/Desktop/交接文件/img/Icon/ios/Icon_87x87.png",
-                        "settings@2x" : "C:/Users/Administrator/Desktop/交接文件/img/Icon/ios/Icon_58x58.png",
-                        "spotlight@2x" : "C:/Users/Administrator/Desktop/交接文件/img/Icon/ios/Icon_80x80.png",
-                        "spotlight@3x" : "C:/Users/Administrator/Desktop/交接文件/img/Icon/ios/Icon_120x120.png",
-                        "notification@3x" : "C:/Users/Administrator/Desktop/交接文件/img/Icon/ios/Icon_40x40.png",
-                        "notification@2x" : "C:/Users/Administrator/Desktop/交接文件/img/Icon/ios/Icon_40x40.png"
+                        "app@2x" : "C:/Users/Administrator/Desktop/慧业通文档/img/Icon/ios/Icon_120x120.png",
+                        "app@3x" : "C:/Users/Administrator/Desktop/慧业通文档/img/Icon/ios/Icon_180x180.png",
+                        "settings@3x" : "C:/Users/Administrator/Desktop/慧业通文档/img/Icon/ios/Icon_87x87.png",
+                        "settings@2x" : "C:/Users/Administrator/Desktop/慧业通文档/img/Icon/ios/Icon_58x58.png",
+                        "spotlight@2x" : "C:/Users/Administrator/Desktop/慧业通文档/img/Icon/ios/Icon_80x80.png",
+                        "spotlight@3x" : "C:/Users/Administrator/Desktop/慧业通文档/img/Icon/ios/Icon_120x120.png",
+                        "notification@3x" : "C:/Users/Administrator/Desktop/慧业通文档/img/Icon/ios/Icon_60x60.png",
+                        "notification@2x" : "C:/Users/Administrator/Desktop/慧业通文档/img/Icon/ios/Icon_40x40.png"
                     },
                     "ipad" : {
                         "normal" : "", /*iPad普通屏幕程序图标，分辨率：72x72*/
@@ -124,36 +124,36 @@
                         "spotlight-retina" : "", /*iPad高分屏Spotlight搜索程序图标，分辨率：100x100*/
 
                         /*iPad iOS7 Spotlight搜索程序图标，分辨率：40x40*//*iPad iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*//*iPad设置页面程序图标，分辨率：29x29*/
-                        "app" : "C:/Users/Administrator/Desktop/交接文件/img/Icon/ios/Icon_76x76.png",
-                        "app@2x" : "C:/Users/Administrator/Desktop/交接文件/img/Icon/ios/Icon_152x152.png",
-                        "settings" : "C:/Users/Administrator/Desktop/交接文件/img/Icon/ios/Icon_29x29.png",
-                        "proapp@2x" : "C:/Users/Administrator/Desktop/交接文件/img/Icon/ios/Icon_167x167.png",
-                        "spotlight" : "C:/Users/Administrator/Desktop/交接文件/img/Icon/ios/Icon_40x40.png",
-                        "settings@2x" : "C:/Users/Administrator/Desktop/交接文件/img/Icon/ios/Icon_58x58.png",
-                        "spotlight@2x" : "C:/Users/Administrator/Desktop/交接文件/img/Icon/ios/Icon_80x80.png",
-                        "notification" : "C:/Users/Administrator/Desktop/交接文件/img/Icon/ios/Icon_20x20.png",
-                        "notification@2x" : "C:/Users/Administrator/Desktop/交接文件/img/Icon/ios/Icon_40x40.png"
+                        "app" : "C:/Users/Administrator/Desktop/慧业通文档/img/Icon/ios/Icon_76x76.png",
+                        "app@2x" : "C:/Users/Administrator/Desktop/慧业通文档/img/Icon/ios/Icon_152x152.png",
+                        "settings" : "C:/Users/Administrator/Desktop/慧业通文档/img/Icon/ios/Icon_29x29.png",
+                        "proapp@2x" : "C:/Users/Administrator/Desktop/慧业通文档/img/Icon/ios/Icon_167x167.png",
+                        "spotlight" : "C:/Users/Administrator/Desktop/慧业通文档/img/Icon/ios/Icon_40x40.png",
+                        "settings@2x" : "C:/Users/Administrator/Desktop/慧业通文档/img/Icon/ios/Icon_58x58.png",
+                        "spotlight@2x" : "C:/Users/Administrator/Desktop/慧业通文档/img/Icon/ios/Icon_80x80.png",
+                        "notification" : "C:/Users/Administrator/Desktop/慧业通文档/img/Icon/ios/Icon_20x20.png",
+                        "notification@2x" : "C:/Users/Administrator/Desktop/慧业通文档/img/Icon/ios/Icon_40x40.png"
                     },
-                    "appstore" : "C:/Users/Administrator/Desktop/交接文件/img/Icon/1024.png"
+                    "appstore" : "C:/Users/Administrator/Desktop/慧业通文档/img/Icon/1024.png"
                 },
                 "android" : {
                     "mdpi" : "C:/Users/lenovo/Desktop/Icon/Android/Icon_48x48.png", /*普通屏程序图标，分辨率：48x48*/
                     "ldpi" : "C:/Users/lenovo/Desktop/Icon/Android/Icon_48x48.png", /*大屏程序图标，分辨率：48x48*/
-                    "hdpi" : "C:/Users/Administrator/Desktop/交接文件/img/Icon/Android/Icon_72x72.png", /*高分屏程序图标，分辨率：72x72*/
-                    "xhdpi" : "C:/Users/Administrator/Desktop/交接文件/img/Icon/Android/Icon_96x96.png", /*720P高分屏程序图标，分辨率：96x96*/
-                    "xxhdpi" : "C:/Users/Administrator/Desktop/交接文件/img/Icon/Android/Icon_144x144.png",
-                    "xxxhdpi" : "C:/Users/Administrator/Desktop/交接文件/img/Icon/Android/Icon_192x192.png"
+                    "hdpi" : "C:/Users/Administrator/Desktop/慧业通文档/img/Icon/Android/Icon_72x72.png", /*高分屏程序图标，分辨率：72x72*/
+                    "xhdpi" : "C:/Users/Administrator/Desktop/慧业通文档/img/Icon/Android/Icon_96x96.png", /*720P高分屏程序图标，分辨率：96x96*/
+                    "xxhdpi" : "C:/Users/Administrator/Desktop/慧业通文档/img/Icon/Android/Icon_144x144.png",
+                    "xxxhdpi" : "C:/Users/Administrator/Desktop/慧业通文档/img/Icon/Android/Icon_192x192.png"
                 }
             },
             "splashscreen" : {
                 "ios" : {
                     "iphone" : {
                         "default" : "", /*iPhone3启动图片选，分辨率：320x480*/
-                        "retina35" : "C:/Users/Administrator/Desktop/交接文件/img/启动页logo/ios/LaunchImage@i4.png", /*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
-                        "retina40" : "C:/Users/Administrator/Desktop/交接文件/img/启动页logo/ios/LaunchImage@i5.png",
-                        "iphonex" : "C:/Users/Administrator/Desktop/交接文件/img/启动页logo/ios/LaunchImage@ix.png",
-                        "retina47" : "C:/Users/Administrator/Desktop/交接文件/img/启动页logo/ios/LaunchImage@i678.png",
-                        "retina55" : "C:/Users/Administrator/Desktop/交接文件/img/启动页logo/ios/LaunchImage@i678p.png"
+                        "retina35" : "C:/Users/Administrator/Desktop/慧业通文档/img/启动页logo/ios/LaunchImage@i4.png", /*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
+                        "retina40" : "C:/Users/Administrator/Desktop/慧业通文档/img/启动页logo/ios/LaunchImage@i5.png",
+                        "iphonex" : "C:/Users/Administrator/Desktop/慧业通文档/img/启动页logo/ios/LaunchImage@ix.png",
+                        "retina47" : "C:/Users/Administrator/Desktop/慧业通文档/img/启动页logo/ios/LaunchImage@i678.png",
+                        "retina55" : "C:/Users/Administrator/Desktop/慧业通文档/img/启动页logo/ios/LaunchImage@i678p.png"
                     },
                     "ipad" : {
                         "portrait" : "", /*iPad竖屏启动图片，分辨率：768x1004*/
@@ -169,9 +169,9 @@
                 "android" : {
                     "mdpi" : "", /*普通屏启动图片，分辨率：240x282*/
                     "ldpi" : "", /*大屏启动图片，分辨率：320x442*/
-                    "hdpi" : "C:/Users/Administrator/Desktop/交接文件/img/启动页logo/Android/LaunchImage.png", /*高分屏启动图片，分辨率：480x762*/
-                    "xhdpi" : "C:/Users/Administrator/Desktop/交接文件/img/启动页logo/Android/LaunchImage@2x.png", /*720P高分屏启动图片，分辨率：720x1242*/
-                    "xxhdpi" : "C:/Users/Administrator/Desktop/交接文件/img/启动页logo/Android/LaunchImage@3x.png"
+                    "hdpi" : "C:/Users/Administrator/Desktop/慧业通文档/img/启动页logo/Android/LaunchImage.png", /*高分屏启动图片，分辨率：480x762*/
+                    "xhdpi" : "C:/Users/Administrator/Desktop/慧业通文档/img/启动页logo/Android/LaunchImage@2x.png", /*720P高分屏启动图片，分辨率：720x1242*/
+                    "xxhdpi" : "C:/Users/Administrator/Desktop/慧业通文档/img/启动页logo/Android/LaunchImage@3x.png"
                 }
             },
             "plugins" : {
@@ -333,6 +333,7 @@
                     "page/register/onLineContract.html",
                     "page/register/findPwd.html",
                     "manager/page/index.html",
+                    "check_manager/page/index.html",
                     "cooperation/page/index.html",
                     "page/register/scan_res.html",
                     "page/register/incomeInfo_confirm.html"
@@ -711,100 +712,10 @@
             "manager/page/tabPage/home.html" : {
                 "resources" : [],
                 "refer" : [
-                    "manager/page/companyMana/companyMana.html",
                     "manager/page/contractMana/contractMana.html",
-                    "manager/page/taxesMana/taxesMana.html",
+                    "manager/page/query/query.html",
                     "manager/page/staffMana/staffMana.html"
                 ],
-                "priority" : 0
-            },
-            "manager/page/companyMana/companyMana.html" : {
-                "resources" : [ "manager/page/companyMana/companyManaList_wait.html" ],
-                "refer" : [
-                    "manager/page/companyMana/companyManaList_toBack.html",
-                    "manager/page/companyMana/companyManaList_pass.html",
-                    "manager/page/companyMana/contract_wait.html",
-                    "page/register/login.html"
-                ],
-                "priority" : 0
-            },
-            "manager/page/companyMana/companyManaList_wait.html" : {
-                "resources" : [],
-                "refer" : [
-                    "manager/page/companyMana/companyMana.html",
-                    "manager/page/companyMana/companyManaDetail_one.html",
-                    "manager/page/companyMana/contract_wait.html"
-                ],
-                "priority" : 0
-            },
-            "manager/page/companyMana/companyManaList_toBack.html" : {
-                "resources" : [],
-                "refer" : [
-                    "manager/page/companyMana/companyMana.html",
-                    "manager/page/companyMana/companyManaDetail_one.html"
-                ],
-                "priority" : 0
-            },
-            "manager/page/companyMana/companyManaList_pass.html" : {
-                "resources" : [],
-                "refer" : [
-                    "manager/page/companyMana/companyMana.html",
-                    "manager/page/companyMana/companyManaDetail_one.html",
-                    "page/register/login.html"
-                ],
-                "priority" : 0
-            },
-            "manager/page/companyMana/companyManaDetail_one.html" : {
-                "resources" : [],
-                "refer" : [
-                    "manager/page/companyMana/companyManaList_pass.html",
-                    "manager/page/companyMana/companyManaList_wait.html",
-                    "manager/page/companyMana/companyManaDetail_two.html",
-                    "manager/page/companyMana/companyManaList_toBack.html",
-                    "manager/page/companyMana/idCardPhotos_fr.html",
-                    "manager/page/companyMana/certificPhoto.html",
-                    "manager/page/companyMana/address.html",
-                    "manager/page/companyMana/business_range.html",
-                    "manager/page/companyMana/idCardPhotos_lxr.html",
-                    "manager/page/companyMana/major_business.html",
-                    "manager/page/companyMana/com_logo.html"
-                ],
-                "priority" : 0
-            },
-            "manager/page/companyMana/companyManaDetail_two.html" : {
-                "resources" : [],
-                "refer" : [
-                    "manager/page/companyMana/companyManaDetail_one.html",
-                    "manager/page/companyMana/bankAccount.html",
-                    "manager/page/companyMana/contract_p_b.html",
-                    "manager/page/companyMana/contract_wait.html",
-                    "page/register/login.html"
-                ],
-                "priority" : 0
-            },
-            "manager/page/companyMana/bankAccount.html" : {
-                "resources" : [],
-                "refer" : [ "manager/page/companyMana/companyManaDetail_two.html" ],
-                "priority" : 0
-            },
-            "manager/page/companyMana/contract_p_b.html" : {
-                "resources" : [],
-                "refer" : [ "manager/page/companyMana/companyManaDetail_two.html" ],
-                "priority" : 0
-            },
-            "manager/page/companyMana/contract_wait.html" : {
-                "resources" : [],
-                "refer" : [
-                    "manager/page/companyMana/companyManaList_wait.html",
-                    "manager/page/companyMana/companyMana.html",
-                    "manager/page/companyMana/companyManaDetail_two.html",
-                    "manager/page/companyMana/toBack_reason.html"
-                ],
-                "priority" : 0
-            },
-            "manager/page/companyMana/toBack_reason.html" : {
-                "resources" : [],
-                "refer" : [ "manager/page/companyMana/companyManaList_wait.html" ],
                 "priority" : 0
             },
             "manager/page/contractMana/contractMana.html" : {

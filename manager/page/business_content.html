@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="../../../js/mui.min.js"></script>
-    <link rel="stylesheet" href="../../../css/mui.min.css">
+    <script src="../../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../../css/mui.min.css">
     <title>文本输入框</title>
     <style>
         body {
@@ -43,7 +43,7 @@
         .textBox {
             margin-top: 20px;
             width: 100%;
-            background-color: white;
+            background-color: #fff;
             padding: 20px 15px 0 15px;
         }
 
@@ -89,7 +89,7 @@
 
 <body>
     <header>
-        <img class="back" src="../../../img/back_black.png" alt="">
+        <img class="back" src="../../img/back_black.png" alt="">
         <span class="title"></span>
         <!-- <div class="next">确定</div> -->
     </header>
@@ -98,79 +98,116 @@
         <div class="tips">0/300汉字</div>
     </div>
     <div class="success">
-        <img src="../../../img/success.png" alt="">
+        <img src="../../img/success.png" alt="">
     </div>
 </body>
-<script src="../../../js/jquery-3.3.1.js"></script>
-<script src="../../../js/urlDns.js"></script>
+<script src="../../js/jquery-3.3.1.js"></script>
+<script src="../../js/urlDns.js"></script>
 <script>
-    // 返回
-    $(".back").click(() => {
-        history.back();
-    });
+	// 返回
+	$(".back").click(() => {
+		sessionStorage.removeItem("title")
+		sessionStorage.removeItem("user_type")
+		sessionStorage.removeItem("detail_content")
+		history.back();
+	});
+	var pass_app = localStorage.getItem("pass_app");
+	var tel_app = localStorage.getItem("tel_app");
+	var code_app = localStorage.getItem("code_app");
+	
+	
+	
+	// 获取标题
+	var title = sessionStorage.getItem("title")
+	// 获取进入状态
+	var user_type = sessionStorage.getItem("user_type")
+	// 获取数据ID
+	var detailId = sessionStorage.getItem("detailId");
+	// 获取传过来的内容
+	var detail_content = sessionStorage.getItem("detail_content") || ''
+	let detail_content_length = detail_content.length
+	// console.log(detail_content_length)
+	$(".tips").text(detail_content_length +'/300汉字')
+	
+	
+	
+	// 不同角色,不同状态执行不同的内容
+	if(user_type = '441'){
+		// 这是法人的角色, 查看收入劳务内容
+		$("#cont").val(detail_content);
+	}
+	
+	// 定义请求函数 "/control_app/hhr/zf/showUI"
+	function getDetailItem(url,id='') {
+		console.log("函数执行了")
+		$.post(urlDns + url, {
+				id,
+				pass_app: pass_app,
+				tel_app: tel_app,
+				code_app: code_app
+		}, function (data) {
+			console.log("请求响应了")
+				console.log(JSON.stringify(data))
+				if (data.result == 0) {
+						// 需要重新登录
+						if (window.plus) {
+								goToLogin("../../register/login.html");
+						} else {
+								document.addEventListener('plusready', goToLogin, false);
+						}
+				} else {
+						$("#cont").val(data.descripts);
 		
-		// 获取标题
-		var title = sessionStorage.getItem("title")
-		// 获取进入状态
-		var stu = sessionStorage.getItem("status")
+				}
+		});
+	}
+    // if (serverContType == zf) {
+    //     // 收入信息的劳务内容
+    //     // 请求数据
+    //     $.post(urlDns + "/control_app/hhr/zf/showUI", {
+    //         id: incomeDetailId,
+    //         pass_app: pass_app,
+    //         tel_app: tel_app,
+    //         code_app: code_app
+    //     }, function (data) {
+    //         console.log(JSON.stringify(data))
+    //         if (data.result == 0) {
+    //             // 需要重新登录
+    //             if (window.plus) {
+    //                 goToLogin("../../register/login.html");
+    //             } else {
+    //                 document.addEventListener('plusready', goToLogin, false);
+    //             }
+    //         } else {
+    //             $("#cont").val(data.descripts);
 
-    // 获取数据ID
-    var incomeDetailId = sessionStorage.getItem("incomeDetailId");
-    console.log(incomeDetailId);
-    // 获取判断是收入还是发票内容的标志
-    var serverContType = sessionStorage.getItem("serverContType");
+    //         }
+    //     });
+    // }
 
-    var pass_app = localStorage.getItem("pass_app");
-    var tel_app = localStorage.getItem("tel_app");
-    var code_app = localStorage.getItem("code_app");
+    // if (serverContType == fp) {
+    //     // 发票信息的劳务内容
+    //     // 请求数据
+    //     $.post(urlDns + "/control_app/hhr/fp/showUI", {
+    //         id: incomeDetailId,
+    //         pass_app: pass_app,
+    //         tel_app: tel_app,
+    //         code_app: code_app
+    //     }, function (data) {
+    //         console.log(JSON.stringify(data))
+    //         if (data.result == 0) {
+    //             // 需要重新登录
+    //             if (window.plus) {
+    //                 goToLogin("../../register/login.html");
+    //             } else {
+    //                 document.addEventListener('plusready', goToLogin, false);
+    //             }
+    //         } else {
+    //             $("#cont").val(data.text);
 
-    if (serverContType == zf) {
-        // 收入信息的劳务内容
-        // 请求数据
-        $.post(urlDns + "/control_app/hhr/zf/showUI", {
-            id: incomeDetailId,
-            pass_app: pass_app,
-            tel_app: tel_app,
-            code_app: code_app
-        }, function (data) {
-            console.log(JSON.stringify(data))
-            if (data.result == 0) {
-                // 需要重新登录
-                if (window.plus) {
-                    goToLogin("../../register/login.html");
-                } else {
-                    document.addEventListener('plusready', goToLogin, false);
-                }
-            } else {
-                $("#cont").val(data.descripts);
-
-            }
-        });
-    }
-
-    if (serverContType == fp) {
-        // 发票信息的劳务内容
-        // 请求数据
-        $.post(urlDns + "/control_app/hhr/fp/showUI", {
-            id: incomeDetailId,
-            pass_app: pass_app,
-            tel_app: tel_app,
-            code_app: code_app
-        }, function (data) {
-            console.log(JSON.stringify(data))
-            if (data.result == 0) {
-                // 需要重新登录
-                if (window.plus) {
-                    goToLogin("../../register/login.html");
-                } else {
-                    document.addEventListener('plusready', goToLogin, false);
-                }
-            } else {
-                $("#cont").val(data.text);
-
-            }
-        });
-    }
+    //         }
+    //     });
+    // }
 
 
 

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../../../css/mui.min.css">
+    <link rel="stylesheet" href="../../../css/scale.css">
+    <title>身份证照片</title>
+    <style>
+        body {
+            background-color: white;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            text-align: center;
+            width: 100%;
+            height: 44px;
+            line-height: 44px;
+            background-color: white;
+            box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        header>img {
+            position: absolute;
+            top: 12px;
+            left: 5px;
+            width: 20px;
+            height: 20px;
+        }
+        
+        .photoBox {
+            position: relative;
+            width: 220px;
+            height: 160px;
+            margin: 0 auto;
+            background-image: url(../../../img/idCardBgImg.jpg);
+            background-size: 100% 100%;
+        }
+        
+        .photoBox:nth-of-type(1) {
+            margin-top: 80px;
+        }
+        
+        .photoBox:nth-of-type(2) {
+            margin-top: 50px;
+        }
+        
+        .bgImg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .up,
+        .down {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            /* z-index: 2; */
+            width: 180px;
+            height: 120px;
+        }
+        
+        .Certific {
+            display: none;
+            width: 250px;
+            height: 400px;
+            position: absolute;
+            top: calc((100vh - 400px)/2);
+            left: calc((100% - 250px)/2);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img class="back" src="../../../img/back_black.png" alt=""> <span class="title">身份证照片</span>
+    </header>
+    <div class="list">
+        <div class="photoBox">
+            <!-- <img class="bgImg" src="../../../img/idCardBgImg.jpg" alt=""> -->
+            <img class="up" src="../../../img/IDCard1.png" alt="">
+        </div>
+        <div class="photoBox">
+            <!-- <img class="bgImg" src="../../../img/idCardBgImg.jpg" alt=""> -->
+            <img class="down" src="../../../img/IDCard2.png" alt="">
+        </div>
+    </div>
+    <section class="imgzoom_pack">
+        <div class="imgzoom_x">X</div>
+        <div class="imgzoom_img"><img src="" /></div>
+    </section>
+    <!-- <img src="" alt="" class="Certific"> -->
+</body>
+<script src="../../../js/jquery-3.3.1.js"></script>
+<script src="../../../js/layer/layer.js"></script>
+<script src="../../../js/urlDns.js"></script>
+<script src="../../../js/scale.js"></script>
+<script>
+    mui.init();
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+        ImagesZoom.init({
+            "elem": ".list"
+        });
+    }, false);
+
+    var pass_app = localStorage.getItem("pass_app");
+    var tel_app = localStorage.getItem("tel_app");
+    var code_app = localStorage.getItem("code_app");
+    // console.log("tel_app：" + tel_app);
+    // console.log("pass_app：" + pass_app);
+
+    $(".back").click(() => {
+        history.back();
+    });
+
+    var index = layer.load(1, {
+        // 数组中第一个参数是button的透明度
+        // 第二个是背景颜色
+        shade: [0.3, "white"]
+    });
+    var getData = $.ajax({
+        url: urlDns + "/control_app/ms/info/showInfo_step01",
+        type: 'post',
+        dataType: "json",
+        timeout: 120000, //2分钟超时
+        data: {
+            "pass_app": pass_app,
+            "tel_app": tel_app,
+            "code_app": code_app
+        },
+        //请求成功
+        success: function(data) {
+            // console.log(data.cardupurl)
+            console.log(JSON.stringify(data));
+            layer.close(index);
+            if (data.result == 0) {
+                // 需要重新登录
+                if (window.plus) {
+                    goToLogin("../../../page/register/login.html");
+                } else {
+                    document.addEventListener('plusready', goToLogin, false);
+                }
+            } else {
+                if (data.ishavelxr == 0) {
+                    // 没有联系人
+                    $(".up").attr("src", data.cardupurl);
+                    $(".down").attr("src", data.carddownurl);
+                } else {
+                    // 有联系人
+                    $(".up").attr("src", data.cardupurl_fr);
+                    $(".down").attr("src", data.carddownurl_fr);
+                }
+            }
+
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            layer.close(index);
+            if (textStatus == 'timeout') {
+                getData.abort();　
+                alert("请求超时");
+            }
+            if (textStatus == 'error') {
+                getData.abort();　
+                alert("请求错误" + errorThrown);
+            }
+        }
+    });
+</script>
+
+</html>

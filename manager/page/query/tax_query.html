@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../../../js/mui.min.js"></script>
     <link rel="stylesheet" href="../../../css/mui.min.css">
-    <title>报税查询</title>
+    <title>公司主管--报税查询</title>
     <script>
         mui.init();
     </script>
@@ -198,7 +198,7 @@
 		getInfo(0)   // 初次加载时, 获取页面信息 0:有单位   1:没有单位
 	}
 	
-	// 有单位
+	// 切换角色
 	$(".input_com").click(()=>{
 	    $(".input_com").css("background-color","#7EB6FF");
 	    $(".input_com").css("color","white");
@@ -209,8 +209,7 @@
 			
 			getInfo(0) // 重新获取有单位的 页面数据信息
 	})
-	
-	// 没有单位
+
 	$(".input_free").click(()=>{
 	    $(".input_free").css("background-color","#7EB6FF");
 	    $(".input_free").css("color","white");
@@ -233,6 +232,7 @@
 		$(".input_free").css("color","#7EB6FF");
 		$(".com_ul").css("display","block");
 		$(".free_ul").css("display","none");
+		getInfo(0)
 	}
 	if (addtype == "1") {
 		$(".input_free").css("background-color","#7EB6FF");
@@ -241,6 +241,7 @@
 		$(".input_com").css("color","#7EB6FF");
 		$(".free_ul").css("display","block");
 		$(".com_ul").css("display","none");
+		getInfo(1)
 	}
 	
 	

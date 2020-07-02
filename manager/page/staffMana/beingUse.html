@@ -50,7 +50,7 @@
 			    color: #999999;
 			}
 			
-			.next {
+			.select-btn {
 			    position: absolute;
 			    top: 0;
 			    right: 0;
@@ -351,7 +351,7 @@
     <header>
         <div class="select_all">全选</div>
         <img class="back" src="../../../img/back_black.png" alt=""> 使用中
-        <div class="next">选择</div>
+        <div class="select-btn">选择</div>
     </header>
 
     <!-- 搜索框 -->
@@ -494,12 +494,13 @@
 	    });
 	});
 	
+	
 	// 选择按钮
 	var flag = false;
-	$(".next").click(() => {
+	$(".select-btn").click(() => {
 	    flag = !flag;
 	    if (flag == true) {
-	        $(".next").text("取消选择");
+	        $(".select-btn").text("取消选择");
 	        $(".select").css("display", "block");
 	        $(".comInfoBox").css("left", "20px");
 	        $(".staffBox").css("display", "block");
@@ -512,7 +513,7 @@
 	        $(".comBox").css("top", "44px");
 	    } else {
 	        $(":checkbox[name='hh']").prop("checked", false);
-	        $(".next").text("选择");
+	        $(".select-btn").text("选择");
 	        $(".select").css("display", "none");
 	        $(".comInfoBox").css("left", "0px");
 	        $(".staffBox").css("display", "none");

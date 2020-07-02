@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../../../css/mui.min.css">
+    <script src="../../../js/mescroll.min.js"></script>
+    <link rel="stylesheet" href="../../../css/mescroll.min.css">
+    <title>公司信息</title>
+		
+		<style type="text/css">
+			body {
+			    margin: 0;
+			    padding: 0;
+			    font-size: 16px;
+			    color: #333333;
+			}
+			
+			header {
+			    position: fixed;
+			    top: 0;
+			    left: 0;
+			    text-align: center;
+			    width: 100%;
+			    height: 44px;
+			    line-height: 44px;
+			    background-color: white;
+			    box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+			    font-weight: bold;
+			    font-size: 16px;
+			    z-index: 99;
+			}
+			
+			.back {
+			    width: 20px;
+			    height: 20px;
+			    position: absolute;
+			    top: 12px;
+			    left: 5px;
+			    color: #7EB6FF;
+			    /* font-weight: 100; */
+			}
+			
+			.next {
+			    position: absolute;
+			    right: 10px;
+			    top: 0;
+			    line-height: 44px;
+			    color: #7EB6FF;
+			    /* font-weight: 100; */
+			}
+			
+			.userInfoBox {
+			    margin-top: 64px;
+			}
+			
+			.userInfoBox,
+			.accountInfoBox,
+			.registerBox {
+			    background-color: white;
+			    padding: 0 15px;
+			    box-sizing: border-box;
+			    font-size: 16px;
+			}
+			
+			.accountInfoBox {
+			    margin-top: 20px;
+			}
+			
+			.userInfoBox>div,
+			.accountInfoBox>div,
+			.registerBox>div {
+			    position: relative;
+			    width: calc(100% - 30px);
+			    height: 46px;
+			    line-height: 46px;
+			    border-bottom: 1px solid rgb(240, 240, 240);
+			    width: 100%;
+			    background-color: white;
+			}
+			
+			.userInfoTitle,
+			.accountInfoTitle {
+			    font-size: 17px;
+			    height: 50px;
+			    line-height: 50px;
+			    font-weight: 800;
+			    border: none !important;
+			}
+			
+			.userInfoBox>div:nth-of-type(n + 1),
+			.accountInfoBox>div:nth-of-type(n + 1),
+			.registerBox>div:nth-of-type(n + 1) {
+			    display: flex;
+			    justify-content: space-between;
+			}
+			
+			.userInfoBox>div:nth-last-of-type(1) {
+			    border: none;
+			}
+			
+			.userInfoBox>div>span>div,
+			.accountInfoBox>div>span>div,
+			.registerBox>div>span>div {
+			    text-align: right;
+			    border: none;
+			    outline: none;
+			    font-size: 14px;
+			    width: 200px;
+			    color: #666666;
+			}
+			
+			.userInfoBox img,
+			.registerBox img {
+			    position: absolute;
+			    top: 10px;
+			    right: -5px;
+			    width: 25px;
+			    height: 25px;
+			}
+			
+			.rangeText,
+			.addressText,
+			.scope,
+			.mainBusiness {
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;
+			    text-align: right;
+			    width: 170px;
+			    display: inline-block;
+			    color: #666666;
+			    font-size: 14px;
+			    margin-right: 20px;
+			}
+			
+			.rangeText {
+			    width: 250px;
+			    margin-right: 0;
+			}
+			
+			#name {
+			    /* padding-right: 15px; */
+			    font-size: 14px;
+			    color: #666666;
+			}
+			
+			.errorBg {
+			    width: 100%;
+			    height: 100vh;
+			    position: absolute;
+			    top: 0;
+			    left: 0;
+			    z-index: 9;
+			    display: none;
+			}
+			
+			.errorBg .error {
+			    position: absolute;
+			    padding: 10px 15px;
+			    top: calc((100vh - 25px)/2);
+			    left: 0;
+			    width: 50%;
+			    margin-left: 25%;
+			    background-color: rgba(126, 182, 255, 0.7);
+			    color: white;
+			    font-size: 12px;
+			    text-align: center;
+			    line-height: 20px;
+			    font-size: 15px;
+			    border-radius: 3px;
+			    /* display: none; */
+			}
+			
+			.registerBox {
+			    margin-top: 20px;
+			}
+			
+			.userInfoBox .logo {
+			    position: absolute;
+			    width: 35px;
+			    height: 35px;
+			    top: 5px;
+			    right: 25px;
+			}
+			
+			.accountInfoBox>div {
+			    position: relative;
+			}
+			
+			.accountInfoBox img {
+			    position: absolute;
+			    top: 10px;
+			    right: -5px;
+			    width: 25px;
+			    height: 25px;
+			}
+			
+			.contacts {
+			    display: none;
+			}
+		</style>
+</head>
+
+<body>
+    <header>
+        <img class="back" src="../../../img/back_black.png" alt=""> 公司信息
+    </header>
+    <!-- 个人基本信息 -->
+    <div class="userInfoBox">
+        <div class="userInfoTitle">公司基本信息</div>
+        <div class="com_logo">
+            <span>公司商标</span>
+            <img class="logo" src="" alt="">
+            <img src="../../../img/next.png" alt="">
+        </div>
+        <div>
+            <span>统一社会信用代码</span>
+            <span><div id="creditNum"></div></span>
+        </div>
+        <div>
+            <span>单位名称</span>
+            <span id="name"></span>
+        </div>
+        <div>
+            <span>单位名称缩写</span>
+            <span><div id="businessName"></div></span>
+        </div>
+        <div>
+            <span>单位类型</span>
+            <span><div id="type"></div></span>
+        </div>
+
+        <div class="">
+            <span>住所</span>
+            <span class="range">
+                <span class="rangeText"></span>
+            <!-- <img src="../../../img/next.png" alt=""> -->
+            </span>
+        </div>
+        <div class="addressBox">
+            <span>详细地址</span>
+            <span class="range">
+                    <span class="addressText"></span>
+            <img src="../../../img/next.png" alt="">
+            </span>
+        </div>
+        <div>
+            <span>固定电话</span>
+            <span><div id="telephone"></div></span>
+        </div>
+        <div>
+            <span>成立日期</span>
+            <span><div id="date"></div></span>
+        </div>
+        <div class="business_range">
+            <span>业务范围</span>
+            <span class="range"><span class="scope"></span>
+            <img src="../../../img/next.png" alt="">
+            </span>
+        </div>
+        <div class="major_business">
+            <span>主营业务</span>
+            <span class="range"><span class="mainBusiness"></span>
+            <img src="../../../img/next.png" alt="">
+            </span>
+        </div>
+
+    </div>
+    <div class="registerBox">
+        <!-- <div>
+            <span>登记地址</span>
+            <span>
+                <div id="address"></div>
+            </span>
+        </div> -->
+        <div>
+            <span>公司登记机关</span>
+            <span><div id="registerUnit"></div></span>
+        </div>
+        <div>
+            <span>发证日期</span>
+            <span><div id="getDate"></div></span>
+        </div>
+        <div class="last photos">
+            <span>营业执照</span>
+            <span>
+            <img src="../../../img/next.png" alt="">
+            </span>
+        </div>
+    </div>
+    <!-- 法定代表人信息 -->
+    <div class="accountInfoBox">
+        <div class="accountInfoTitle">法定代表人信息</div>
+        <div>
+            <span>法人代表姓名</span>
+            <span><div id="ceoName"></div></span>
+        </div>
+        <div>
+            <span>证件类型</span>
+            <span><div id="ceoCertifiType"></div></span>
+        </div>
+        <div class="">
+            <span>证件号码</span>
+            <span><div id="ceoNum"></div></span>
+        </div>
+        <div class="idcardPhotos">
+            <span>证件照片</span>
+            <img src="../../../img/next.png" alt="">
+        </div>
+        <div>
+            <span>手机号码</span>
+            <span><div id="ceotTel"></div></span>
+        </div>
+        <div>
+            <span>电子邮箱</span>
+            <span><div id="ceoEmail"></div></span>
+        </div>
+    </div>
+    <!-- 联系人信息 -->
+    <div class="accountInfoBox contacts">
+        <div class="accountInfoTitle">联系人信息</div>
+        <div>
+            <span>联系人姓名</span>
+            <span><div id="contactsName"></div></span>
+        </div>
+        <div>
+            <span>证件类型</span>
+            <span><div id="certificatesType"></div></span>
+        </div>
+        <div class="idcardPhotos_lxr">
+            <span>证件号码</span>
+            <span><div id="certificatesNum"></div></span>
+        </div>
+        <div class="">
+            <span>证件照片</span>
+            <img src="../../../img/next.png" alt="">
+        </div>
+        <div>
+            <span>手机号码</span>
+            <span><div id="contactsTel"></div></span>
+        </div>
+        <div>
+            <span>电子邮箱</span>
+            <span><div id="contactsEmail"></div></span>
+        </div>
+    </div>
+</body>
+<script src="../../../js/jquery-3.3.1.js"></script>
+<script src="../../../js/urlDns.js"></script>
+<script src="../../../js/layer/layer.js"></script>
+
+<script type="text/javascript">
+	var pass_app = localStorage.getItem("pass_app");
+	var tel_app = localStorage.getItem("tel_app");
+	var code_app = localStorage.getItem("code_app");
+	// console.log("tel_app：" + tel_app);
+	// console.log("pass_app：" + pass_app);
+	
+	// 返回
+	$(".back").click(() => {
+	    mui.back();
+	});
+	
+	$(function() {
+	    var index = layer.load(1, {
+	        // 数组中第一个参数是button的透明度
+	        // 第二个是背景颜色
+	        shade: [0.3, "white"]
+	    });
+	    var getData = $.ajax({
+	        url: urlDns + "/control_app/ms/info/showInfo_step01",
+	        type: 'post',
+	        dataType: "json",
+	        timeout: 120000, //2分钟超时
+	        data: {
+	            "pass_app": pass_app,
+	            "tel_app": tel_app,
+	            "code_app": code_app
+	        },
+	        //请求成功
+	        success: function(data) {
+	            console.log(data.cname)
+	            console.log(JSON.stringify(data));
+	            layer.close(index);
+	            if (data.result == 0) {
+	                // 需要重新登录
+	                if (window.plus) {
+	                    goToLogin("../../../page/register/login.html");
+	                } else {
+	                    document.addEventListener('plusready', goToLogin, false);
+	                }
+	            } else {
+	                if (data.icon != "/img/R.png") {
+	                    console.log(data.icon)
+	                    $(".logo").attr("src", data.icon);
+	                } else {
+	                    $(".logo").attr("src", "../../../img/com_default_Icon.png");
+	                }
+	                $("#creditNum").text(data.xycode);
+	                $("#name").text(data.cname);
+	                $("#businessName").text(data.cname_py);
+	                $("#type").text(data.cTypeName);
+	                $(".rangeText").text(data.area);
+	                $(".addressText").text(data.address);
+	                $("#telephone").text(data.tel);
+	                $("#date").text(data.creattime);
+	                $(".scope").text(data.businessRange);
+	                $(".mainBusiness").text(data.zybusiness);
+	                $("#registerUnit").text(data.registerCompany);
+	                $("#getDate").text(data.getCartTime);
+	
+	                console.log(data.ishavelxr)
+	                if (data.ishavelxr == 1) {
+	                    // 启用了联系人
+	                    $(".contacts").css("display", "block");
+	                    // 法人信息
+	                    console.log(data.realname_fr)
+	                    $("#ceoName").text(data.realname_fr);
+	                    $("#ceoCertifiType").text("身份证");
+	                    $("#ceoNum").text(data.idcard_fr);
+	                    $("#ceotTel").text(data.tel_fr);
+	                    $("#ceoEmail").text(data.email_fr);
+	                    // 联系人信息
+	                    $("#contactsName").text(data.realname);
+	                    $("#ceoCertifiType").text("身份证");
+	                    $("#certificatesNum").text(data.idcard);
+	                    $("#contactsTel").text(data.usertel);
+	                    $("#contactsEmail").text(data.email);
+	                } else {
+	                    // 未启用联系人，没有联系人信息
+	                    $(".contacts").css("display", "none");
+	                    // 法人信息
+	                    $("#ceoName").text(data.realname);
+	                    $("#ceoCertifiType").text("身份证");
+	                    $("#ceoNum").text(data.idcard);
+	                    $("#ceotTel").text(data.usertel);
+	                    $("#ceoEmail").text(data.email);
+	                }
+	            }
+	
+	        },
+	        error: function(XMLHttpRequest, textStatus, errorThrown) {
+	            layer.close(index);
+	            if (textStatus == 'timeout') {
+	                getData.abort();　
+	                alert("请求超时");
+	            }
+	            if (textStatus == 'error') {
+	                getData.abort();　
+	                alert("请求错误" + errorThrown);
+	            }
+	        }
+	    });
+	});
+	
+	// 公司商标照片
+	$(".com_logo").click(() => {
+	    location.href = "./com_logo.html";
+	});
+	
+	// 法人证件照片
+	$(".idcardPhotos").click(() => {
+	    location.href = "./idCardPhotos_fr.html";
+	});
+	
+	// 联系人证件照片
+	$(".idcardPhotos_lxr").click(() => {
+	    location.href = "./idCardPhotos_lxr.html";
+	});
+	
+	
+	// 营业执照
+	$(".photos").click(() => {
+	    location.href = "./certificPhoto.html";
+	});
+	
+	// 详细地址
+	$(".addressBox").click(() => {
+	    location.href = "./address.html";
+	});
+	
+	
+	// 业务范围
+	$(".business_range").click(() => {
+	    location.href = "./business_range.html";
+	});
+	
+	// 主营业务
+	$(".major_business").click(() => {
+	    location.href = "./major_business.html";
+	});
+</script>
+
+</html>
