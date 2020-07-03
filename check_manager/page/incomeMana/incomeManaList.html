@@ -51,12 +51,6 @@
 			color: #999999;
 		}
 
-		.select-btn {
-			line-height: 44px;
-			color: #7EB6FF;
-			margin-right: 10px;
-		}
-
 		.list {
 			margin-top: 152px;
 			margin-bottom: 20px;
@@ -379,17 +373,16 @@
 		height: 50px;
 		background-color: white;
 		display: none;
-		justify-content: space-around;
+		justify-content: center;
 		align-items: center;
 		
 	}
-	.footer-item { border-radius: 5px; width: 45%; height: 43px; line-height: 43px; text-align: center; }
-	.fall { border: 1px solid #7EB6FF; color: #7EB6FF;}
-	.confirm {background-color: #7EB6FF; color: #fff;}
+	.footer-item { border-radius: 5px; width: 90%; height: 43px; line-height: 43px; text-align: center; background-color: #7EB6FF; color: #fff;}
 	
 	.comName {
 		position: relative;
 	}
+	.select-btn {display: none; line-height: 44px; color: #7EB6FF; margin-right: 10px;}
 	</style>
 </head>
 <body>
@@ -461,40 +454,16 @@
 
 	<!-- 数据列表 -->
 	<section class="list">
-		<!-- <div>
-						<input class="select" name="hh" value="beihai" type="checkbox">
-						<div class="comTime">
-								<span class="comName">北海xxx有限公司</span>
-								<div class="href">
-										<span class="time">2019-06至2019-07</span>
-										<img src="../../img/next.png" alt="">
-								</div>
-						</div>
-						<div class="amount">
-								<span>快递派件</span>
-								<span>10,000,00</span>
-						</div>
-				</div>
-				<div>
-						<input class="select" name="hh" value="beihai2" type="checkbox">
-						<div class="comTime">
-								<span class="comName">北海xxx有限公司</span>
-								<div class="href">
-										<span class="time">2019-06至2019-07</span>
-										<img src="../../img/next.png" alt="">
-								</div>
-						</div>
-						<div class="amount">
-								<span>外卖送餐员</span>
-								<span>10,000,00</span>
-						</div>
-				</div> -->
+
 	</section>
+	
 	<footer>
-		<div class="fall footer-item">退回</div>
-		<div class="confirm footer-item">确定</div>
+		<div class="footer-item">支付</div>
 	</footer>
 </body>
+
+
+
 <script src="../../../js/jquery-3.3.1.js"></script>
 <script src="../../../js/urlDns.js"></script>
 
@@ -511,40 +480,28 @@
 
 	// 录入方式addtype（业者录入为："yz"    单位录入:"sf"）
 	// 状态码income_status（1：待业者确认，3：业者退回，2.待秘书公司确认，5：秘书公司退回，6：完成）
-	// 获取录入方式
-	var addtype = sessionStorage.getItem("addtype");
+
 	// 获取状态码
 	var income_status = sessionStorage.getItem("income_status");
 	
 	// 渲染标题
-	if (addtype == "sf") {
-		if (income_status == 1) {
-			$("header span").text("待业者确认");
-		}
-		if (income_status == 3) {
-			$("header span").text("业者退回");
-		}
-		if (income_status == 2) {
-			$("header span").text("待商秘公司确认");
-		}
-		if (income_status == 5) {
-			$("header span").text("商秘公司退回");
-		}
-		if (income_status == 6) {
-			$("header span").text("已完成");
-		}
+	if (income_status == 1) {
+		$("header span").text("待业者确认");
 	}
-	if (addtype == "yz") {
-		if (income_status == 2) {
-			$("header span").text("待商秘公司审核");
-		}
-		if (income_status == 5) {
-			$("header span").text("商秘公司退回");
-		}
-		if (income_status == 6) {
-			$("header span").text("完成");
-		}
+	if (income_status == 3) {
+		$("header span").text("业者退回");
 	}
+	if (income_status == 2) {
+		$("header span").text("待支付");
+		$(".select-btn").css("display","block")
+	}
+	if (income_status == 5) {
+		$("header span").text("商秘公司退回");
+	}
+	if (income_status == 6) {
+		$("header span").text("已完成");
+	}
+
 
 	
 	var page = 1   // 设置当前 在第几个页面
@@ -558,8 +515,6 @@
 		mui.post(urlDns + "/control_app/ms/fr_zg/zf/list", {
 			// 状态
 			income_status: income_status,
-			// 录入方式
-			addtype: addtype,
 			// 第几页
 			page: page,
 			// 一页的条数
@@ -927,6 +882,7 @@
 				$(".select").css("display", "block");
 				$(".select_all").css("display", "block");
 				$(".comName").css("left", "20px");
+				$(".list").css("margin-top","66px")
 	    } 
 			else {
 				$(".select-btn").text("选择");
@@ -937,10 +893,36 @@
 				$(".select").css("display", "none");
 				$(".select_all").css("display", "none");
 				$(".comName").css("left", "0px");
+				$(".list").css("margin-top","152px");
 				
 				$(":checkbox[name='hh']").prop("checked", false);
 	    }
-	
 	});
+	// 全选按钮
+	let is_select_all = false
+	$(".select_all").click(() => {
+		is_select_all = !is_select_all
+		if(is_select_all) $(":checkbox[name='hh']").prop("checked", "checked");
+		else $(":checkbox[name='hh']").prop("checked", false);
+	});
+	
+	// 点击 支付 发起支付请求
+	$(".footer-item").click(() => {
+		console.log("发起 ajax 请求,, 完成支付!!")
+		
+		// 弹出支付成功的提示框
+		mui.toast('支付成功!',{ duration:'4000', type:'div' })
+		
+		// 回到页面的上一个状态
+		$(".select-btn").text("选择");
+		$(".back").css("display", "block");
+		$("footer").css("display","none");
+		$(".filterBox").css("display","block")
+		$(".searchBox").css("display", "block");
+		$(".select").css("display", "none");
+		$(".select_all").css("display", "none");
+		$(".comName").css("left", "0px");
+		$(".list").css("margin-top","152px");
+	})
 </script>
 </html>

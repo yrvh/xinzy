@@ -377,13 +377,41 @@
 				bottom: 0;
 				left: 0;
 			}
+			
+			.select_all {
+				position: absolute;
+				width: 40px;
+				/* line-height: 46px; */
+				color: #7EB6FF;
+				left: 5px;
+				display: none;
+			}
+			footer {
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				height: 50px;
+				background-color: white;
+				display: none;
+				justify-content: center;
+				align-items: center;
+				
+			}
+			.footer-item { border-radius: 5px; width: 90%; height: 43px; line-height: 43px; text-align: center; background-color: #7EB6FF; color: #fff;}
+			
+			.comName {
+				position: relative;
+			}
+			.select-btn {display: none; line-height: 44px; color: #7EB6FF; margin-right: 10px;}
 		</style>
 	</head>
 	<body>
 		<header>
+			<div class="select_all">全选</div>
 			<img class="back" src="../../../img/back_black.png" alt="">
 			<span></span>
-			<!-- <div class="next">选择</div> -->
+			<div class="select-btn">选择</div>
 		</header>
 		<!-- 搜索框 -->
 		<div class="searchBox">
@@ -397,45 +425,12 @@
 
 		<!-- 数据列表 -->
 		<section class="list">
-			<!-- <div>
-						<input class="select" name="hh" value="beihai" type="checkbox">
-						<div class="comTime">
-								<span class="comName">北海xxx有限公司</span>
-								<div class="href">
-										<span class="time">2019-06至2019-07</span>
-										<img src="../../img/next.png" alt="">
-								</div>
-						</div>
-						<div class="amount">
-								<span>快递派件</span>
-								<span>10,000,00</span>
-						</div>
-				</div>
-				<div>
-						<input class="select" name="hh" value="beihai2" type="checkbox">
-						<div class="comTime">
-								<span class="comName">北海xxx有限公司</span>
-								<div class="href">
-										<span class="time">2019-06至2019-07</span>
-										<img src="../../img/next.png" alt="">
-								</div>
-						</div>
-						<div class="amount">
-								<span>外卖送餐员</span>
-								<span>10,000,00</span>
-						</div>
-				</div> -->
+
 		</section>
-		<!-- <footer>
-				<div class="del">
-						<div>200,000.00</div>
-						<div>已开票金额</div>
-				</div>
-				<div class="submit">
-						<div>0.00</div>
-						<div>未开票余额</div>
-				</div>
-		</footer> -->
+		
+		<footer>
+			<div class="footer-item">通过</div>
+		</footer>
 	</body>
 	<script src="../../../js/jquery-3.3.1.js"></script>
 	<script src="../../../js/urlDns.js"></script>
@@ -455,17 +450,18 @@
 		var addtype = sessionStorage.getItem("addtype");
 		// 获取状态码
 		var income_status = sessionStorage.getItem("income_status");
-
+		console.log(income_status)
 		// 渲染标题
-			if (income_status == 0) {
-				$("header span").text("待审核");
-			}
-			if (income_status == 1) {
-				$("header span").text("审核通过");
-			}
-			// if (income_status == 2) {
-			// 	$("header span").text("审核退回");
-			// }
+		if (income_status == 0) {
+			$("header span").text("待审核");
+			$(".select-btn").css("display", "block");
+		}
+		if (income_status == 1) {
+			$("header span").text("审核通过");
+		}
+		// if (income_status == 2) {
+		// 	$("header span").text("审核退回");
+		// }
 
 		
 		var page = 1 // 设置当前 在第几个页面
@@ -514,10 +510,6 @@
 												<img src="../../../img/next.png" alt="">
 										</div>
 								</div>
-								<div class="amount">
-									<span>${data.rows[i].comname}</span>
-									<span>${data.rows[i].fkmoney}</span>
-								</div>
 						</div>
 					`;
 					}
@@ -541,8 +533,10 @@
 		// 跳转详情页面
 		$(document).on("click", ".list .href", function(e) {
 			var detailId = $(this).attr("detailId");
-			console.log(detailId)
-			sessionStorage.setItem('incomeDetailId', detailId);
+			sessionStorage.setItem('detailId', detailId);
+			sessionStorage.setItem("detailType",addtype);
+			
+			
 			// page.chooseType();
 			location.href = "./user_detail.html";
 		});
@@ -582,21 +576,17 @@
 							for (var i = 0; i < data.rows.length; i++) {
 								htmlStr +=
 									`
-															<div class="${data.rows[i].id}">
-																	<input class="select" name="hh" value="beihai" type="checkbox">
-																	<div class="comTime">
-																			<span class="comName">${data.rows[i].comname}</span>
-																			<div class="href" detailId="${data.rows[i].id}">
-																					<span class="time">${data.rows[i].addtime}</span>
-																					<img src="../../img/next.png" alt="">
-																			</div>
-																	</div>
-																	<div class="amount">
-																			<span>${data.rows[i].name}</span>
-																			<span>${data.rows[i].money}</span>
-																	</div>
-															</div>
-													`;
+										<div class="${data.rows[i].id}">
+												<input class="select" name="hh" value="beihai" type="checkbox">
+												<div class="comTime">
+														<span class="comName">${data.rows[i].comname}</span>
+														<div class="href" detailId="${data.rows[i].id}">
+																<span class="time">${data.rows[i].addtime}</span>
+																<img src="../../img/next.png" alt="">
+														</div>
+												</div>
+										</div>
+									`;
 							}
 							$(".list").append(htmlStr);
 						}
@@ -606,5 +596,62 @@
 				});
 			}
 		});
+		
+		
+		// 点击选择按钮
+		let flag = false;
+		$(".select-btn").click(() => {
+		    flag = !flag;
+		    if (flag == true) {
+					$(".select-btn").text("取消选择");
+					$(".back").css("display", "none");
+					$("footer").css("display","flex");
+					$(".filterBox").css("display","none")
+					$(".searchBox").css("display", "none");
+					$(".select").css("display", "block");
+					$(".select_all").css("display", "block");
+					$(".comName").css("left", "20px");
+					$(".list").css("margin-top","66px")
+		    } 
+				else {
+					$(".select-btn").text("选择");
+					$(".back").css("display", "block");
+					$("footer").css("display","none");
+					$(".filterBox").css("display","block")
+					$(".searchBox").css("display", "block");
+					$(".select").css("display", "none");
+					$(".select_all").css("display", "none");
+					$(".comName").css("left", "0px");
+					$(".list").css("margin-top","152px");
+					
+					$(":checkbox[name='hh']").prop("checked", false);
+		    }
+		});
+		// 全选按钮
+		let is_select_all = false
+		$(".select_all").click(() => {
+			is_select_all = !is_select_all
+			if(is_select_all) $(":checkbox[name='hh']").prop("checked", "checked");
+			else $(":checkbox[name='hh']").prop("checked", false);
+		});
+		
+		// 点击 支付 发起支付请求
+		$(".footer-item").click(() => {
+			console.log("发起 ajax 请求,, 完成支付!!")
+			
+			// 弹出支付成功的提示框
+			mui.toast('通过成功!',{ duration:'4000', type:'div' })
+			
+			// 回到页面的上一个状态
+			$(".select-btn").text("选择");
+			$(".back").css("display", "block");
+			$("footer").css("display","none");
+			$(".filterBox").css("display","block")
+			$(".searchBox").css("display", "block");
+			$(".select").css("display", "none");
+			$(".select_all").css("display", "none");
+			$(".comName").css("left", "0px");
+			$(".list").css("margin-top","152px");
+		})
 	</script>
 </html>
