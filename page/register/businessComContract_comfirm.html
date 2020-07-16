@@ -554,8 +554,8 @@
             timeout: 120000, //2分钟超时
             //请求成功
             success: function(data) {
-							console.log("签订成功了")
-                console.log(JSON.stringify(data));
+							// console.log("签订成功了bus")
+                // console.log(JSON.stringify(data));
                 layer.close(index);
                 if (data.result == 0) {
                     location.reload();

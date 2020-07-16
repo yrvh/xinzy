@@ -1215,7 +1215,7 @@
 									timeout: 120000, //2分钟超时
 									//请求成功
 									success: function(data) {
-										console.log(JSON.stringify(data));
+										// console.log(JSON.stringify(data));
 										layer.close(threeContractWeit);
 										if (data.result == 0) {
 											location.reload();
@@ -1370,8 +1370,8 @@
 			timeout: 120000, //2分钟超时
 			//请求成功
 			success: function(data) {
-				console.log("签订成功了")
-				console.log(JSON.stringify(data));
+				// console.log("签订成功了login")
+				// console.log(JSON.stringify(data));
 				layer.close(index);
 				if (data.result == 0) {
 					location.reload();

@@ -198,7 +198,7 @@
 			    font-size: 13px;
 			}
 			
-			.addressStr {
+			.addressStr,.bankinfoStr {
 			    width: 100px;
 			    height: 46px;
 			    line-height: 46px;
@@ -281,11 +281,16 @@
 			}
 			/* .comName {border: none;} */
 			
-			.info-bg {width: 100%; height: 100vh; position: fixed; top: 0; z-index: 70; background-color: rgba(150,150,150,.9);}
-			.info-bg ul {background-color: #fff;}
-			.info-bg ul li{list-style: none; display: flex; justify-content: space-between;}
+			.info-bg { display: none; padding: 0 20px; font-size: 15px; width: 100%; min-height: 100vh; position: absolute; top: 0; z-index: 70; background-color: rgba(50,50,50,.7);}
+			.info-bg ul {background-color: #fff; padding: 0 10px;}
+			.info-bg ul li{width: 100%; height: 42px; list-style: none; display: flex; justify-content: space-between; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd;}
+			.info-bg ul li span{ display: inline-block; width: 100px;}
+			.info-bg input {border: none; flex: 1; margin: 0; font-size: 15px;}
+			.textarea-li {height: 70px !important;}
+			.textarea-li textarea{display: inline-block; margin: 0; font-size: 15px;}
 			
-			.address-ul {}
+			.address-ul,.bank-ul { display: none; }
+			
 		</style>
 </head>
 
@@ -323,75 +328,134 @@
 		
 		<!-- 灰色背景 -->
 		<div class="info-bg">
-			<!-- 邮寄地址 -->
-			<div class="address-info">
-				<ul class="address-ul item1-ul">
-					<li>
-						<span class="is-active">是否默认</span>
-						<div class="mui-switch mui-switch-mini mui-active">
-							<div class="mui-switch-handle"></div>
-						</div>
-					</li>
-					<li>
-						<span class="user">联系人</span>
-						<input type="text">
-					</li>
-					<li>
-						<span class="user-tel">电话</span>
-						<input type="text">
-					</li>
-					<li>
-						<span class="user-address">邮寄地址</span>
-						<input type="text">
-					</li>
-				</ul>
-				
-				<ul class="address-ul item2-ul">
-					<li>
-						<span class="is-active">是否默认</span>
-						<div class="mui-switch mui-switch-mini mui-active">
-							<div class="mui-switch-handle"></div>
-						</div>
-					</li>
-					<li>
-						<span class="user">联系人</span>
-						<input type="text">
-					</li>
-					<li>
-						<span class="user-tel">电话</span>
-						<input type="text">
-					</li>
-					<li>
-						<span class="user-address">邮寄地址</span>
-						<input type="text">
-					</li>
-				</ul>
-				
-				<ul class="address-ul item3-ul">
-					<li>
-						<span class="is-active">是否默认</span>
-						<div class="mui-switch mui-switch-mini mui-active">
-							<div class="mui-switch-handle"></div>
-						</div>
-					</li>
-					<li>
-						<span class="user">联系人</span>
-						<input type="text">
-					</li>
-					<li>
-						<span class="user-tel">电话</span>
-						<input type="text">
-					</li>
-					<li>
-						<span class="user-address">邮寄地址</span>
-						<input type="text">
-					</li>
-				</ul>
-				
-			</div>
+			<!-- (1)邮寄地址 -->
+			<ul class="address-ul address1-ul">
+				<li>
+					<span class="is-active">是否默认:</span>
+					<div class="mui-switch mui-switch-mini mui-active">
+						<div class="mui-switch-handle"></div>
+					</div>
+				</li>
+				<li>
+					<span class="user">联系人:</span>
+					<input type="text" placeholder="请输入联系人...">
+				</li>
+				<li>
+					<span class="user-tel">电话:</span>
+					<input type="text" placeholder="请输入电话号...">
+				</li>
+				<li class="textarea-li">
+					<span class="user-address">邮寄地址:</span>
+					<textarea rows="2" cols="15" placeholder="请输入邮寄地址..."></textarea>
+				</li>
+			</ul>
 			
-			<!-- 银行账户信息 -->
-			<div class="bank-info"></div>
+			<ul class="address-ul address2-ul">
+				<li>
+					<span class="is-active">是否默认:</span>
+					<div class="mui-switch mui-switch-mini">
+						<div class="mui-switch-handle"></div>
+					</div>
+				</li>
+				<li>
+					<span class="user">联系人:</span>
+					<input type="text" placeholder="请输入联系人...">
+				</li>
+				<li>
+					<span class="user-tel">电话:</span>
+					<input type="text" placeholder="请输入电话号...">
+				</li>
+				<li class="textarea-li">
+					<span class="user-address">邮寄地址:</span>
+					<textarea rows="2" cols="15" placeholder="请输入邮寄地址..."></textarea>
+				</li>
+			</ul>
+			
+			<ul class="address-ul address3-ul">
+				<li>
+					<span class="is-active">是否默认:</span>
+					<div class="mui-switch mui-switch-mini">
+						<div class="mui-switch-handle"></div>
+					</div>
+				</li>
+				<li>
+					<span class="user">联系人:</span>
+					<input type="text" placeholder="请输入联系人...">
+				</li>
+				<li>
+					<span class="user-tel">电话:</span>
+					<input type="text" placeholder="请输入电话号...">
+				</li>
+				<li class="textarea-li">
+					<span class="user-address">邮寄地址:</span>
+					<textarea rows="2" cols="15" placeholder="请输入邮寄地址..."></textarea>
+				</li>
+			</ul>
+			
+			<!-- (2)银行账户信息 -->
+			<ul class="bank-ul bank1-ul">
+				<li>
+					<span class="is-active">是否默认:</span>
+					<div class="mui-switch mui-switch-mini mui-active">
+						<div class="mui-switch-handle"></div>
+					</div>
+				</li>
+				<li>
+					<span class="bank-open">开户行:</span>
+					<input type="text" placeholder="请输入开户行...">
+				</li>
+				<li>
+					<span class="bank-name">开户名:</span>
+					<input type="text" placeholder="请输入开户名...">
+				</li>
+				<li>
+					<span class="bank-num">银行卡号:</span>
+					<input type="text" placeholder="请输入银行卡号...">
+				</li>
+			</ul>
+			
+			<ul class="bank-ul bank2-ul">
+				<li>
+					<span class="is-active">是否默认:</span>
+					<div class="mui-switch mui-switch-mini">
+						<div class="mui-switch-handle"></div>
+					</div>
+				</li>
+				<li>
+					<span class="bank-open">开户行:</span>
+					<input type="text" placeholder="请输入开户行...">
+				</li>
+				<li>
+					<span class="bank-name">开户名:</span>
+					<input type="text" placeholder="请输入开户名...">
+				</li>
+				<li>
+					<span class="bank-num">银行卡号:</span>
+					<input type="text" placeholder="请输入银行卡号...">
+				</li>
+			</ul>
+			
+			<ul class="bank-ul bank3-ul">
+				<li>
+					<span class="is-active">是否默认:</span>
+					<div class="mui-switch mui-switch-mini">
+						<div class="mui-switch-handle"></div>
+					</div>
+				</li>
+				<li>
+					<span class="bank-open">开户行:</span>
+					<input type="text" placeholder="请输入开户行...">
+				</li>
+				<li>
+					<span class="bank-name">开户名:</span>
+					<input type="text" placeholder="请输入开户名...">
+				</li>
+				<li>
+					<span class="bank-num">银行卡号:</span>
+					<input type="text" placeholder="请输入银行卡号...">
+				</li>
+			</ul>
+			
 		</div>
 		
 		
