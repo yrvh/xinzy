@@ -16,8 +16,15 @@
 			.line { width: 100%; height: 30px; background-color: white; }
 			
 			.home_income { width: 100%; height: 180px; background-color: white; }
-			.home_income>div { width: 25%; text-align: center; float: left; font-size: 13px; }
+			.home_income>div { position: relative; width: 25%; text-align: center; float: left; font-size: 13px; }
 			.home_income>div>img { margin-top: 10px; width: 48px; height: 48px; }
+			
+			.mybadge {
+				position: absolute;
+				right: 15px;
+				top: 5px;
+				display: none;
+			}
 		</style>
 	</head>
 	<body>
@@ -44,10 +51,12 @@
 		<div class="line"></div>
 		<div class="home_income">
 			<div class="user_mana">
+				<span class="mybadge mui-badge mui-badge-danger"></span>
 				<img src="../../../img/userCheck.png" alt="" />
 				<div>用户管理</div>
 			</div>
 			<div class="income_mana">
+				<span class="mybadge mui-badge mui-badge-danger"></span>
 				<img src="../../../img/userManage.png" alt="" />
 				<div>收入管理</div>
 			</div>
@@ -56,6 +65,7 @@
 				<div>税收政策设置</div>
 			</div>
 			<div class="taxes_check">
+				<span class="mybadge mui-badge mui-badge-danger"></span>
 				<img src="../../../img/taxesCheck.png" alt="" />
 				<div>纳税设置审核</div>
 			</div>
@@ -76,6 +86,10 @@
 <script type="text/javascript">
 	mui.init();
 	
+	var pass_app = localStorage.getItem("pass_app");
+	var tel_app = localStorage.getItem("tel_app");
+	var code_app = localStorage.getItem("code_app");
+	
 	// 用户管理
 	$(".user_mana").click(()=>{
 		mui.openWindow('../userMana/userMana.html')
@@ -90,7 +104,7 @@
 	})
 	// 纳税设置审核
 	$(".taxes_check").click(()=>{
-		mui.openWindow('../taxesCheck/taxset_list.html')
+		mui.openWindow('../taxesCheck/taxesCheck.html')
 	})
 	// 协议管理
 	$(".contract_mana").click(()=>{
@@ -99,6 +113,87 @@
 	// 发票管理
 	$(".invoice_mana").click(()=>{
 		mui.openWindow('../invoiceMana/invoiceMana.html')
+	})
+	
+	
+	// 获取开票信息中, 有多少条是 待审核
+	$(function() {
+		$.post(urlDns + "/control_app/ms/fr/user/main", {
+				pass_app: pass_app,
+				tel_app: tel_app,
+				code_app: code_app
+		}, function(data) {
+			// console.log(JSON.stringify(data));
+			if (data.result == 0) {
+					// 需要重新登录
+					if (window.plus) {
+							goToLogin("../register/login.html");
+					} else {
+							document.addEventListener('plusready', goToLogin, false);
+					}
+			} 
+			else {
+				if(data.res_size > 0){
+					$(".user_mana .mybadge").css("display","block")
+					$(".user_mana .mybadge").text(data.nosend)
+				}
+				else { $(".user_mana .mybadge").css("display","none") }
+			}
+		});
+	})
+	
+	// 获取收入管理中,  待支付的数量
+	$(function() {
+		$.post(urlDns + "/control_app/ms/fr_zg/zf/index", {
+				pass_app: pass_app,
+				tel_app: tel_app,
+				code_app: code_app
+		}, function(data) {
+			// console.log(JSON.stringify(data));
+			if (data.result == 0) {
+					// 需要重新登录
+					if (window.plus) {
+							goToLogin("../register/login.html");
+					} else {
+							document.addEventListener('plusready', goToLogin, false);
+					}
+			} 
+			else {
+				console.log(data.wait_pay)
+				if(data.wait_pay > 0) {
+					$(".income .mybadge").css("display","block")
+					$(".income .mybadge").text(data.wait_pay)
+				}
+				else { $(".income .mybadge").css("display","none") }
+			}
+		});
+	})
+	
+	// 获取纳税设置审核中,  待审核的数量
+	$(function() {
+		$.post(urlDns + "/share/bs_app/nssetting/index", {
+				pass_app: pass_app,
+				tel_app: tel_app,
+				code_app: code_app
+		}, function(data) {
+			// console.log(JSON.stringify(data));
+			if (data.result == 0) {
+					// 需要重新登录
+					if (window.plus) {
+							goToLogin("../register/login.html");
+					} else {
+							document.addEventListener('plusready', goToLogin, false);
+					}
+			} 
+			else {
+				console.log(data.wait_check)
+				if(data.wait_check > 0) {
+					$(".income .mybadge").css("display","block")
+					$(".income .mybadge").text(data.wait_check)
+				}
+				else { $(".income .mybadge").css("display","none") }
+			}
+		});
 	})
 </script>
 </html>

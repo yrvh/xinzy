@@ -286,7 +286,7 @@
 <body>
     <header>
         <div class="pre">上一页</div>
-        收入纳税信息<span class="pageNum" style="color:rgb(153, 153, 153)">(3/3)</span>
+        收入纳税信息<span class="pageNum" style="color:rgb(153, 153, 153)"></span>
         <div class="next">下一页</div>
     </header>
     <section class="incomeBox">
@@ -345,8 +345,8 @@
                 </div>
             </div>
             <div class="agreeThreeBox">
-                <div class="disagreeThree">不同意</div>
-                <div class="agreeThree">同意</div>
+                <div class="disagreeThree">不签订</div>
+                <div class="agreeThree">签订</div>
             </div>
         </div>
     </div>
@@ -394,7 +394,7 @@
 	    } else {
 	        localStorage.setItem("ishave_dw", data.ishave_dw);
 	        localStorage.setItem("userType", data.userType);
-	        console.log(JSON.stringify(data));
+	        // console.log(JSON.stringify(data));
 	        console.log("用户类型：" + data.userType)
 	            // console.log(data.zzshdde);
 	            // console.log(data.gshdde);
@@ -444,6 +444,13 @@
 	});
 	// console.log(xytype);
 	
+	
+	
+	// 下一页========================================
+	$(".next").click(() => {
+	    location.href = nextUrl;
+	});
+	
 	// 下一页的跳转地址
 	var nextUrl;
 	if (ishave_dw == 1) {
@@ -467,12 +474,9 @@
 	    nextUrl = "./businessComContract_comfirm.html";
 	}
 	
-	// 下一页
-	$(".next").click(() => {
-	    location.href = nextUrl;
-	});
 	
-	// 同意按钮
+	
+	// 点击同意 商秘公司的协议
 	$(".agree").click(() => {
 	    $.post(urlDns + "/user_app/yz/check", {
 	        tel_app: tel_app,
@@ -551,7 +555,7 @@
 	    });
 	}
 	
-	// 同意三方协议
+	// 点击签订 三方协议
 	$(".agreeThree").click(() => {
 	    var userType = localStorage.getItem("userType");
 	    var index = layer.load(1, {
@@ -575,7 +579,8 @@
 	            layer.close(index);
 	            if (data.result == 0) {
 	                location.reload();
-	            } else {
+	            } 
+							else {
 	                // 合作伙伴
 	                if (userType == 11) {
 	                    // 审核全部完成，进入首页
@@ -603,7 +608,7 @@
 	    });
 	})
 	
-	// 不同意三方协议
+	// 不签订 三方协议
 	$(".disagreeThree").click(() => {
 	    var userType = localStorage.getItem("userType");
 	

@@ -261,7 +261,7 @@
 	    pass_app: pass_app,
 	    code_app: code_app
 	}, function(data) {
-	    console.log(JSON.stringify(data))
+	    // console.log(JSON.stringify(data))
 	        // console.log(data.result)
 	    if (data.result == 0) {
 	        // 需要重新登录
@@ -286,7 +286,7 @@
 	        // console.log(11111)
 	        // // 储存一个协议id，退回时要提交该参数  
 	        // sessionStorage.setItem("xyid", data.xyid);
-	        console.log(JSON.stringify(data));
+	        // console.log(JSON.stringify(data));
 	        $("#realName").text(data.realname);
 	        $("#tel").text(data.tel);
 	        $("#email").text(data.email);

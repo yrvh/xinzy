@@ -387,8 +387,8 @@
                 </div>
             </div>
             <div class="agreeThreeBox">
-                <div class="disagreeThree">不同意</div>
-                <div class="agreeThree">同意</div>
+                <div class="disagreeThree">不签订</div>
+                <div class="agreeThree">签订</div>
             </div>
         </div>
     </div>
@@ -410,14 +410,14 @@
     var tel = sessionStorage.getItem("tel");
     var ishave_dw = sessionStorage.getItem("ishave_dw");
 
-
+		// 获取协议的数据 内容
     $.post(urlDns + "/user_app/yz/checkUI", {
         tel: tel,
         tel_app: tel_app,
         pass_app: pass_app,
         code_app: code_app
     }, function(data) {
-        console.log(data.ishave_dw)
+        // console.log(data.ishave_dw)
         if (data.result == 0) {
             // 需要重新登录
             if (window.plus) {
@@ -426,27 +426,29 @@
                 document.addEventListener('plusready', goToLogin, false);
             }
         } else {
-            localStorage.setItem("ishave_dw", data.ishave_dw);
-            localStorage.setItem("userType", data.userType);
+					// console.log(JSON.stringify(data))
+					localStorage.setItem("ishave_dw", data.ishave_dw);
+					localStorage.setItem("userType", data.userType);
+						
 
-            if (data.ishave_dw == 0) {
-                // 无单位
-                $(".pageNum").text("(4/4)");
-            }
-            if (data.ishave_dw == 1) {
-                //有单位
-                $(".pageNum").text("(5/5)");
-            }
-            console.log(data.fpbili);
-            console.log(data.xy_mstext);
-            $("#serviceFee").val(data.fpbili);
-            $(".cont").html(data.xy_mstext);
-            // 当协议内容不超过一页时
-            if ($(document.body).height() < $(window).height() - 50) {
-                // 减掉的114是除了$(".cont")以外其他元素的高度
-                $(".cont").css("height", "calc(100vh - 184px)");
-                $(".cont").css("margin-bottom", "0");
-            }
+					if (data.ishave_dw == 0) {
+							// 无单位
+							$(".pageNum").text("(4/4)");
+					}
+					if (data.ishave_dw == 1) {
+							//有单位
+							$(".pageNum").text("(5/5)");
+					}
+					// console.log(data.fpbili);
+					// console.log(data.xy_mstext);
+					$("#serviceFee").val(data.fpbili);
+					$(".cont").html(data.xy_mstext);
+					// 当协议内容不超过一页时
+					if ($(document.body).height() < $(window).height() - 50) {
+							// 减掉的114是除了$(".cont")以外其他元素的高度
+							$(".cont").css("height", "calc(100vh - 184px)");
+							$(".cont").css("margin-bottom", "0");
+					}
         }
 
 
@@ -503,7 +505,7 @@
             timeout: 120000, //2分钟超时
             //请求成功
             success: function(data) {
-                console.log(JSON.stringify(data));
+                // console.log(JSON.stringify(data));
                 // console.log("用户类型：" + data.userType)
                 if (data.result == 0) {
                     location.reload();
@@ -515,7 +517,7 @@
 
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
-                console.log(textStatus)
+                // console.log(textStatus)
                 if (textStatus == 'timeout') {
                     threeContractPost.abort();
                     alert("请求超时");
@@ -532,7 +534,7 @@
         });
     }
 
-    // 同意三方协议
+    // 签订 三方协议
     $(".agreeThree").click(() => {
         var userType = localStorage.getItem("userType");
         var index = layer.load(1, {
@@ -552,6 +554,7 @@
             timeout: 120000, //2分钟超时
             //请求成功
             success: function(data) {
+							console.log("签订成功了")
                 console.log(JSON.stringify(data));
                 layer.close(index);
                 if (data.result == 0) {
@@ -584,7 +587,7 @@
         });
     })
 
-    // 不同意三方协议
+    // 不签订 三方协议
     $(".disagreeThree").click(() => {
         var userType = localStorage.getItem("userType");
         var index = layer.load(1, {

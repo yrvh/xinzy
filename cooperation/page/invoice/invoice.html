@@ -77,6 +77,8 @@
 			li>div>span {
 			    color: rgb(153, 153, 153);
 			}
+			
+			.mybadge {display: none;}
 		</style>
 </head>
 
@@ -87,7 +89,7 @@
     </header>
     <ul>
         <li class="noSubmit">
-            <span>未计税</span>
+            <span>未计税 <span class="mybadge mui-badge mui-badge-danger"></span></span>
             <div>
                 <span class="noSend"></span>
                 <img src="../../../img/next.png" alt="">
@@ -153,6 +155,13 @@
 	                // 不显示发票抬头的按钮
 	                $(".next").css("display", "none");
 	            }
+							
+							if(data.nosend > 0) {
+								$(".mybadge").css("display","inline-block")
+								$(".mybadge").text(data.nosend)
+							}
+							else { $(".mybadge").css("display","none") }
+							
 	            $(".noSend").text(data.nosend);
 	            $(".send").text(data.send);
 	            $(".waitSend").text(data.waisend);

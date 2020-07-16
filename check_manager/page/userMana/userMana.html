@@ -122,6 +122,8 @@
 				border-right: 1px solid #7EB6FF;
 				border-left: 1px solid #7EB6FF;
 			}
+			
+			.mybadge {display: none;}
 		</style>
 </head>
 
@@ -137,7 +139,7 @@
 
     <ul class="com-ul">
         <li class="com-wait">
-            <span>待审核</span>
+            <span>待审核 <span class="mybadge mui-badge mui-badge-danger"></span></span>
             <div>
                 <span class="com-wait-li"></span>
                 <img src="../../../img/next.png" alt="">
@@ -394,6 +396,12 @@
 				}
 			} 
 			else {
+				if(data.res_size > 0) {
+					$(".mybadge").css("display","inline-block")
+					$(".mybadge").text(data.res_size)
+				}
+				else { $(".mybadge").css("display","none") }
+
 				// 单位用户
 				if(enterType == '2') {
 					$(".com-wait-li").text(data.res_size);

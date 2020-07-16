@@ -3,8 +3,8 @@
     "id" : "H5B141A43", /*应用的标识，创建应用时自动生成，勿手动修改*/
     "name" : "慧业通", /*应用名称，程序桌面图标名称*/
     "version" : {
-        "name" : "1.1.06", /*应用版本名称*/
-        "code" : 84
+        "name" : "1.1.07", /*应用版本名称*/
+        "code" : 85
     },
     "description" : "", /*应用描述信息*/
     "icons" : {
@@ -160,10 +160,10 @@
                         "portrait-retina" : "", /*iPad高分屏竖屏图片，分辨率：1536x2008*/
                         "landscape" : "", /*iPad横屏启动图片，分辨率：1024x748*/
                         "landscape-retina" : "", /*iPad高分屏横屏启动图片，分辨率：2048x1496*/
-                        "portrait7" : "", /*iPad iOS7竖屏启动图片，分辨率：768x1024*/
-                        "portrait-retina7" : "", /*iPad iOS7高分屏竖屏图片，分辨率：1536x2048*/
+                        "portrait7" : "C:/Users/Administrator/Desktop/慧业通文档/img/启动页logo/ios/LaunchImage@iPad1.png", /*iPad iOS7竖屏启动图片，分辨率：768x1024*/
+                        "portrait-retina7" : "C:/Users/Administrator/Desktop/慧业通文档/img/启动页logo/ios/LaunchImage@iPad.png", /*iPad iOS7高分屏竖屏图片，分辨率：1536x2048*/
                         "landscape7" : "", /*iPad iOS7横屏启动图片，分辨率：1024x768*/
-                        "landscape-retina7" : ""
+                        "landscape-retina7" : "C:/Users/Administrator/Desktop/慧业通文档/img/启动页logo/ios/2048x1536_h.png"
                     }
                 },
                 "android" : {
@@ -1075,6 +1075,16 @@
                 "refer" : [ "page/register/free_coopera.html" ],
                 "priority" : 0
             },
+            "cooperation/page/income/incomeDetailList_a.html" : {
+                "resources" : [],
+                "refer" : [ "cooperation/page/income/income_a.html" ],
+                "priority" : 0
+            },
+            "cooperation/page/income/income_a.html" : {
+                "resources" : [],
+                "refer" : [ "cooperation/page/income/incomeDetailList_a.html" ],
+                "priority" : 0
+            },
             "page/register/scan.html" : {
                 "resources" : [],
                 "refer" : [ "page/register/selectCompany.html" ],
@@ -1188,16 +1198,6 @@
             "page/register/com_dl_detail/main_business.html" : {
                 "resources" : [],
                 "refer" : [ "page/register/info_com_detail_dl.html" ],
-                "priority" : 0
-            },
-            "cooperation/page/income/incomeDetailList_a.html" : {
-                "resources" : [],
-                "refer" : [ "cooperation/page/income/income_a.html" ],
-                "priority" : 0
-            },
-            "cooperation/page/income/income_a.html" : {
-                "resources" : [],
-                "refer" : [ "cooperation/page/income/incomeDetailList_a.html" ],
                 "priority" : 0
             }
         },

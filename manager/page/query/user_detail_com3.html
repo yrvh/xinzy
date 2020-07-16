@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="../../../css/mui.min.css">
 	<script src="../../../js/mescroll.min.js"></script>
 	<link rel="stylesheet" href="../../../css/mescroll.min.css">
-	<title>审核主管--用户--详情页面 公司信息2</title>
+	<title>审核主管--用户--详情页面 公司信息3</title>
 	
 	<style type="text/css">
 		body { margin: 0; padding: 0; font-size: 16px; color: #333333; }
@@ -68,34 +68,13 @@
 	<header>
 		<div class="back select-back">上一页</div>
 		<span class="title-span">公司信息</span>
-		<div class="select-btn">下一页</div>
 	</header>
 	<div class="the-place"></div>
 	<!-- <div class="com-status">注册状态: <span class="status-li">待主管审核</span></div> -->
 	
 
-	<!-- 公司基本信息 -->
-	<div class="company-info">
-		<ul class="account-info">
-			<li class="account-bank">
-					<span>开户行</span>
-					<div>
-							<span class="account-bank-li"></span>
-					</div>
-			</li>
-			<li class="account-name">
-					<span>开户名</span>
-					<div>
-							<span class="account-name-li"></span>
-					</div>
-			</li>
-			<li class="account-num">
-					<span>账号</span>
-					<div>
-							<span class="account-num-li"></span>
-					</div>
-			</li>
-		</ul>
+	<!-- 公司与业者的协议文本 -->
+	<div class="company-info">		
 	</div>
 	
 	
@@ -112,21 +91,16 @@
 	$(".back").click(() => {
 			mui.back();
 	});
-	// 标题渲染
-	$(".title-span").text("公司账户信息(2/3)")
 	
+	// 标题渲染
+	$(".title-span").text("协议文本(3/3)")
 	// 获得传递过来的数据data
 	let data = sessionStorage.getItem("com_data")
 	
-	// 渲染页面
-	$(".account-bank-li").text(data.kh_name_sr);
-	$(".account-name-li").text(data.khh_sr);
-	$(".account-num-li").text(data.code_sr);
+	// 发起ajax请求,获得文本协议 渲染页面
+	$(".company-info").text(data.realname);
 
-	// 点击 下一页
-	$(".select-btn").click(() => {
-		location.href = "./user_detail_com3.html"
-	})
+
 </script>
 </html>
 

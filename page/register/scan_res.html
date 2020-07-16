@@ -170,10 +170,10 @@
 
         // alert("已识别推荐人信息，返回继续注册");
         // 存储推荐人id，弹出提示框
-        console.log(result)
+        // console.log(result)
         localStorage.setItem("upid", result);
         // $(".bgBlack").css("display", "block");
-        go_res();
+        if(result != '') { go_res(); }
     };
 
     // 跳转页面

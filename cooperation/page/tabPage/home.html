@@ -34,6 +34,7 @@
 			}
 			
 			.home_income>div {
+				position: relative;
 			    width: 25%;
 			    text-align: center;
 			    float: left;
@@ -44,6 +45,13 @@
 			    margin-top: 10px;
 			    width: 48px;
 			    height: 48px;
+			}
+			
+			.mybadge {
+				position: absolute;
+				right: 15px;
+				top: 5px;
+				display: none;
 			}
 		</style>
 </head>
@@ -73,13 +81,15 @@
 
     <div class="line"></div>
     <div class="home_income">
-        <div class="user_mana">
-            <img src="../../../img/userManage.png" alt="">
-            <div>收入管理</div>
+        <div class="income">
+					<span class="mybadge mui-badge mui-badge-danger"></span>
+					<img src="../../../img/userManage.png" alt="">
+					<div>收入管理</div>
         </div>
-        <div class="staff_mana">
-            <img src="../../../img/fpManage.png" alt="">
-            <div>发票管理</div>
+        <div class="invoice">
+					<span class="mybadge mui-badge mui-badge-danger"></span>
+					<img src="../../../img/fpManage.png" alt="">
+					<div>发票管理</div>
         </div>
         <div class="contract_mana">
             <img src="../../../img/taxes.png" alt="">
@@ -103,13 +113,17 @@
 <script type="text/javascript">
 	mui.init();
 	
+	var pass_app = localStorage.getItem("pass_app");
+	var tel_app = localStorage.getItem("tel_app");
+	var code_app = localStorage.getItem("code_app");
+	
 	// 收入管理
-	$(".user_mana").click(() => {
+	$(".income").click(() => {
 	    mui.openWindow('../income/income_a.html');
 	});
 	
 	// 发票管理
-	$(".staff_mana").click(() => {
+	$(".invoice").click(() => {
 	    mui.openWindow('../invoice/invoice.html');
 	});
 	
@@ -126,6 +140,60 @@
 	// 代理注册
 	$(".res-agent").click(() => {
 		mui.openWindow('../agent/agent.html')
+	})
+	
+	// 获取开票信息中, 有多少条是未计税的
+	$(function() {
+		$.post(urlDns + "/control_app/yz/fp/index", {
+				pass_app: pass_app,
+				tel_app: tel_app,
+				code_app: code_app
+		}, function(data) {
+			// console.log(JSON.stringify(data));
+			if (data.result == 0) {
+					// 需要重新登录
+					if (window.plus) {
+							goToLogin("../register/login.html");
+					} else {
+							document.addEventListener('plusready', goToLogin, false);
+					}
+			} 
+			else {
+				console.log(data.nosend)
+				if(data.nosend > 0){
+					$(".invoice .mybadge").css("display","block")
+					$(".invoice .mybadge").text(data.nosend)
+				}
+				else { $(".invoice .mybadge").css("display","none") }
+			}
+		});
+	})
+	
+	// 获取收入管理中,  待业者确认的数量
+	$(function() {
+		$.post(urlDns + "/control_app/yz/zf/index", {
+				pass_app: pass_app,
+				tel_app: tel_app,
+				code_app: code_app
+		}, function(data) {
+			// console.log(JSON.stringify(data));
+			if (data.result == 0) {
+					// 需要重新登录
+					if (window.plus) {
+							goToLogin("../register/login.html");
+					} else {
+							document.addEventListener('plusready', goToLogin, false);
+					}
+			} 
+			else {
+				console.log(data.send)
+				if(data.send > 0) {
+					$(".income .mybadge").css("display","block")
+					$(".income .mybadge").text(data.send)
+				}
+				else { $(".income .mybadge").css("display","none") }
+			}
+		});
 	})
 </script>
 

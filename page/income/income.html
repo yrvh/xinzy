@@ -7,11 +7,82 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../../js/mui.min.js"></script>
     <link rel="stylesheet" href="../../css/mui.min.css">
-    <link rel="stylesheet" href="../../css/income/income.css">
     <title>收入管理</title>
     <script>
         mui.init();
     </script>
+		
+		<style type="text/css">
+			body {
+			    color: #333333;
+			    margin: 0;
+			    padding: 0;
+			    font-size: 16px;
+			}
+			
+			header {
+			    position: relative;
+			    text-align: center;
+			    line-height: 44px;
+			    width: 100%;
+			    height: 44px;
+			    background-color: white;
+			    box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+			    font-weight: bold;
+			}
+			
+			header>img {
+			    position: absolute;
+			    top: 12px;
+			    left: 5px;
+			    width: 20px;
+			    height: 20px;
+			}
+			
+			header>div {
+			    position: absolute;
+			    top: 0;
+			    right: 5px;
+			    height: 44px;
+			    line-height: 44px;
+			}
+			
+			.next {
+			    line-height: 44px;
+			    color: #7EB6FF;
+			    margin-right: 10px;
+			}
+			
+			ul {
+			    list-style: none;
+			    padding: 0;
+			    margin: 20px 0 0 0;
+			}
+			
+			li {
+			    display: flex;
+			    justify-content: space-between;
+			    width: 100%;
+			    height: 46px;
+			    background-color: white;
+			    margin-bottom: 2px;
+			    line-height: 46px;
+			    padding: 0 5px 0 15px;
+			    box-sizing: border-box;
+			}
+			
+			li img {
+			    width: 25px;
+			    height: 25px;
+			    vertical-align: middle;
+			}
+			
+			li>div>span {
+			    color: rgb(153, 153, 153);
+			}
+			
+			.mybadge {display: none;}
+		</style>
 </head>
 
 <body>
@@ -23,7 +94,7 @@
 
     <ul>
         <li class="noSubmit">
-            <span>待提交</span>
+            <span>待提交 <span class="mybadge mui-badge mui-badge-danger"></span></span>
             <div>
                 <span class="noSubmitNum"></span>
                 <img src="../../img/next.png" alt="">
@@ -55,6 +126,77 @@
 </body>
 <script src="../../js/jquery-3.3.1.js"></script>
 <script src="../../js/urlDns.js"></script>
-<script src="../../js/income/income.js"></script>
+
+
+<script type="text/javascript">
+	var pass_app = localStorage.getItem("pass_app");
+	var tel_app = localStorage.getItem("tel_app");
+	var code_app = localStorage.getItem("code_app");
+	// console.log("tel_app：" + tel_app);
+	// console.log("pass_app：" + pass_app);
+	
+	// 返回
+	$(".back").click(() => {
+	    mui.back();
+	});
+	
+	// 数据请求放在自运行函数里，避免新增或删除操作返回后数据没有刷新
+	$(function() {
+	    $.get(urlDns + "/control_app/yz/zf/index", {
+	        pass_app: pass_app,
+	        tel_app: tel_app,
+	        code_app: code_app
+	    }, function(data) {
+	        console.log(JSON.stringify(data));
+	        if (data.result == 0) {
+	            // 需要重新登录
+	
+	            if (window.plus) {
+	                goToLogin("../register/login.html");
+	            } else {
+	                document.addEventListener('plusready', goToLogin, false);
+	            }
+	        } else {
+							if(data.waisend > 0) {
+								$(".mybadge").css("display","inline-block")
+								$(".mybadge").text(data.waisend)
+							}
+							else { $(".mybadge").css("display","none") }
+							
+	            $(".noSubmitNum").text(data.waisend);
+	            $(".noExamineNum").text(data.send);
+	            $(".ToBackNum").text(data.ms_nopass);
+	            $(".completedNum").text(data.ms_pass);
+	        }
+	
+	
+	    });
+	});
+	
+	
+	
+	// 新增
+	$(".next").click(() => {
+	    sessionStorage.setItem("isIn", 2);
+	    location.href = './incomeDetail.html';
+	});
+	
+	$(".noSubmit").click(() => {
+	    sessionStorage.setItem("id", "noSubmit");
+	    location.href = './incomeDetailList.html';
+	});
+	$(".noExamine").click(() => {
+	    sessionStorage.setItem("id", "noExamine");
+	    location.href = './incomeDetailList.html';
+	});
+	$(".ToBack").click(() => {
+	    sessionStorage.setItem("id", "ToBack");
+	    location.href = './incomeDetailList.html';
+	});
+	$(".completed").click(() => {
+	    sessionStorage.setItem("id", "completed");
+	    location.href = './incomeDetailList.html';
+	});
+</script>
 
 </html>

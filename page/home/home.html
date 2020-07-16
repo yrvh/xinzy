@@ -7,8 +7,51 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../../js/mui.min.js"></script>
     <link rel="stylesheet" href="../../css/mui.min.css">
-    <link rel="stylesheet" href="../../css/home/home.css">
     <title>业者首页</title>
+		
+		<style type="text/css">
+			body {
+			    margin: 0;
+			    padding: 0;
+			    font-size: 16px;
+			}
+			
+			.mui-slider .mui-slider-group .mui-slider-item img {
+			    height: 220px;
+			}
+			
+			.home_income {
+			    width: 100%;
+			    height: 100px;
+			    background-color: white !important;
+			}
+			
+			.line {
+			    width: 100%;
+			    height: 30px;
+			    background-color: white;
+			}
+			
+			.home_income>div {
+				position: relative;
+			    width: 25%;
+			    text-align: center;
+			    float: left;
+			    font-size: 13px;
+			}
+			.mybadge {
+				position: absolute;
+				right: 15px;
+				top: 5px;
+				display: none;
+			}
+			
+			.home_income>div>img {
+			    margin-top: 10px;
+			    width: 48px;
+			    height: 48px;
+			}
+		</style>
 </head>
 
 <body>
@@ -37,29 +80,150 @@
     <div class="line"></div>
     <div class="home_income">
         <div class="income">
+						<span class="mybadge mui-badge mui-badge-danger"></span>
             <img src="../../img/income.png" alt="">
             <div>收入管理</div>
         </div>
         <div class="invoice">
+					<span class="mybadge mui-badge mui-badge-danger"></span>
             <img src="../../img/invoice.png" alt="">
             <div>开票信息</div>
         </div>
         <div class="taxes">
-            <img src="../../img/taxes.png" alt="">
-            <div>纳税记录</div>
+					<img src="../../img/taxes.png" alt="">
+					<div>纳税记录</div>
         </div>
 
     </div>
 </body>
 <script src="../../js/jquery-3.3.1.js"></script>
 <script src="../../js/urlDns.js"></script>
-<script src="../../js/home/home.js"></script>
 <script>
     mui.init();
     var gallery = mui('.mui-slider');
     gallery.slider({
         interval: 3000 //自动轮播周期，若为0则不自动播放，默认为0；
     });
+		
+		
+		
+		var pass_app = localStorage.getItem("pass_app");
+		var tel_app = localStorage.getItem("tel_app");
+		var code_app = localStorage.getItem("code_app");
+		console.log("tel_app：" + tel_app);
+		console.log("pass_app：" + pass_app);
+		
+		// 在实际使用过程中发现,app刚打开时显示的是"设置"界面而不是"首页"
+		// 原因在于我们通过getWebviewById时,首页并没有加载出来,所以通过方法拿到的是个空
+		// 因此我们这里需要做一个回调
+		// 在首页加载完毕之后通知index界面,将首页显示在最前端
+		function plusRd() {
+		    //拿到index界面,这里index是启动页,所以用getLaunchWebview方法
+		    var indexWV = plus.webview.getLaunchWebview();
+		    mui.fire(indexWV, 'homeReady');
+		}
+		if (window.plus) {
+		    plusRd()
+		} else {
+		    document.addEventListener('plusready', plusRd, false);
+		}
+		
+		
+		var ishave_dw = sessionStorage.getItem("ishave_dw");
+		console.log(ishave_dw);
+		$(".income").click(() => {
+		    $.get(urlDns + "/control_app/yz/zf/index", {
+		        pass_app: pass_app,
+		        tel_app: tel_app,
+		        code_app: code_app
+		    }, function(data) {
+		    	console.log(JSON.stringify(data))
+		        if (data.result == 0) {
+		            // 需要重新登录
+		            if (window.plus) {
+		                goToLogin("../register/login.html");
+		            } else {
+		                document.addEventListener('plusready', goToLogin, false);
+		            }
+		        } else {
+		            // console.log(JSON.stringify(data));
+		            if (data.ishave_dw == 0) {
+		                // 没有单位的业者
+		                mui.openWindow('../income/income.html');
+		            }
+		            if (data.ishave_dw == 1) {
+		                mui.openWindow('../income/income_acceptCom/income_a.html');
+		            }
+		        }
+		
+		    });
+		
+		});
+		
+		$(".invoice").click(() => {
+		    mui.openWindow('../invoice/invoice.html');
+		});
+		
+		$(".taxes").click(() => {
+		    mui.openWindow('../taxes/taxes.html');
+		});
+		
+		
+		// 获取开票信息中, 有多少条是未计税的
+		$(function() {
+			$.post(urlDns + "/control_app/yz/fp/index", {
+					pass_app: pass_app,
+					tel_app: tel_app,
+					code_app: code_app
+			}, function(data) {
+				// console.log(JSON.stringify(data));
+				if (data.result == 0) {
+						// 需要重新登录
+						if (window.plus) {
+								goToLogin("../register/login.html");
+						} else {
+								document.addEventListener('plusready', goToLogin, false);
+						}
+				} 
+				else {
+					if(data.nosend > 0){
+						$(".invoice .mybadge").css("display","block")
+						$(".invoice .mybadge").text(data.nosend)
+					}
+					else { $(".invoice .mybadge").css("display","none") }
+				}
+			});
+		})
+		
+		// 获取收入管理中,  待业者确认的数量
+		$(function() {
+			$.post(urlDns + "/control_app/yz/zf/index", {
+					pass_app: pass_app,
+					tel_app: tel_app,
+					code_app: code_app
+			}, function(data) {
+				// console.log(JSON.stringify(data));
+				if (data.result == 0) {
+						// 需要重新登录
+						if (window.plus) {
+								goToLogin("../register/login.html");
+						} else {
+								document.addEventListener('plusready', goToLogin, false);
+						}
+				} 
+				else {
+					if(data.waisend > 0){
+						$(".income .mybadge").css("display","block")
+						$(".income .mybadge").text(data.waisend)
+					}
+					else if(data.send > 0) {
+						$(".income .mybadge").css("display","block")
+						$(".income .mybadge").text(data.send)
+					}
+					else { $(".income .mybadge").css("display","none") }
+				}
+			});
+		})
 </script>
 
 </html>

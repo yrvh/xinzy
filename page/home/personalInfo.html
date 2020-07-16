@@ -7,8 +7,154 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../../js/mui.min.js"></script>
     <link rel="stylesheet" href="../../css/mui.min.css">
-    <link rel="stylesheet" href="../../css/home/personalInfo.css">
     <title>确认用户信息</title>
+		
+		<style type="text/css">
+			body {
+			    margin: 0;
+			    padding: 0;
+			}
+			
+			header {
+			    position: fixed;
+			    top: 0;
+			    left: 0;
+			    text-align: center;
+			    width: 100%;
+			    height: 44px;
+			    line-height: 44px;
+			    background-color: white;
+			    box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+			    font-weight: bold;
+			    font-size: 16px;
+			}
+			
+			header>img {
+			    position: absolute;
+			    top: 12px;
+			    left: 5px;
+			    width: 20px;
+			    height: 20px;
+			}
+			
+			.next {
+			    position: absolute;
+			    right: 10px;
+			    top: 0;
+			    line-height: 44px;
+			    color: #7EB6FF;
+			    font-weight: 700;
+			}
+			
+			.userInfoBox {
+			    margin-top: 64px;
+			}
+			
+			.userInfoBox,
+			.accountInfoBox {
+			    background-color: white;
+			    padding: 0 15px;
+			    box-sizing: border-box;
+			    font-size: 16px;
+			}
+			
+			.accountInfoBox {
+			    margin-top: 20px;
+			}
+			
+			.userInfoBox>div,
+			.accountInfoBox>div {
+			    width: calc(100% - 30px);
+			    height: 46px;
+			    line-height: 46px;
+			    border-bottom: 1px solid rgb(240, 240, 240);
+			    width: 100%;
+			    background-color: white;
+			}
+			
+			.userInfoTitle,
+			.accountInfoTitle {
+			    font-size: 17px;
+			    height: 50px;
+			    line-height: 50px;
+			    font-weight: 800;
+			    border: none !important;
+			}
+			
+			.userInfoBox>div:nth-of-type(n + 1),
+			.accountInfoBox>div:nth-of-type(n + 1) {
+			    display: flex;
+			    justify-content: space-between;
+			}
+			
+			.userInfoBox>div>span>div,
+			.accountInfoBox>div>span>div {
+			    text-align: right;
+			    border: none;
+			    outline: none;
+			    font-size: 14px;
+			    width: 230px;
+			    color: #666666;
+			}
+			
+			.userInfoBox img {
+			    margin-right: -7px;
+			    width: 25px;
+			    vertical-align: middle;
+			}
+			
+			.uploadText {
+			    color: #666666;
+			    font-size: 15px;
+			}
+			
+			#tel {
+			    /* padding-right: 15px; */
+			    color: #666666;
+			}
+			
+			.last {
+			    border: none !important;
+			}
+			
+			.bgBlack {
+			    display: none;
+			    position: absolute;
+			    top: 0;
+			    left: 0;
+			    width: 100%;
+			    height: 100vh;
+			    background-color: rgba(0, 0, 0, 0.1);
+			    z-index: 9;
+			}
+			
+			.tipsBox {
+			    position: absolute;
+			    top: calc((100vh - 144px)/2);
+			    left: calc((100% - 270px)/2);
+			    width: 270px;
+			    height: 144px;
+			    background-color: white;
+			    border-radius: 13px;
+			    text-align: center;
+			    padding: 35px 30px 0 30px;
+			    font-size: 14px;
+			    color: rgb(153, 153, 153);
+			}
+			
+			.ok {
+			    position: absolute;
+			    bottom: 0;
+			    left: 0;
+			    width: 100%;
+			    height: 45px;
+			    text-align: center;
+			    line-height: 45px;
+			    color: #7EB6FF;
+			    font-size: 16px;
+			    border-top: 1px solid #e7e7e7
+			}
+		</style>
 </head>
 
 <body>
@@ -66,6 +212,53 @@
 </body>
 <script src="../../js/jquery-3.3.1.js"></script>
 <script src="../../js/urlDns.js"></script>
-<script src="../../js/home/personalInfo.js"></script>
+
+<script type="text/javascript">
+	mui.init();
+	
+	var pass_app = localStorage.getItem("pass_app");
+	var tel_app = localStorage.getItem("tel_app");
+	var code_app = localStorage.getItem("code_app");
+	// console.log("tel_app：" + tel_app);
+	// console.log("pass_app：" + pass_app);
+	
+	// 返回
+	$(".back").click(() => {
+	    mui.back();
+	});
+	
+	$.post(urlDns + "/control_app/yz/info/showUI", {
+	    type: 1,
+	    pass_app: pass_app,
+	    tel_app: tel_app,
+	    code_app: code_app
+	}, function(data) {
+	    console.log(JSON.stringify(data));
+	    if (data.result == 0) {
+	        // 需要重新登录
+	        if (window.plus) {
+	            goToLogin("../register/login.html");
+	        } else {
+	            document.addEventListener('plusready', goToLogin, false);
+	        }
+	    } else {
+	        $("#realName").text(data.realname);
+	        $("#tel").text(data.tel);
+	        $("#email").text(data.email);
+	        $("#idNumber").text(data.idcard);
+	        // $("#area_name").text(data.khh_sr);
+	        $("#accountBank").text(data.khh_sr);
+	        $("#accountName").text(data.kh_name_sr);
+	        $("#account").text(data.code_sr);
+	
+	    }
+	
+	
+	});
+	
+	$(".uploadIdCard").click(() => {
+	    location.href = "./idCardPhotos.html";
+	});
+</script>
 
 </html>

@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../../js/mui.min.js"></script>
     <link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/scale.css">
     <title>确认双方协议</title>
     <style>
         html,
@@ -81,6 +82,9 @@
         }
         
         .photosBox {
+					/* position: relative; */
+					/* background-color: #009F95; */
+					/* border: 20px solid #2D93CA; */
             width: 100%;
             /* height: calc(100vh - 64px); */
             margin-top: 64px;
@@ -90,11 +94,11 @@
         }
         
         .imgBox {
-            width: 26vw;
-            height: 26vw;
-            float: left;
-            border: 1px solid #cccccc;
-            margin: 3vw 0 0 calc((100vw - 78vw)/4);
+					width: 26vw;
+					height: 26vw;
+					float: left;
+					border: 1px solid #cccccc;
+					margin: 3vw 0 0 calc((100vw - 78vw)/4);
         }
         
         .imgBox>img {
@@ -110,10 +114,18 @@
         <div class="next">下一页</div>
     </header>
     <div class="photosBox">
-        <!-- <div class="imgBox">
-            <img src="../../img/IDCard1.png" alt="">
-        </div> -->
+			<!-- <div class="imgBox">
+					<img src="../../img/IDCard1.png" alt="">
+			</div>
+			<div class="imgBox">
+					<img src="../../img/IDCard1.png" alt="">
+			</div> -->
     </div>
+		<!-- 图片预览放大的功能 -->
+		<section class="imgzoom_pack">
+			<div class="imgzoom_x">X</div>
+			<div class="imgzoom_img"><img src="" /></div>
+		</section>
     <!-- <div class="btnBox">
         <div class="refuse">退回</div>
         <div class="agree">同意</div>
@@ -121,6 +133,7 @@
 </body>
 <script src="../../js/jquery-3.3.1.js"></script>
 <script src="../../js/urlDns.js"></script>
+<script src="../../js/scale.js"></script>
 <script>
     // 返回
     $(".back").click(() => {
@@ -158,7 +171,7 @@
             for (var i = 0; i < data.imgs.length; i++) {
                 htmlStr += `
             <div class="imgBox">
-                <img src="${data.imgs[i].url}" alt="">
+                <img class="img-crt" src="${data.imgs[i].url}" alt="">
             </div>
             `;
             }
@@ -166,6 +179,13 @@
         }
 
     });
+		
+		// 监听图片预览放大
+		document.addEventListener("DOMContentLoaded", function(event) {
+		    ImagesZoom.init({
+		        "elem": ".photosBox"
+		    });
+		}, false);
 
     // // 监听当用户滑动到底部才允许同意协议
     // $(window).scroll(() => {

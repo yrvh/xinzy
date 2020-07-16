@@ -52,6 +52,8 @@
 			#input_free {
 			    display: none;
 			}
+			
+			.mybadge {display: none;}
 		</style>
 	</head>
 	<body>
@@ -64,38 +66,52 @@
 		</header>
 		
 		<ul>
-			<li class="noSubmit">
+			<li class="wait-free">
 				<span>待业者确认</span>
 				<div>
-						<span class="noSubmitNum"></span>
+						<span class="wait-free-li"></span>
 						<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
-			<li class="noExamine">
-				<span>业者退回</span>
+			<li class="free-nopass">
+				<span>业者审核未通过</span>
 				<div>
-						<span class="noExamineNum"></span>
+						<span class="free-nopass-li"></span>
 						<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
-			<li class="ToBack">
-				<span>待支付</span>
+			<li class="com-check">
+				<span>待商秘公司确认</span>
 				<div>
-						<span class="ToBackNum"></span>
+						<span class="com-check-li"></span>
 						<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
-			<li class="completed">
-				<span>商秘公司退回</span>
+			<li class="com-nopass">
+				<span>商秘公司审核未通过</span>
 				<div>
-						<span class="completedNum"></span>
+						<span class="com-nopass-li"></span>
 						<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
-			<li class="confirmed">
-				<span>已完成</span>
+			<li class="wait-salesman">
+				<span>待业务员发起支付</span>
 				<div>
-						<span class="confirmedNum"></span>
+						<span class="wait-salesman-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="wait-pay">
+				<span>待支付 <span class="mybadge mui-badge mui-badge-danger"></span></span>
+				<div>
+						<span class="wait-pay-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="complete-pay">
+				<span>已支付</span>
+				<div>
+						<span class="complete-pay-li"></span>
 						<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
@@ -118,33 +134,37 @@
 		getInfo()
 		
 		// 跳转到列表页
-		// 录入方式addtype（业者录入为："yz"    单位录入:"sf"）
-		// 状态码income_status（1：待业者确认，3：业者退回，2.待支付，5：秘书公司退回，6：完成）
+		// 状态码income_status（1待业者确认  2等待商秘公司确认， 3：业者审核未通过，5：秘书公司退回，6待业务员发起支付 7待支付 8已支付）
 		// ========单位录入=======
-		$(".noSubmit").click(() => {
+		$(".wait-free").click(() => {
 			sessionStorage.setItem("income_status", 1);
 			location.href = './incomeManaList.html';
 		});
-		
-		$(".noExamine").click(() => {
+		$(".free-nopass").click(() => {
 			sessionStorage.setItem("income_status", 3);
 			location.href = './incomeManaList.html';
 		});
-		
-		$(".ToBack").click(() => {
+		$(".com-check").click(() => {
 			sessionStorage.setItem("income_status", 2);
 			location.href = './incomeManaList.html';
 		});
-		
-		$(".completed").click(() => {
+		$(".com-nopass").click(() => {
 			sessionStorage.setItem("income_status", 5);
 			location.href = './incomeManaList.html';
 		});
-		
-		$(".confirmed").click(() => {
+		$(".wait-salesman").click(() => {
 			sessionStorage.setItem("income_status", 6);
 			location.href = './incomeManaList.html';
 		});
+		$(".wait-pay").click(() => {
+			sessionStorage.setItem("income_status", 7);
+			location.href = './incomeManaList.html';
+		});
+		$(".complete-pay").click(() => {
+			sessionStorage.setItem("income_status", 8);
+			location.href = './incomeManaList.html';
+		});
+		
 		
 		
 		// 请求数据的函数
@@ -154,7 +174,7 @@
 				tel_app: tel_app,
 				code_app: code_app
 			}, function(data) {
-				console.log(JSON.stringify(data));
+				// console.log(JSON.stringify(data));
 				if (data.result == 0) {
 					// 需要重新登录
 					if (window.plus) {
@@ -165,12 +185,19 @@
 					}
 				} 
 				else {
-					$(".noSubmitNum").text(data.send);
-					$(".noExamineNum").text(data.yz_nopass);
-					$(".ToBackNum").text(data.ms_pass);
-					$(".completedNum").text(data.ms_nopass);
-					$(".confirmedNum").text(data.yz_pass);
-					
+							if(data.wait_pay > 0) {
+								$(".mybadge").css("display","inline-block")
+								$(".mybadge").text(data.wait_pay)
+							}
+							else { $(".mybadge").css("display","none") }
+							
+					$(".wait-free-li").text(data.send);
+					$(".free-nopass-li").text(data.yz_nopass);
+					$(".com-check-li").text(data.wait_check);
+					$(".com-nopass-li").text(data.ms_nopass);
+					$(".wait-salesman-li").text(data.ms_send_pay);
+					$(".wait-pay-li").text(data.wait_pay);
+					$(".complete-pay-li").text(data.pay);
 				}
 		
 			});

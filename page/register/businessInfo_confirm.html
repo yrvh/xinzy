@@ -100,6 +100,7 @@
 			    font-size: 14px;
 			    width: 200px;
 			    color: #666666;
+					background-color: ;
 			}
 			
 			.userInfoBox img,
@@ -268,6 +269,7 @@
 			    width: 200px;
 			    color: #666666;
 			}
+			#businessName {display: inline-block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
 			
 			.userInfoBox img,
 			.registerBox img {
@@ -351,7 +353,7 @@
 <body>
     <header>
         <div class="pre">上一页</div>
-        商户信息<span class="pageNum" style="color:rgb(153, 153, 153)">(2/3)</span>
+        商户信息<span class="pageNum" style="color:rgb(153, 153, 153)"></span>
         <div class="next">下一页</div>
     </header>
     <!-- 个人基本信息 -->
@@ -367,7 +369,9 @@
         </div>
         <div>
             <span>商户名称</span>
-            <span><div id="businessName"></div></span>
+            <span>
+							<div id="businessName"></div>
+						</span>
         </div>
         <div>
             <span>类型</span>
@@ -441,6 +445,7 @@
 	var code_app = localStorage.getItem("code_app");
 	
 	var tel = sessionStorage.getItem("tel");
+	let bName = ''
 	$.post(urlDns + "/user_app/yz/checkUI", {
 	    tel: tel,
 	    tel_app: tel_app,
@@ -467,7 +472,8 @@
 	            }
 	
 	        }
-	        console.log(JSON.stringify(data));
+					bName = data.comname
+	        // console.log(JSON.stringify(data));
 	        console.log("发证日期：" + data.registerCompany)
 	        $("#creditNum").text(data.xycode);
 	        $("#name").text(data.jyname);
@@ -484,6 +490,11 @@
 	    }
 	
 	});
+	
+	// 点击商户名称   显示全称
+	$("#businessName").click(() => {
+		mui.toast("商户名称: "+bName,{ duration:'4000', type:'div' })
+	})
 	
 	$(".pre").click(() => {
 	    // history.back();

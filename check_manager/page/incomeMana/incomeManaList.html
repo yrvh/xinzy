@@ -12,6 +12,7 @@
 
 	<style type="text/css">
 		body {
+			/* position: relative; */
 			margin: 0;
 			padding: 0;
 			color: #333333;
@@ -22,7 +23,7 @@
 			position: fixed;
 			top: 0;
 			left: 0;
-			z-index: 99;
+			z-index: 50;
 			text-align: center;
 			line-height: 44px;
 			width: 100%;
@@ -109,7 +110,7 @@
 			position: fixed;
 			top: 44px;
 			left: 0;
-			z-index: 99;
+			z-index: 50;
 			width: 100%;
 			height: 44px;
 			padding: 7px 0 7px 15px;
@@ -209,7 +210,7 @@
 			position: fixed;
 			top: 88px;
 			left: 0;
-			z-index: 99;
+			z-index: 50;
 			/* display: none; */
 			width: 100%;
 			height: 44px;
@@ -297,7 +298,7 @@
 			height: 44px;
 			border-bottom: 1px solid rgb(240, 240, 240);
 		}
-		.free-com>div {display: flex; justify-content: space-between; align-items: center;}
+		.free-com>div { display: flex; justify-content: space-between; align-items: center;}
 		
 		.free-com span {
 			font-size: 14px;
@@ -308,6 +309,7 @@
 			height: 25px;
 			/* vertical-align: center; */
 		}
+		.selectCom {display: none;}
 
 		.okBox {
 			position: relative;
@@ -350,8 +352,9 @@
 		}
 
 		.noneParamBg {
+			/* background-color: #009F95; */
 			width: 100%;
-			height: calc(100vh - 310px);
+			height: calc(100vh - 480px);
 			position: absolute;
 			bottom: 0;
 			left: 0;
@@ -383,9 +386,49 @@
 		position: relative;
 	}
 	.select-btn {display: none; line-height: 44px; color: #7EB6FF; margin-right: 10px;}
+	
+	.dialog-container { position: fixed; width: 100%; height: 100%; background-color: rgba(180,180,180,.8); left: 0; top: 0; z-index: 60; display: none; justify-content: center; align-items: center;}
+	.dialog { width: 80%; height: 340px; background-color: #fff; padding-left: 12px; }
+	
+	.dialog>div { border-bottom: 1px solid #ddd; line-height: 48px; }
+	.dialog input {width: 50%; font-size: 15px; border: none; margin: 0 3px 0 0;}
+	.dialog-title { font-size: 19px; font-weight: 800; padding: 14px 0 9px;}
+	/* .dialog-money { margin: 20px 0;} */
+	.dialog-tel {display: flex; }
+	.get-code {font-size: 12px; color: #7EB6FF; font-family: "Microsoft YaHei"; font-weight: 600;}
+	.dialog-code {margin-bottom: 40px;}
+	.dialog-btn {
+		width:300px;
+		border-radius: 4px;
+		text-align: center;
+		margin: 0 auto;
+		border: 1px solid #7EB6FF !important;
+		transform: translateX(-6px);
+		display: flex;
+		justify-content: space-between;
+		overflow: hidden;
+	}
+	.cancel,.success {width: 50%;}
+	.cancel {color: #7EB6FF;}
+	.success { background-color: #7EB6FF; color: #fff; }
+	
 	</style>
 </head>
 <body>
+	<!-- 当点击支付的时候,,  弹出来的对话框 -->
+	<div class="dialog-container">
+		<div class="dialog">
+			<div class="dialog-title">支付详情:</div>
+			<div class="dialog-money">总金额:&nbsp;&nbsp; ¥&nbsp;&nbsp;<span></span></div>
+			<div class="dialog-tel">电话号: <input id="input-tel"  type="text" maxlength="11" name="userNum"  placeholder="请输入手机号..." /> </div>
+			<div class="dialog-code">验证码: <input id="input-code" type="text" name="verify" placeholder="输入验证码..." /><span class="get-code">获取验证码</span></div>
+			<div class="dialog-btn">
+				<div class="cancel">取消支付</div>
+				<div class="success">确认支付</div>
+			</div>
+		</div>
+	</div>
+	
 	<header>
 		<div class="select_all">全选</div>
 		<img class="back" src="../../../img/back_black.png" alt="">
@@ -413,6 +456,14 @@
 	<!-- 帅选条件 内容展示 -->
 	<div class="filterParamBg">
 		<div class="filterParam">
+			<div class="selectFreeType free-com">
+				<span>业者类型</span>
+				<div>
+					<span class="selectFreeTypeLi">全部</span>
+					<img src="../../../img/next.png" alt="">
+				</div>
+			</div>
+			
 			<div class="selectCom free-com">
 				<span>接受服务单位</span>
 				<div>
@@ -420,10 +471,35 @@
 					<img src="../../../img/next.png" alt="">
 				</div>
 			</div>
+			
 			<div class="selectFree free-com">
 				<span>业者姓名</span>
 				<div>
 					<span class="selectFreeName"></span>
+					<img src="../../../img/next.png" alt="">
+				</div>
+			</div>
+			
+			<div class="selectCoop free-com">
+				<span>合作伙伴</span>
+				<div>
+					<span class="selectCoopName"></span>
+					<img src="../../../img/next.png" alt="">
+				</div>
+			</div>
+			
+			<div class="selectSell free-com">
+				<span>营销员</span>
+				<div>
+					<span class="selectSellName"></span>
+					<img src="../../../img/next.png" alt="">
+				</div>
+			</div>
+			
+			<div class="selectClerk free-com">
+				<span>业务员</span>
+				<div>
+					<span class="selectClerkName"></span>
 					<img src="../../../img/next.png" alt="">
 				</div>
 			</div>
@@ -478,9 +554,6 @@
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
 
-	// 录入方式addtype（业者录入为："yz"    单位录入:"sf"）
-	// 状态码income_status（1：待业者确认，3：业者退回，2.待秘书公司确认，5：秘书公司退回，6：完成）
-
 	// 获取状态码
 	var income_status = sessionStorage.getItem("income_status");
 	
@@ -489,19 +562,24 @@
 		$("header span").text("待业者确认");
 	}
 	if (income_status == 3) {
-		$("header span").text("业者退回");
+		$("header span").text("业者审核未通过");
 	}
 	if (income_status == 2) {
+		$("header span").text("等待秘书公司确认");
+	}
+	if (income_status == 5) {
+		$("header span").text("商秘公司审核未通过");
+	}
+	if (income_status == 6) {
+		$("header span").text("等待业务员发起支付");
+	}
+	if (income_status == 7) {
 		$("header span").text("待支付");
 		$(".select-btn").css("display","block")
 	}
-	if (income_status == 5) {
-		$("header span").text("商秘公司退回");
+	if (income_status == 8) {
+		$("header span").text("已支付");
 	}
-	if (income_status == 6) {
-		$("header span").text("已完成");
-	}
-
 
 	
 	var page = 1   // 设置当前 在第几个页面
@@ -509,12 +587,12 @@
 	
 	getInfoList()   //调用函数初始化 界面上要展示的数据列表 
 	
-	function getInfoList(name='',startdate='',enddate='',sfid='',yzid=0) {
+	function getInfoList(name='',startdate='',enddate='',sfid='',yzid=0,hhrid='',yxyid='',ywyid='') {
 
 		// 请求数据
 		mui.post(urlDns + "/control_app/ms/fr_zg/zf/list", {
 			// 状态
-			income_status: income_status,
+			status: income_status,
 			// 第几页
 			page: page,
 			// 一页的条数
@@ -528,6 +606,9 @@
 			sfid,
 			// 过滤条件的业者ID
 			yzid,
+			hhrid,
+			yxyid,
+			ywyid,
 			pass_app: pass_app,
 			tel_app: tel_app,
 			code_app: code_app
@@ -669,26 +750,44 @@
 	$(".reset").click(() => {
 		year = new Date().getFullYear();
 		month = new Date().getMonth() + 1;
+		// 清空文字
+		$(".selectFreeTypeLi").text("全部")
 		$(".selectComName").text("");
 		$(".selectFreeName").text("");
+		$(".selectCoopName").text("")
+		$(".selectSellName").text("")
+		$(".selectClerkName").text("")
+		// 清空uid
+		$(".selectFreeTypeLi").attr("uid","2")
+		$(".selectComName").attr("uid","")
+		$(".selectFreeName").attr("uid","")
+		$(".selectCoopName").attr("uid","")
+		$(".selectSellName").attr("uid","")
+		$(".selectClerkName").attr("uid","")
+		
 		$("#startDate").text(year + "-" + format(month));
 		$("#endDate").text(year + "-" + format(month));
 	});
 
 	// 点击确定
 	$(".ok").click(() => {
+		//  获取开始结束时间
 		let s = $("#startDate").text()
 		let e = $("#endDate").text()
-		let start = s.replace('-','')
-		let end = e.replace('-','')
-		let sf = $(".selectComName").attr('id') == undefined? '': $(".selectComName").attr('id')
-		let yz = $(".selectFreeName").attr('id')  == undefined? '': $(".selectComName").attr('id')
-
+		// 获取各个角色, 人的uid
+		let sf = $(".selectComName").attr('uid') || ''
+		let yz = $(".selectFreeName").attr('uid') || ''
+		let coop = $(".selectCoopName").attr('uid') || ''
+		let sell = $(".selectSellName").attr('uid') || ''
+		let clerk = $(".selectClerkName").attr('uid') || ''
+		
+		let start = s.replace('-','')   // 用于条件判断时间先后
+		let end = e.replace('-','')   // 用于条件判断时间先后
 		if(start <= end){
 			// 清空搜索框
 			$(".searchCont").val('')
 			// 发起ajax请求
-			getInfoList('',s,e,sf,yz)
+			getInfoList('',s,e,sf,yz,coop,sell,clerk)
 			// 隐藏筛选框
 			$(".filterParamBg").css("display", "none");
 			$(".nextImg").attr("src", "../../../img/next.png");
@@ -709,7 +808,14 @@
 	});
 	
 	
-	// ================================================
+	// ================================================================
+	
+	let freeTypeArr =[   // 该数组存放 业者类型  2 全部,0 有单位,  1 无单位
+		{"value":2,"text":"全部"},
+		{"value":0,"text":"有单位"},
+		{"value":1,"text":"无单位"},
+		] 
+	
 	let comArr = [];   // 该数组存放请求回来的 所有单位
 	$.get(urlDns + "/control_app/ms/fr_zg/zf/get_sfData", {
 		pass_app: pass_app,
@@ -738,14 +844,15 @@
 
 	let freeArr   // 该数组存放请求回来的 所有业者
 	getFreeArr()
-	function getFreeArr(id=0) {
+	function getFreeArr(id=0,islr=2) {
 		freeArr = []
-		// console.log("执行了获得业者列表的函数:"+ id)
+		// console.log("执行了获得业者列表的函数:"+ uid)
 		$.get(urlDns + "/control_app/ms/fr_zg/zf/get_yzData", {
 			pass_app: pass_app,
 			tel_app: tel_app,
 			code_app: code_app,
-			sfid: id
+			sfid: id,
+			islr
 		}, function(data) {
 			// console.log(JSON.stringify(data));
 			if (data.result == 0) {
@@ -768,7 +875,125 @@
 		});
 	}
 	
+	let coopArr   // 该数组存放请求回来的 合作伙伴
+	getCoopArr()
+	function getCoopArr() {
+		coopArr = []
+		$.get(urlDns + "/control_app/ms/fr_zg/zf/get_hhrData", {
+			pass_app: pass_app,
+			tel_app: tel_app,
+			code_app: code_app
+		}, function(data) {
+			// console.log(JSON.stringify(data));
+			if (data.result == 0) {
+				// 需要重新登录
+				if (window.plus) {
+					goToLogin("../../register/login.html");
+				} else {
+					document.addEventListener('plusready', goToLogin, false);
+				}
+			} 
+			else {
+				for (let i = 0; i < data.rows.length; i++) {
+					coopArr.push({
+						"value": data.rows[i].id,
+						"text": data.rows[i].name
+					});
+				}
+				// console.log(JSON.stringify(coopArr))
+			}
+		});
+	}
 	
+	let sellArr   // 该数组存放请求回来的 营销员
+	getSellArr()
+	function getSellArr() {
+		sellArr = []
+		$.get(urlDns + "/control_app/ms/fr_zg/zf/get_yxyData", {
+			pass_app: pass_app,
+			tel_app: tel_app,
+			code_app: code_app
+		}, function(data) {
+			// console.log(JSON.stringify(data));
+			if (data.result == 0) {
+				// 需要重新登录
+				if (window.plus) {
+					goToLogin("../../register/login.html");
+				} else {
+					document.addEventListener('plusready', goToLogin, false);
+				}
+			} 
+			else {
+				for (let i = 0; i < data.rows.length; i++) {
+					sellArr.push({
+						"value": data.rows[i].id,
+						"text": data.rows[i].name
+					});
+				}
+				// console.log(JSON.stringify(sellArr))
+			}
+		});
+	}
+	
+	let clerkArr   // 该数组存放请求回来的 业务员
+	getClerkArr()
+	function getClerkArr() {
+		clerkArr = []
+		$.get(urlDns + "/control_app/ms/fr_zg/zf/get_ywyData", {
+			pass_app: pass_app,
+			tel_app: tel_app,
+			code_app: code_app
+		}, function(data) {
+			if (data.result == 0) {
+				// 需要重新登录
+				if (window.plus) {
+					goToLogin("../../register/login.html");
+				} else {
+					document.addEventListener('plusready', goToLogin, false);
+				}
+			} 
+			else {
+				for (let i = 0; i < data.rows.length; i++) {
+					clerkArr.push({
+						"value": data.rows[i].id,
+						"text": data.rows[i].name
+					});
+				}
+				// console.log(JSON.stringify(clerkArr))
+			}
+		});
+	}
+	
+	
+	
+	// 点击 业者类型
+	$(".selectFreeType").on("click", selectFreeType);
+	
+	function selectFreeType() {
+		var popPicker = new mui.PopPicker();
+		popPicker.setData(freeTypeArr)
+		popPicker.show(function(selectItems) {
+			$(".selectFreeTypeLi").text(selectItems[0].text);
+			$(".selectFreeTypeLi").attr("uid", selectItems[0].value);
+			
+			let fType = $(".selectFreeTypeLi").attr("uid")
+			if(fType==2) {
+				// $(".selectFree").css("display","none")
+				$(".selectCom").css("display","none")
+				getFreeArr(0,2)
+			}
+			else if(fType==1) {
+				// $(".selectFree").css("display","flex")
+				$(".selectCom").css("display","none")
+				getFreeArr(0,1)
+			}
+			else {
+				// $(".selectFree").css("display","none")
+				$(".selectCom").css("display","flex")
+				getFreeArr(0,0)
+			}
+		})
+	}
 	
 	// 点击 接受服务单位
 	$(".selectCom").on("click", selectCom);
@@ -776,15 +1001,11 @@
 	function selectCom() {
 		var popPicker = new mui.PopPicker();
 		popPicker.setData(comArr)
-		// [{ value: 'ywj', text: '北海骄龙网络有限公司' },
-		//     { value: 'aaa', text: 'xxxxxxx有限公司' },
-		//     { value: 'lj', text: 'xxxxxxx有限公司' },
-		//     { value: 'ymt', text: 'xxxxxxx有限公司' },
-		// ]
+
 		popPicker.show(function(selectItems) {
 			$(".selectComName").text(selectItems[0].text);
-			$(".selectComName").attr("id", selectItems[0].value);
-			getFreeArr($(".selectComName").attr("id"))
+			$(".selectComName").attr("uid", selectItems[0].value);
+			getFreeArr($(".selectComName").attr("uid"),0)
 		})
 	}
 	
@@ -794,17 +1015,53 @@
 	function selectFree() {
 		var popPicker = new mui.PopPicker();
 		popPicker.setData(freeArr)
-		// [{ value: 'ywj', text: '北海骄龙网络有限公司' },
-		//     { value: 'aaa', text: 'xxxxxxx有限公司' },
-		//     { value: 'lj', text: 'xxxxxxx有限公司' },
-		//     { value: 'ymt', text: 'xxxxxxx有限公司' },
-		// ]
+
 		popPicker.show(function(selectItems) {
 			$(".selectFreeName").text(selectItems[0].text);
-			$(".selectFreeName").attr("id", selectItems[0].value);
+			$(".selectFreeName").attr("uid", selectItems[0].value);
 		})
 	}
-	// ================================================
+	
+	// 点击 合作伙伴姓名
+	$(".selectCoop").on("click", selectCoop);
+	
+	function selectCoop() {
+		var popPicker = new mui.PopPicker();
+		popPicker.setData(coopArr)
+
+		popPicker.show(function(selectItems) {
+			$(".selectCoopName").text(selectItems[0].text);
+			$(".selectCoopName").attr("uid", selectItems[0].value);
+		})
+	}
+	
+	// 点击 营销员姓名
+	$(".selectSell").on("click", selectSell);
+	
+	function selectSell() {
+		var popPicker = new mui.PopPicker();
+		popPicker.setData(sellArr)
+
+		popPicker.show(function(selectItems) {
+			$(".selectSellName").text(selectItems[0].text);
+			$(".selectSellName").attr("uid", selectItems[0].value);
+		})
+	}
+	
+	// 点击 业务员姓名
+	$(".selectClerk").on("click", selectClerk);
+	
+	function selectClerk() {
+		var popPicker = new mui.PopPicker();
+		popPicker.setData(clerkArr)
+
+		popPicker.show(function(selectItems) {
+			$(".selectClerkName").text(selectItems[0].text);
+			$(".selectClerkName").attr("uid", selectItems[0].value);
+		})
+	}
+	
+	// =========================================================================
 
 
 
@@ -874,6 +1131,11 @@
 	$(".select-btn").click(() => {
 	    flag = !flag;
 	    if (flag == true) {
+				// 隐藏筛选框
+				$(".filterParamBg").css("display", "none");
+				$(".nextImg").attr("src", "../../../img/next.png");
+				open = !open;
+				
 				$(".select-btn").text("取消选择");
 				$(".back").css("display", "none");
 				$("footer").css("display","flex");
@@ -906,23 +1168,159 @@
 		else $(":checkbox[name='hh']").prop("checked", false);
 	});
 	
-	// 点击 支付 发起支付请求
+	// 点击 "支付"" 请求支付详情页=======================================================
+	let ids = ''   // 用于保存返回来的ids
 	$(".footer-item").click(() => {
-		console.log("发起 ajax 请求,, 完成支付!!")
+		let check = $(":checkbox[name='hh']:checked")   // 获取所有被选中的 复选框 dom的集合
+		let checkArr = Array.from(check)   // 将dom集合转换成数组
+		let ids2 = ''   // 定义一个空字符串用于接收id的集合
 		
-		// 弹出支付成功的提示框
-		mui.toast('支付成功!',{ duration:'4000', type:'div' })
+		checkArr.forEach((item,i) => {
+			// 获取到 被选中的detailId,,, 这里先要将item转换成jq的对象$()
+			if(i == 0) ids2 = ids2 + $(item).next().children("div").attr('detailId')
+			else ids2 = ids2  + ',' + $(item).next().children("div").attr('detailId')
+		})
 		
-		// 回到页面的上一个状态
-		$(".select-btn").text("选择");
-		$(".back").css("display", "block");
-		$("footer").css("display","none");
-		$(".filterBox").css("display","block")
-		$(".searchBox").css("display", "block");
-		$(".select").css("display", "none");
-		$(".select_all").css("display", "none");
-		$(".comName").css("left", "0px");
-		$(".list").css("margin-top","152px");
+		if(ids2.length == 0){
+			mui.toast('选中的条目不能为空!',{ duration:'4000', type:'div' })
+		}
+		else{
+			// 请求支付详情的数据
+				mui.post(urlDns + "/control_app/ms/fr_zg/zf_pay/payUI", {
+					pass_app: pass_app,
+					tel_app: tel_app,
+					code_app: code_app,
+					ids2: ids2
+				}, function(data) {
+					// console.log(JSON.stringify(data));
+					if (data.result == 0) {
+						// 需要重新登录
+						if (window.plus) {
+							goToLogin("../../register/login.html");
+						} else {
+							document.addEventListener('plusready', goToLogin, false);
+						}
+					} else {
+						ids = data.ids // 保存ids
+						// 弹出提示框
+						$(".dialog-container").css("display","flex")
+						$(".dialog-money span").text(data.allmoney)
+					}
+				});
+		}
+	})
+	
+	
+	
+	// 获取验证码=============================================================
+	let msm   // 定义一个变量接收 验证码
+	let time = 60   // 定义一个计时器变量
+	$(".get-code").on("click", get_code);   // 点击 "获取验证码"
+	
+	function get_code() {
+		let tel = $("#input-tel").val() // 定义一个变量接收手机号
+		console.log("点击了  获取")
+		time = 59
+		if (tel == "") {
+			mui.toast('请输入手机号!',{ duration:'4000', type:'div' })
+		} else {
+			$(".get-code").off("click");
+			// 向后台发请求获取验证码
+			$.post(urlDns + "/getMsm_app2", {
+				tel: tel,
+				pass_app: pass_app,
+				tel_app: tel_app,
+				code_app: code_app
+				}, function(data) {
+				console.log("验证码 请求响应了")
+				console.log(JSON.stringify(data));
+				if (data.result == 0) {
+					// 需要重新登录
+					if (window.plus) {
+						goToLogin("../../register/login.html");
+					} else {
+						document.addEventListener('plusready', goToLogin, false);
+					}
+					mui.toast(data.message,{ duration:'4000', type:'div' })
+					$(".get-code").text("获取验证码");
+					$(".get-code").css("color", "#7EB6FF");
+					$(".get-code").on("click", get_code);
+				} 
+				else {
+					// 倒计时
+					$(".get-code").text(time + "秒");
+					$(".get-code").css("color", "gray");
+					var t = setInterval(() => {
+						time = time - 1;
+						$(".get-code").text(time + "秒");
+						if (time < 1) {
+							clearInterval(t);
+							$(".get-code").text("重新获取");
+							$(".get-code").css("color", "#7EB6FF");
+							$(".get-code").on("click", get_code);
+						}
+					}, 1000);
+					msm = data.msm
+				}
+			});
+		}
+	}
+	
+	//发起最终支付的请求============================================================
+	$(".cancel").click(() => {   // 点击了 取消支付
+		$(".dialog-container").css("display","none")
+	})
+	
+	$(".success").click(() => {   // 点击了确认支付
+		let tel = $("#input-tel").val()   // 定义一个变量接收手机号
+		let telcode = $("#input-code").val()   // 定义一个变量 获取 输入的验证码
+		if (tel == "") {
+			mui.toast('请输入手机号!',{ duration:'4000', type:'div' })
+		}
+		else if (telcode == undefined){
+			mui.toast('验证码不能为空!',{ duration:'4000', type:'div' })
+		}
+		else if(telcode != msm) {
+			console.log("验证码  不正确")
+			mui.toast('验证码不正确!',{ duration:'4000', type:'div' })
+		}
+		else {
+			// 发起 最终支付 请求
+			$.post(urlDns + "/control_app/ms/fr_zg/zf_pay/pay", {
+				ids: ids,
+				telcode: telcode,
+				validateCode: msm,
+				pass_app: pass_app,
+				tel_app: tel_app,
+				code_app: code_app
+				}, function(data) {
+					console.log(JSON.stringify(data));
+					if (data.result == 0) {
+						// 需要重新登录
+						if (window.plus) {
+							goToLogin("../../register/login.html");
+						} else {
+							document.addEventListener('plusready', goToLogin, false);
+						}
+					} 
+					else {
+						$(".dialog-container").css("display","none")
+						// 弹出支付成功的提示框
+						mui.toast('支付成功!',{ duration:'5000', type:'div' })
+						
+						// 回到页面的上一个状态
+						$(".select-btn").text("选择");
+						$(".back").css("display", "block");
+						$("footer").css("display","none");
+						$(".filterBox").css("display","block")
+						$(".searchBox").css("display", "block");
+						$(".select").css("display", "none");
+						$(".select_all").css("display", "none");
+						$(".comName").css("left", "0px");
+						$(".list").css("margin-top","152px");
+					}
+				});
+		}
 	})
 </script>
 </html>

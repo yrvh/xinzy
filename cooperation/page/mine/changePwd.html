@@ -193,7 +193,12 @@
 	                    errorTips("修改成功");
 	                    localStorage.setItem("pass_app", data.new_password);
 	                    setTimeout(() => {
-	                        history.back();
+	                        // history.back();
+													if (window.plus) {
+													    goToLogin("../register/login.html");
+													} else {
+													    document.addEventListener('plusready', goToLogin, false);
+													}
 	                    }, 1500);
 	                }
 	                if (data.status == 0) {

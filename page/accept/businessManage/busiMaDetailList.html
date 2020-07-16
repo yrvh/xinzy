@@ -7,8 +7,143 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../../../js/mui.min.js"></script>
     <link rel="stylesheet" href="../../../css/mui.min.css">
-    <link rel="stylesheet" href="../../../css/accept/businessManage/busiMaDetailList.css">
     <title>商户管理列表</title>
+		
+		<style>
+			body {
+			    margin: 0;
+			    padding: 0;
+			    color: #333333;
+			    font-size: 16px;
+			}
+			
+			header {
+			    position: relative;
+			    text-align: center;
+			    line-height: 44px;
+			    width: 100%;
+			    height: 44px;
+			    background-color: white;
+			    box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+			}
+			
+			header>img {
+			    position: absolute;
+			    top: 12px;
+			    left: 5px;
+			    width: 20px;
+			    height: 20px;
+			}
+			
+			header>div {
+			    position: absolute;
+			    top: 0;
+			    right: 5px;
+			    height: 44px;
+			    line-height: 44px;
+			}
+			
+			.next {
+			    line-height: 44px;
+			    color: #7EB6FF;
+			    margin-right: 10px;
+			}
+			
+			.list {
+			    margin-top: 20px;
+			    background-color: white;
+			    padding: 0 15px;
+			}
+			
+			.itemBox {
+			    display: flex;
+			    justify-content: space-between;
+			    width: 100%;
+			    height: 46px;
+			    border-bottom: 1px solid rgb(231, 231, 231);
+			    font-size: 15px;
+			}
+			
+			.itemBox:nth-last-of-type(1) {
+			    border: none;
+			}
+			
+			.cont1 {
+			    width: 40%;
+			    height: 46px;
+			    position: relative;
+			}
+			
+			.cont2 {
+			    position: relative;
+			}
+			
+			.realname {
+			    position: absolute;
+			    top: 0;
+			    left: 0;
+			    line-height: 46px;
+			}
+			
+			.nextImg {
+			    position: absolute;
+			    top: 11px;
+			    right: -8px;
+			    width: 25px;
+			    height: 25px;
+			}
+			
+			.checkBox {
+			    display: none;
+			    /* position: relative;
+			    top: 2px; */
+			    position: absolute;
+			    top: 15px;
+			    left: 0;
+			}
+			
+			.tel {
+			    position: absolute;
+			    top: 0;
+			    right: 15px;
+			    line-height: 46px;
+			}
+			
+			footer {
+			    display: none;
+			    position: fixed;
+			    bottom: 0;
+			    left: 0;
+			    z-index: 99;
+			    width: 100%;
+			    height: 50px;
+			    background-color: white;
+			    border-top: 1px solid rgb(231, 231, 231);
+			}
+			
+			footer div {
+			    position: absolute;
+			    top: 5px;
+			    width: calc((100% - 45px)/2);
+			    height: 40px;
+			    text-align: center;
+			    line-height: 40px;
+			    font-size: 15px;
+			    border-radius: 4px;
+			}
+			
+			.refuse {
+			    left: 15px;
+			    border: 1px solid rgb(231, 231, 231);
+			    color: #7EB6FF;
+			}
+			
+			.confirm {
+			    right: 15px;
+			    background-color: #7EB6FF;
+			    color: white;
+			}
+		</style>
 </head>
 
 <body>
@@ -46,6 +181,31 @@
 </body>
 <script src="../../../js/jquery-3.3.1.js"></script>
 <script src="../../../js/urlDns.js"></script>
-<script src="../../../js/accept/businessManage/busiMaDetailList.js"></script>
+
+<script type="text/javascript">
+	mui.init();
+	
+	$(".back").click(() => {
+	    history.back();
+	});
+	
+	// 批量选择
+	var choose = false;
+	$(".next").click(() => {
+	    choose = !choose;
+	    if (choose) {
+	        $(".checkBox").css("display", "block");
+	        $("footer").css("display", "block");
+	        $(".realname").css("left", "22px");
+	        $(".next").text("取消选择");
+	    } else {
+	        $(".checkBox").css("display", "none");
+	        $("footer").css("display", "none");
+	        $(".realname").css("left", "0");
+	        $(".next").text("选择");
+	    }
+	
+	});
+</script>
 
 </html>

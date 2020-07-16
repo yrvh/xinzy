@@ -78,6 +78,8 @@
 			li>div>span {
 			    color: rgb(153, 153, 153);
 			}
+			
+			.mybadge {display: none;}
 		</style>
 </head>
 
@@ -90,7 +92,7 @@
 
     <ul>
         <li class="noSubmit">
-            <span>待确认</span>
+            <span>待确认 <span class="mybadge mui-badge mui-badge-danger"></span></span>
             <div>
                 <span class="noSubmitNum"></span>
                 <img src="../../../img/next.png" alt="">
@@ -157,6 +159,12 @@
 	                document.addEventListener('plusready', goToLogin, false);
 	            }
 	        } else {
+							if(data.send > 0) {
+								$(".mybadge").css("display","inline-block")
+								$(".mybadge").text(data.send)
+							}
+							else { $(".mybadge").css("display","none") }
+							
 	            $(".noSubmitNum").text(data.send);
 	            $(".noExamineNum").text(data.yz_nopass);
 	            $(".ToBackNum").text(data.yz_pass);

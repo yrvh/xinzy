@@ -330,6 +330,14 @@
 			    color: #7EB6FF;
 			    border-left: 1px solid #e7e7e7;
 			}
+			
+			.toEmpty {
+				position: absolute;
+				top: 14px;
+				right: 30px;
+				width: 17px;
+				height: 17px;
+			}
 		</style>
 </head>
 
@@ -354,7 +362,8 @@
             <span>手机号码</span>
             <div>
                 <!-- <span ids="" class="area"></span> -->
-                <input type="text" id="accountBank" class="">
+                <input type="tel" maxlength="15" name="userNum"  id="accountBank" class="">
+								<img class="toEmpty toEmptyUserNum" src="../../img/toEmpty.png" alt="">
             </div>
 
         </div>
@@ -720,6 +729,11 @@
 			sessionStorage.setItem("timeto",time)
 	    location.href = "./xzyClause_dl.html";
 	});
+	
+	// 点击叉号  清空登录的输入框账号
+	$(".toEmptyUserNum").click(() => {
+		$("#accountBank").val('')
+	})
 </script>
 
 </html>

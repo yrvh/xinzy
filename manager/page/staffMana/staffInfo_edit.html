@@ -193,6 +193,16 @@
         <img class="back" src="../../../img/back_black.png" alt=""> 员工信息
         <div class="save">保存</div>
     </header>
+		<div class="contBox">
+			<div>
+					<span>部门</span>
+					<input type="text" class="section" disabled>
+			</div>
+			<div>
+					<span>职位</span>
+					<input type="tel" class="clerk" disabled>
+			</div>
+		</div>
 
     <div class="contBox">
         <div>
@@ -315,7 +325,7 @@
 	        },
 	        //请求成功
 	        success: function(data) {
-	            console.log(JSON.stringify(data));
+	            // console.log(JSON.stringify(data));
 	            layer.close(index);
 	            if (data.result == 0) {
 	                // 需要重新登录
@@ -325,30 +335,30 @@
 	                    document.addEventListener('plusready', goToLogin, false);
 	                }
 	            } else {
-	                if (data.idcardzm != "" && data.idcardfm != "") {
-	                    $(".uploadTips").text("已上传");
-	                    sessionStorage.setItem('staff_didUpload', 1);
-	                }
-	                $(".name").val(data.name);
-	                $(".tel").val(data.tel);
-	                $(".email").val(data.email);
-	                $(".idCard").val(data.idcardcode);
-	                sessionStorage.setItem('staffIC1', data.idcardzm);
-	                sessionStorage.setItem('staffIC2', data.idcardfm);
-	                // 存储信息id，修改提交时要用
-	                sessionStorage.setItem("infoid", data.infoid);
+								if (data.idcardzm != "" && data.idcardfm != "") {
+										$(".uploadTips").text("已上传");
+										sessionStorage.setItem('staff_didUpload', 1);
+								}
+								$(".name").val(data.name);
+								$(".tel").val(data.tel);
+								$(".email").val(data.email);
+								$(".idCard").val(data.idcardcode);
+								sessionStorage.setItem('staffIC1', data.idcardzm);
+								sessionStorage.setItem('staffIC2', data.idcardfm);
+								// 存储信息id，修改提交时要用
+								sessionStorage.setItem("infoid", data.infoid);
 	            }
 	
 	        },
 	        error: function(XMLHttpRequest, textStatus, errorThrown) {
 	            layer.close(index);
 	            if (textStatus == 'timeout') {
-	                getData.abort();　
-	                alert("请求超时");
+								getData.abort();　
+								alert("请求超时");
 	            }
 	            if (textStatus == 'error') {
-	                getData.abort();　
-	                alert("请求错误" + errorThrown);
+								getData.abort();　
+								alert("请求错误" + errorThrown);
 	            }
 	        }
 	    });

@@ -7,8 +7,223 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../../js/mui.min.js"></script>
     <link rel="stylesheet" href="../../css/mui.min.css">
-    <link rel="stylesheet" href="../../css/home/incomeInfo.css">
     <title>收入纳税信息</title>
+		
+		<style type="text/css">
+			body {
+			    margin: 0;
+			    padding: 0;
+			    font-size: 16px;
+			    color: #333333;
+			}
+			
+			header {
+			    position: fixed;
+			    top: 0;
+			    left: 0;
+			    text-align: center;
+			    width: 100%;
+			    height: 44px;
+			    line-height: 44px;
+			    background-color: white;
+			    box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+			    font-weight: bold;
+			    font-size: 16px;
+			}
+			
+			header>img {
+			    position: absolute;
+			    top: 12px;
+			    left: 5px;
+			    width: 20px;
+			    height: 20px;
+			}
+			
+			.pre,
+			.next {
+			    position: absolute;
+			    top: 0;
+			    line-height: 44px;
+			    color: #7EB6FF;
+			    font-weight: 700;
+			}
+			
+			.pre {
+			    left: 10px;
+			}
+			
+			.next {
+			    right: 10px;
+			}
+			
+			section {
+			    width: 100%;
+			}
+			
+			section div {
+			    padding: 0 15px;
+			}
+			
+			.incomeBox {
+			    margin-top: 66px;
+			}
+			
+			.taxesBox {
+			    margin-top: 20px;
+			}
+			
+			.incomeBox,
+			.taxesBox {
+			    background-color: white;
+			}
+			
+			.incomeTitle,
+			.taxesTitle {
+			    width: 100%;
+			    height: 50px;
+			    color: #333333;
+			    font-size: 17px;
+			    font-weight: bold;
+			    line-height: 50px;
+			    padding-top: 8px;
+			}
+			
+			.imcomeNumBox,
+			.taxes,
+			.personalIncome,
+			.valueAdded {
+			    width: 100%;
+			    height: 46px;
+			    display: flex;
+			    justify-content: space-between;
+			    background-color: white;
+			    line-height: 46px;
+			    font-size: 15px;
+			    color: #333333;
+			}
+			
+			.valueAddedTitle,
+			.personalIncomeTitle {
+			    height: 20px;
+			    font-size: 12px;
+			    line-height: 20px;
+			    color: #333333;
+			}
+			
+			.incomeNum,
+			.type,
+			.valueAddedNum,
+			.personalIncomeNum {
+			    color: #666666;
+			    font-size: 14px;
+			}body {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    color: #333333;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    background-color: white;
+    box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+    font-weight: bold;
+    font-size: 16px;
+}
+
+header>img {
+    position: absolute;
+    top: 12px;
+    left: 5px;
+    width: 20px;
+    height: 20px;
+}
+
+.pre,
+.next {
+    position: absolute;
+    top: 0;
+    line-height: 44px;
+    color: #7EB6FF;
+    font-weight: 700;
+}
+
+.pre {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+section {
+    width: 100%;
+}
+
+section div {
+    padding: 0 15px;
+}
+
+.incomeBox {
+    margin-top: 66px;
+}
+
+.taxesBox {
+    margin-top: 20px;
+}
+
+.incomeBox,
+.taxesBox {
+    background-color: white;
+}
+
+.incomeTitle,
+.taxesTitle {
+    width: 100%;
+    height: 50px;
+    color: #333333;
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 50px;
+    padding-top: 8px;
+}
+
+.imcomeNumBox,
+.taxes,
+.personalIncome,
+.valueAdded {
+    width: 100%;
+    height: 46px;
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    line-height: 46px;
+    font-size: 15px;
+    color: #333333;
+}
+
+.valueAddedTitle,
+.personalIncomeTitle {
+    height: 20px;
+    font-size: 12px;
+    line-height: 20px;
+    color: #333333;
+}
+
+.incomeNum,
+.type,
+.valueAddedNum,
+.personalIncomeNum {
+    color: #666666;
+    font-size: 14px;
+}
+		</style>
 </head>
 
 <body>
@@ -47,6 +262,52 @@
 </body>
 <script src="../../js/jquery-3.3.1.js"></script>
 <script src="../../js/urlDns.js"></script>
-<script src="../../js/home/incomeInfo.js"></script>
+
+<script type="text/javascript">
+	mui.init();
+	
+	var pass_app = localStorage.getItem("pass_app");
+	var tel_app = localStorage.getItem("tel_app");
+	var code_app = localStorage.getItem("code_app");
+	// console.log("tel_app：" + tel_app);
+	// console.log("pass_app：" + pass_app);
+	
+	// 返回
+	$(".back").click(() => {
+	    mui.back();
+	});
+	
+	
+	$.post(urlDns + "/control_app/yz/info/showUI", {
+	    type: 3,
+	    pass_app: pass_app,
+	    tel_app: tel_app,
+	    code_app: code_app
+	}, function(data) {
+	    console.log(JSON.stringify(data));
+	    if (data.result == 0) {
+	        // 需要重新登录
+	        if (window.plus) {
+	            goToLogin("../register/login.html");
+	        } else {
+	            document.addEventListener('plusready', goToLogin, false);
+	        }
+	    } else {
+	        $(".incomeNum").text(data.monthsy);
+	        $(".type").text(data.hyname);
+	        $(".valueAddedNum").text(data.zzshdde);
+	        $(".personalIncomeNum").text(data.gshdde);
+	        if (data.zzsjntype == 1) {
+	            $(".valueAddedTitle").text("增值税（按月）");
+	        } else if (data.zzsjntype == 2) {
+	            $(".valueAddedTitle").text("增值税（按季）");
+	        } else if (data.zzsjntype == 3) {
+	            $(".valueAddedTitle").text("增值税（按年）");
+	        }
+	    }
+	
+	
+	});
+</script>
 
 </html>

@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="../../../css/mui.min.css">
 	<script src="../../../js/mescroll.min.js"></script>
 	<link rel="stylesheet" href="../../../css/mescroll.min.css">
-	<title>查询--用户查询--个人信息</title>
+	<title>审核主管--纳税设置审核--详情页</title>
 
 	<style type="text/css">
 		body {
@@ -45,9 +45,10 @@
 		.the-place {
 			width: 100%;
 			height: 44px;
+			margin-bottom: 20px;
 		}
 
-		ul { list-style: none; padding: 0 15px; margin-bottom: 20px; background-color: #fff;}
+		ul { list-style: none; padding: 0 15px; background-color: #fff; margin: 0;}
 				
 		li { border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; width: 100%; height: 46px; margin-bottom: 2px; line-height: 46px; box-sizing: border-box; }
 		
@@ -58,14 +59,36 @@
 		li>div>span {
 			color: rgb(153, 153, 153);
 		}
-
-		.added-check,.income-check,.city-discounts,.edu-discounts,.locedu-discounts {
-			border: none !important;
-		}
+		
+		.old-check,.new-check { border: none !important; }
+		.arrows {padding:8px 0 8px 15px; font-weight: 700; font-size: 14px; color: #7EB6FF;}
 		
 		.row { background-color: #eee; line-height: 28px; }
 		
 		.pay-amount-li { font-weight: 700; color: #0062CC;}
+		
+		footer {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 50px;
+			background-color: white;
+			display: none;
+			/* display: flex; */
+			justify-content: space-around;
+			align-items: center;
+		}
+		.footer-item { 
+			border-radius: 5px; 
+			width: 45%; height: 43px; 
+			line-height: 43px; 
+			text-align: center;
+			border: 1px solid #7EB6FF;
+		}
+		.nopass { color: #7EB6FF; }
+		.pass { background-color: #7EB6FF; color: #fff; }
+		
 	</style>
 </head>
 
@@ -75,150 +98,44 @@
 	</header>
 	<div class="the-place"></div>
 	
-	<ul class="added-info">
-		<li class="added-name">
-			<span>增值税</span>
+	<ul class="old-info">
+		<li class="old-cycle">
+			<span>纳税周期</span>
 			<div>
-				<span class="added-name-li"></span>
+				<span class="old-cycle-li"></span>
 			</div>
 		</li>
-		<li class="added-percent">
-			<span>征收率</span>
-			<div>
-				<span class="added-percent-li"></span>
-			</div>
-		</li>
-		<li class="added-type">
-			<span>纳税方式</span>
-			<div>
-				<span class="added-type-li"></span>
-				<img src="../../../img/next.png" alt="">
-			</div>
-		</li>
-		<li class="added-check">
+		<li class="old-check">
 			<span>核定定额 (元)</span>
 			<div>
-				<span class="added-check-li"></span>
+				<span class="old-check-li"></span>
 			</div>
 		</li>
 	</ul>
+	<div class="arrows">修改为&nbsp;&nbsp;↓</div>
 	
-	<ul class="income-info">
-		<li class="income-name">
-			<span>个人所得税</span>
+	<ul class="new-info">
+		<li class="new-cycle">
+			<span>纳税周期</span>
 			<div>
-				<span class="income-name-li"></span>
+				<span class="new-cycle-li"></span>
 			</div>
 		</li>
-		<li class="income-percent">
-			<span>附征率</span>
-			<div>
-				<span class="income-percent-li"></span>
-			</div>
-		</li>
-		<li class="income-type">
-			<span>纳税方式</span>
-			<div>
-				<span class="income-type-li"></span>
-				<img src="../../../img/next.png" alt="">
-			</div>
-		</li>
-		<li class="income-check">
+		<li class="new-check">
 			<span>核定定额 (元)</span>
 			<div>
-				<span class="income-check-li"></span>
-			</div>
-		</li>
-	</ul>
-	
-	<ul class="city-info">
-		<li class="city-name">
-			<span>城市建设维护税</span>
-			<div>
-				<span class="city-name-li"></span>
-			</div>
-		</li>
-		<li class="city-percent">
-			<span>税率</span>
-			<div>
-				<span class="city-percent-li"></span>
-			</div>
-		</li>
-		<li class="city-type">
-			<span>纳税方式</span>
-			<div>
-				<span class="city-type-li"></span>
-				<img src="../../../img/next.png" alt="">
-			</div>
-		</li>
-		<li class="city-discounts">
-			<span>优惠幅度</span>
-			<div>
-				<span class="city-discounts-li"></span>
-			</div>
-		</li>
-	</ul>
-	
-	<ul class="edu-info">
-		<li class="edu-name">
-			<span>教育费附加</span>
-			<div>
-				<span class="edu-name-li"></span>
-			</div>
-		</li>
-		<li class="edu-percent">
-			<span>税率</span>
-			<div>
-				<span class="edu-percent-li"></span>
-			</div>
-		</li>
-		<li class="edu-type">
-			<span>纳税方式</span>
-			<div>
-				<span class="edu-type-li"></span>
-				<img src="../../../img/next.png" alt="">
-			</div>
-		</li>
-		<li class="edu-discounts">
-			<span>优惠幅度</span>
-			<div>
-				<span class="edu-discounts-li"></span>
-			</div>
-		</li>
-	</ul>
-	
-	<ul class="locedu-info">
-		<li class="locedu-name">
-			<span>地方教育费附加</span>
-			<div>
-				<span class="locedu-name-li"></span>
+				<span class="new-check-li"></span>
 				<!-- <div class="mui-switch mui-switch-mini mui-active">
 					<div class="mui-switch-handle"></div>
 				</div> -->
 			</div>
 		</li>
-		<li class="locedu-percent">
-			<span>税率</span>
-			<div>
-				<span class="locedu-percent-li"></span>
-			</div>
-		</li>
-		<li class="locedu-type">
-			<span>纳税方式</span>
-			<div>
-				<span class="locedu-type-li"></span>
-				<img src="../../../img/next.png" alt="">
-			</div>
-		</li>
-		<li class="locedu-discounts">
-			<span>优惠幅度</span>
-			<div>
-				<span class="locedu-discounts-li"></span>
-			</div>
-		</li>
 	</ul>
 	
-
+	<!-- <footer>
+		<div class="footer-item nopass">退回</div>
+		<div class="footer-item pass"> 通过</div>
+	</footer> -->
 </body>
 <script src="../../../js/jquery-3.3.1.js"></script>
 <script src="../../../js/urlDns.js"></script>
@@ -234,9 +151,23 @@
 		mui.back();
 	});
 
+	// 获取状态码
+	let income_status = sessionStorage.getItem("income_status");
 	// 获得id
-	let detailId = sessionStorage.getItem("detailId")
+	let detailId = sessionStorage.getItem("detailId");
+	console.log(detailId)
 	
+	// 如果状态码是1  income_status == 1
+	if(income_status == 1){
+		$(".old-info").css("display","none")
+		$(".arrows").css("display","none")
+	}
+	if(income_status == 0){
+		$("footer").css("display","flex")
+	}
+	
+	// 定义一个变量  保存返回来的id
+	let ids = ''
 	$(function() {
 		var index = layer.load(1, {
 			// 数组中第一个参数是button的透明度
@@ -256,7 +187,8 @@
 			},
 			//请求成功
 			success: function(data) {
-				// console.log(JSON.stringify(data));
+				console.log("详情页  请求响应了")
+				console.log(JSON.stringify(data));
 				layer.close(index);
 				if (data.result == 0) {
 					// 需要重新登录
@@ -267,31 +199,12 @@
 					}
 				}
 				else {
-					// $("added-name-li").text(data.);
-					$("added-percent-li").text(data.zzs_bili);
-					$("added-type-li").text(data.zzs_method);
-					$("added-check-li").text(data.zzs_checkmoney);
-					
-					// $("income-name-li").text(data.);
-					$("income-percent-li").text(data.gs_bili);
-					$("income-type-li").text(data.gs_method);
-					$("income-check-li").text(data.gs_checkmoney);
-					
-					// $("city-name-li").text(data.);
-					$("city-percent-li").text(data.cjs_bili);
-					$("city-type-li").text(data.cjs_method);
-					$("city-discounts-li").text(data.cjs_checkmoney);
-					
-					$("edu-name-li").text(data.);
-					$("edu-percent-li").text(data.jys_bili);
-					$("edu-type-li").text(data.jys_method);
-					$("edu-discounts-li").text(data.jys_checkmoney);
-					
-					// $("locedu-name-li").text(data.);
-					$("locedu-percent-li").text(data.dfs_bili);
-					$("locedu-type-li").text(data.dfs_method);
-					$("locedu-discounts-li").text(data.dfs_checkmoney);
-					
+					ids = data.id
+					console.log(ids)
+					$(".old-cycle-li").text(data.method_old);
+					$(".old-check-li").text(data.zzsde_old);
+					$(".new-cycle-li").text(data.method);
+					$(".new-check-li").text(data.zzsde);
 				}
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -308,41 +221,40 @@
 		});
 	});
 
-	// 公司商标照片
-	$(".com_logo").click(() => {
-		location.href = "./com_logo.html";
-	});
+// 点击退回
+$(".nopass").click(() => {
+	sessionStorage.setItem("itemid",detailId)
+	sessionStorage.setItem("title","退回理由")
+	sessionStorage.setItem("detail_content","")
+	sessionStorage.setItem("user_type","415")
+	location.href = "../business_content.html";
+})
 
-	// 法人证件照片
-	$(".idcardPhotos").click(() => {
-		location.href = "./idCardPhotos_fr.html";
-	});
+// 点击通过
+	$(".pass").click(() => {
+		$.post(urlDns + '/share/bs_app/nssetting/check', {
+					id: detailId,
+					pass_app: pass_app,
+					tel_app: tel_app,
+					code_app: code_app
+			}, function (data) {
+				// console.log("请求响应了")
+					// console.log(JSON.stringify(data))
+					if (data.result == 0) {
+							// 需要重新登录
+							if (window.plus) {
+									goToLogin("../../register/login.html");
+							} else {
+									document.addEventListener('plusready', goToLogin, false);
+							}
+					} else {
+							mui.toast('通过成功!',{ duration:'4000', type:'div' })
+							mui.back();
+							// location.href = "./taxesCheck/taxset_list";
+					}
+			});
+	})
 
-	// 联系人证件照片
-	$(".idcardPhotos_lxr").click(() => {
-		location.href = "./idCardPhotos_lxr.html";
-	});
 
-
-	// 营业执照
-	$(".photos").click(() => {
-		location.href = "./certificPhoto.html";
-	});
-
-	// 详细地址
-	$(".addressBox").click(() => {
-		location.href = "./address.html";
-	});
-
-
-	// 业务范围
-	$(".business_range").click(() => {
-		location.href = "./business_range.html";
-	});
-
-	// 主营业务
-	$(".major_business").click(() => {
-		location.href = "./major_business.html";
-	});
 </script>
 </html>
