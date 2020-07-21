@@ -884,11 +884,6 @@
 	// 验证码格式
 	var verReg = /^\d{6}$/;
 	
-	// 如果是扫码注册,个人信息完善一半,中途返回来的则 弹出注册成功
-	if(sessionStorage.getItem("dl_success")==111) {
-		mui.toast('扫码注册成功!',{ duration:'5000', type:'div' })
-		sessionStorage.removeItem("dl_success")
-	}
 	
 	
 	// =========================  登录模块 =======================================
@@ -1239,7 +1234,6 @@
 											threeContractPost.abort();
 											$(".threeBoxBg").css("display", "none");
 											alert("请求错误" + errorThrown);
-	
 										}
 									}
 								});

@@ -150,8 +150,10 @@
     });
 
     var tel = sessionStorage.getItem("tel");
-    var userId = sessionStorage.getItem("userId");
-    console.log(userId);
+    // var userId = sessionStorage.getItem("userId");
+    // console.log(userId);
+		
+		$.ajaxSettings.async = false;   // 取消ajax的异步请求,, 让协议加载完成之后再做监听
     $.post(urlDns + "/user_app/yz/checkUI", {
         tel: tel,
         tel_app: tel_app,
@@ -169,6 +171,7 @@
         } else {
             var htmlStr = "";
             for (var i = 0; i < data.imgs.length; i++) {
+							// console.log(data.imgs[])
                 htmlStr += `
             <div class="imgBox">
                 <img class="img-crt" src="${data.imgs[i].url}" alt="">
@@ -181,11 +184,13 @@
     });
 		
 		// 监听图片预览放大
-		document.addEventListener("DOMContentLoaded", function(event) {
-		    ImagesZoom.init({
-		        "elem": ".photosBox"
-		    });
+
+		window.document.addEventListener("DOMContentLoaded", function(event) {
+				ImagesZoom.init({
+					"elem": ".photosBox"
+				});
 		}, false);
+		
 
     // // 监听当用户滑动到底部才允许同意协议
     // $(window).scroll(() => {

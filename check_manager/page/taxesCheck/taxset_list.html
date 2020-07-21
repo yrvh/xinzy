@@ -606,7 +606,7 @@
 			if (data.result == 0) {
 				// 需要重新登录
 				if (window.plus) {
-					goToLogin("../../register/login.html");
+					goToLogin("../../../page/register/login.html");
 				} else {
 					document.addEventListener('plusready', goToLogin, false);
 				}
@@ -811,7 +811,7 @@
 		if (data.result == 0) {
 			// 需要重新登录
 			if (window.plus) {
-				goToLogin("../../register/login.html");
+				goToLogin("../../../page/register/login.html");
 			} else {
 				document.addEventListener('plusready', goToLogin, false);
 			}
@@ -843,7 +843,7 @@
 			if (data.result == 0) {
 				// 需要重新登录
 				if (window.plus) {
-					goToLogin("../../register/login.html");
+					goToLogin("../../../page/register/login.html");
 				} else {
 					document.addEventListener('plusready', goToLogin, false);
 				}
@@ -873,7 +873,7 @@
 			if (data.result == 0) {
 				// 需要重新登录
 				if (window.plus) {
-					goToLogin("../../register/login.html");
+					goToLogin("../../../page/register/login.html");
 				} else {
 					document.addEventListener('plusready', goToLogin, false);
 				}
@@ -903,7 +903,7 @@
 			if (data.result == 0) {
 				// 需要重新登录
 				if (window.plus) {
-					goToLogin("../../register/login.html");
+					goToLogin("../../../page/register/login.html");
 				} else {
 					document.addEventListener('plusready', goToLogin, false);
 				}
@@ -932,7 +932,7 @@
 			if (data.result == 0) {
 				// 需要重新登录
 				if (window.plus) {
-					goToLogin("../../register/login.html");
+					goToLogin("../../../page/register/login.html");
 				} else {
 					document.addEventListener('plusready', goToLogin, false);
 				}
@@ -1149,7 +1149,7 @@
 		else $(":checkbox[name='hh']").prop("checked", false);
 	});
 	
-	// 点击 "通过"" 请求通过详情页=======================================================
+	// 点击 "通过"" 请求通过=======================================================
 	$(".footer-item").click(() => {
 		let check = $(":checkbox[name='hh']:checked")   // 获取所有被选中的 复选框 dom的集合
 		let checkArr = Array.from(check)   // 将dom集合转换成数组
@@ -1165,9 +1165,9 @@
 			mui.toast('选中的条目不能为空!',{ duration:'4000', type:'div' })
 		}
 		else{
-			console.log(ids2)
-			console.log("99990")
-			console.log("tsgo0000")
+			// console.log(ids2)
+			// console.log("99990")
+			// console.log("tsgo0000")
 			// 请求通过详情的数据
 			mui.post(urlDns + "/share/bs_app/nssetting/check", {
 				pass_app: pass_app,
@@ -1179,7 +1179,7 @@
 				if (data.result == 0) {
 					// 需要重新登录
 					if (window.plus) {
-						goToLogin("../../register/login.html");
+						goToLogin("../../../page/register/login.html");
 					} else {
 						document.addEventListener('plusready', goToLogin, false);
 					}
@@ -1210,7 +1210,7 @@
 			// 			if (data.result == 0) {
 			// 					// 需要重新登录
 			// 					if (window.plus) {
-			// 							goToLogin("../../register/login.html");
+			// 							goToLogin("../../../page/register/login.html");
 			// 					} else {
 			// 							document.addEventListener('plusready', goToLogin, false);
 			// 					}
@@ -1261,7 +1261,7 @@
 	// 			if (data.result == 0) {
 	// 				// 需要重新登录
 	// 				if (window.plus) {
-	// 					goToLogin("../../register/login.html");
+	// 					goToLogin("../../../page/register/login.html");
 	// 				} else {
 	// 					document.addEventListener('plusready', goToLogin, false);
 	// 				}
@@ -1322,7 +1322,7 @@
 	// 				if (data.result == 0) {
 	// 					// 需要重新登录
 	// 					if (window.plus) {
-	// 						goToLogin("../../register/login.html");
+	// 						goToLogin("../../../page/register/login.html");
 	// 					} else {
 	// 						document.addEventListener('plusready', goToLogin, false);
 	// 					}

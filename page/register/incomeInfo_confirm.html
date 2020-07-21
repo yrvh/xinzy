@@ -395,13 +395,13 @@
 	        localStorage.setItem("ishave_dw", data.ishave_dw);
 	        localStorage.setItem("userType", data.userType);
 	        // console.log(JSON.stringify(data));
-	        console.log("用户类型：" + data.userType)
+	        // console.log("用户类型：" + data.userType)
 	            // console.log(data.zzshdde);
 	            // console.log(data.gshdde);
-	        console.log(data.ishave_dw);
+	        // console.log(data.ishave_dw);
 	        // console.log(data.dlregid);
 	        // zzsjntype增值税是按月还是按季，1.按月 2. 按季度 3.按年
-	        console.log(data.zzsjntype);
+	        // console.log(data.zzsjntype);
 	        if (data.zzsjntype == 1) {
 	            $(".valueAddedTitle").text("增值税（按月）");
 	        } else if (data.zzsjntype == 2) {
@@ -430,7 +430,7 @@
 	
 	        xytype = data.xytype;
 	        ishave_dw = data.ishave_dw;
-	        console.log("收入范围：" + data.monthsy)
+	        // console.log("收入范围：" + data.monthsy)
 	            // 收入范围
 	        $(".incomeNum").text(data.monthsy);
 	        // 行业类型
@@ -469,6 +469,7 @@
 	
 	}
 	if (ishave_dw == 0) {
+		// console.log("7890")
 	    sessionStorage.setItem("ishave_dw", 0);
 	    // 无单位
 	    nextUrl = "./businessComContract_comfirm.html";
@@ -526,8 +527,8 @@
 	        timeout: 120000, //2分钟超时
 	        //请求成功
 	        success: function(data) {
-	            console.log(JSON.stringify(data));
-	            console.log("用户类型：" + data.userType)
+	            // console.log(JSON.stringify(data));
+	            // console.log("用户类型：" + data.userType)
 	            if (data.result == 0) {
 	                location.reload();
 	            } else {
@@ -538,14 +539,14 @@
 	
 	        },
 	        error: function(XMLHttpRequest, textStatus, errorThrown) {
-	            console.log(textStatus)
+	            // console.log(textStatus)
 	            if (textStatus == 'timeout') {
 	                threeContractPost.abort();
 	                alert("请求超时");
 	                $(".threeBoxBg").css("display", "none");
 	            }
 	            if (textStatus == 'error') {
-	                console.log(errorThrown)
+	                // console.log(errorThrown)
 	                threeContractPost.abort();　
 	                $(".threeBoxBg").css("display", "none");
 	                alert("请求错误" + errorThrown);
@@ -575,7 +576,7 @@
 	        timeout: 120000, //2分钟超时
 	        //请求成功
 	        success: function(data) {
-	            console.log(JSON.stringify(data));
+	            // console.log(JSON.stringify(data));
 	            layer.close(index);
 	            if (data.result == 0) {
 	                location.reload();
@@ -629,7 +630,7 @@
 	        timeout: 120000, //2分钟超时
 	        //请求成功
 	        success: function(data) {
-	            console.log(JSON.stringify(data));
+	            // console.log(JSON.stringify(data));
 	            layer.close(index);
 	            if (data.result == 0) {
 	                location.reload();

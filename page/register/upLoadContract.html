@@ -7,9 +7,216 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../../js/mui.min.js"></script>
     <link rel="stylesheet" href="../../css/mui.min.css">
-    <link rel="stylesheet" href="../../css/register/uploadContract.css">
     <link rel="stylesheet" href="../../css/scale.css">
     <title>上传协议图片</title>
+		
+		<style type="text/css">
+			html,
+			body {
+			    width: 100%;
+			    /* height: 100%; */
+			    margin: 0;
+			    padding: 0;
+			}
+			
+			header {
+			    position: relative;
+			    width: 100%;
+			    height: 44px;
+			    background-color: white;
+			    box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+			    text-align: center;
+			    line-height: 44px;
+			    font-weight: bold;
+			}
+			
+			header>img {
+			    position: absolute;
+			    top: 12px;
+			    left: 5px;
+			    width: 20px;
+			    height: 20px;
+			}
+			
+			section {
+			    width: 100%;
+			    height: calc(100vh - 135px);
+			    background-color: white;
+			    margin-top: 20px;
+			    overflow: hidden;
+			}
+			
+			footer {
+			    position: fixed;
+			    bottom: 0;
+			    left: 0;
+			    width: 100%;
+			    height: 50px;
+			    background-color: white;
+			    border-top: 1px solid #eeeeee;
+			}
+			
+			footer>.complete {
+			    width: calc(100% - 20px);
+			    margin-left: 10px;
+			    height: 40px;
+			    margin-top: 4px;
+			    color: white;
+			    background-color: rgb(231, 231, 231);
+			    text-align: center;
+			    line-height: 40px;
+			    border-radius: 4px;
+			}
+			
+			.line {
+			    width: 100%;
+			    height: 1px;
+			    background-color: white;
+			    position: absolute;
+			    top: -2px;
+			    left: 0;
+			}
+			
+			.imgBox {
+			    position: relative;
+			    float: left;
+			    width: 26vw;
+			    height: 26vw;
+			    border: 1px dashed #cccccc;
+			    margin: 3vw 0 0 calc((100vw - 78vw)/4);
+			}
+			
+			.bgImg {
+			    width: 50%;
+			    height: 50%;
+			    margin-left: 25%;
+			    margin-top: 10%;
+			}
+			
+			.imgBox .tips {
+			    width: 100%;
+			    text-align: center;
+			    font-size: 15px;
+			    color: #cccccc;
+			}
+			
+			section .imgBox .targetImg {
+			    position: absolute;
+			    top: -1px;
+			    left: -1px;
+			    width: calc(100% + 2px);
+			    height: calc(100% + 2px);
+			}
+			
+			.clickBox {
+			    width: 100%;
+			    height: 100%;
+			}
+			
+			.delBox {
+			    position: absolute;
+			    right: -9px;
+			    top: -9px;
+			    width: 20px;
+			    height: 20px;
+			    background-color: white;
+			    border-radius: 50%;
+			}
+			
+			.del {
+			    position: absolute;
+			    right: 0;
+			    top: 0;
+			    width: 20px;
+			    height: 20px;
+			}
+			
+			.black,
+			.black2,
+			.black3 {
+			    width: 100%;
+			    height: 100vh;
+			    background-color: rgba(16, 16, 16, 0.1);
+			    position: absolute;
+			    top: 0;
+			    left: 0;
+			    z-index: 9;
+			    display: none;
+			}
+			
+			
+			/* .black3 {
+			    display: block;
+			} */
+			
+			#jqmeter-container {
+			    width: 270px;
+			    margin: 0 auto;
+			    margin-top: calc((100vh - 20px)/2);
+			}
+			
+			.black>section,
+			.black3>section {
+			    position: relative;
+			    width: 270px;
+			    height: 144px;
+			    border-radius: 13px;
+			    background-color: white;
+			    margin: 0 auto;
+			    margin-top: calc((100vh - 144px)/2);
+			}
+			
+			.cancel,
+			.downLoad,
+			.open,
+			.close {
+			    position: absolute;
+			    bottom: 0;
+			    width: 50%;
+			    height: 45px;
+			    text-align: center;
+			    line-height: 45px;
+			    border-top: 1px solid #e7e7e7;
+			}
+			
+			.cancel,
+			.close {
+			    left: 0;
+			    color: #666666;
+			}
+			
+			.downLoad,
+			.open {
+			    right: 0;
+			    color: #7EB6FF;
+			    border-left: 1px solid #e7e7e7;
+			}
+			
+			.openTips {
+			    width: 100%;
+			    height: 99px;
+			    text-align: center;
+			    line-height: 99px;
+			    color: rgb(153, 153, 153);
+			    font-size: 15px;
+			}
+			
+			.tipTitle {
+			    width: 100%;
+			    padding-top: 15px;
+			    color: #030303;
+			    font-weight: 700;
+			    text-align: center;
+			}
+			
+			.tipCont {
+			    font-size: 12px;
+			    color: rgb(153, 153, 153);
+			    padding: 0 35px;
+			    text-align: center;
+			    margin-top: 10px;
+			}
+		</style>
 </head>
 
 <body>

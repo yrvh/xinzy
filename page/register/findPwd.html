@@ -7,11 +7,135 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <script src="../../js/mui.min.js"></script>
     <link rel="stylesheet" href="../../css/mui.min.css">
-    <link rel="stylesheet" href="../../css/register/findPwd.css">
     <title>找回密码</title>
     <script type="text/javascript">
         mui.init();
     </script>
+		
+		<style type="text/css">
+			body {
+			    margin: 0;
+			    padding: 0;
+			    font-size: 16px;
+			    /* background-color: white; */
+			}
+			
+			header {
+			    position: relative;
+			    width: 100%;
+			    height: 44px;
+			    box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+			    font-weight: bold;
+			    text-align: center;
+			    line-height: 44px;
+			    background-color: white;
+			}
+			
+			.backBox {
+			    position: absolute;
+			    left: 0;
+			    top: 0;
+			}
+			
+			.backBox>img {
+			    margin: 12px 0 0 5px;
+			    float: left;
+			    /* position: absolute;
+			    top: 12px;
+			    left: 5px; */
+			    width: 20px;
+			    vertical-align: middle;
+			}
+			
+			.backBox>span {
+			    float: left;
+			    vertical-align: middle;
+			    line-height: 46px;
+			    margin-left: 5px;
+			    color: #7EB6FF;
+			    font-weight: bold;
+			    font-size: 16px;
+			}
+			
+			.cont {
+			    width: 100%;
+			    background-color: white;
+			    margin-top: 20px;
+			}
+			
+			.tel,
+			.verify {
+			    position: relative;
+			    width: calc(100% - 30px);
+			    height: 40px;
+			    margin-left: 15px;
+			    line-height: 40px;
+			}
+			
+			.tel {
+			    border-bottom: 1px solid rgba(231, 231, 231, 1);
+			}
+			
+			#tel,
+			#verify {
+			    position: absolute;
+			    top: 0;
+			    left: 80px;
+			    width: 60%;
+			    height: 39px;
+			    outline: none;
+			    border: none;
+			}
+			
+			.getVerify {
+			    position: absolute;
+			    top: 0;
+			    right: 0;
+			    height: 39px;
+			    color: #7EB6FF;
+			    font-size: 15px;
+			    border: none;
+			    outline: none;
+			}
+			
+			.nextBtn {
+			    width: 80%;
+			    height: 40px;
+			    background-color: #7EB6FF;
+			    color: white;
+			    text-align: center;
+			    line-height: 40px;
+			    border-radius: 4px;
+			    margin-left: 10%;
+			    margin-top: 40px;
+			}
+			
+			.errorBg {
+			    width: 100%;
+			    height: 100vh;
+			    position: absolute;
+			    top: 0;
+			    left: 0;
+			    z-index: 999;
+			    display: none;
+			}
+			
+			.errorBg .error {
+			    position: absolute;
+			    padding: 10px 15px;
+			    top: calc((100vh - 25px)/2);
+			    left: 0;
+			    width: 50%;
+			    margin-left: 25%;
+			    background-color: rgba(126, 182, 255, 0.7);
+			    color: white;
+			    font-size: 12px;
+			    text-align: center;
+			    line-height: 20px;
+			    font-size: 15px;
+			    border-radius: 3px;
+			}
+		</style>
 </head>
 
 <body>
@@ -45,7 +169,156 @@
 <script src="../../js/jquery-3.3.1.js"></script>
 <script src="../../js/layer/layer.js"></script>
 <script src="../../js/urlDns.js"></script>
-<script src="../../js/register/findPwd.js"></script>
+<script type="text/javascript">
+	// 返回登录页面
+	$(".backBox").click(() => {
+	    location.href = "./login.html";
+	});
+	
+	// 手机号正则
+	var telReg = /^(13[0-9]|14[5-9]|15[012356789]|166|17[0-8]|18[0-9]|19[8-9])[0-9]{8}$/;
+	
+	// 获取验证码
+	var getVerifyTimeout;
+	$(".getVerify").click(() => {
+	    var tel = $("#tel").val();
+	    if (!telReg.test(tel)) {
+	        errorTips("手机号码不正确");
+	    } else {
+	        var time = 60;
+	        $(".getVerify").attr('disabled', true);
+	        $(".getVerify").css("color", "gray");
+	        // 等待提示
+	        var postTips = layer.load(1, {
+	            // 数组中第一个参数是button的透明度
+	            // 第二个是背景颜色
+	            shade: [0.3, "white"]
+	        });
+	        // 请求验证码
+	        var getVerifyPost = $.ajax({
+	            url: urlDns + "/getMsm_findps_app",
+	            type: 'post',
+	            dataType: "json",
+	            timeout: 30000, //2分钟超时
+	            data: {
+	                tel: tel
+	            },
+	            //请求成功
+	            success: function(data) {
+	                layer.close(postTips);
+	                console.log(JSON.stringify(data));
+	                if (data.result == 0) {
+	                    errorTips(data.message);
+	                    $(".getVerify").css("color", "#7EB6FF");
+	                    $(".getVerify").attr('disabled', false);
+	
+	                } else {
+	                    // 倒计时重新获取验证码
+	                    getVerifyTimeout = setInterval(function() {
+	                        time = time - 1;
+	                        $(".getVerify").text(time + "秒后重新获取");
+	                        if (time < 1) {
+	                            clearInterval(getVerifyTimeout);
+	                            $(".getVerify").text("重新获取");
+	                            $(".getVerify").css("color", "#7EB6FF");
+	                            $(".getVerify").attr('disabled', false);
+	                        }
+	                    }, 1000);
+	                }
+	            },
+	            error: function(XMLHttpRequest, textStatus, errorThrown) {
+	                console.log(textStatus)
+	                layer.close(postTips);
+	                if (textStatus == 'timeout') {
+	                    getVerifyPost.abort();
+	                    alert("请求超时");
+	                    $(".getVerify").text("重新获取");
+	                    $(".getVerify").css("color", "#7EB6FF");
+	                    $(".getVerify").attr('disabled', false);
+	                }
+	                if (textStatus == 'error') {
+	                    console.log(errorThrown)
+	                    getVerifyPost.abort();　
+	                    alert("请求错误" + errorThrown);
+	                    $(".getVerify").text("重新获取");
+	                    $(".getVerify").css("color", "#7EB6FF");
+	                    $(".getVerify").attr('disabled', false);
+	                }
+	            }
+	        });
+	
+	    }
+	});
+	
+	// 下一步，验证验证码
+	$(".nextBtn").click(() => {
+	    var tel = $("#tel").val();
+	    var verify = $("#verify").val();
+	    if (tel == "") {
+	        errorTips("请输入手机号");
+	    } else if (!telReg.test(tel)) {
+	        errorTips("手机号码不正确");
+	    } else if (verify == "") {
+	        errorTips("请输入验证码");
+	    } else {
+	        // 等待提示
+	        var postTips = layer.load(1, {
+	            // 数组中第一个参数是button的透明度
+	            // 第二个是背景颜色
+	            shade: [0.3, "white"]
+	        });
+	        // 验证验证码
+	        var getVerifyPost = $.ajax({
+	            url: urlDns + "/check_code_app",
+	            type: 'post',
+	            dataType: "json",
+	            timeout: 30000, //半分钟超时
+	            data: {
+	                code: verify
+	            },
+	            //请求成功
+	            success: function(data) {
+	                layer.close(postTips);
+	                console.log(JSON.stringify(data));
+	                if (data.result == 1) {
+	                    sessionStorage.setItem("findPwdTel", tel);
+	                    location.href = "./resetPwd.html";
+	                } else {
+	                    errorTips("验证码错误");
+	                }
+	            },
+	            error: function(XMLHttpRequest, textStatus, errorThrown) {
+	                console.log(textStatus)
+	                layer.close(postTips);
+	                if (textStatus == 'timeout') {
+	                    getVerifyPost.abort();
+	                    alert("请求超时");
+	                }
+	                if (textStatus == 'error') {
+	                    console.log(errorThrown)
+	                    getVerifyPost.abort();　
+	                    alert("请求错误" + errorThrown);
+	                }
+	            }
+	        });
+	    }
+	});
+	
+	// 给用户弹出错误提示的方法
+	function errorTips(info) {
+	    $(".error").text(info);
+	    $(".errorBg").css("display", "block");
+	
+	    var t = setTimeout(function() {
+	        $(".errorBg").css("display", "none");
+	    }, 3000);
+	
+	    $('.errorBg').click(() => {
+	        $(".errorBg").css("display", "none");
+	        clearTimeout(t);
+	    });
+	}
+</script>
 
 
 </html>

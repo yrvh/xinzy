@@ -6,8 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge"/>
 		<script src="../../../js/mui.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="../../../css/mui.min.css"/>
-    <link rel="stylesheet" href="../../css/tabPage/home.css">
-		<title>审核主管首页</title>
+    <title>审核主管首页</title>
 		
 		<style type="text/css">
 			body { margin: 0; padding: 0; font-size: 16px; }
@@ -116,31 +115,31 @@
 	})
 	
 	
-	// 获取开票信息中, 有多少条是 待审核
-	$(function() {
-		$.post(urlDns + "/control_app/ms/fr/user/main", {
-				pass_app: pass_app,
-				tel_app: tel_app,
-				code_app: code_app
-		}, function(data) {
-			// console.log(JSON.stringify(data));
-			if (data.result == 0) {
-					// 需要重新登录
-					if (window.plus) {
-							goToLogin("../register/login.html");
-					} else {
-							document.addEventListener('plusready', goToLogin, false);
-					}
-			} 
-			else {
-				if(data.res_size > 0){
-					$(".user_mana .mybadge").css("display","block")
-					$(".user_mana .mybadge").text(data.nosend)
-				}
-				else { $(".user_mana .mybadge").css("display","none") }
-			}
-		});
-	})
+	// 获取用户管理中, 有多少条是 待审核
+	// $(function() {
+	// 	$.post(urlDns + "/control_app/ms/fr/user/main", {
+	// 			pass_app: pass_app,
+	// 			tel_app: tel_app,
+	// 			code_app: code_app
+	// 	}, function(data) {
+	// 		// console.log(JSON.stringify(data));
+	// 		if (data.result == 0) {
+	// 				// 需要重新登录
+	// 				if (window.plus) {
+	// 						goToLogin("../../../page/register/login.html");
+	// 				} else {
+	// 						document.addEventListener('plusready', goToLogin, false);
+	// 				}
+	// 		} 
+	// 		else {
+	// 			if(data.res_size > 0){
+	// 				$(".user_mana .mybadge").css("display","block")
+	// 				$(".user_mana .mybadge").text(data.nosend)
+	// 			}
+	// 			else { $(".user_mana .mybadge").css("display","none") }
+	// 		}
+	// 	});
+	// })
 	
 	// 获取收入管理中,  待支付的数量
 	$(function() {
@@ -153,7 +152,7 @@
 			if (data.result == 0) {
 					// 需要重新登录
 					if (window.plus) {
-							goToLogin("../register/login.html");
+							goToLogin("../../../page/register/login.html");
 					} else {
 							document.addEventListener('plusready', goToLogin, false);
 					}
@@ -180,7 +179,7 @@
 			if (data.result == 0) {
 					// 需要重新登录
 					if (window.plus) {
-							goToLogin("../register/login.html");
+							goToLogin("../../../page/register/login.html");
 					} else {
 							document.addEventListener('plusready', goToLogin, false);
 					}

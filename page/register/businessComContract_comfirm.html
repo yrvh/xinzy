@@ -360,7 +360,7 @@
     <!-- <div class="title">关于*****的协议书</div> -->
     <!-- <div class="first">甲方：<span></span></div> -->
     <!-- <div class="second">乙方：<span></span></div> -->
-    <div class="serviceFeeBox">服务费用：按乙方总收入的<input disabled id="serviceFee" type="text" value="6">%收取</div>
+    <div class="serviceFeeBox">服务费用：按乙方总收入的<input disabled id="serviceFee" type="text" value="4.5">%收取</div>
     <div class="cont"></div>
 
     <div class="btnBox position">
@@ -408,7 +408,7 @@
     });
 
     var tel = sessionStorage.getItem("tel");
-    var ishave_dw = sessionStorage.getItem("ishave_dw");
+    var ishave_dw
 
 		// 获取协议的数据 内容
     $.post(urlDns + "/user_app/yz/checkUI", {
@@ -524,7 +524,7 @@
                     $(".threeBoxBg").css("display", "none");
                 }
                 if (textStatus == 'error') {
-                    console.log(errorThrown)
+                    // console.log(errorThrown)
                     threeContractPost.abort();　
                     $(".threeBoxBg").css("display", "none");
                     alert("请求错误" + errorThrown);
@@ -536,6 +536,7 @@
 
     // 签订 三方协议
     $(".agreeThree").click(() => {
+			// console.log("点击了00033")
         var userType = localStorage.getItem("userType");
         var index = layer.load(1, {
             // 数组中第一个参数是button的透明度
@@ -562,13 +563,13 @@
                 } else {
                     // 合作伙伴
                     if (userType == 11) {
-                        // 审核全部完成，进入首页
-                        location.href = "../../cooperation/page/index.html";
+                      // 审核全部完成，进入首页
+                      location.href = "../../cooperation/page/index.html";
                     }
 
                     // 业者
                     if (userType == 1) {
-                        location.href = "../../index.html";
+                      location.href = "../../index.html";
                     }
 
                 }
@@ -607,7 +608,7 @@
             timeout: 120000, //2分钟超时
             //请求成功
             success: function(data) {
-                console.log(JSON.stringify(data));
+                // console.log(JSON.stringify(data));
                 layer.close(index);
                 if (data.result == 0) {
                     location.reload();

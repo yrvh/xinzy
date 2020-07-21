@@ -431,74 +431,52 @@
 <script type="text/javascript">
 	// 返回
 	$(".back").click(() => {
-		
-	    sessionStorage.removeItem("src1");
-	    sessionStorage.removeItem("src2");
-	    sessionStorage.removeItem("name");
-	    sessionStorage.removeItem("email");
-	    sessionStorage.removeItem("idNumber");
-	    sessionStorage.removeItem("accountBank");
-	    sessionStorage.removeItem("accountName");
-	    sessionStorage.removeItem("comName");
-	    sessionStorage.removeItem("tel_yl");
-	    sessionStorage.removeItem("identity");
-	    sessionStorage.removeItem("whcd");
-	    sessionStorage.removeItem("nation");
-	    sessionStorage.removeItem("zip_code");
-	    // 获取当前窗口
-	    var curr = plus.webview.currentWebview();
-	    // 获取所有Webview窗口
-	    var wvs = plus.webview.all();
-	    for (var i = 0, len = wvs.length; i < len; i++) {
-	        //关闭除setting页面外的其他页面
-	        if (wvs[i].getURL() == curr.getURL())
-	            continue;
-	        plus.webview.close(wvs[i]);
-	    }
-	    // 清除缓存
-	    sessionStorage.clear();
-	    localStorage.clear();
-			// 存储代理注册的状态
-			sessionStorage.setItem("dl_success","111")
-	    //打开login页面后再关闭setting页面
-	    plus.webview.open("./login.html");
-	    curr.close();
-			
+		backActive()			
 	});
 	// 监听物理返回  按键
 	mui.back = function(){
-	　　sessionStorage.removeItem("src1");
-	    sessionStorage.removeItem("src2");
-	    sessionStorage.removeItem("name");
-	    sessionStorage.removeItem("email");
-	    sessionStorage.removeItem("idNumber");
-	    sessionStorage.removeItem("accountBank");
-	    sessionStorage.removeItem("accountName");
-	    sessionStorage.removeItem("comName");
-	    sessionStorage.removeItem("tel_yl");
-	    sessionStorage.removeItem("identity");
-	    sessionStorage.removeItem("whcd");
-	    sessionStorage.removeItem("nation");
-	    sessionStorage.removeItem("zip_code");
-	    // 获取当前窗口
-	    var curr = plus.webview.currentWebview();
-	    // 获取所有Webview窗口
-	    var wvs = plus.webview.all();
-	    for (var i = 0, len = wvs.length; i < len; i++) {
-	        //关闭除setting页面外的其他页面
-	        if (wvs[i].getURL() == curr.getURL())
-	            continue;
-	        plus.webview.close(wvs[i]);
-	    }
-	    // 清除缓存
-	    sessionStorage.clear();
-	    localStorage.clear();
-			// 存储代理注册的状态
-			sessionStorage.setItem("dl_success","111")
-	    //打开login页面后再关闭setting页面
-	    plus.webview.open("./login.html");
-	    curr.close();
+	　backActive()
 	}
+	
+	// 点击返回操作时  要执行的函数
+	function backActive() {
+		sessionStorage.removeItem("src1");
+		sessionStorage.removeItem("src2");
+		sessionStorage.removeItem("name");
+		sessionStorage.removeItem("email");
+		sessionStorage.removeItem("idNumber");
+		sessionStorage.removeItem("accountBank");
+		sessionStorage.removeItem("accountName");
+		sessionStorage.removeItem("comName");
+		sessionStorage.removeItem("tel_yl");
+		sessionStorage.removeItem("identity");
+		sessionStorage.removeItem("whcd");
+		sessionStorage.removeItem("nation");
+		sessionStorage.removeItem("zip_code");
+		// 获取当前窗口
+		var curr = plus.webview.currentWebview();
+		// 获取所有Webview窗口
+		var wvs = plus.webview.all();
+		for (var i = 0, len = wvs.length; i < len; i++) {
+				//关闭除setting页面外的其他页面
+				if (wvs[i].getURL() == curr.getURL())
+						continue;
+				plus.webview.close(wvs[i]);
+		}
+		// 清除缓存
+		sessionStorage.clear();
+		localStorage.clear();
+		// 提醒注册成功
+		mui.toast('扫码注册成功!~ 信息未完善!',{ duration:'6000', type:'div' })
+		
+		setTimeout(()=>{
+			//打开login页面后再关闭setting页面
+			plus.webview.open("./login.html");
+			curr.close();
+		},4000)
+		
+	}
+	
 	
 	
 	// 把注册时的号码渲染过来

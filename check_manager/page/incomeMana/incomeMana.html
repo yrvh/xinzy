@@ -135,7 +135,6 @@
 		
 		// 跳转到列表页
 		// 状态码income_status（1待业者确认  2等待商秘公司确认， 3：业者审核未通过，5：秘书公司退回，6待业务员发起支付 7待支付 8已支付）
-		// ========单位录入=======
 		$(".wait-free").click(() => {
 			sessionStorage.setItem("income_status", 1);
 			location.href = './incomeManaList.html';
@@ -178,26 +177,26 @@
 				if (data.result == 0) {
 					// 需要重新登录
 					if (window.plus) {
-						goToLogin("../../register/login.html");
+						goToLogin("../../../page/register/login.html");
 					} 
 					else {
 						document.addEventListener('plusready', goToLogin, false);
 					}
 				} 
 				else {
-							if(data.wait_pay > 0) {
-								$(".mybadge").css("display","inline-block")
-								$(".mybadge").text(data.wait_pay)
-							}
-							else { $(".mybadge").css("display","none") }
-							
-					$(".wait-free-li").text(data.send);
-					$(".free-nopass-li").text(data.yz_nopass);
-					$(".com-check-li").text(data.wait_check);
-					$(".com-nopass-li").text(data.ms_nopass);
-					$(".wait-salesman-li").text(data.ms_send_pay);
-					$(".wait-pay-li").text(data.wait_pay);
-					$(".complete-pay-li").text(data.pay);
+					if(data.wait_pay > 0) {
+						$(".mybadge").css("display","inline-block")
+						$(".mybadge").text(data.wait_pay)
+					}
+					else { $(".mybadge").css("display","none") }
+						
+				$(".wait-free-li").text(data.send);
+				$(".free-nopass-li").text(data.yz_nopass);
+				$(".com-check-li").text(data.wait_check);
+				$(".com-nopass-li").text(data.ms_nopass);
+				$(".wait-salesman-li").text(data.ms_send_pay);
+				$(".wait-pay-li").text(data.wait_pay);
+				$(".complete-pay-li").text(data.pay);
 				}
 		
 			});

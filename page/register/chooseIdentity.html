@@ -7,13 +7,82 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <script src="../../js/mui.min.js"></script>
     <link rel="stylesheet" href="../../css/mui.min.css">
-    <link rel="stylesheet" href="../../css/register/chooseIdentity.css">
     <title>选择角色</title>
     <script type="text/javascript">
         mui.init({
             swipeBack: true //启用右滑关闭功能
         });
     </script>
+		
+		<style type="text/css">
+			body {
+			    margin: 0;
+			    padding: 0;
+			    background-color: white;
+			}
+			
+			header {
+			    position: relative;
+			    width: 100%;
+			    height: 44px;
+			    box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+			    font-weight: bold;
+			}
+			
+			header>img {
+			    margin: 12px 0 0 5px;
+			    float: left;
+			    /* position: absolute; */
+			    /* top: 12px; */
+			    /* left: 5px; */
+			    width: 20px;
+			    vertical-align: middle;
+			}
+			
+			header>span {
+			    float: left;
+			    vertical-align: middle;
+			    line-height: 46px;
+			    margin-left: 5px;
+			    color: #7EB6FF;
+			    font-weight: bold;
+			    font-size: 16px;
+			}
+			
+			header>span::after {
+			    content: "";
+			    clear: both;
+			}
+			
+			.selectTips {
+			    width: 90%;
+			    height: 40px;
+			    font-weight: bold;
+			    line-height: 40px;
+			    margin-top: 20px;
+			    margin-left: 5%;
+			}
+			
+			.free,
+			.accept,
+			.business,
+			.cooperation {
+			    width: 90%;
+			    color: white;
+			    text-align: center;
+			    line-height: 40px;
+			    border-radius: 4px;
+			    margin-left: 5%;
+			    margin-top: 10px;
+			}
+			
+			.free>img,
+			.accept>img,
+			.cooperation>img {
+			    width: 100%;
+			    height: 100%;
+			}
+		</style>
 </head>
 
 <body>
@@ -37,7 +106,43 @@
 <script src="../../js/jquery-3.3.1.js"></script>
 <script src="../../js/layer/layer.js"></script>
 <script src="../../js/urlDns.js"></script>
-<script src="../../js/register/chooseIdentity.js"></script>
+
+<script type="text/javascript">
+	// 返回上一页
+	$(".back").click(() => {
+	    // history.back();
+	    location.href = "./login.html";
+	});
+	
+	// 获取注册页面传过来的手机号和密码
+	var account = {};
+	mui.plusReady(function() {
+	    account = plus.webview.currentWebview();
+	    // console.log(account.tel)
+	});
+	
+	// 注册为业者
+	$("#free").click(() => {
+	
+	    // userType 用户类型：0.平台管理者 1.自由业者 2.受服务公司 3.支付平台 4.秘书公司
+	    localStorage.setItem('userType', 1);
+	    location.href = "./selectCompany.html";
+	});
+	
+	// 注册为单位
+	$(".accept").click(() => {
+	    // userType 用户类型：0.平台管理者 1.自由业者 2.受服务公司 3.支付平台 4.秘书公司
+	    alert("敬请期待");
+	});
+	
+	// 注册为合作伙伴
+	$(".cooperation").click(() => {
+	
+	    // userType 用户类型：0.平台管理者 1.自由业者 2.受服务公司 3.支付平台 4.秘书公司
+	    // sessionStorage.setItem('userType', 1);
+	    location.href = "./cooperation_com.html";
+	});
+</script>
 
 
 </html>
