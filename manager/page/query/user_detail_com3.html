@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="../../../css/mui.min.css">
 	<script src="../../../js/mescroll.min.js"></script>
 	<link rel="stylesheet" href="../../../css/mescroll.min.css">
-	<title>审核主管--用户--详情页面 公司信息3</title>
+	<title>审核主管--用户--详情页面 信息3</title>
 	
 	<style type="text/css">
 		body { margin: 0; padding: 0; font-size: 16px; color: #333333; }
@@ -61,13 +61,35 @@
 			top: 0;
 			left: 5px;
 		}
+		
+		footer {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 50px;
+			background-color: white;
+			/* display: none; */
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+		}
+		.footer-item { 
+			border-radius: 5px; 
+			width: 45%; height: 43px; 
+			line-height: 43px; 
+			text-align: center;
+			border: 1px solid #7EB6FF;
+		}
+		.nopass { color: #7EB6FF; }
+		.pass { background-color: #7EB6FF; color: #fff; }
 	</style>
 </head>
 
 <body>
 	<header>
 		<div class="back select-back">上一页</div>
-		<span class="title-span">公司信息</span>
+		<span class="title-span">协议文本(3)</span>
 	</header>
 	<div class="the-place"></div>
 	<!-- <div class="com-status">注册状态: <span class="status-li">待主管审核</span></div> -->
@@ -77,6 +99,10 @@
 	<div class="company-info">		
 	</div>
 	
+<!-- 	<footer>
+		<div class="footer-item nopass">退回</div>
+		<div class="footer-item pass"> 通过</div>
+	</footer> -->
 	
 	
 </body>
@@ -92,13 +118,104 @@
 			mui.back();
 	});
 	
-	// 标题渲染
-	$(".title-span").text("协议文本(3/3)")
-	// 获得传递过来的数据data
-	let data = sessionStorage.getItem("com_data")
+
+
+	// 获取状态码
+	let income_status = sessionStorage.getItem("income_status");
+	// 获得id
+	let detailId = sessionStorage.getItem("detailId");
+	
+	// 如果状态码是1  income_status == 1
+
+	if(income_status == 1){
+		$("footer").css("display","flex")
+	}
+	
 	
 	// 发起ajax请求,获得文本协议 渲染页面
-	$(".company-info").text(data.realname);
+	getDetail()
+	
+	// 定义请求协议的函数
+	function getDetail() {
+		var index = layer.load(1, {
+				// 数组中第一个参数是button的透明度
+				// 第二个是背景颜色
+				shade: [0.3, "white"]
+		});
+		var getData = $.ajax({
+				url: urlDns + '/control_app/ms/fr/dw/showUI',
+				type: 'post',
+				dataType: "json",
+				timeout: 120000, //2分钟超时
+				data: {
+						"pass_app": pass_app,
+						"tel_app": tel_app,
+						"code_app": code_app,
+						"id": detailId
+				},
+				//请求成功
+				success: function(data) {
+						// console.log(JSON.stringify(data));
+						layer.close(index);
+						if (data.result == 0) {
+								// 需要重新登录
+								if (window.plus) {
+										goToLogin("../../../page/register/login.html");
+								} else {
+										document.addEventListener('plusready', goToLogin, false);
+								}
+						} 
+						else {
+							$(".company-info").text(data.realname);
+						}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+						layer.close(index);
+						if (textStatus == 'timeout') {
+								getData.abort();　
+								alert("请求超时");
+						}
+						if (textStatus == 'error') {
+								getData.abort();　
+								alert("请求错误" + errorThrown);
+						}
+				}
+		});
+	}
+	
+	
+	// 点击退回
+	$(".nopass").click(() => {
+		sessionStorage.setItem("itemid",detailId)
+		sessionStorage.setItem("title","退回理由")
+		sessionStorage.setItem("detail_content","")
+		sessionStorage.setItem("user_type","416")
+		location.href = "../business_content.html";
+	})
+	
+		// 点击通过
+		$(".pass").click(() => {
+			$.post(urlDns + '/control_app/ms/fr/user/check', {
+						ids: detailId,
+						pass_app: pass_app,
+						tel_app: tel_app,
+						code_app: code_app
+				}, function (data) {
+						// console.log(JSON.stringify(data))
+						if (data.result == 0) {
+								// 需要重新登录
+								if (window.plus) {
+										goToLogin("../../../page/register/login.html");
+								} else {
+										document.addEventListener('plusready', goToLogin, false);
+								}
+						} else {
+								mui.toast('通过成功!',{ duration:'4000', type:'div' })
+								mui.back();
+								// location.href = "./taxesCheck/taxset_list";
+						}
+				});
+		})
 
 
 </script>

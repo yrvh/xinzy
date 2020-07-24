@@ -67,7 +67,7 @@
 <body>
 	<header>
 		<div class="back select-back">上一页</div>
-		<span class="title-span">公司账户信息(2)</span>
+		<span class="title-span">公司信息</span>
 		<div class="select-btn">下一页</div>
 	</header>
 	<div class="the-place"></div>
@@ -112,9 +112,11 @@
 	$(".back").click(() => {
 			mui.back();
 	});
+	// 标题渲染
+	$(".title-span").text("公司账户信息(2/3)")
 	
 	// 获得传递过来的数据data
-	let data = sessionStorage.getItem("comdata")
+	let data = sessionStorage.getItem("com_data")
 	
 	// 渲染页面
 	$(".account-bank-li").text(data.kh_name_sr);

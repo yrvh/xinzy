@@ -535,7 +535,7 @@
 	</section>
 	
 	<footer>
-		<div class="footer-item">支付</div>
+		<div class="footer-item">通过</div>
 	</footer>
 </body>
 
@@ -559,8 +559,6 @@
 	var addtype = sessionStorage.getItem("addtype")
 	// 获取状态码
 	var income_status = sessionStorage.getItem("income_status");
-	console.log(addtype)
-	console.log(income_status)
 	
 	// 渲染标题
 	if(addtype==1) {
@@ -604,7 +602,7 @@
 			$("header span").text("营销员审核退回");
 		}
 		if (income_status == 8) {
-			$("header span").text("主管审核通过");
+			$("header span").text("服务中");
 		}
 		if (income_status == 77) {
 			$("header span").text("主管审核退回");
@@ -630,7 +628,7 @@
 			$("header span").text("待营销员确认");
 		}
 		if (income_status == 8) {
-			$("header span").text("审核通过");
+			$("header span").text("服务中");
 		}
 		if (income_status == 11) {
 			$("header span").text("审核主管退回");
@@ -668,7 +666,7 @@
 			$("header span").text("营销员审核退回");
 		}
 		if (income_status == 8) {
-			$("header span").text("主管审核通过");
+			$("header span").text("服务中");
 		}
 		if (income_status == 77) {
 			$("header span").text("主管审核退回");
@@ -677,23 +675,21 @@
 
 	
 	var page = 1   // 设置当前 在第几个页面
-	// 通过搜索框输入的内容, 单位id 业者id, 请求数据类型的列表
 	
 	getInfoList()   //调用函数初始化 界面上要展示的数据列表 
 	
-	function getInfoList(tel='',sfid='',yztype=2,hhrid='',yxyid='',ywyid='') {
-		console.log("函数执行了")
+	function getInfoList(name='',sfid='',yztype=2,hhrid='',yxyid='',ywyid='') {
 		// 请求数据
 		mui.post(urlDns + "/control_app/ms/fr/user/list", {
 			usertype: addtype,
 			// 状态
-			status: income_status,
+			stauts: income_status,
 			// 第几页
 			page: page,
 			// 一页的条数
 			rows: 20,
 			// 搜索框的内容
-			tel,
+			tel: name,
 			// 过滤条件的单位ID
 			sfid,
 			// 过滤条件的业者ID
@@ -705,8 +701,7 @@
 			tel_app: tel_app,
 			code_app: code_app
 		}, function(data) {
-			console.log("响应了, 但没数据")
-			console.log(JSON.stringify(data));
+			// console.log(JSON.stringify(data));
 			if (data.result == 0) {
 				// 需要重新登录
 				if (window.plus) {
@@ -828,10 +823,17 @@
 	// 跳转详情页面
 	$(document).on("click", ".list .href", function(e) {
 		var detailId = $(this).attr("detailId");
-		// console.log(detailId)
 		sessionStorage.setItem('detailId', detailId);
-		// page.chooseType();
-		location.href = "./user_detail.html";
+		
+		if(addtype==2) {
+			console.log("跳入了公司详情页")
+			location.href = "./user_detail_com.html";
+		}
+		if(addtype==1 || addtype==11) {
+			console.log("跳入了 业者 伙伴 详情页")
+			sessionStorage.setItem("detailType",addtype)
+			location.href = "./user_detail_free.html";
+		}
 	});
 	
 	
@@ -1105,7 +1107,7 @@
 				// 一页的条数
 				rows: 20,
 				// 搜索框的内容
-				name: "",
+				tel: "",
 				// 过滤条件的开始时间和结束时间
 				startdate: "",
 				enddate: "",
@@ -1119,7 +1121,7 @@
 				if (data.result == 0) {
 					// 需要重新登录
 					if (window.plus) {
-						goToLogin("../register/login.html");
+						goToLogin("../../../page/register/login.html");
 					} else {
 						document.addEventListener('plusready', goToLogin, false);
 					}
@@ -1215,11 +1217,11 @@
 			// console.log("99990")
 			// console.log("tsgo0000")
 			// 请求通过详情的数据
-			mui.post(urlDns + "/share/bs_app/nssetting/check", {
+			mui.post(urlDns + "/control_app/ms/fr/user/check", {
 				pass_app: pass_app,
 				tel_app: tel_app,
 				code_app: code_app,
-				id: ids2
+				ids: ids2
 			}, function(data) {
 				console.log(JSON.stringify(data));
 				if (data.result == 0) {

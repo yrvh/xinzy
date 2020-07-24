@@ -587,7 +587,7 @@
 	
 	getInfoList()   //调用函数初始化 界面上要展示的数据列表 
 	
-	function getInfoList(name='',startdate='',enddate='',sfid='',yzid=0,hhrid='',yxyid='',ywyid='') {
+	function getInfoList(name='',startdate='',enddate='',sfid='',yztype=2,yzid=0,hhrid='',yxyid='',ywyid='') {
 
 		// 请求数据
 		mui.post(urlDns + "/control_app/ms/fr_zg/zf/list", {
@@ -609,6 +609,7 @@
 			hhrid,
 			yxyid,
 			ywyid,
+			yztype,
 			pass_app: pass_app,
 			tel_app: tel_app,
 			code_app: code_app
@@ -776,6 +777,7 @@
 		let e = $("#endDate").text()
 		// 获取各个角色, 人的uid
 		let sf = $(".selectComName").attr('uid') || ''
+		let yztype = $(".selectFreeTypeLi").attr('uid') || ''
 		let yz = $(".selectFreeName").attr('uid') || ''
 		let coop = $(".selectCoopName").attr('uid') || ''
 		let sell = $(".selectSellName").attr('uid') || ''
@@ -787,7 +789,7 @@
 			// 清空搜索框
 			// $(".searchCont").val('')
 			// 发起ajax请求
-			getInfoList('',s,e,sf,yz,coop,sell,clerk)
+			getInfoList('',s,e,sf,yztype,yz,coop,sell,clerk)
 			// 隐藏筛选框
 			$(".filterParamBg").css("display", "none");
 			$(".nextImg").attr("src", "../../../img/next.png");
