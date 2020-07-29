@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<script src="../../../js/mui.min.js"></script>
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<title>--审核主管--收入管理--</title>
+		<script type="text/javascript">
+			mui.init();
+		</script>
+		
+		<style type="text/css">
+			body { margin: 0; padding: 0; color: #333333; }
+			header { position: relative; width: 100%; height: 44px; background-color: white; box-shadow: 0 2px 2px 0 rgba(231,231,231,1);}
+			
+			.toggleBox { margin: 0 auto; transform: translateY(7px); width:80px; line-height: 30px; text-align: center;}
+			.toggleBox>div { font-size: 14px; text-align: center; width: 100px; height: 28px; line-height: 30px; }
+			.input_com { background-color: #7EB6FF; color: white; }
+			.input_free { color: #7EB6FF; }
+			header>img { position: absolute; top: 12px; left: 5px; width: 20px; height: 20px; }
+			
+			ul {
+			    list-style: none;
+			    padding: 0;
+			    margin: 20px 0 0 0;
+			}
+			
+			li {
+			    display: flex;
+			    justify-content: space-between;
+			    width: 100%;
+			    height: 46px;
+			    background-color: white;
+			    margin-bottom: 2px;
+			    line-height: 46px;
+			    padding: 0 5px 0 15px;
+			    box-sizing: border-box;
+			}
+			
+			li img {
+			    width: 25px;
+			    height: 25px;
+			    vertical-align: middle;
+			}
+			
+			li>div>span {
+			    color: rgb(153, 153, 153);
+			}
+			
+			#input_free {
+			    display: none;
+			}
+			
+			.mybadge {display: none;}
+		</style>
+	</head>
+	<body>
+		<header>
+			<img class="back" src="../../../img/back_black.png"  alt=""/>
+			<div class="toggleBox">收入管理
+				<!-- <div class="input_com">单位录入</div>
+				<div class="input_free">业者录入</div> -->
+			</div>
+		</header>
+		
+		<ul>
+			<li class="wait-free">
+				<span>待提交</span>
+				<div>
+						<span class="wait-free-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="free-nopass">
+				<span>待业者确认</span>
+				<div>
+						<span class="free-nopass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="com-check">
+				<span>业者退回</span>
+				<div>
+						<span class="com-check-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="com-nopass">
+				<span>待秘书公司审核</span>
+				<div>
+						<span class="com-nopass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="wait-salesman">
+				<span>秘书公司退回</span>
+				<div>
+						<span class="wait-salesman-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="wait-pay">
+				<span>待支付 <span class="mybadge mui-badge mui-badge-danger"></span></span>
+				<div>
+						<span class="wait-pay-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="complete-pay">
+				<span>用户已收款</span>
+				<div>
+						<span class="complete-pay-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+		</ul>
+	</body>
+	<script src="../../../js/jquery-3.3.1.js"></script>
+	<script src="../../../js/urlDns.js"></script>
+	
+	<script type="text/javascript">
+		// 返回
+		$(".back").click(() => {
+			sessionStorage.removeItem("income_status");
+			history.back();
+		});
+		
+		var pass_app = localStorage.getItem("pass_app");
+		var tel_app = localStorage.getItem("tel_app");
+		var code_app = localStorage.getItem("code_app");
+		
+		getInfo()
+		
+		// 跳转到列表页
+		// 状态码income_status（1待提交  2等业者退回， 3：待业者确认，5：秘书公司退回，6秘书公司退回 7待支付 8用户已收款）
+		$(".wait-free").click(() => {
+			sessionStorage.setItem("income_status", 1);
+			location.href = './incomeManaList.html';
+		});
+		$(".free-nopass").click(() => {
+			sessionStorage.setItem("income_status", 3);
+			location.href = './incomeManaList.html';
+		});
+		$(".com-check").click(() => {
+			sessionStorage.setItem("income_status", 2);
+			location.href = './incomeManaList.html';
+		});
+		$(".com-nopass").click(() => {
+			sessionStorage.setItem("income_status", 5);
+			location.href = './incomeManaList.html';
+		});
+		$(".wait-salesman").click(() => {
+			sessionStorage.setItem("income_status", 6);
+			location.href = './incomeManaList.html';
+		});
+		$(".wait-pay").click(() => {
+			sessionStorage.setItem("income_status", 7);
+			location.href = './incomeManaList.html';
+		});
+		$(".complete-pay").click(() => {
+			sessionStorage.setItem("income_status", 8);
+			location.href = './incomeManaList.html';
+		});
+		
+		
+		
+		// 请求数据的函数
+		function getInfo() {
+			mui.get(urlDns + "/control_app/ms/fr_zg/zf/index", {
+				pass_app: pass_app,
+				tel_app: tel_app,
+				code_app: code_app
+			}, function(data) {
+				// console.log(JSON.stringify(data));
+				if (data.result == 0) {
+					// 需要重新登录
+					if (window.plus) {
+						goToLogin("../../../page/register/login.html");
+					} 
+					else {
+						document.addEventListener('plusready', goToLogin, false);
+					}
+				} 
+				else {
+					if(data.wait_pay > 0) {
+						$(".mybadge").css("display","inline-block")
+						$(".mybadge").text(data.wait_pay)
+					}
+					else { $(".mybadge").css("display","none") }
+						
+				$(".wait-free-li").text(data.send);
+				$(".free-nopass-li").text(data.yz_nopass);
+				$(".com-check-li").text(data.wait_check);
+				$(".com-nopass-li").text(data.ms_nopass);
+				$(".wait-salesman-li").text(data.ms_send_pay);
+				$(".wait-pay-li").text(data.wait_pay);
+				$(".complete-pay-li").text(data.pay);
+				}
+		
+			});
+		}
+		
+	</script>
+</html>

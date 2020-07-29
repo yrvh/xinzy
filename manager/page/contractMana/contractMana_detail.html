@@ -113,7 +113,7 @@
 	<header>
 			<img class="back" src="../../../img/back_black.png" alt=""> <span class="pageTitle">协议模板</span>
 	</header>
-	<div class="second"></div>
+	<div class="second">与接受服务单位协议内容</div>
 	<div class="cont"></div>
 </body>
 <script src="../../../js/jquery-3.3.1.js"></script>
@@ -124,7 +124,7 @@
 	mui.init();
 	// 返回
 	$(".back").click(() => {
-			history.back();
+			mui.back();
 	});
 
 	var pass_app = localStorage.getItem("pass_app");
@@ -133,14 +133,16 @@
 	
 	// 获取协议id
 	var conId = sessionStorage.getItem('detailId');
+	console.log(conId)
 	
 	// 获取状态码
 	var income_status = sessionStorage.getItem("income_status");
+	console.log(income_status)
 	// 渲染标题
-	if (income_status == 1) {
+	if (income_status == 3) {
 		$(".second").text("公司与单位的协议");
 	}
-	if (income_status == 3) {
+	if (income_status == 5) {
 		$(".second").text("公司与业者的协议");
 	}
 	if (income_status == 11) {
@@ -167,7 +169,9 @@
 			// 第二个是背景颜色
 			shade: [0.3, "white"]
 	});
+	getDetail();
 	function getDetail() {
+		console.log("7878")
 		$.ajax({
 			url: urlDns + "/control_app/ms/xieyi_fr/showUI",
 			type: 'post',
@@ -182,8 +186,8 @@
 			timeout: 120000, //2分钟超时
 			//请求成功
 			success: function(data) {
-					// console.log(data.id);
-					console.log(JSON.stringify(data));
+					// console.log(889900);
+					// console.log(JSON.stringify(data));
 					layer.close(index);
 					if (data.result == 0) {
 							// 需要重新登录
@@ -193,7 +197,7 @@
 									document.addEventListener('plusready', goToLogin, false);
 							}
 					} else {
-							$(".cont").html(data.text);
+							$(".cont").html(data.descripts);
 							// 如果内容不满一页
 							if ($(document.body).height() < $(window).height() - 50) {
 									// 减掉的260是除了$(".cont")以外其他元素的高度

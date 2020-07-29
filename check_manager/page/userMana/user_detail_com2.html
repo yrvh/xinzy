@@ -61,6 +61,7 @@
 			top: 0;
 			left: 5px;
 		}
+		.account-info {display: none;}
 	</style>
 </head>
 
@@ -96,6 +97,27 @@
 					</div>
 			</li>
 		</ul>
+		
+		<ul class="accountdg-info">
+			<li class="accountdg-bank">
+					<span>开户行</span>
+					<div>
+							<span class="accountdg-bank-li"></span>
+					</div>
+			</li>
+			<li class="accountdg-name">
+					<span>开户名</span>
+					<div>
+							<span class="accountdg-name-li"></span>
+					</div>
+			</li>
+			<li class="accountdg-num">
+					<span>账号</span>
+					<div>
+							<span class="accountdg-num-li"></span>
+					</div>
+			</li>
+		</ul>
 	</div>
 	
 	
@@ -110,16 +132,34 @@
 	
 	// 返回
 	$(".back").click(() => {
+		sessionStorage.removeItem("kh_name_sr")
+		sessionStorage.removeItem("khh_sr")
+		sessionStorage.removeItem("code_sr")
+		sessionStorage.removeItem("id_sr")
+		
+		sessionStorage.removeItem("ishave_yhcard_dg")
+		sessionStorage.removeItem("kh_name_dg")
+		sessionStorage.removeItem("khh_dg")
+		sessionStorage.removeItem("code_dg")
+		sessionStorage.removeItem("id_dg")
 			mui.back();
 	});
 	
-	// 获得传递过来的数据data
-	let data = sessionStorage.getItem("comdata")
+	// 获得传递过来的数据
+	let ishave_yhcard_dg = sessionStorage.getItem("ishave_yhcard_dg")
 	
+
 	// 渲染页面
-	$(".account-bank-li").text(data.kh_name_sr);
-	$(".account-name-li").text(data.khh_sr);
-	$(".account-num-li").text(data.code_sr);
+	// $(".account-bank-li").text( sessionStorage.getItem("kh_name_sr") );
+	// $(".account-name-li").text( sessionStorage.getItem("khh_sr") );
+	// $(".account-num-li").text( sessionStorage.getItem("code_sr"));
+
+	if(ishave_yhcard_dg==1) {
+		$(".accountdg-bank-li").text( sessionStorage.getItem("kh_name_dg") );
+		$(".accountdg-name-li").text( sessionStorage.getItem("khh_dg") );
+		$(".accountdg-num-li").text( sessionStorage.getItem("code_dg") );
+	}
+	
 
 	// 点击 下一页
 	$(".select-btn").click(() => {

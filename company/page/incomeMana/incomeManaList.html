@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="../../../css/mui.min.css">
 	<link rel="stylesheet" href="../../../css/mui.picker.min.css">
 	<script src="../../../js/mui.picker.min.js"></script>
-	<title>审核主管--用户管理--列表页</title>
+	<title>审核主管--收入管理--列表页</title>
 
 	<style type="text/css">
 		body {
@@ -98,7 +98,6 @@
 		}
 
 		.amount {
-			display: none;
 			height: 30px;
 			line-height: 30px;
 			font-size: 12px;
@@ -355,7 +354,7 @@
 		.noneParamBg {
 			/* background-color: #009F95; */
 			width: 100%;
-			height: calc(100vh - 392px);
+			height: calc(100vh - 480px);
 			position: absolute;
 			bottom: 0;
 			left: 0;
@@ -473,13 +472,13 @@
 				</div>
 			</div>
 			
-			<!-- <div class="selectFree free-com">
+			<div class="selectFree free-com">
 				<span>业者姓名</span>
 				<div>
 					<span class="selectFreeName"></span>
 					<img src="../../../img/next.png" alt="">
 				</div>
-			</div> -->
+			</div>
 			
 			<div class="selectCoop free-com">
 				<span>合作伙伴</span>
@@ -505,7 +504,7 @@
 				</div>
 			</div>
 			
-			<!--<div class="selectTime">
+			<div class="selectTime">
 				<span>服务周期</span>
 				<div class="timeBox">
 					<section id="startTime">
@@ -519,7 +518,7 @@
 					</section>
 
 				</div>
-			</div> -->
+			</div>
 			<div class="okBox">
 				<div class="reset">重置条件</div>
 				<div class="ok">确定</div>
@@ -535,7 +534,7 @@
 	</section>
 	
 	<footer>
-		<div class="footer-item">通过</div>
+		<div class="footer-item">支付</div>
 	</footer>
 </body>
 
@@ -554,154 +553,68 @@
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
-	
-	// 获取进入的角色
-	var addtype = sessionStorage.getItem("addtype")
+
 	// 获取状态码
 	var income_status = sessionStorage.getItem("income_status");
 	
 	// 渲染标题
-	if(addtype==1) {
-		$(".amount").css("display","none")
-		$(".selectFreeType").css("display","flex")
-		if (income_status == 7) {
-			$("header span").text("待主管审核");
-			$(".select-btn").css("display","block")
-		}
-		if (income_status == 3) {
-			$("header span").text("待完善资料");
-		}
-		if (income_status == 4) {
-			$("header span").text("待业者确认资料");
-		}
-		if (income_status == 44) {
-			$("header span").text("业者退回资料");
-		}
-		if (income_status == 111) {
-			$("header span").text("待设置服务费用");
-		}
-		if (income_status == 5) {
-			$("header span").text("待单位确认");
-		}
-		if (income_status == 55) {
-			$("header span").text("单位确认退回");
-		}
-		if (income_status == 33) {
-			$("header span").text("待完善个人信息");
-		}
-		if (income_status == 2) {
-			$("header span").text("待确认个人信息");
-		}
-		if (income_status == 22) {
-			$("header span").text("确认个人信息退回");
-		}
-		if (income_status == 1) {
-			$("header span").text("待营销员审核服务费用");
-		}
-		if (income_status == 11) {
-			$("header span").text("营销员审核退回");
-		}
-		if (income_status == 8) {
-			$("header span").text("服务中");
-		}
-		if (income_status == 77) {
-			$("header span").text("主管审核退回");
-		}
+	if (income_status == 1) {
+		$("header span").text("待业者确认");
 	}
-	if(addtype==2) {
-		$(".amount").css("display","block")
-		$(".selectFreeType").css("display","none")
-		if (income_status == 1) {
-			$("header span").text("待主管审核");
-			$(".select-btn").css("display","block")
-		}
-		if (income_status == 3) {
-			$("header span").text("待完善资料");
-		}
-		if (income_status == 2) {
-			$("header span").text("待单位确认");
-		}
-		if (income_status == 22) {
-			$("header span").text("单位退回");
-		}
-		if (income_status == 6) {
-			$("header span").text("待营销员确认");
-		}
-		if (income_status == 8) {
-			$("header span").text("服务中");
-		}
-		if (income_status == 11) {
-			$("header span").text("审核主管退回");
-		}
+	if (income_status == 3) {
+		$("header span").text("业者审核未通过");
 	}
-	if(addtype==11) {
-		$(".amount").css("display","none")
-		$(".selectFreeType").css("display","none")
-		if (income_status == 7) {
-			$("header span").text("待主管审核");
-			$(".select-btn").css("display","block")
-		}
-		if (income_status == 3) {
-			$("header span").text("待完善资料");
-		}
-		if (income_status == 4) {
-			$("header span").text("待合作伙伴确认资料");
-		}
-		if (income_status == 44) {
-			$("header span").text("合作伙伴退回资料");
-		}
-		if (income_status == 33) {
-			$("header span").text("待完善个人信息");
-		}
-		if (income_status == 2) {
-			$("header span").text("待确认个人信息");
-		}
-		if (income_status == 22) {
-			$("header span").text("确认个人信息退回");
-		}
-		if (income_status == 1) {
-			$("header span").text("待营销员审核服务费用");
-		}
-		if (income_status == 11) {
-			$("header span").text("营销员审核退回");
-		}
-		if (income_status == 8) {
-			$("header span").text("服务中");
-		}
-		if (income_status == 77) {
-			$("header span").text("主管审核退回");
-		}
+	if (income_status == 2) {
+		$("header span").text("等待秘书公司确认");
+	}
+	if (income_status == 5) {
+		$("header span").text("商秘公司审核未通过");
+	}
+	if (income_status == 6) {
+		$("header span").text("等待业务员发起支付");
+	}
+	if (income_status == 7) {
+		$("header span").text("待支付");
+		$(".select-btn").css("display","block")
+	}
+	if (income_status == 8) {
+		$("header span").text("已支付");
 	}
 
 	
 	var page = 1   // 设置当前 在第几个页面
+	// 通过搜索框输入的内容, 单位id 业者id, 请求数据类型的列表
 	
 	getInfoList()   //调用函数初始化 界面上要展示的数据列表 
 	
-	function getInfoList(name='',sfid='',yztype=2,hhrid='',yxyid='',ywyid='') {
+	function getInfoList(name='',startdate='',enddate='',sfid='',yztype=2,yzid=0,hhrid='',yxyid='',ywyid='') {
+
 		// 请求数据
-		mui.post(urlDns + "/control_app/ms/fr/user/list", {
-			usertype: addtype,
+		mui.post(urlDns + "/control_app/ms/fr_zg/zf/list", {
 			// 状态
-			stauts: income_status,
+			status: income_status,
 			// 第几页
 			page: page,
 			// 一页的条数
 			rows: 20,
 			// 搜索框的内容
-			tel: name,
+			name,
+			// 过滤条件的开始时间和结束时间
+			startdate,
+			enddate,		
 			// 过滤条件的单位ID
 			sfid,
 			// 过滤条件的业者ID
-			yztype,
+			yzid,
 			hhrid,
 			yxyid,
 			ywyid,
+			yztype,
 			pass_app: pass_app,
 			tel_app: tel_app,
 			code_app: code_app
 		}, function(data) {
-			console.log(JSON.stringify(data));
+			// console.log(JSON.stringify(data));
 			if (data.result == 0) {
 				// 需要重新登录
 				if (window.plus) {
@@ -719,13 +632,13 @@
 								<div class="comTime">
 										<span class="comName">${data.rows[i].name}</span>
 										<div class="href" detailId="${data.rows[i].id}">
-												<span class="time">${data.rows[i].tel}</span>
+												<span class="time">${data.rows[i].zq}</span>
 												<img src="../../../img/next.png" alt="">
 										</div>
 								</div>
 								<div class="amount">
 										<span>${data.rows[i].comname}</span>
-										<span></span>
+										<span>${data.rows[i].fkmoney}</span>
 								</div>
 						</div>
 					`;
@@ -775,22 +688,80 @@
 	});
 
 
-	
+	// 选择筛选的日期
+	$("#startTime").on("click", starTimeLen);
+	$("#endTime").on("click", endTimeLen);
+	var year = new Date().getFullYear();
+	var month = new Date().getMonth() + 1;
+	var nowdate = new Date().getDate();
+	// 默认时间为当前月份
+	$("#startDate").text(year + "-" + format(month));
+	$("#endDate").text(year + "-" + format(month));
+
+	// 格式化时间
+	function format(num) {
+		if (num < 10) {
+			return "0" + num;
+		} else {
+			return num
+		}
+	}
+
+	// 服务周期开始时间
+	function starTimeLen() {
+		var dtPicker = new mui.DtPicker({
+			type: 'date',
+			beginDate: new Date(year-1, 0),
+			endDate: new Date(year, month - 1)
+		});
+		/*  type参数：'datetime'-完整日期视图(年月日时分)
+						'date'--年视图(年月日)
+						'time' --时间视图(时分)
+						'month'--月视图(年月)
+						'hour'--时视图(年月日时)
+		*/
+		dtPicker.show(function(selectItems) {
+			var y = selectItems.y.text; //获取选择的年
+			var m = selectItems.m.text; //获取选择的月
+			var d = selectItems.d.text; //获取选择的日
+			var date = y + "-" + m;
+			$("#startDate").text(date);
+		})
+	}
+
+	// 服务周期结束时间
+	function endTimeLen() {
+		var dtPicker = new mui.DtPicker({
+			type: 'date',
+			beginDate: new Date(year-1, 0),
+			endDate: new Date(year, month - 1)
+		});
+
+		dtPicker.show(function(selectItems) {
+			var y = selectItems.y.text; //获取选择的年
+			var m = selectItems.m.text; //获取选择的月
+			var d = selectItems.d.text; //获取选择的日
+			var date = y + "-" + m;
+			$("#endDate").text(date);
+		});
+	}
 
 
 	// 重置筛选条件
 	$(".reset").click(() => {
+		year = new Date().getFullYear();
+		month = new Date().getMonth() + 1;
 		// 清空文字
 		$(".selectFreeTypeLi").text("全部")
 		$(".selectComName").text("");
-		// $(".selectFreeName").text("");
+		$(".selectFreeName").text("");
 		$(".selectCoopName").text("")
 		$(".selectSellName").text("")
 		$(".selectClerkName").text("")
 		// 清空uid
 		$(".selectFreeTypeLi").attr("uid","2")
 		$(".selectComName").attr("uid","")
-		// $(".selectFreeName").attr("uid","")
+		$(".selectFreeName").attr("uid","")
 		$(".selectCoopName").attr("uid","")
 		$(".selectSellName").attr("uid","")
 		$(".selectClerkName").attr("uid","")
@@ -801,37 +772,41 @@
 
 	// 点击确定
 	$(".ok").click(() => {
-
+		//  获取开始结束时间
+		let s = $("#startDate").text()
+		let e = $("#endDate").text()
 		// 获取各个角色, 人的uid
 		let sf = $(".selectComName").attr('uid') || ''
-		let yz = $(".selectFreeTypeLi").attr('uid') || ''
+		let yztype = $(".selectFreeTypeLi").attr('uid') || ''
+		let yz = $(".selectFreeName").attr('uid') || ''
 		let coop = $(".selectCoopName").attr('uid') || ''
 		let sell = $(".selectSellName").attr('uid') || ''
 		let clerk = $(".selectClerkName").attr('uid') || ''
-
-		// 清空搜索框
-		// $(".searchCont").val('')
-		// 发起ajax请求
-		getInfoList('',sf,yz,coop,sell,clerk)
-		// 隐藏筛选框
-		$(".filterParamBg").css("display", "none");
-		$(".nextImg").attr("src", "../../../img/next.png");
-		open = !open;
-
+		
+		let start = s.replace('-','')   // 用于条件判断时间先后
+		let end = e.replace('-','')   // 用于条件判断时间先后
+		if(start <= end){
+			// 清空搜索框
+			// $(".searchCont").val('')
+			// 发起ajax请求
+			getInfoList('',s,e,sf,yztype,yz,coop,sell,clerk)
+			// 隐藏筛选框
+			$(".filterParamBg").css("display", "none");
+			$(".nextImg").attr("src", "../../../img/next.png");
+			open = !open;
+		}
+		else {
+			mui.toast('开始时间要小于结束时间!',{ duration:'4000', type:'div' })
+		}
 	})
 
 	// 跳转详情页面
 	$(document).on("click", ".list .href", function(e) {
 		var detailId = $(this).attr("detailId");
+		// console.log(detailId)
 		sessionStorage.setItem('detailId', detailId);
-		
-		if(addtype==2) {
-			location.href = "./user_detail_com.html";
-		}
-		if(addtype==1 || addtype==11) {
-			sessionStorage.setItem("detailType",addtype)
-			location.href = "./user_detail_free.html";
-		}
+		// page.chooseType();
+		location.href = "./incomeManaDetail.html";
 	});
 	
 	
@@ -1105,7 +1080,7 @@
 				// 一页的条数
 				rows: 20,
 				// 搜索框的内容
-				tel: "",
+				name: "",
 				// 过滤条件的开始时间和结束时间
 				startdate: "",
 				enddate: "",
@@ -1119,7 +1094,7 @@
 				if (data.result == 0) {
 					// 需要重新登录
 					if (window.plus) {
-						goToLogin("../../../page/register/login.html");
+						goToLogin("../register/login.html");
 					} else {
 						document.addEventListener('plusready', goToLogin, false);
 					}
@@ -1133,15 +1108,15 @@
 								<div class="${data.rows[i].id}">
 										<input class="select" name="hh" value="beihai" type="checkbox">
 										<div class="comTime">
-												<span class="comName">${data.rows[i].name}</span>
+												<span class="comName">${data.rows[i].comname}</span>
 												<div class="href" detailId="${data.rows[i].id}">
-														<span class="time">${data.rows[i].details}</span>
-														<img src="../../../img/next.png" alt="">
+														<span class="time">${data.rows[i].addtime}</span>
+														<img src="../../img/next.png" alt="">
 												</div>
 										</div>
 										<div class="amount">
-												<span>${data.rows[i].icon}</span>
-												<span>${data.rows[i].tel}</span>
+												<span>${data.rows[i].name}</span>
+												<span>${data.rows[i].money}</span>
 										</div>
 								</div>
 								`;
@@ -1195,7 +1170,8 @@
 		else $(":checkbox[name='hh']").prop("checked", false);
 	});
 	
-	// 点击 "通过"" 请求通过=======================================================
+	// 点击 "支付"" 请求支付详情页=======================================================
+	let ids = ''   // 用于保存返回来的ids
 	$(".footer-item").click(() => {
 		let check = $(":checkbox[name='hh']:checked")   // 获取所有被选中的 复选框 dom的集合
 		let checkArr = Array.from(check)   // 将dom集合转换成数组
@@ -1211,16 +1187,54 @@
 			mui.toast('选中的条目不能为空!',{ duration:'4000', type:'div' })
 		}
 		else{
-			// console.log(ids2)
-			// console.log("99990")
-			// console.log("tsgo0000")
-			// 请求通过详情的数据
-			mui.post(urlDns + "/control_app/ms/fr/user/check", {
+			// 请求支付详情的数据
+				mui.post(urlDns + "/control_app/ms/fr_zg/zf_pay/payUI", {
+					pass_app: pass_app,
+					tel_app: tel_app,
+					code_app: code_app,
+					ids2: ids2
+				}, function(data) {
+					// console.log(JSON.stringify(data));
+					if (data.result == 0) {
+						// 需要重新登录
+						if (window.plus) {
+							goToLogin("../../../page/register/login.html");
+						} else {
+							document.addEventListener('plusready', goToLogin, false);
+						}
+					} else {
+						ids = data.ids // 保存ids
+						// 弹出提示框
+						$(".dialog-container").css("display","flex")
+						$(".dialog-money span").text(data.allmoney)
+					}
+				});
+		}
+	})
+	
+	
+	
+	// 获取验证码=============================================================
+	let msm   // 定义一个变量接收 验证码
+	let time = 60   // 定义一个计时器变量
+	$(".get-code").on("click", get_code);   // 点击 "获取验证码"
+	
+	function get_code() {
+		let tel = $("#input-tel").val() // 定义一个变量接收手机号
+		console.log("点击了  获取")
+		time = 59
+		if (tel == "") {
+			mui.toast('请输入手机号!',{ duration:'4000', type:'div' })
+		} else {
+			$(".get-code").off("click");
+			// 向后台发请求获取验证码
+			$.post(urlDns + "/getMsm_app2", {
+				tel: tel,
 				pass_app: pass_app,
 				tel_app: tel_app,
-				code_app: code_app,
-				ids: ids2
-			}, function(data) {
+				code_app: code_app
+				}, function(data) {
+				console.log("验证码 请求响应了")
 				console.log(JSON.stringify(data));
 				if (data.result == 0) {
 					// 需要重新登录
@@ -1229,23 +1243,85 @@
 					} else {
 						document.addEventListener('plusready', goToLogin, false);
 					}
-				} else {
-					$(".dialog-container").css("display","none")
-					// 弹出支付成功的提示框
-					mui.toast('通过成功!',{ duration:'5000', type:'div' })
-					
-					// 回到页面的上一个状态
-					$(".select-btn").text("选择");
-					$(".back").css("display", "block");
-					$("footer").css("display","none");
-					$(".filterBox").css("display","block")
-					$(".searchBox").css("display", "block");
-					$(".select").css("display", "none");
-					$(".select_all").css("display", "none");
-					$(".comName").css("left", "0px");
-					$(".list").css("margin-top","152px");
+					mui.toast(data.message,{ duration:'4000', type:'div' })
+					$(".get-code").text("获取验证码");
+					$(".get-code").css("color", "#7EB6FF");
+					$(".get-code").on("click", get_code);
+				} 
+				else {
+					// 倒计时
+					$(".get-code").text(time + "秒");
+					$(".get-code").css("color", "gray");
+					var t = setInterval(() => {
+						time = time - 1;
+						$(".get-code").text(time + "秒");
+						if (time < 1) {
+							clearInterval(t);
+							$(".get-code").text("重新获取");
+							$(".get-code").css("color", "#7EB6FF");
+							$(".get-code").on("click", get_code);
+						}
+					}, 1000);
+					msm = data.msm
 				}
 			});
+		}
+	}
+	
+	//发起最终支付的请求============================================================
+	$(".cancel").click(() => {   // 点击了 取消支付
+		$(".dialog-container").css("display","none")
+	})
+	
+	$(".success").click(() => {   // 点击了确认支付
+		let tel = $("#input-tel").val()   // 定义一个变量接收手机号
+		let telcode = $("#input-code").val()   // 定义一个变量 获取 输入的验证码
+		if (tel == "") {
+			mui.toast('请输入手机号!',{ duration:'4000', type:'div' })
+		}
+		else if (telcode == undefined){
+			mui.toast('验证码不能为空!',{ duration:'4000', type:'div' })
+		}
+		else if(telcode != msm) {
+			console.log("验证码  不正确")
+			mui.toast('验证码不正确!',{ duration:'4000', type:'div' })
+		}
+		else {
+			// 发起 最终支付 请求
+			$.post(urlDns + "/control_app/ms/fr_zg/zf_pay/pay", {
+				ids: ids,
+				telcode: telcode,
+				validateCode: msm,
+				pass_app: pass_app,
+				tel_app: tel_app,
+				code_app: code_app
+				}, function(data) {
+					console.log(JSON.stringify(data));
+					if (data.result == 0) {
+						// 需要重新登录
+						if (window.plus) {
+							goToLogin("../../../page/register/login.html");
+						} else {
+							document.addEventListener('plusready', goToLogin, false);
+						}
+					} 
+					else {
+						$(".dialog-container").css("display","none")
+						// 弹出支付成功的提示框
+						mui.toast('支付成功!',{ duration:'5000', type:'div' })
+						
+						// 回到页面的上一个状态
+						$(".select-btn").text("选择");
+						$(".back").css("display", "block");
+						$("footer").css("display","none");
+						$(".filterBox").css("display","block")
+						$(".searchBox").css("display", "block");
+						$(".select").css("display", "none");
+						$(".select_all").css("display", "none");
+						$(".comName").css("left", "0px");
+						$(".list").css("margin-top","152px");
+					}
+				});
 		}
 	})
 </script>

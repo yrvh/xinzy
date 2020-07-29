@@ -112,27 +112,35 @@
         </div> -->
     </header>
     <ul class="company">
-        <li class="city_building">
-            <span>城市建设维护税</span>
-            <div>
-                <span class="waitCheck"></span>
-                <img src="../../../img/next.png" alt="">
-            </div>
-        </li>
-        <li class="edu_addit">
-            <span>教育费附加</span>
-            <div>
-                <span class="pass"></span>
-                <img src="../../../img/next.png" alt="">
-            </div>
-        </li>
-        <li class="local_edu_addit">
-            <span>地方教育费附加</span>
-            <div>
-                <span class="toBack"></span>
-                <img src="../../../img/next.png" alt="">
-            </div>
-        </li>
+			<li class="added-tax">
+			    <span>增值税</span>
+			    <div>
+			        <span></span>
+			        <img src="../../../img/next.png" alt="">
+			    </div>
+			</li>
+			
+			<li class="city_building">
+					<span>城市建设维护税</span>
+					<div>
+							<span></span>
+							<img src="../../../img/next.png" alt="">
+					</div>
+			</li>
+			<li class="edu_addit">
+					<span>教育费附加</span>
+					<div>
+							<span></span>
+							<img src="../../../img/next.png" alt="">
+					</div>
+			</li>
+			<li class="local_edu_addit">
+					<span>地方教育费附加</span>
+					<div>
+							<span class="toBack"></span>
+							<img src="../../../img/next.png" alt="">
+					</div>
+			</li>
 
     </ul>
 
@@ -147,19 +155,24 @@
 	    mui.back();
 	});
 	
+	// 增值税
+	$(".added-tax").click(()={
+		location.href = "./taxesMana_added.html";
+	})
+	
 	// 城市建设维护税
 	$(".city_building").click(() => {
-	    location.href = "./city_building_taxes.html";
+	    location.href = "./taxesMana_city.html";
 	});
 	
 	// 教育费附加
 	$(".edu_addit").click(() => {
-	    location.href = "./edu_addit_taxes.html";
+	    location.href = "./taxesMana_edu.html";
 	});
 	
 	// 地方教育费附加
 	$(".local_edu_addit").click(() => {
-	    location.href = "./local_edu_taxes.html";
+	    location.href = "./taxesMana_edu7.html";
 	});
 </script>
 

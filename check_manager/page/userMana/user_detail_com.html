@@ -65,7 +65,7 @@
 			<div class="select-btn">下一页</div>
 	</header>
 	<div class="the-place"></div>
-	<div class="com-status">注册状态: <span class="status-li">待主管审核</span></div>
+	<div class="com-status">注册状态: <span class="status-li"></span></div>
 	
 
 	<!-- 公司基本信息 -->
@@ -75,7 +75,7 @@
 			<li class="com-logo">
 					<span>公司商标</span>
 					<div>
-							<span class="com-logo-li"></span>
+							<img class="com-logo-li"/>
 							<img src="../../../img/next.png" alt="">
 					</div>
 			</li>
@@ -157,7 +157,7 @@
 					</div>
 			</li>
 			<li class="com-organ">
-					<span>公司登记机关</span>
+					<span>登记机关</span>
 					<div>
 							<span class="com-organ-li"></span>
 					</div>
@@ -189,7 +189,6 @@
 					<span>证件类型</span>
 					<div>
 							<span class="corp-type-li"></span>
-							<img src="../../../img/next.png" alt="">
 					</div>
 			</li>
 			<li class="corp-number">
@@ -231,7 +230,6 @@
 					<span>证件类型</span>
 					<div>
 							<span class="agent-type-li"></span>
-							<img src="../../../img/next.png" alt="">
 					</div>
 			</li>
 			<li class="agent-number">
@@ -292,6 +290,7 @@
 	
 	// 定义请求详情的函数
 	function getDetail() {
+		console.log(detailId)
 		var index = layer.load(1, {
 				// 数组中第一个参数是button的透明度
 				// 第二个是背景颜色
@@ -306,63 +305,102 @@
 						"pass_app": pass_app,
 						"tel_app": tel_app,
 						"code_app": code_app,
-						"userid": detailId
+						"id": detailId
 				},
 				//请求成功
 				success: function(data) {
-						// console.log(JSON.stringify(data));
-						layer.close(index);
-						if (data.result == 0) {
-								// 需要重新登录
-								if (window.plus) {
-										goToLogin("../../../page/register/login.html");
-								} else {
-										document.addEventListener('plusready', goToLogin, false);
-								}
+					// console.log("公司详情页请求了")
+					console.log(JSON.stringify(data));
+					layer.close(index);
+					if (data.result == 0) {
+							// 需要重新登录
+							if (window.plus) {
+									goToLogin("../../../page/register/login.html");
+							} else {
+									document.addEventListener('plusready', goToLogin, false);
+							}
+					} 
+					else {
+						$(".status-li").text(data.regState)
+						
+						if (data.icon != undefined) {
+							$(".com-logo-li").attr("src", data.icon);
 						} 
 						else {
-							sessionStorage.setItem("comdata",data)
-							$(".status-li").text(data.regState)
-							
-							if (data.icon != "/img/R.png") {
-								$(".com-logo-li").attr("src", data.icon);
-							} 
-							else {
-									$(".com-logo-li").attr("src", "../../../img/com_default_Icon.png");
-							}
-							$(".com-creditcode-li").text(data.xycode)
-							$(".com-name-li").text(data.name)
-							$(".com-acronym-li").text(data.namePy)
-							$(".com-fund-li").text(data.capital)
-							$(".com-type-li").text(data.dwtypename)
-							$(".com-address-li").text(data.area)
-							$(".com-detailaddr-li").text(data.address)
-							$(".com-fixedtel-li").text(data.tel)
-							$(".com-regidate-li").text(data.createtime)
-							$(".com-deadline-li").text(data.endtime)
-							$(".com-range-li").text(data.businessRange)
-							$(".com-major-li").text(data.zybusiness)
-							$(".com-organ-li").text(data.registerCompany)
-							$(".com-issue-li").text(data.getCarTime)
-							$(".com-license-li").text(data.yyzzurl)
-							
-							
-							$(".corp-name-li").text(data.fr_realname)
-							$(".corp-type-li").text("身份证")
-							$(".corp-number-li").text(data.fr_idcard)
-							// $(".corp-photo-li").text()
-							$(".corp-tel-li").text(data.fr_tel)
-							$(".corp-email-li").text(data.fr_email)
-							if(ishave_lxr==1) {
-								$(".agent-info").css("dispaly","block")
-								$(".agent-name-li").text(data.lxr_realname)
-								$(".agent-type-li").text("身份证")
-								$(".agent-number-li").text(data.lxr_idcard)
-								// $(".agent-photo-li").text()
-								$(".agent-tel-li").text(data.lxr_tel)
-								$(".agent-email-li").text(data.lxr_email)
-							}
+								$(".com-logo-li").attr("src", "../../../img/com_default_Icon.png");
 						}
+						$(".com-creditcode-li").text(data.xycode)
+						$(".com-name-li").text(data.name)
+						$(".com-acronym-li").text(data.namePY)
+						$(".com-fund-li").text(data.capital)
+						$(".com-type-li").text(data.dwtypename)
+						$(".com-address-li").text(data.area)
+						$(".com-detailaddr-li").text(data.address)
+						$(".com-fixedtel-li").text(data.tel)
+						$(".com-regidate-li").text(data.createtime)
+						$(".com-deadline-li").text(data.endtime)
+						$(".com-range-li").text(data.businessRange)
+						$(".com-major-li").text(data.zybusiness)
+						$(".com-organ-li").text(data.registerCompany)
+						$(".com-issue-li").text(data.getCarTime)
+						if(data.fr_cardupurl!=undefined && data.fr_cardupurl!=''){
+							$(".com-license-li").text("执照已上传")
+						}
+						// 点击营业执照跳转到  详细信息页
+						$(".com-license").click(() => {
+							sessionStorage.setItem("cardType","license")
+							sessionStorage.setItem("licenseurl",data.yyzzurl)
+							location.href = "./idCardPt.html";
+						})
+						
+												
+						$(".corp-name-li").text(data.fr_realname)
+						$(".corp-type-li").text("身份证")
+						$(".corp-number-li").text(data.fr_idcard)
+						if(data.fr_cardupurl!=undefined && data.fr_cardupurl!=''&&data.fr_carddownurl!=undefined && data.fr_carddownurl!='') {
+							$(".corp-photo-li").text("已上传")
+						}
+						else { $(".corp-photo-li").text("未上传") }
+						$(".corp-tel-li").text(data.fr_tel)
+						$(".corp-email-li").text(data.fr_email)
+						if(data.ishave_lxr==1) {
+							$(".agent-info").css("dispaly","block")
+							$(".agent-name-li").text(data.lxr_realname)
+							$(".agent-type-li").text("身份证")
+							$(".agent-number-li").text(data.lxr_idcard)
+							if(data.lxr_cardupurl!=undefined && data.lxr_cardupurl!=''&&data.lxr_carddownurl!=undefined && data.lxr_carddownurl!='') {
+								$(".agent-photo-li").text("已上传")
+							}
+							$(".agent-tel-li").text(data.lxr_tel)
+							$(".agent-email-li").text(data.lxr_email)
+						}
+						// 点击法人跳转到 身份证 详细信息页
+						$(".corp-photo").click(() => {
+							sessionStorage.setItem("cardType","corp")
+							sessionStorage.setItem("corpcard1",data.fr_cardupurl)
+							sessionStorage.setItem("corpcard2",data.fr_carddownurl)
+							location.href = "./idCardPt.html";
+						})
+						
+						// 点击联系人跳转到 身份证 详细信息页
+						$(".agent-photo").click(() => {
+							sessionStorage.setItem("cardType","agent")
+							sessionStorage.setItem("agentcard1",data.lxr_cardupurl)
+							sessionStorage.setItem("agentcard2",data.lxr_carddownurl)
+							location.href = "./idCardPt.html";
+						})
+						
+						// 保存银行相关的数据
+						// sessionStorage.setItem("kh_name_sr",data.kh_name_sr)
+						// sessionStorage.setItem("khh_sr",data.khh_sr)
+						// sessionStorage.setItem("code_sr",data.code_sr)
+						// sessionStorage.setItem("id_sr",data.id_sr)
+						sessionStorage.setItem("ishave_yhcard_dg",data.ishave_yhcard_dg)
+						sessionStorage.setItem("kh_name_dg",data.kh_name_dg)
+						sessionStorage.setItem("khh_dg",data.khh_dg)
+						sessionStorage.setItem("code_dg",data.code_dg)
+						sessionStorage.setItem("id_dg",data.id_dg)
+					}
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 						layer.close(index);

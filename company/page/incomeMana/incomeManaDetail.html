@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script src="../../../js/mui.min.js"></script>
+	<link rel="stylesheet" href="../../../css/mui.min.css">
+	<script src="../../../js/mescroll.min.js"></script>
+	<link rel="stylesheet" href="../../../css/mescroll.min.css">
+	<title>审核主管--收入管理--信息详情</title>
+	
+	<style type="text/css">
+		body { margin: 0; padding: 0; font-size: 16px; color: #333333; }
+		
+		header { position: fixed;
+			top: 0; left: 0; text-align: center; width: 100%;
+			height: 44px; line-height: 44px; background-color: white;
+			box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+			font-weight: bold; font-size: 16px; z-index: 99; }
+		
+		.back { width: 20px; height: 20px; position: absolute; top: 12px; left: 5px; color: #7EB6FF; }		
+		
+		.the-place { width: 100%; height: 44px; }
+		
+		.com-status { width: 100%; line-height: 44px; background-color: #fff; margin: 20px 0; padding: 0 15px;}
+		
+		ul {margin: 0; list-style: none; padding: 0 15px; background-color: #fff;}
+				
+		li { border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; width: 100%; height: 46px; margin-bottom: 2px; line-height: 46px; box-sizing: border-box; }
+				
+		li>div { display: flex; align-items: center; justify-content: space-between;}
+		
+		li img { width: 25px; height: 25px; }
+
+		li>div>span { color: rgb(123, 123, 123); }
+		
+		.peraccount,.pay-amount,.comaccount {border: none !important;}
+		
+		.pay-amount-li { font-weight: 700; color: #0062CC; }
+		.ul-title{padding-left: 14px; background-color: #eee; font-size: 14px;}
+	</style>
+</head>
+
+<body>
+	<header>
+			<img class="back" src="../../../img/back_black.png" alt=""> 收入信息
+	</header>
+	<div class="the-place"></div>
+	<div class="ul-title">收款方信息:</div>
+	<ul class="per-info">
+		<li class="pername">
+				<span>姓名</span>
+				<div>
+						<span class="pername-li"></span>
+				</div>
+		</li>
+		<li class="perbank">
+				<span>开户行</span>
+				<div>
+						<span class="perbank-li"></span>
+				</div>
+		</li>
+		<li class="peraccount">
+				<span>收款账户</span>
+				<div>
+						<span class="peraccount-li"></span>
+				</div>
+		</li>
+	</ul>
+	
+	<div class="ul-title">付款方信息:</div>
+	<ul class="com-info">
+		<li class="comname">
+				<span>单位名称</span>
+				<div>
+						<span class="comname-li"></span>
+				</div>
+		</li>
+		<li class="combank">
+				<span>开户行</span>
+				<div>
+						<span class="combank-li"></span>
+				</div>
+		</li>
+		<li class="comaccount">
+				<span>付款账户</span>
+				<div>
+						<span class="comaccount-li"></span>
+				</div>
+		</li>
+	</ul>
+	
+	<div class="ul-title">内容详情:</div>
+	<ul class="base-info">
+		<li class="service-name">
+				<span>劳务、服务名称</span>
+				<div>
+						<span class="service-name-li"></span>
+				</div>
+		</li>
+		<li class="service-con">
+				<span>劳务、服务内容</span>
+				<div>
+						<span class="service-con-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+		</li>
+		<li class="service-cycle">
+				<span>服务周期</span>
+				<div>
+						<span class="service-cycle-li"></span>
+				</div>
+		</li>
+		<li class="pay-amount">
+				<span>支付金额</span>
+				<div>
+						<span class="pay-amount-li"></span>
+				</div>
+		</li>
+	</ul>
+
+</body>
+<script src="../../../js/jquery-3.3.1.js"></script>
+<script src="../../../js/urlDns.js"></script>
+<script src="../../../js/layer/layer.js"></script>
+
+<script type="text/javascript">
+	var pass_app = localStorage.getItem("pass_app");
+	var tel_app = localStorage.getItem("tel_app");
+	var code_app = localStorage.getItem("code_app");
+	// console.log("tel_app：" + tel_app);
+	// console.log("pass_app：" + pass_app);
+	
+	// 返回
+	$(".back").click(() => {
+	    mui.back();
+	});
+
+	// 获取id
+	var detailId = sessionStorage.getItem("detailId");
+	// 定义一个存储 劳动服务内容的变量
+	let detail_content = ''
+	
+	$(function() {
+	    var index = layer.load(1, {
+	        // 数组中第一个参数是button的透明度
+	        // 第二个是背景颜色
+	        shade: [0.3, "white"]
+	    });
+	    var getData = $.ajax({
+	        url: urlDns + "/control_app/ms/fr_zg/zf/showUI",
+	        type: 'post',
+	        dataType: "json",
+	        timeout: 120000, //2分钟超时
+	        data: {
+	            "pass_app": pass_app,
+	            "tel_app": tel_app,
+	            "code_app": code_app,
+							"id": detailId
+	        },
+	        //请求成功
+	        success: function(data) {
+	            // console.log(JSON.stringify(data));
+	            layer.close(index);
+	            if (data.result == 0) {
+	                // 需要重新登录
+	                if (window.plus) {
+	                    goToLogin("../../../page/register/login.html");
+	                } else {
+	                    document.addEventListener('plusready', goToLogin, false);
+	                }
+	            } 
+							else {
+	                // if (data.icon != "/img/R.png") {
+	                //     console.log(data.icon)
+	                //     $(".logo").attr("src", data.icon);
+	                // } else {
+	                //     $(".logo").attr("src", "../../../img/com_default_Icon.png");
+	                // }
+								$(".pername-li").text(data.yz_khname);
+								$(".perbank-li").text(data.yz_khh);
+								$(".peraccount-li").text(data.yz_code);
+								$(".comname-li").text(data.sf_khname);
+								$(".combank-li").text(data.sf_khh);
+								$(".comaccount-li").text(data.sf_code);
+								
+								$(".service-name-li").text(data.name);
+								$(".service-con-li").text(data.descripts);
+								$(".service-cycle-li").text(data.zq);
+								$(".pay-amount-li").text(data.allmoney);
+								// formatMoney(data.allmoney,2,'¥')
+								detail_content = data.descripts
+	            }
+	
+	        },
+	        error: function(XMLHttpRequest, textStatus, errorThrown) {
+	            layer.close(index);
+	            if (textStatus == 'timeout') {
+	                getData.abort();　
+	                alert("请求超时");
+	            }
+	            if (textStatus == 'error') {
+	                getData.abort();　
+	                alert("请求错误" + errorThrown);
+	            }
+	        }
+	    });
+	});
+	
+	// 劳动服务内容
+	$(".service-con").click(() => {
+		sessionStorage.setItem("title","劳动服务内容")
+		sessionStorage.setItem("detail_content",detail_content)
+		sessionStorage.setItem("user_type","411")
+	  location.href = "../business_content.html";
+	});
+</script>
+</html>

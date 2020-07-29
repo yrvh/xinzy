@@ -954,11 +954,8 @@
 						localStorage.setItem("userType", data.userType);
 						localStorage.setItem("ishave_dw", data.ishave_dw);
 	
-						if (data.userType == 1) {
-							// 角色是业者
-							if (data.dlregid == 0) {
-								// data.dlregid == 0  自行注册
-	
+						if (data.userType == 1) {   // 角色是业者
+							if (data.dlregid == 0) {   // 自行注册
 								if (data.status == 4 || data.status == 1 || data.status == 5 || data.status == 2 || data.status == 3 ||
 									data.status == 44) {
 									// 4待业者确认资料
@@ -1053,10 +1050,8 @@
 										}
 									});
 								}
-	
-							} else {
-								// 代理注册
-	
+							}
+							else {   // 代理注册
 								if (data.status == 4 || data.status == 11 || data.status == 33 || data.status == 44 || data.status == 55 ||
 									data.status == 66) {
 									// 4待业者确认资料
@@ -1134,8 +1129,184 @@
 	
 							}
 						}
-						if (data.userType == 11) {
-							// 合作伙伴
+						
+						if (data.userType == 2) {   // 角色是单位
+							if (data.dlregid == 0) {   // 自行注册
+								if (data.status == 4 || data.status == 1 || data.status == 5 || data.status == 2 || data.status == 3 ||
+									data.status == 44) {
+									// 4待业者确认资料
+									// 1服务费待审核
+									// 5待单位确认
+									// 2待确认个人信息
+									// 44业者退回
+									// 3待完善资料
+									// console.log(11111111111)
+									sessionStorage.clear();
+									sessionStorage.setItem("status", data.status);
+									sessionStorage.setItem("userId", data.userid);
+									sessionStorage.setItem("tel", userNum);
+									location.href = "./audit.html";
+								}
+								if (data.status == 11) {
+									// 服务费用不通过，跳转到修改服务费页面
+									sessionStorage.setItem("editServiceFee", "1");
+									location.href = "./onLineContract.html";
+								}
+								if (data.status == 55 || data.status == 22) {
+									// 55被单位退回，重新修改个人信息
+									// 22个人信息不通过，重新修改个人信息
+									sessionStorage.clear();
+									sessionStorage.setItem("userId", data.userid);
+									sessionStorage.setItem("tel", userNum);
+									sessionStorage.setItem("updateInfo", 1);
+									location.href = "./freeInfo.html";
+								}
+								if (data.status == 0 || data.status == 8) {
+									// sessionStorage.clear();
+									// 审核全部完成，进入首页
+									sessionStorage.setItem("userId", data.userid);
+									sessionStorage.setItem("tel", userNum);
+									sessionStorage.setItem("ishave_dw", data.ishave_dw);
+									location.href = "../../company/page/index.html";
+								}
+								if (data.status == 175) {
+									// sessionStorage.clear();
+									// 用户需要同意三方协议,然后进入系统
+									// console.log("哈哈哈哈")
+									$(".threeBoxBg").css("display", "block");
+									sessionStorage.setItem("userId", data.userid);
+									sessionStorage.setItem("tel", userNum);
+									console.log(data.status);
+									var code_app = localStorage.getItem("code_app");
+									// 等待提示
+									var threeContractWeit = layer.load(1, {
+										// 数组中第一个参数是button的透明度
+										// 第二个是背景颜色
+										shade: [0.3, "white"]
+									});
+									// 请求三方协议内容
+									var threeContractPost = $.ajax({
+										url: urlDns + "/user_app/yz/check_3_xieyiUI",
+										type: 'post',
+										dataType: "json",
+										data: {
+											"tel_app": telApp,
+											"pass_app": passApp,
+											"code_app": code_app
+										},
+										timeout: 120000, //2分钟超时
+										//请求成功
+										success: function(data) {
+											console.log(JSON.stringify(data));
+											layer.close(threeContractWeit);
+											if (data.result == 0) {
+												location.reload();
+											} else {
+								
+												$(".cont").html(data.text);
+								
+											}
+								
+										},
+										error: function(XMLHttpRequest, textStatus, errorThrown) {
+											console.log(textStatus)
+											layer.close(threeContractWeit);
+											if (textStatus == 'timeout') {
+												threeContractPost.abort();
+												alert("请求超时");
+												$(".threeBoxBg").css("display", "none");
+											}
+											if (textStatus == 'error') {
+												console.log(errorThrown)
+												threeContractPost.abort();
+												$(".threeBoxBg").css("display", "none");
+												alert("请求错误" + errorThrown);
+								
+											}
+										}
+									});
+								}
+							}
+							else {   // 代理注册
+								if (data.status == 4 || data.status == 11 || data.status == 33 || data.status == 44 || data.status == 55 ||
+									data.status == 66) {
+									// 4待业者确认资料
+									// 11待审核
+									// 33 44 55 66资料完善中
+									sessionStorage.clear();
+									sessionStorage.setItem("status", data.status);
+									sessionStorage.setItem("userId", data.userid);
+									sessionStorage.setItem("tel", userNum);
+									location.href = "./audit.html";
+								}
+								if (data.status == 175) {
+									sessionStorage.clear();
+									// 用户需要同意三方协议,然后进入系统
+									// console.log("哈哈哈哈")
+									$(".threeBoxBg").css("display", "block");
+									sessionStorage.setItem("userId", data.userid);
+									sessionStorage.setItem("tel", userNum);
+									console.log(data.status);
+									var code_app = localStorage.getItem("code_app");
+									// 等待提示
+									var threeContractWeit = layer.load(1, {
+										// 数组中第一个参数是button的透明度
+										// 第二个是背景颜色
+										shade: [0.3, "white"]
+									});
+									// 请求三方协议内容
+									var threeContractPost = $.ajax({
+										url: urlDns + "/user_app/yz/check_3_xieyiUI",
+										type: 'post',
+										dataType: "json",
+										data: {
+											"tel_app": telApp,
+											"pass_app": passApp,
+											"code_app": code_app
+										},
+										timeout: 120000, //2分钟超时
+										//请求成功
+										success: function(data) {
+											console.log(JSON.stringify(data));
+											layer.close(threeContractWeit);
+											if (data.result == 0) {
+												location.reload();
+											} else {
+												$(".cont").html(data.text);
+								
+											}
+								
+										},
+										error: function(XMLHttpRequest, textStatus, errorThrown) {
+											console.log(textStatus)
+											layer.close(threeContractWeit);
+											if (textStatus == 'timeout') {
+												threeContractPost.abort();
+												alert("请求超时");
+												$(".threeBoxBg").css("display", "none");
+											}
+											if (textStatus == 'error') {
+												console.log(errorThrown)
+												threeContractPost.abort();
+												$(".threeBoxBg").css("display", "none");
+												alert("请求错误" + errorThrown);
+								
+											}
+										}
+									});
+								}
+								if (data.status == 8) {
+									sessionStorage.clear();
+									// 审核全部完成，进入首页
+									sessionStorage.setItem("userId", data.userid);
+									sessionStorage.setItem("tel", userNum);
+									location.href = "../../company/page/index.html";
+								}
+								
+							}
+						}
+						
+						if (data.userType == 11) {   // 合作伙伴
 							// console.log("合作伙伴" + data.userType);
 							if (data.status == 4 || data.status == 1 || data.status == 5 || data.status == 2 || data.status == 3 || data
 								.status == 44) {

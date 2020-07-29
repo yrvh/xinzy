@@ -193,7 +193,7 @@
         <img class="back" src="../../../img/back_black.png" alt=""> 员工信息
         <div class="save">保存</div>
     </header>
-		<div class="contBox">
+<!-- 		<div class="contBox">
 			<div>
 					<span>部门</span>
 					<input type="text" class="section" disabled>
@@ -202,7 +202,7 @@
 					<span>职位</span>
 					<input type="tel" class="clerk" disabled>
 			</div>
-		</div>
+		</div> -->
 
     <div class="contBox">
         <div>
@@ -325,7 +325,7 @@
 	        },
 	        //请求成功
 	        success: function(data) {
-	            // console.log(JSON.stringify(data));
+	            console.log(JSON.stringify(data));
 	            layer.close(index);
 	            if (data.result == 0) {
 	                // 需要重新登录
