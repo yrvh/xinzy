@@ -6,7 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<script src="../../../js/mui.min.js"></script>
 		<link rel="stylesheet" href="../../../css/mui.min.css">
-		<title>--审核主管--收入管理--</title>
+		<title>--单位--支付管理--</title>
 		<script type="text/javascript">
 			mui.init();
 		</script>
@@ -66,52 +66,60 @@
 		</header>
 		
 		<ul>
+			<li class="wait-submit">
+				<span>待提交 <span class="mybadge mui-badge mui-badge-danger"></span></span>
+				<div>
+						<span class="wait-submit-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
 			<li class="wait-free">
-				<span>待提交</span>
+				<span>待业者确认</span>
 				<div>
 						<span class="wait-free-li"></span>
 						<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
 			<li class="free-nopass">
-				<span>待业者确认</span>
+				<span>业者退回</span>
 				<div>
 						<span class="free-nopass-li"></span>
 						<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
+			
 			<li class="com-check">
-				<span>业者退回</span>
+				<span>待秘书公司审核</span>
 				<div>
 						<span class="com-check-li"></span>
 						<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
 			<li class="com-nopass">
-				<span>待秘书公司审核</span>
+				<span>秘书公司退回</span>
 				<div>
 						<span class="com-nopass-li"></span>
 						<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
-			<li class="wait-salesman">
-				<span>秘书公司退回</span>
+			<li class="wait-initpay">
+				<span>待发起支付</span>
 				<div>
-						<span class="wait-salesman-li"></span>
+						<span class="wait-initpay-li"></span>
 						<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
 			<li class="wait-pay">
-				<span>待支付 <span class="mybadge mui-badge mui-badge-danger"></span></span>
+				<span>待支付</span>
 				<div>
 						<span class="wait-pay-li"></span>
 						<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
-			<li class="complete-pay">
+			<li class="received-money">
 				<span>用户已收款</span>
 				<div>
-						<span class="complete-pay-li"></span>
+						<span class="received-money-li"></span>
 						<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
@@ -134,9 +142,12 @@
 		getInfo()
 		
 		// 跳转到列表页
-		// 状态码income_status（1待提交  2等业者退回， 3：待业者确认，5：秘书公司退回，6秘书公司退回 7待支付 8用户已收款）
-		$(".wait-free").click(() => {
+		$(".wait-submit").click(() => {
 			sessionStorage.setItem("income_status", 1);
+			location.href = './incomeManaList.html';
+		});
+		$(".wait-free").click(() => {
+			sessionStorage.setItem("income_status", 2);
 			location.href = './incomeManaList.html';
 		});
 		$(".free-nopass").click(() => {
@@ -144,14 +155,14 @@
 			location.href = './incomeManaList.html';
 		});
 		$(".com-check").click(() => {
-			sessionStorage.setItem("income_status", 2);
+			sessionStorage.setItem("income_status", 4);
 			location.href = './incomeManaList.html';
 		});
 		$(".com-nopass").click(() => {
 			sessionStorage.setItem("income_status", 5);
 			location.href = './incomeManaList.html';
 		});
-		$(".wait-salesman").click(() => {
+		$(".wait-initpay").click(() => {
 			sessionStorage.setItem("income_status", 6);
 			location.href = './incomeManaList.html';
 		});
@@ -159,7 +170,7 @@
 			sessionStorage.setItem("income_status", 7);
 			location.href = './incomeManaList.html';
 		});
-		$(".complete-pay").click(() => {
+		$(".received-money").click(() => {
 			sessionStorage.setItem("income_status", 8);
 			location.href = './incomeManaList.html';
 		});
@@ -190,13 +201,14 @@
 					}
 					else { $(".mybadge").css("display","none") }
 						
+				$(".wait-commit-li").text(data.send);
 				$(".wait-free-li").text(data.send);
 				$(".free-nopass-li").text(data.yz_nopass);
 				$(".com-check-li").text(data.wait_check);
 				$(".com-nopass-li").text(data.ms_nopass);
-				$(".wait-salesman-li").text(data.ms_send_pay);
+				$(".wait-initpay-li").text(data.wait_pay);
 				$(".wait-pay-li").text(data.wait_pay);
-				$(".complete-pay-li").text(data.pay);
+				$(".complete-money-li").text(data.pay);
 				}
 		
 			});

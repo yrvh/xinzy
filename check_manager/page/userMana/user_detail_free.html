@@ -50,7 +50,7 @@
 		.info-title { line-height: 50px; font-weight: 800; font-size: 17px;}
 		
 		.com-license,.corp-email,.account-num,.comfree-contract,
-		.per-IDcardImg,.account-num,.income-scope,.taxes-type,.taxes-added,
+		.per-idcardimg,.account-num,.income-scope,.taxes-type,.taxes-added,
 		.taxes-income,.com-range,.com-license,.account-num{border: none !important;}
 		
 		.row{ background-color: #ddd;}
@@ -64,7 +64,7 @@
 			<div class="select-btn">下一页</div>
 	</header>
 	<div class="the-place"></div>
-	<div class="com-status">注册状态: <span class="status-li"></span></div>
+	<div class="com-status">【注册状态】 <span class="status-li"></span></div>
 	
 	
 	<!-- 个人信息 -->
@@ -95,10 +95,10 @@
 					<span class="per-IDcard-li"></span>
 				</div>
 			</li>
-			<li class="per-IDcardImg">
+			<li class="per-idcardimg">
 				<span>证件照片</span>
 				<div>
-					<span class="per-IDcardImg-li"></span>
+					<span class="per-idcardimg-li"></span>
 					<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
@@ -173,12 +173,21 @@
 <script type="text/javascript">
 	mui.init()
 	
-	// 返回
+	// 返回=======================
 	$(".back").click(() => {
+		backActive()
+		mui.back()
+	});
+	// 监听物理返回  按键
+	mui.back = function(){
+	　backActive()
+	}
+	// 返回之前要执行的操作 函数
+	function backActive() {
 		sessionStorage.removeItem("detailId")
 		sessionStorage.removeItem("detailType")
-	  mui.back();
-	});
+	}
+	
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
@@ -187,8 +196,7 @@
 	// 获取用户id和用户类型
 	let detailId = sessionStorage.getItem("detailId")
 	let detailType = sessionStorage.getItem("detailType")
-	console.log(detailId)
-	console.log(detailType)
+	
 	
 	// 控制显示哪个页面 1业者  11伙伴
 	if(detailType==1){
@@ -215,11 +223,10 @@
 						"pass_app": pass_app,
 						"tel_app": tel_app,
 						"code_app": code_app,
-						"userid": detailId
+						"id": detailId
 				},
 				//请求成功
 				success: function(data) {
-						console.log("响应了")
 						console.log(JSON.stringify(data));
 						layer.close(index);
 						if (data.result == 0) {
@@ -231,22 +238,38 @@
 								}
 						} 
 						else {
-							// 保存一下 数据值,
-							sessionStorage.setItem("data_sh",data)
-							
 							$(".status-li").text(data.regState)
 							$(".per-name-li").text(data.realname)
 							$(".per-tel-li").text(data.tel)
 							$(".per-email-li").text(data.email)
 							$(".per-IDcard-li").text(data.idcard)
-							$(".per-IDCardImg-li").text("证件照片")
+							if(data.cardupurl!=undefined && data.cardupurl!=''&&data.carddownurl!=undefined && data.carddownurl!='') {
+								$(".per-idcardimg-li").text("已上传")
+								// 点击个人 身份证 跳到详细信息页
+								$(".per-idcardimg").click(() => {
+									sessionStorage.setItem("cardType","free")
+									sessionStorage.setItem("freecard1",data.cardupurl)
+									sessionStorage.setItem("freecard2",data.carddownurl)
+									location.href = "./idCardPt.html";
+								})
+							}
+							else { $(".per-idcardimg-li").text("未上传") }
 							
 							$(".account-bank-li").text(data.khh_sr)
 							$(".account-name-li").text(data.kh_name_sr)
 							$(".account-num-li").text(data.code_sr)
 							$(".income-scope-li").text(data.monthsy)
 							$(".taxes-type-li").text(data.hyname)
-							$(".added span").text(data.zzsjntype)
+							if(data.zzsjntype==1){
+								$(".added span").text("按月")
+							}
+							else if(data.zzsjntype==2){
+								$(".added span").text("按季")
+							}
+							else{
+								$(".added span").text("按年")
+							}
+							
 							$(".taxes-added-li").text(data.zzshdde)
 							$(".taxes-income-li").text(data.gshdde)
 						}
@@ -269,7 +292,7 @@
 	
 	// 点击 下一页
 	$(".select-btn").click(() => {
-		location.href = "./user_detail_com2.html"
+		location.href = "./user_detail_free2.html"
 	})
 	
 </script>

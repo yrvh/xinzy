@@ -154,6 +154,27 @@
 <script src="../../../js/urlDns.js"></script>
 
 <script type="text/javascript">
+	// 返回=======================
+	$(".back").click(() => {
+		backActive()
+		mui.back()
+	});
+	// 监听物理返回  按键
+	mui.back = function(){
+	　backActive()
+	}
+	// 返回之前要执行的操作 函数
+	function backActive() {
+		sessionStorage.removeItem("corpcard1")
+		sessionStorage.removeItem("corpcard2")
+		sessionStorage.removeItem("agentcard1")
+		sessionStorage.removeItem("agentcard2")
+		sessionStorage.removeItem("freecard1")
+		sessionStorage.removeItem("freecard2")
+		sessionStorage.removeItem("licenseurl")
+	}
+	
+	
 	// 获得是 法人还是联系人
 	let cardType = sessionStorage.getItem("cardType")
 	let src1 = ''
@@ -165,6 +186,12 @@
 	if(cardType=='agent') {
 		src1 = sessionStorage.getItem('agentcard1');
 		src2 = sessionStorage.getItem('agentcard2');
+	}
+	if(cardType=='free') {
+		src1 = sessionStorage.getItem('freecard1');
+		src2 = sessionStorage.getItem('freecard2');
+		// console.log(src1)
+		// console.log(src2)
 	}
 	if(cardType=='license') {
 		src1 = sessionStorage.getItem('licenseurl');
@@ -202,14 +229,7 @@
 	//     // }, false);
 	// }
 	
-	// 返回
-	$(".back").click(() => {
-		sessionStorage.removeItem("corpcard1")
-		sessionStorage.removeItem("corpcard2")
-		sessionStorage.removeItem("agentcard1")
-		sessionStorage.removeItem("agentcard2")
-		history.back();
-	});
+
 	
 	
 	// 确定按钮

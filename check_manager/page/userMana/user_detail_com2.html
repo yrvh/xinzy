@@ -130,8 +130,18 @@
 <script type="text/javascript">
 	mui.init()
 	
-	// 返回
+
+	// 返回=======================
 	$(".back").click(() => {
+		backActive()
+		mui.back()
+	});
+	// 监听物理返回  按键
+	mui.back = function(){
+	　backActive()
+	}
+	// 返回之前要执行的操作 函数
+	function backActive() {
 		sessionStorage.removeItem("kh_name_sr")
 		sessionStorage.removeItem("khh_sr")
 		sessionStorage.removeItem("code_sr")
@@ -142,8 +152,7 @@
 		sessionStorage.removeItem("khh_dg")
 		sessionStorage.removeItem("code_dg")
 		sessionStorage.removeItem("id_dg")
-			mui.back();
-	});
+	}
 	
 	// 获得传递过来的数据
 	let ishave_yhcard_dg = sessionStorage.getItem("ishave_yhcard_dg")

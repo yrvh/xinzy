@@ -53,6 +53,7 @@
 		.per-IDcardImg,.account-num,.income-scope,.taxes-type,.taxes-added,
 		.taxes-income,.com-range,.com-license,.account-num{border: none !important;}
 		
+		.con-dialog { width: 200px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
 	</style>
 </head>
 
@@ -85,15 +86,16 @@
 			<li class="com-name">
 				<span>商户名称</span>
 				<div>
-					<span class="com-name-li"></span>
+					<span class="com-name-li con-dialog" id="name-dialog"></span>
+					<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
-			<li class="com-type">
+			<!-- <li class="com-type">
 				<span>类型</span>
 				<div>
 					<span class="com-type-li"></span>
 				</div>
-			</li>
+			</li> -->
 			<li class="com-date">
 				<span>注册日期</span>
 				<div>
@@ -103,7 +105,7 @@
 			<li class="com-range">
 				<span>经营范围</span>
 				<div>
-					<span class="com-range-li"></span>
+					<span class="com-range-li con-dialog" id="range-dialog"></span>
 					<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
@@ -113,13 +115,15 @@
 			<li class="com-address">
 				<span>登记地址</span>
 				<div>
-					<span class="com-address-li"></span>
+					<span class="com-address-li con-dialog" id="address-dialog"></span>
+					<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
 			<li class="com-organ">
 				<span>登记机关</span>
 				<div>
-					<span class="com-organ-li"></span>
+					<span class="com-organ-li con-dialog" id="organ-dialog"></span>
+					<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
 			<li class="com-issue">
@@ -169,12 +173,21 @@
 <script type="text/javascript">
 	mui.init()
 	
-	// 返回
+	// 返回=======================
 	$(".back").click(() => {
-	    mui.back();
-			sessionStorage.removeItem("detailId")
-			sessionStorage.removeItem("detailType")
+		// backActive()
+		mui.back()
 	});
+	// 监听物理返回  按键
+	mui.back = function(){
+	// 　backActive()
+	}
+	// 返回之前要执行的操作 函数
+	// function backActive() {
+	// 	sessionStorage.removeItem("detailId")
+	// 	sessionStorage.removeItem("detailType")
+	// }
+	
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
@@ -183,22 +196,102 @@
 	// 获取用户id和用户类型
 	let detailId = sessionStorage.getItem("detailId")
 	let detailType = sessionStorage.getItem("detailType")
-	let data = sessionStorage.getItem("data_sh")
+	console.log(detailId)
+	console.log(detailType)
+	// 控制显示哪个页面 1业者  11伙伴
+	if(detailType==1){
+		getDetail(1)
+	}
+	if(detailType==11){
+		getDetail(11)
+	}
+	// 定义请求详情的函数
+	function getDetail(uType) {
+		var index = layer.load(1, {
+				// 数组中第一个参数是button的透明度
+				// 第二个是背景颜色
+				shade: [0.3, "white"]
+		});
+		var getData = $.ajax({
+				url: urlDns + "/control_app/ms/fr/yz/showUI",
+				type: 'post',
+				dataType: "json",
+				timeout: 120000, //2分钟超时
+				data: {
+						"pass_app": pass_app,
+						"tel_app": tel_app,
+						"code_app": code_app,
+						"id": detailId
+				},
+				//请求成功
+				success: function(data) {
+						console.log(JSON.stringify(data));
+						layer.close(index);
+						if (data.result == 0) {
+								// 需要重新登录
+								if (window.plus) {
+										goToLogin("../../../page/register/login.html");
+								} else {
+										document.addEventListener('plusready', goToLogin, false);
+								}
+						} 
+						else {
+							//  渲染页面
+							$(".com-creditcode-li").text(data.xycode)
+							$(".com-operator-li").text(data.jyname)
+							$(".com-name-li").text(data.shname)
+							// $(".com-type-li").text("99999")
+							$(".com-date-li").text(data.regtime)
+							$(".com-range-li").text(data.businessRange)
+							$(".com-address-li").text(data.address)
+							$(".com-organ-li").text(data.registerCompany)
+							$(".com-issue-li").text(data.getCartTime)
+							$(".com-license-li").text(data.CertificUpUrl)
+							if(data.CertificUpUrl!=undefined && data.CertificUpUrl!=''){
+								$(".com-license-li").text("执照已上传")
+								// 点击营业执照跳转到  详细信息页
+								$(".com-license").click(() => {
+									sessionStorage.setItem("cardType","license")
+									sessionStorage.setItem("licenseurl",data.CertificUpUrl)
+									location.href = "./idCardPt.html";
+								})
+							}
+							else {$(".com-license-li").text("未上传")}
+							
+							$(".account-bank-li").text(data.kh_name_dg)
+							$(".account-name-li").text(data.khh_dg)
+							$(".account-num-li").text(data.code_dg)
+						}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+						layer.close(index);
+						if (textStatus == 'timeout') {
+								getData.abort();　
+								alert("请求超时");
+						}
+						if (textStatus == 'error') {
+								getData.abort();　
+								alert("请求错误" + errorThrown);
+						}
+				}
+		});
+	}
 	
-	//  渲染页面
-	$(".com-creditcode-li").text(data.xycode)
-	$(".com-operator-li").text(data.jyname)
-	$(".com-name-li").text(data.shname)
-	$(".com-type-li").text("99999")
-	$(".com-date-li").text(data.regtime)
-	$(".com-range-li").text(data.businessRange)
-	$(".com-address-li").text(data.address)
-	$(".com-organ-li").text(data.registerCompany)
-	$(".com-issue-li").text(data.getCartTime)
-	$(".com-license-li").text(data.CertificUpUrl)
-	$(".account-bank-li").text(data.kh_name_dg)
-	$(".account-name-li").text(data.khh_dg)
-	$(".account-num-li").text(data.code_dg)
+	// 点击文字过长的内容时  弹窗
+	$("#name-dialog").click(()=>{
+		// 展示详细信息
+		mui.toast($("#name-dialog").html(),{ duration:'6000', type:'div' })
+	})
+	$("#range-dialog").click(()=>{
+		mui.toast($("#range-dialog").html(),{ duration:'9000', type:'div' })
+	})
+	$("#address-dialog").click(()=>{
+		mui.toast($("#address-dialog").html(),{ duration:'6000', type:'div' })
+	})
+	$("#organ-dialog").click(()=>{
+		mui.toast($("#organ-dialog").html(),{ duration:'6000', type:'div' })
+	})
+
 
 	// 点击 下一页
 	$(".select-btn").click(() => {

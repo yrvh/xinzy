@@ -121,11 +121,19 @@
 	<script src="../../../js/urlDns.js"></script>
 	
 	<script type="text/javascript">
-		// 返回
+		// 返回=======================
 		$(".back").click(() => {
-			sessionStorage.removeItem("income_status");
-			history.back();
+			backActive()
+			mui.back()
 		});
+		// 监听物理返回  按键
+		mui.back = function(){
+		　backActive()
+		}
+		// 返回之前要执行的操作 函数
+		function backActive() {
+			sessionStorage.removeItem("income_status");
+		}
 		
 		var pass_app = localStorage.getItem("pass_app");
 		var tel_app = localStorage.getItem("tel_app");

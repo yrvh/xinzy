@@ -98,7 +98,7 @@
 		}
 
 		.amount {
-			display: none;
+			/* display: none; */
 			height: 30px;
 			line-height: 30px;
 			font-size: 12px;
@@ -546,10 +546,20 @@
 
 <script type="text/javascript">
 	mui.init();
-	// 返回
+	// 返回=======================
 	$(".back").click(() => {
-		history.back();
+		// backActive()
+		mui.back()
 	});
+	// 监听物理返回  按键
+	mui.back = function(){
+	// 　backActive()
+	}
+	// 返回之前要执行的操作 函数
+	function backActive() {
+		// sessionStorage.removeItem("addtype");
+		// sessionStorage.removeItem("income_status");
+	}
 
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
@@ -562,7 +572,6 @@
 	
 	// 渲染标题
 	if(addtype==1) {
-		$(".amount").css("display","none")
 		$(".selectFreeType").css("display","flex")
 		if (income_status == 7) {
 			$("header span").text("待主管审核");
@@ -609,7 +618,6 @@
 		}
 	}
 	if(addtype==2) {
-		$(".amount").css("display","block")
 		$(".selectFreeType").css("display","none")
 		if (income_status == 1) {
 			$("header span").text("待主管审核");
@@ -635,7 +643,6 @@
 		}
 	}
 	if(addtype==11) {
-		$(".amount").css("display","none")
 		$(".selectFreeType").css("display","none")
 		if (income_status == 7) {
 			$("header span").text("待主管审核");
@@ -679,6 +686,7 @@
 	getInfoList()   //调用函数初始化 界面上要展示的数据列表 
 	
 	function getInfoList(name='',sfid='',yztype=2,hhrid='',yxyid='',ywyid='') {
+		// console.log(page)
 		// 请求数据
 		mui.post(urlDns + "/control_app/ms/fr/user/list", {
 			usertype: addtype,
@@ -709,31 +717,65 @@
 				} else {
 					document.addEventListener('plusready', goToLogin, false);
 				}
-			} else {
-				$(".list").html('');   // 发起请求之前,先清空页面
-				var htmlStr = "";
+			} 
+			else {
+				if(page==1){ $(".list").html(''); }   // 发起请求之前,先清空页面
+				let htmlStr = ""
 				for (let i = 0; i < data.rows.length; i++) {
-					htmlStr +=`
-						<div>
-								<input class="select" name="hh" value="beihai" type="checkbox">
-								<div class="comTime">
-										<span class="comName">${data.rows[i].name}</span>
-										<div class="href" detailId="${data.rows[i].id}">
-												<span class="time">${data.rows[i].tel}</span>
-												<img src="../../../img/next.png" alt="">
-										</div>
-								</div>
-								<div class="amount">
-										<span>${data.rows[i].comname}</span>
-										<span></span>
-								</div>
-						</div>
-					`;
+					if(addtype==2){
+						htmlStr +=`
+							<div>
+									<input class="select" name="hh" value="beihai" type="checkbox">
+									<div class="comTime">
+											<span class="comName">${data.rows[i].name}</span>
+											<div class="href" detailId="${data.rows[i].id}">
+													<span class="time">${data.rows[i].tel}</span>
+													<img src="../../../img/next.png" alt="">
+											</div>
+									</div>
+									<div class="amount">
+											<span>${data.rows[i].comname}</span>
+											<span></span>
+									</div>
+							</div>
+						`;
+					}
+					else{
+						htmlStr +=`
+							<div>
+									<input class="select" name="hh" value="beihai" type="checkbox">
+									<div class="comTime">
+											<span class="comName">${data.rows[i].name}</span>
+											<div class="href" detailId="${data.rows[i].id}">
+													<span class="time">${data.rows[i].tel}</span>
+													<img src="../../../img/next.png" alt="">
+											</div>
+									</div>
+							</div>
+						`;
+					}
 				}
-				$(".list").html(htmlStr);
+				$(".list").append(htmlStr);
 			}
 		});
 	}
+	
+	// ======================加载下一页===================================================
+	$(window).scroll(function() {
+		if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+			// 获取各个 参数
+			let name_pull = $(".searchCont").val() || ''
+			let sf_pull = $(".selectComName").attr('uid') || ''
+			let yz_pull = $(".selectFreeTypeLi").attr('uid') || ''
+			let coop_pull = $(".selectCoopName").attr('uid') || ''
+			let sell_pull = $(".selectSellName").attr('uid') || ''
+			let clerk_pull = $(".selectClerkName").attr('uid') || ''
+			page = page + 1;
+			// 发起ajax请求
+			getInfoList(name_pull,sf_pull,yz_pull,coop_pull,sell_pull,clerk_pull)
+			
+		}
+	});
 	
 	
 	// 展开/收起过滤条件
@@ -758,6 +800,7 @@
 
 	// 点击搜索时发起请求
 	$(".search").click(() => {
+		page = 1
 		let name = $(".searchCont").val()
 		getInfoList(name)
 	})
@@ -801,7 +844,7 @@
 
 	// 点击确定
 	$(".ok").click(() => {
-
+		page=1
 		// 获取各个角色, 人的uid
 		let sf = $(".selectComName").attr('uid') || ''
 		let yz = $(".selectFreeTypeLi").attr('uid') || ''
@@ -810,7 +853,7 @@
 		let clerk = $(".selectClerkName").attr('uid') || ''
 
 		// 清空搜索框
-		// $(".searchCont").val('')
+		$(".searchCont").val('')
 		// 发起ajax请求
 		getInfoList('',sf,yz,coop,sell,clerk)
 		// 隐藏筛选框
@@ -1087,71 +1130,6 @@
 			$(".selectClerkName").attr("uid", selectItems[0].value);
 		})
 	}
-	
-	// =========================================================================
-
-
-
-	// 加载下一页
-	$(window).scroll(function() {
-		if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-			page = page + 1;
-			// console.log(page)
-			$.post(urlDns + "/control_app/ms/fr_zg/zf/list", {
-				// 状态  待提交0
-				income_status: income_status,
-				// 第几页
-				page: page,
-				// 一页的条数
-				rows: 20,
-				// 搜索框的内容
-				tel: "",
-				// 过滤条件的开始时间和结束时间
-				startdate: "",
-				enddate: "",
-				// 过滤条件的发票抬头
-				comid: "",
-				pass_app: pass_app,
-				tel_app: tel_app,
-				code_app: code_app
-			}, function(data) {
-				console.log(JSON.stringify(data));
-				if (data.result == 0) {
-					// 需要重新登录
-					if (window.plus) {
-						goToLogin("../../../page/register/login.html");
-					} else {
-						document.addEventListener('plusready', goToLogin, false);
-					}
-				} 
-				else {
-					if (data.rows.length > 0) {
-						var htmlStr = "";
-						for (var i = 0; i < data.rows.length; i++) {
-							htmlStr +=
-								`
-								<div class="${data.rows[i].id}">
-										<input class="select" name="hh" value="beihai" type="checkbox">
-										<div class="comTime">
-												<span class="comName">${data.rows[i].name}</span>
-												<div class="href" detailId="${data.rows[i].id}">
-														<span class="time">${data.rows[i].details}</span>
-														<img src="../../../img/next.png" alt="">
-												</div>
-										</div>
-										<div class="amount">
-												<span>${data.rows[i].icon}</span>
-												<span>${data.rows[i].tel}</span>
-										</div>
-								</div>
-								`;
-						}
-						$(".list").append(htmlStr);
-					}
-				}
-			});
-		}
-	});
 	
 	// 点击选择按钮
 	let flag = false;

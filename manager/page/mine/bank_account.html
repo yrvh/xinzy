@@ -100,6 +100,8 @@
 <script src="../../../js/layer/layer.js"></script>
 
 <script type="text/javascript">
+	mui.init()
+	
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
@@ -108,7 +110,7 @@
 	
 	// 返回
 	$(".back").click(() => {
-	    history.back();
+	    mui.back();
 	});
 	
 	// 获取银行卡信息的id

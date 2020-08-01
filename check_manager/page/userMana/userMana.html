@@ -81,7 +81,7 @@
 		
 		
 		<!-- 单位 -->
-		<ul class="company-ul">
+		<ul class="-ul">
 			<li class="wait-check">
 				<span>待主管审核 <span class="mybadge mui-badge mui-badge-danger"></span></span>
 				<div>
@@ -322,12 +322,21 @@
 <script src="../../../js/urlDns.js"></script>
 
 <script type="text/javascript">
-	// 返回
+	// 返回=======================
 	$(".back").click(() => {
+		backActive()
+		mui.back()
+	});
+	// 监听物理返回  按键
+	mui.back = function(){
+	　backActive()
+	}
+	// 返回之前要执行的操作 函数
+	function backActive() {
 		sessionStorage.removeItem("addtype");
 		sessionStorage.removeItem("income_status");
-		history.back();
-	});
+	}
+	
 	
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
@@ -612,14 +621,14 @@
 				}
 			} 
 			else {
-				if(data.wait_pay > 0) {
-					$(".mybadge").css("display","inline-block")
-					$(".mybadge").text(data.wait_pay)
-				}
-				else { $(".mybadge").css("display","none") }
-					
 				// 单位用户
 				if(enterType == '2') {
+					if(data.dw_1 > 0) {
+						$(".company-ul .mybadge").css("display","inline-block")
+						$(".company-ul .mybadge").text(data.dw_1)
+					}
+					else { $(".company-ul .mybadge").css("display","none") }
+					
 					$(".company-ul .wait-check-li").text(data.dw_1);
 					$(".company-ul .complete-data-li").text(data.dw_3);
 					$(".company-ul .wait-company-li").text(data.dw_2);
@@ -632,6 +641,12 @@
 							
 				// 业者用户
 				if(enterType == '1') {
+					if(data.yz_7 > 0) {
+						$(".free-ul .mybadge").css("display","inline-block")
+						$(".free-ul .mybadge").text(data.yz_7)
+					}
+					else { $(".free-ul .mybadge").css("display","none") }
+					
 					$(".free-ul .wait-check-li").text(data.yz_7);
 					$(".free-ul .complete-data-li").text(data.yz_3);
 					$(".free-ul .wait-data-li").text(data.yz_4);
@@ -650,6 +665,12 @@
 				
 				// 合作伙伴
 				if(enterType == '11') {
+					if(data.hhr_7 > 0) {
+						$(".coop-ul .mybadge").css("display","inline-block")
+						$(".coop-ul .mybadge").text(data.hhr_7)
+					}
+					else { $(".coop-ul .mybadge").css("display","none") }
+					
 					$(".coop-ul .wait-check-li").text(data.hhr_7);
 					$(".coop-ul .complete-data-li").text(data.hhr_3);
 					$(".coop-ul .wait-data-li").text(data.hhr_4);

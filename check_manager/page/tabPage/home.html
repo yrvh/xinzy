@@ -115,31 +115,93 @@
 	})
 	
 	
+	$.ajaxSettings.async = false;   // 取消ajax的异步请求,, 让协议加载完成之后再做监听
+	
 	// 获取用户管理中, 有多少条是 待审核
-	// $(function() {
-	// 	$.post(urlDns + "/control_app/ms/fr/user/main", {
-	// 			pass_app: pass_app,
-	// 			tel_app: tel_app,
-	// 			code_app: code_app
-	// 	}, function(data) {
-	// 		// console.log(JSON.stringify(data));
-	// 		if (data.result == 0) {
-	// 				// 需要重新登录
-	// 				if (window.plus) {
-	// 						goToLogin("../../../page/register/login.html");
-	// 				} else {
-	// 						document.addEventListener('plusready', goToLogin, false);
-	// 				}
-	// 		} 
-	// 		else {
-	// 			if(data.res_size > 0){
-	// 				$(".user_mana .mybadge").css("display","block")
-	// 				$(".user_mana .mybadge").text(data.nosend)
-	// 			}
-	// 			else { $(".user_mana .mybadge").css("display","none") }
-	// 		}
-	// 	});
-	// })
+	let user_mana_badge = 0
+
+	$(function userManaBadge() {
+		mui.post(urlDns + "/control_app/ms/fr/user/main",{
+		    // 2.有单位  1.业者用户  11.合作伙伴
+		    tel_app:tel_app,
+		    pass_app:pass_app,
+		    code_app:code_app,
+				usertype: 2
+		}, function(data) {
+			// console.log(JSON.stringify(data));
+			if (data.result == 0) {
+				// 需要重新登录
+				if (window.plus) {
+					goToLogin("../../../page/register/login.html");
+				} 
+				else {
+					document.addEventListener('plusready', goToLogin, false);
+				}
+			} 
+			else {
+				user_mana_badge += data.dw_1   // 单位的数据累加进来
+				
+				// 请求业者的  待审核数据
+				mui.post(urlDns + "/control_app/ms/fr/user/main",{
+				    // 2.有单位  1.业者用户  11.合作伙伴
+				    tel_app:tel_app,
+				    pass_app:pass_app,
+				    code_app:code_app,
+						usertype: 1
+				}, function(data) {
+					// console.log(JSON.stringify(data));
+					if (data.result == 0) {
+						// 需要重新登录
+						if (window.plus) {
+							goToLogin("../../../page/register/login.html");
+						} 
+						else {
+							document.addEventListener('plusready', goToLogin, false);
+						}
+					} 
+					else {
+						user_mana_badge += data.yz_7   // 业者的数据累加进来
+						
+						// 请求合伙人  数据
+						mui.post(urlDns + "/control_app/ms/fr/user/main",{
+						    // 2.有单位  1.业者用户  11.合作伙伴
+						    tel_app:tel_app,
+						    pass_app:pass_app,
+						    code_app:code_app,
+								usertype: 11
+						}, function(data) {
+							// console.log(JSON.stringify(data));
+							if (data.result == 0) {
+								// 需要重新登录
+								if (window.plus) {
+									goToLogin("../../../page/register/login.html");
+								} 
+								else {
+									document.addEventListener('plusready', goToLogin, false);
+								}
+							} 
+							else {
+								user_mana_badge += data.hhr_7   // 合伙人的数据累加进来
+								
+								// 渲染
+								if(user_mana_badge>0){
+										$(".user_mana .mybadge").css("display","block")
+										$(".user_mana .mybadge").text(user_mana_badge)
+									}
+								else { $(".user_mana .mybadge").css("display","none") }
+							}
+						});	 
+					}
+					
+				});	
+			}
+			
+		});
+		
+		
+
+	})
+	
 	
 	// 获取收入管理中,  待支付的数量
 	$(function() {
@@ -158,12 +220,11 @@
 					}
 			} 
 			else {
-				console.log(data.wait_pay)
 				if(data.wait_pay > 0) {
-					$(".income .mybadge").css("display","block")
-					$(".income .mybadge").text(data.wait_pay)
+					$(".income_mana .mybadge").css("display","block")
+					$(".income_mana .mybadge").text(data.wait_pay)
 				}
-				else { $(".income .mybadge").css("display","none") }
+				else { $(".income_mana .mybadge").css("display","none") }
 			}
 		});
 	})
@@ -185,12 +246,11 @@
 					}
 			} 
 			else {
-				console.log(data.wait_check)
 				if(data.wait_check > 0) {
-					$(".income .mybadge").css("display","block")
-					$(".income .mybadge").text(data.wait_check)
+					$(".taxes_check .mybadge").css("display","block")
+					$(".taxes_check .mybadge").text(data.wait_check)
 				}
-				else { $(".income .mybadge").css("display","none") }
+				else { $(".taxes_check .mybadge").css("display","none") }
 			}
 		});
 	})

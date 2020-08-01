@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="../../../css/mui.min.css">
 	<link rel="stylesheet" href="../../../css/mui.picker.min.css">
 	<script src="../../../js/mui.picker.min.js"></script>
-	<title>审核主管--收入管理--列表页</title>
+	<title>单位--支付管理--列表页</title>
 
 	<style type="text/css">
 		body {
@@ -288,11 +288,18 @@
 		#endDate {
 			color: #666666;
 		}
-
+		
+		.selectStatus { display: none; }
 		.free-com {
-			width: 92%;
-			margin: 0 auto;
-			display: flex;
+			position: fixed;
+			top: 88px;
+			left: 0;
+			z-index: 50;
+			background-color: #FFF;
+			height: 44px;
+			width: 100%;
+			padding: 0 15px;
+			/* display: flex; */
 			justify-content: space-between;
 			align-items: center;
 			height: 44px;
@@ -354,7 +361,7 @@
 		.noneParamBg {
 			/* background-color: #009F95; */
 			width: 100%;
-			height: calc(100vh - 480px);
+			height: calc(100vh - 222px);
 			position: absolute;
 			bottom: 0;
 			left: 0;
@@ -444,7 +451,16 @@
 		</div>
 		<div class="search">搜索</div>
 	</div>
-
+	
+	<!-- 录入状态 -->
+	<div class="selectStatus free-com">
+		<span>录入状态</span>
+		<div>
+			<span class="selectStatusLi">已录入</span>
+			<img src="../../../img/next.png" alt="">
+		</div>
+	</div>
+	
 	<!-- 筛选条件按钮 -->
 	<div class="filterBox">
 		<div>
@@ -455,55 +471,7 @@
 	</div>
 	<!-- 帅选条件 内容展示 -->
 	<div class="filterParamBg">
-		<div class="filterParam">
-			<div class="selectFreeType free-com">
-				<span>业者类型</span>
-				<div>
-					<span class="selectFreeTypeLi">全部</span>
-					<img src="../../../img/next.png" alt="">
-				</div>
-			</div>
-			
-			<div class="selectCom free-com">
-				<span>接受服务单位</span>
-				<div>
-					<span class="selectComName"></span>
-					<img src="../../../img/next.png" alt="">
-				</div>
-			</div>
-			
-			<div class="selectFree free-com">
-				<span>业者姓名</span>
-				<div>
-					<span class="selectFreeName"></span>
-					<img src="../../../img/next.png" alt="">
-				</div>
-			</div>
-			
-			<div class="selectCoop free-com">
-				<span>合作伙伴</span>
-				<div>
-					<span class="selectCoopName"></span>
-					<img src="../../../img/next.png" alt="">
-				</div>
-			</div>
-			
-			<div class="selectSell free-com">
-				<span>营销员</span>
-				<div>
-					<span class="selectSellName"></span>
-					<img src="../../../img/next.png" alt="">
-				</div>
-			</div>
-			
-			<div class="selectClerk free-com">
-				<span>业务员</span>
-				<div>
-					<span class="selectClerkName"></span>
-					<img src="../../../img/next.png" alt="">
-				</div>
-			</div>
-			
+		<div class="filterParam">			
 			<div class="selectTime">
 				<span>服务周期</span>
 				<div class="timeBox">
@@ -559,26 +527,35 @@
 	
 	// 渲染标题
 	if (income_status == 1) {
+		$("header span").text("待提交");
+		$(".select-btn").css("display","block")
+		$(".filterBox").css("display","none")
+		$(".selectStatus").css("display","flex")
+	}
+	if (income_status == 2) {
 		$("header span").text("待业者确认");
 	}
 	if (income_status == 3) {
-		$("header span").text("业者审核未通过");
+		$("header span").text("业者退回");
+		$(".select-btn").css("display","block")
+		$(".filterBox").css("display","none")
 	}
-	if (income_status == 2) {
-		$("header span").text("等待秘书公司确认");
+	if (income_status == 4) {
+		$("header span").text("待秘书公司审核");
 	}
 	if (income_status == 5) {
-		$("header span").text("商秘公司审核未通过");
+		$("header span").text("秘书公司退回");
+		$(".select-btn").css("display","block")
+		$(".filterBox").css("display","none")
 	}
 	if (income_status == 6) {
-		$("header span").text("等待业务员发起支付");
+		$("header span").text("待发起支付");
 	}
 	if (income_status == 7) {
 		$("header span").text("待支付");
-		$(".select-btn").css("display","block")
 	}
 	if (income_status == 8) {
-		$("header span").text("已支付");
+		$("header span").text("用户已收款");
 	}
 
 	
@@ -587,7 +564,7 @@
 	
 	getInfoList()   //调用函数初始化 界面上要展示的数据列表 
 	
-	function getInfoList(name='',startdate='',enddate='',sfid='',yztype=2,yzid=0,hhrid='',yxyid='',ywyid='') {
+	function getInfoList(name='',startdate='',enddate='',wStatus='') {
 
 		// 请求数据
 		mui.post(urlDns + "/control_app/ms/fr_zg/zf/list", {
@@ -601,15 +578,9 @@
 			name,
 			// 过滤条件的开始时间和结束时间
 			startdate,
-			enddate,		
-			// 过滤条件的单位ID
-			sfid,
-			// 过滤条件的业者ID
-			yzid,
-			hhrid,
-			yxyid,
-			ywyid,
-			yztype,
+			enddate,	
+			// 录入状态
+			wStatus,
 			pass_app: pass_app,
 			tel_app: tel_app,
 			code_app: code_app
@@ -751,20 +722,10 @@
 	$(".reset").click(() => {
 		year = new Date().getFullYear();
 		month = new Date().getMonth() + 1;
-		// 清空文字
-		$(".selectFreeTypeLi").text("全部")
-		$(".selectComName").text("");
-		$(".selectFreeName").text("");
-		$(".selectCoopName").text("")
-		$(".selectSellName").text("")
-		$(".selectClerkName").text("")
-		// 清空uid
-		$(".selectFreeTypeLi").attr("uid","2")
-		$(".selectComName").attr("uid","")
-		$(".selectFreeName").attr("uid","")
-		$(".selectCoopName").attr("uid","")
-		$(".selectSellName").attr("uid","")
-		$(".selectClerkName").attr("uid","")
+		// 重置文字
+		$(".selectStatusLi").text("已录入")
+		// 重置uid
+		$(".selectStatusLi").attr("uid","1")
 		
 		$("#startDate").text(year + "-" + format(month));
 		$("#endDate").text(year + "-" + format(month));
@@ -775,13 +736,6 @@
 		//  获取开始结束时间
 		let s = $("#startDate").text()
 		let e = $("#endDate").text()
-		// 获取各个角色, 人的uid
-		let sf = $(".selectComName").attr('uid') || ''
-		let yztype = $(".selectFreeTypeLi").attr('uid') || ''
-		let yz = $(".selectFreeName").attr('uid') || ''
-		let coop = $(".selectCoopName").attr('uid') || ''
-		let sell = $(".selectSellName").attr('uid') || ''
-		let clerk = $(".selectClerkName").attr('uid') || ''
 		
 		let start = s.replace('-','')   // 用于条件判断时间先后
 		let end = e.replace('-','')   // 用于条件判断时间先后
@@ -810,261 +764,24 @@
 	});
 	
 	
-	// ================================================================
-	
-	let freeTypeArr =[   // 该数组存放 业者类型  2 全部,0 有单位,  1 无单位
-		{"value":2,"text":"全部"},
-		{"value":0,"text":"有单位"},
-		{"value":1,"text":"无单位"},
+	// =========================================================================
+	let freeTypeArr =[   // 该数组存放 录入状态 0未录入  1已录入
+		{"value":0,"text":"未录入"},
+		{"value":1,"text":"已录入"},
 		] 
 	
-	let comArr = [];   // 该数组存放请求回来的 所有单位
-	$.get(urlDns + "/control_app/ms/fr_zg/zf/get_sfData", {
-		pass_app: pass_app,
-		tel_app: tel_app,
-		code_app: code_app
-	}, function(data) {
-		// console.log(JSON.stringify(data));
-		if (data.result == 0) {
-			// 需要重新登录
-			if (window.plus) {
-				goToLogin("../../../page/register/login.html");
-			} else {
-				document.addEventListener('plusready', goToLogin, false);
-			}
-		} 
-		else {
-			for (let i = 0; i < data.rows.length; i++) {
-				comArr.push({
-					"value": data.rows[i].id,
-					"text": data.rows[i].name
-				});
-			}
-			// console.log(JSON.stringify(comArr))
-		}
-	});
-
-	let freeArr   // 该数组存放请求回来的 所有业者
-	getFreeArr()
-	function getFreeArr(id=0,islr=2) {
-		freeArr = []
-		// console.log("执行了获得业者列表的函数:"+ uid)
-		$.get(urlDns + "/control_app/ms/fr_zg/zf/get_yzData", {
-			pass_app: pass_app,
-			tel_app: tel_app,
-			code_app: code_app,
-			sfid: id,
-			islr
-		}, function(data) {
-			// console.log(JSON.stringify(data));
-			if (data.result == 0) {
-				// 需要重新登录
-				if (window.plus) {
-					goToLogin("../../../page/register/login.html");
-				} else {
-					document.addEventListener('plusready', goToLogin, false);
-				}
-			} 
-			else {
-				for (let i = 0; i < data.rows.length; i++) {
-					freeArr.push({
-						"value": data.rows[i].id,
-						"text": data.rows[i].name
-					});
-				}
-				// console.log(JSON.stringify(freeArr))
-			}
-		});
-	}
+	// 点击 录入状态
+	$(".selectStatus").on("click", selectStatus);
 	
-	let coopArr   // 该数组存放请求回来的 合作伙伴
-	getCoopArr()
-	function getCoopArr() {
-		coopArr = []
-		$.get(urlDns + "/control_app/ms/fr_zg/zf/get_hhrData", {
-			pass_app: pass_app,
-			tel_app: tel_app,
-			code_app: code_app
-		}, function(data) {
-			// console.log(JSON.stringify(data));
-			if (data.result == 0) {
-				// 需要重新登录
-				if (window.plus) {
-					goToLogin("../../../page/register/login.html");
-				} else {
-					document.addEventListener('plusready', goToLogin, false);
-				}
-			} 
-			else {
-				for (let i = 0; i < data.rows.length; i++) {
-					coopArr.push({
-						"value": data.rows[i].id,
-						"text": data.rows[i].name
-					});
-				}
-				// console.log(JSON.stringify(coopArr))
-			}
-		});
-	}
-	
-	let sellArr   // 该数组存放请求回来的 营销员
-	getSellArr()
-	function getSellArr() {
-		sellArr = []
-		$.get(urlDns + "/control_app/ms/fr_zg/zf/get_yxyData", {
-			pass_app: pass_app,
-			tel_app: tel_app,
-			code_app: code_app
-		}, function(data) {
-			// console.log(JSON.stringify(data));
-			if (data.result == 0) {
-				// 需要重新登录
-				if (window.plus) {
-					goToLogin("../../../page/register/login.html");
-				} else {
-					document.addEventListener('plusready', goToLogin, false);
-				}
-			} 
-			else {
-				for (let i = 0; i < data.rows.length; i++) {
-					sellArr.push({
-						"value": data.rows[i].id,
-						"text": data.rows[i].name
-					});
-				}
-				// console.log(JSON.stringify(sellArr))
-			}
-		});
-	}
-	
-	let clerkArr   // 该数组存放请求回来的 业务员
-	getClerkArr()
-	function getClerkArr() {
-		clerkArr = []
-		$.get(urlDns + "/control_app/ms/fr_zg/zf/get_ywyData", {
-			pass_app: pass_app,
-			tel_app: tel_app,
-			code_app: code_app
-		}, function(data) {
-			if (data.result == 0) {
-				// 需要重新登录
-				if (window.plus) {
-					goToLogin("../../../page/register/login.html");
-				} else {
-					document.addEventListener('plusready', goToLogin, false);
-				}
-			} 
-			else {
-				for (let i = 0; i < data.rows.length; i++) {
-					clerkArr.push({
-						"value": data.rows[i].id,
-						"text": data.rows[i].name
-					});
-				}
-				// console.log(JSON.stringify(clerkArr))
-			}
-		});
-	}
-	
-	
-	
-	// 点击 业者类型
-	$(".selectFreeType").on("click", selectFreeType);
-	
-	function selectFreeType() {
+	function selectStatus() {
 		var popPicker = new mui.PopPicker();
 		popPicker.setData(freeTypeArr)
 		popPicker.show(function(selectItems) {
-			$(".selectFreeTypeLi").text(selectItems[0].text);
-			$(".selectFreeTypeLi").attr("uid", selectItems[0].value);
-			
-			let fType = $(".selectFreeTypeLi").attr("uid")
-			if(fType==2) {
-				// $(".selectFree").css("display","none")
-				$(".selectCom").css("display","none")
-				getFreeArr(0,2)
-			}
-			else if(fType==1) {
-				// $(".selectFree").css("display","flex")
-				$(".selectCom").css("display","none")
-				getFreeArr(0,1)
-			}
-			else {
-				// $(".selectFree").css("display","none")
-				$(".selectCom").css("display","flex")
-				getFreeArr(0,0)
-			}
+			$(".selectStatusLi").text(selectItems[0].text);
+			$(".selectStatusLi").attr("uid", selectItems[0].value);
 		})
 	}
-	
-	// 点击 接受服务单位
-	$(".selectCom").on("click", selectCom);
-	
-	function selectCom() {
-		var popPicker = new mui.PopPicker();
-		popPicker.setData(comArr)
-
-		popPicker.show(function(selectItems) {
-			$(".selectComName").text(selectItems[0].text);
-			$(".selectComName").attr("uid", selectItems[0].value);
-			getFreeArr($(".selectComName").attr("uid"),0)
-		})
-	}
-	
-	// 点击 业者姓名
-	$(".selectFree").on("click", selectFree);
-	
-	function selectFree() {
-		var popPicker = new mui.PopPicker();
-		popPicker.setData(freeArr)
-
-		popPicker.show(function(selectItems) {
-			$(".selectFreeName").text(selectItems[0].text);
-			$(".selectFreeName").attr("uid", selectItems[0].value);
-		})
-	}
-	
-	// 点击 合作伙伴姓名
-	$(".selectCoop").on("click", selectCoop);
-	
-	function selectCoop() {
-		var popPicker = new mui.PopPicker();
-		popPicker.setData(coopArr)
-
-		popPicker.show(function(selectItems) {
-			$(".selectCoopName").text(selectItems[0].text);
-			$(".selectCoopName").attr("uid", selectItems[0].value);
-		})
-	}
-	
-	// 点击 营销员姓名
-	$(".selectSell").on("click", selectSell);
-	
-	function selectSell() {
-		var popPicker = new mui.PopPicker();
-		popPicker.setData(sellArr)
-
-		popPicker.show(function(selectItems) {
-			$(".selectSellName").text(selectItems[0].text);
-			$(".selectSellName").attr("uid", selectItems[0].value);
-		})
-	}
-	
-	// 点击 业务员姓名
-	$(".selectClerk").on("click", selectClerk);
-	
-	function selectClerk() {
-		var popPicker = new mui.PopPicker();
-		popPicker.setData(clerkArr)
-
-		popPicker.show(function(selectItems) {
-			$(".selectClerkName").text(selectItems[0].text);
-			$(".selectClerkName").attr("uid", selectItems[0].value);
-		})
-	}
-	
-	// =========================================================================
-
+		
 
 
 	// 加载下一页
@@ -1138,6 +855,7 @@
 				$(".nextImg").attr("src", "../../../img/next.png");
 				open = !open;
 				
+				$(".selectStatus").css("display","none")
 				$(".select-btn").text("取消选择");
 				$(".back").css("display", "none");
 				$("footer").css("display","flex");
@@ -1152,7 +870,10 @@
 				$(".select-btn").text("选择");
 				$(".back").css("display", "block");
 				$("footer").css("display","none");
-				$(".filterBox").css("display","block")
+				if(income_status==2 || income_status==4 || income_status==6 || income_status==7 || income_status==8){
+					$(".filterBox").css("display","block")
+				}
+				if(income_status==1){ $(".selectStatus").css("display","flex") }
 				$(".searchBox").css("display", "block");
 				$(".select").css("display", "none");
 				$(".select_all").css("display", "none");

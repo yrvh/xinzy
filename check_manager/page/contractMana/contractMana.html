@@ -165,11 +165,19 @@
 <script src="../../../js/urlDns.js"></script>
 
 <script type="text/javascript">
-	// 返回
+	// 返回=======================
 	$(".back").click(() => {
-		sessionStorage.removeItem("income_status");
-		mui.back();
+		backActive()
+		mui.back()
 	});
+	// 监听物理返回  按键
+	mui.back = function(){
+	　backActive()
+	}
+	// 返回之前要执行的操作 函数
+	function backActive() {
+		sessionStorage.removeItem("income_status");
+	}
 	
 	// 公司与单位的协议
 	$(".and-com").click(() => {

@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="../../../css/mui.min.css">
 	<script src="../../../js/mescroll.min.js"></script>
 	<link rel="stylesheet" href="../../../css/mescroll.min.css">
-	<title>审核主管--纳税设置审核--详情页</title>
+	<title>法人--纳税设置审核--详情页</title>
 
 	<style type="text/css">
 		body {
@@ -132,10 +132,10 @@
 		</li>
 	</ul>
 	
-	<!-- <footer>
+	<footer>
 		<div class="footer-item nopass">退回</div>
 		<div class="footer-item pass"> 通过</div>
-	</footer> -->
+	</footer>
 </body>
 <script src="../../../js/jquery-3.3.1.js"></script>
 <script src="../../../js/urlDns.js"></script>
@@ -155,16 +155,15 @@
 	let income_status = sessionStorage.getItem("income_status");
 	// 获得id
 	let detailId = sessionStorage.getItem("detailId");
-	console.log(detailId)
 	
 	// 如果状态码是1  income_status == 1
 	if(income_status == 1){
 		$(".old-info").css("display","none")
 		$(".arrows").css("display","none")
 	}
-	if(income_status == 0){
-		$("footer").css("display","flex")
-	}
+	// if(income_status == 0){
+	// 	$("footer").css("display","flex")
+	// }
 	
 	// 定义一个变量  保存返回来的id
 	let ids = ''
@@ -230,7 +229,7 @@ $(".nopass").click(() => {
 	location.href = "../business_content.html";
 })
 
-// 点击通过
+	// 点击通过
 	$(".pass").click(() => {
 		$.post(urlDns + '/share/bs_app/nssetting/check', {
 					id: detailId,
@@ -238,7 +237,6 @@ $(".nopass").click(() => {
 					tel_app: tel_app,
 					code_app: code_app
 			}, function (data) {
-				// console.log("请求响应了")
 					// console.log(JSON.stringify(data))
 					if (data.result == 0) {
 							// 需要重新登录
@@ -254,7 +252,6 @@ $(".nopass").click(() => {
 					}
 			});
 	})
-
 
 </script>
 </html>

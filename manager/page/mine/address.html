@@ -104,6 +104,8 @@
 <script src="../../../js/layer/layer.js"></script>
 <script src="../../../js/urlDns.js"></script>
 <script>
+	mui.init()
+	
     // 获取公司的ID
     var comDetailId = sessionStorage.getItem("comDetailId");
     console.log(comDetailId);
@@ -117,7 +119,7 @@
 
     // 返回
     $(".back").click(() => {
-        history.back();
+        mui.back();
     });
 
     var index = layer.load(1, {

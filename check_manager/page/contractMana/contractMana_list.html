@@ -404,7 +404,7 @@
 	mui.init();
 	// 返回
 	$(".back").click(() => {
-		history.back();
+		mui.back();
 	});
 
 	var pass_app = localStorage.getItem("pass_app");
@@ -464,7 +464,7 @@
 					document.addEventListener('plusready', goToLogin, false);
 				}
 			} else {
-				$(".list").html(''); // 发起请求之前,先清空页面
+				if(page==1){ $(".list").html(''); }   // 发起请求之前,先清空页面
 				var htmlStr = "";
 				for (let i = 0; i < data.rows.length; i++) {
 					htmlStr +=
@@ -480,11 +480,19 @@
 					</div>
 				`;
 				}
-				$(".list").html(htmlStr);
+				$(".list").append(htmlStr);
 			}
 		});
 	}
 
+	// ======================加载下一页===================================================
+	$(window).scroll(function() {
+		if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+			page = page + 1;
+			// 发起ajax请求
+			getInfoList()
+		}
+	});
 
 	// 跳转详情页面
 	$(document).on("click", ".list .href", function(e) {
@@ -494,54 +502,5 @@
 	});
 
 
-	// 加载下一页
-	$(window).scroll(function() {
-		if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-			page = page + 1;
-			console.log(page)
-			$.post(urlDns + "/control_app/ms/xieyi_fr/list", {
-				// 进入的状态
-				type: income_status,
-				// 第几页
-				page: page,
-				// 一页的条数
-				rows: 20,
-				pass_app: pass_app,
-				tel_app: tel_app,
-				code_app: code_app
-			}, function(data) {
-				console.log(JSON.stringify(data));
-				if (data.result == 0) {
-					// 需要重新登录
-					if (window.plus) {
-						goToLogin("../register/login.html");
-					} else {
-						document.addEventListener('plusready', goToLogin, false);
-					}
-				} else {
-					if (data.rows.length > 0) {
-						var htmlStr = "";
-						for (var i = 0; i < data.rows.length; i++) {
-							htmlStr +=
-								`
-								<div>
-									<div class="comTime">
-										<div class="comName">${data.rows[i].title} ${data.rows[i].addtime}  <div class="default" style= ${data.rows[i].status==1? "display:block":"display:none"}>默认</div> </div>
-										<div class="href" detailId="${data.rows[i].id}">
-											<span class="time">${data.rows[i].status==1? '查看':'审核'}</span>
-											<img src="../../../img/next.png" alt="">
-										</div>
-									</div>
-								</div>
-								`;
-						}
-						$(".list").append(htmlStr);
-					}
-				}
-
-
-			});
-		}
-	});
 </script>
 </html>

@@ -68,14 +68,14 @@
 		
 		<ul>
 			<li class="waitcheck">
-			    <span>等待审核 <span class="mybadge mui-badge mui-badge-danger"></span></span>
+			    <span>修改待审核 <span class="mybadge mui-badge mui-badge-danger"></span></span>
 			    <div>
 			        <span class="waitcheck-li"></span>
 			        <img src="../../../img/next.png" alt="">
 			    </div>
 			</li>
 			<li class="pass">
-					<span>审核通过</span>
+					<span>服务中</span>
 					<div>
 							<span class="pass-li"></span>
 							<img src="../../../img/next.png" alt="">
@@ -97,11 +97,20 @@
 	<script src="../../../js/urlDns.js"></script>
 	
 	<script type="text/javascript">
-		// 返回
+		// 返回=======================
 		$(".back").click(() => {
-			sessionStorage.removeItem("income_status");
-			history.back();
+			backActive()
+			mui.back()
 		});
+		// 监听物理返回  按键
+		mui.back = function(){
+		　backActive()
+		}
+		// 返回之前要执行的操作 函数
+		function backActive() {
+			sessionStorage.removeItem("income_status");
+		}
+		
 		
 		var pass_app = localStorage.getItem("pass_app");
 		var tel_app = localStorage.getItem("tel_app");

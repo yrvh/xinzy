@@ -51,10 +51,12 @@
 		
 		.com-license,.corp-email,.account-num,.comfree-contract,
 		.per-IDcardImg,.account-num,.income-scope,.taxes-type,.taxes-added,
-		.taxes-income,.com-range,.com-license,.account-num,.agent-email{border: none !important;}
+		.taxes-income,.com-license,.account-num,.agent-email{border: none !important;}
 		
 		.personal,.individual,.income-info { display: none; }
 		.agent-info {display: none;}
+		
+		.con-dialog { width: 200px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
 	</style>
 </head>
 
@@ -65,7 +67,7 @@
 			<div class="select-btn">下一页</div>
 	</header>
 	<div class="the-place"></div>
-	<div class="com-status">注册状态: <span class="status-li"></span></div>
+	<div class="com-status">【注册状态】 <span class="status-li"></span></div>
 	
 
 	<!-- 公司基本信息 -->
@@ -76,7 +78,6 @@
 					<span>公司商标</span>
 					<div>
 							<img class="com-logo-li"/>
-							<img src="../../../img/next.png" alt="">
 					</div>
 			</li>
 			<li class="com-creditcode">
@@ -95,7 +96,6 @@
 					<span>单位名称缩写</span>
 					<div>
 							<span class="com-acronym-li"></span>
-							<img src="../../../img/next.png" alt="">
 					</div>
 			</li>
 			<li class="com-fund">
@@ -113,14 +113,14 @@
 			<li class="com-address">
 					<span>住所</span>
 					<div>
-							<span class="com-address-li"></span>
+							<span class="com-address-li con-dialog" id="address-dialog"></span>
 							<img src="../../../img/next.png" alt="">
 					</div>
 			</li>
 			<li class="com-detailaddr">
 					<span>详细地址</span>
 					<div>
-							<span class="com-detailaddr-li"></span>
+							<span class="com-detailaddr-li con-dialog" id="detailaddr-dialog"></span>
 							<img src="../../../img/next.png" alt="">
 					</div>
 			</li>
@@ -145,14 +145,14 @@
 			<li class="com-range">
 					<span>业务范围</span>
 					<div>
-							<span class="com-range-li"></span>
+							<span class="com-range-li con-dialog" id="range-dialog"></span>
 							<img src="../../../img/next.png" alt="">
 					</div>
 			</li>
 			<li class="com-major">
 					<span>主营业务</span>
 					<div>
-							<span class="com-major-li"></span>
+							<span class="com-major-li con-dialog" id="major-dialog"></span>
 							<img src="../../../img/next.png" alt="">
 					</div>
 			</li>
@@ -269,13 +269,21 @@
 <script type="text/javascript">
 	mui.init()
 	
-	// 返回
+	// 返回=======================
 	$(".back").click(() => {
+		backActive()
+		mui.back()
+	});
+	// 监听物理返回  按键
+	mui.back = function(){
+	　backActive()
+	}
+	// 返回之前要执行的操作 函数
+	function backActive() {
 		sessionStorage.removeItem("detailId")
 		sessionStorage.removeItem("detailType")
-	  mui.back();
-			
-	});
+	}
+	
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
@@ -343,22 +351,29 @@
 						$(".com-major-li").text(data.zybusiness)
 						$(".com-organ-li").text(data.registerCompany)
 						$(".com-issue-li").text(data.getCarTime)
-						if(data.fr_cardupurl!=undefined && data.fr_cardupurl!=''){
+						if(data.yyzzurl!=undefined && data.yyzzurl!=''){
 							$(".com-license-li").text("执照已上传")
+							// 点击营业执照跳转到  详细信息页
+							$(".com-license").click(() => {
+								sessionStorage.setItem("cardType","license")
+								sessionStorage.setItem("licenseurl",data.yyzzurl)
+								location.href = "./idCardPt.html";
+							})
 						}
-						// 点击营业执照跳转到  详细信息页
-						$(".com-license").click(() => {
-							sessionStorage.setItem("cardType","license")
-							sessionStorage.setItem("licenseurl",data.yyzzurl)
-							location.href = "./idCardPt.html";
-						})
-						
+						else {$(".com-license-li").text("未上传")}
 												
 						$(".corp-name-li").text(data.fr_realname)
 						$(".corp-type-li").text("身份证")
 						$(".corp-number-li").text(data.fr_idcard)
 						if(data.fr_cardupurl!=undefined && data.fr_cardupurl!=''&&data.fr_carddownurl!=undefined && data.fr_carddownurl!='') {
 							$(".corp-photo-li").text("已上传")
+							// 点击法人跳转到 身份证 详细信息页
+							$(".corp-photo").click(() => {
+								sessionStorage.setItem("cardType","corp")
+								sessionStorage.setItem("corpcard1",data.fr_cardupurl)
+								sessionStorage.setItem("corpcard2",data.fr_carddownurl)
+								location.href = "./idCardPt.html";
+							})
 						}
 						else { $(".corp-photo-li").text("未上传") }
 						$(".corp-tel-li").text(data.fr_tel)
@@ -370,25 +385,19 @@
 							$(".agent-number-li").text(data.lxr_idcard)
 							if(data.lxr_cardupurl!=undefined && data.lxr_cardupurl!=''&&data.lxr_carddownurl!=undefined && data.lxr_carddownurl!='') {
 								$(".agent-photo-li").text("已上传")
+								// 点击联系人跳转到 身份证 详细信息页
+								$(".agent-photo").click(() => {
+									sessionStorage.setItem("cardType","agent")
+									sessionStorage.setItem("agentcard1",data.lxr_cardupurl)
+									sessionStorage.setItem("agentcard2",data.lxr_carddownurl)
+									location.href = "./idCardPt.html";
+								})
 							}
+							else { $(".agent-photo-li").text("未上传") }
+							
 							$(".agent-tel-li").text(data.lxr_tel)
 							$(".agent-email-li").text(data.lxr_email)
 						}
-						// 点击法人跳转到 身份证 详细信息页
-						$(".corp-photo").click(() => {
-							sessionStorage.setItem("cardType","corp")
-							sessionStorage.setItem("corpcard1",data.fr_cardupurl)
-							sessionStorage.setItem("corpcard2",data.fr_carddownurl)
-							location.href = "./idCardPt.html";
-						})
-						
-						// 点击联系人跳转到 身份证 详细信息页
-						$(".agent-photo").click(() => {
-							sessionStorage.setItem("cardType","agent")
-							sessionStorage.setItem("agentcard1",data.lxr_cardupurl)
-							sessionStorage.setItem("agentcard2",data.lxr_carddownurl)
-							location.href = "./idCardPt.html";
-						})
 						
 						// 保存银行相关的数据
 						// sessionStorage.setItem("kh_name_sr",data.kh_name_sr)
@@ -416,6 +425,24 @@
 		});
 	}
 	
+	
+	// 点击文字过长的内容时  弹窗
+	$("#address-dialog").click(()=>{
+		// 展示详细信息
+		mui.toast($("#address-dialog").html(),{ duration:'6000', type:'div' })
+	})
+	$("#detailaddr-dialog").click(()=>{
+		// 展示详细信息
+		mui.toast($("#detailaddr-dialog").html(),{ duration:'6000', type:'div' })
+	})
+	$("#range-dialog").click(()=>{
+		// 展示详细信息
+		mui.toast($("#range-dialog").html(),{ duration:'6000', type:'div' })
+	})
+	$("#major-dialog").click(()=>{
+		// 展示详细信息
+		mui.toast($("#major-dialog").html(),{ duration:'6000', type:'div' })
+	})
 	
 	
 	// // 公司商标照片

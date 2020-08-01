@@ -154,6 +154,24 @@
 <script src="../../../js/urlDns.js"></script>
 
 <script type="text/javascript">
+	miu.init()
+	
+	// 返回=======================
+	$(".back").click(() => {
+		// backActive()
+		mui.back()
+	});
+	// 监听物理返回  按键
+	mui.back = function(){
+	// 　backActive()
+	}
+	// 返回之前要执行的操作 函数
+	// function backActive() {
+	// 	sessionStorage.removeItem("del_staff_id");
+	// }
+	
+	
+	
 	// 两张身份证照片
 	var src1 = sessionStorage.getItem('staffIC1');
 	var src2 = sessionStorage.getItem('staffIC2');
@@ -187,11 +205,6 @@
 	    //     });
 	    // }, false);
 	}
-	
-	// 返回
-	$(".back").click(() => {
-	    history.back();
-	});
 	
 	
 	// 确定按钮

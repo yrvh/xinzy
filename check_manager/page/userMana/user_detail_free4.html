@@ -119,6 +119,9 @@
 	$(".back").click(() => {
 			mui.back();
 	});
+	var pass_app = localStorage.getItem("pass_app");
+	var tel_app = localStorage.getItem("tel_app");
+	var code_app = localStorage.getItem("code_app");
 	
 	// 获取状态码
 	let income_status = sessionStorage.getItem("income_status");

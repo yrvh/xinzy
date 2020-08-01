@@ -114,13 +114,24 @@
 <script src="../../js/jquery-3.3.1.js"></script>
 <script src="../../js/urlDns.js"></script>
 <script>
-	// 返回
+	mui.init()
+	
+	// 返回=======================
 	$(".back").click(() => {
+		backActive()
+		mui.back()
+	});
+	// 监听物理返回  按键
+	mui.back = function(){
+	　backActive()
+	}
+	// 返回之前要执行的操作 函数
+	function backActive() {
 		sessionStorage.removeItem("title")
 		sessionStorage.removeItem("user_type")
 		sessionStorage.removeItem("detail_content")
-		history.back();
-	});
+	}
+	
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");

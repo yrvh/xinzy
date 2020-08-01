@@ -149,6 +149,22 @@
 <script src="../../../js/urlDns.js"></script>
 
 <script type="text/javascript">
+	// 返回=======================
+	$(".back").click(() => {
+		// backActive()
+		mui.back()
+	});
+	// 监听物理返回  按键
+	mui.back = function(){
+	// 　backActive()
+	}
+	// 返回之前要执行的操作 函数
+	// function backActive() {
+	// 	sessionStorage.removeItem("detailId")
+	// 	sessionStorage.removeItem("detailType")
+	// }
+	
+	
 	// 当用户点击确定之后，再次进来该页面，要显示原本要上传的图片
 	// 页面加载进来，获取localstorage的图片路径，判断是否存在，存在就渲染上去
 	var src1 = sessionStorage.getItem('staffIC1');
@@ -158,11 +174,6 @@
 	    $("#headimg1").attr("src", src1);
 	    $("#headimg2").attr("src", src2);
 	}
-	
-	// 返回
-	$(".back").click(() => {
-	    history.back();
-	});
 	
 	//扩展API完成后执行的操作
 	function plusReady() {
