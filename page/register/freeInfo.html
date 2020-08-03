@@ -93,7 +93,8 @@
 			
 			.userInfoBox input,
 			.accountInfoBox input {
-			    padding-right: 0;
+				/* background-color: #0062CC; */
+			    padding-right: 15px;
 			    text-align: right;
 			    border: none;
 			    outline: none;
@@ -265,13 +266,16 @@
         <div class="uploadIdCard">
             <span>证件照片</span>
             <span class="upload">
-                <span class="uploadText">未上传</span>
-            <img src="../../img/next.png" alt="">
+              <span class="uploadText">未上传</span>
+							<img src="../../img/next.png" alt="">
             </span>
         </div>
         <div class="last incomeRange">
             <span>年收入范围(元)</span>
-            <span id="incomeRangeText" style="color: #666666;font-size: 15px;"></span>
+            <span id="incomeRangeText" style="color: #666666;font-size: 15px;">
+							<img src="../../img/next.png" alt="">
+						</span>
+						
         </div>
     </div>
     <!-- 个人账户信息 -->
@@ -319,6 +323,12 @@
 <script src="../../js/urlDns.js"></script>
 
 <script type="text/javascript">
+	// 返回上一页
+	$(".back").click(() => {
+	    // history.back();
+	    location.href = "./onLineContract.html";
+	});
+	
 	mui.init({
 	    swipeBack: true //启用右滑关闭功能
 	});
@@ -326,8 +336,6 @@
 	var tel = localStorage.getItem("tel");
 	var realname = sessionStorage.getItem('realname');
 	var updateInfo = sessionStorage.getItem('updateInfo');
-	console.log(updateInfo)
-	console.log(tel)
 	
 	// 判断是新用户注册还是退回修改个人信息
 	var isUpdate = localStorage.getItem('isUpdate');
@@ -362,87 +370,76 @@
 	// });
 	
 	if (updateInfo == 1) {
-	    var tel_app = localStorage.getItem("tel_app");
-	    var pass_app = localStorage.getItem("pass_app");
-	    var code_app = localStorage.getItem("code_app");
-	
-	    $(".back").css("display", "none");
-	    // console.log(111)
-	    console.log(realname)
-	        // 业者被退回修改个人信息
-	        // 查找一个用户信息有没有存在session里，如果有，就不用该请求返回的数据做渲染，
-	        // 避免在业者修改之后从下一页返回来查看的时候又重新渲染了一次data的数据，造成
-	        // 用户原来改过的数据恢复了退回来时的状态（realname只是随便拿的一个字段）
-	    if (realname == null || realname == "") {
-	        console.log(111)
-	
-	        var index = layer.load(1, {
-	            // 数组中第一个参数是button的透明度
-	            // 第二个是背景颜色
-	            shade: [0.3, "white"]
-	        });
-	        var getData = $.ajax({
-	            url: urlDns + "/user_app/yz/gr_xx_editUI",
-	            type: 'post',
-	            dataType: "json",
-	            timeout: 120000, //2分钟超时
-	            data: {
-	                "tel_app": tel_app,
-	                "pass_app": pass_app,
-	                "code_app": code_app
-	            },
-	            //请求成功
-	            success: function(data) {
-	                console.log(JSON.stringify(data));
-	                console.log("电话号码：" + data.tel)
-	                layer.close(index);
-	                console.log(JSON.stringify(data.reasons));
-	                console.log("开户行" + data.khh);
-	                console.log("开户名" + data.kh_name);
-	                console.log("开户卡号" + data.code);
-	
-	
-	
-	                $(".bgBlack").css("display", "block");
-	                $(".tipsCont").text(data.reasons);
-	                sessionStorage.setItem("realname", data.realname);
-	                sessionStorage.setItem("email", data.email);
-	                sessionStorage.setItem("idCardNum", data.idCardNum);
-	                sessionStorage.setItem("idCardImg1", data.upcardid);
-	                sessionStorage.setItem("idCardImg2", data.downcardid);
-	                sessionStorage.setItem("accountBank", data.khh);
-	                sessionStorage.setItem("accountName", data.kh_name);
-	                sessionStorage.setItem("account", data.code);
-	                sessionStorage.setItem("carduserid", data.carduserid);
-	
-	                // 判断身份证已上传的参数
-	                sessionStorage.setItem("didUpload", 1);
-	                sessionStorage.setItem("isUpdate", 2);
-	                $("#realName").val(data.realname);
-	                $("#tel").text(data.tel);
-	                $("#email").val(data.email);
-	                $("#idNumber").val(data.idCardNum);
-	                $("#accountBank").text(data.khh);
-	                $("#accountName").val(data.kh_name);
-	                $("#account").val(data.code);
-	                console.log(data.code)
-	                $(".uploadText").text("已上传");
-	
-	            },
-	            error: function(XMLHttpRequest, textStatus, errorThrown) {
-	                layer.close(index);
-	                if (textStatus == 'timeout') {
-	                    getData.abort();　
-	                    alert("请求超时");
-	                }
-	                if (textStatus == 'error') {
-	                    getData.abort();　
-	                    alert("请求错误" + errorThrown);
-	                }
-	            }
-	        });
-	
-	    }
+		isUpdate = 2
+		var tel_app = localStorage.getItem("tel_app");
+		var pass_app = localStorage.getItem("pass_app");
+		var code_app = localStorage.getItem("code_app");
+
+		$(".back").css("display", "none");
+				// 业者被退回修改个人信息
+				// 查找一个用户信息有没有存在session里，如果有，就不用该请求返回的数据做渲染，
+				// 避免在业者修改之后从下一页返回来查看的时候又重新渲染了一次data的数据，造成
+				// 用户原来改过的数据恢复了退回来时的状态（realname只是随便拿的一个字段）
+		if (realname == null || realname == "") {
+			console.log(111)
+
+			var index = layer.load(1, {
+					// 数组中第一个参数是button的透明度
+					// 第二个是背景颜色
+					shade: [0.3, "white"]
+			});
+			var getData = $.ajax({
+				url: urlDns + "/user_app/yz/gr_xx_editUI",
+				type: 'post',
+				dataType: "json",
+				timeout: 120000, //2分钟超时
+				data: {
+						"tel_app": tel_app,
+						"pass_app": pass_app,
+						"code_app": code_app
+				},
+				//请求成功
+				success: function(data) {
+						// console.log(JSON.stringify(data));
+						layer.close(index);
+						
+						$(".bgBlack").css("display", "block");
+						$(".tipsCont").text(data.reasons);
+						sessionStorage.setItem("realname", data.realname);
+						sessionStorage.setItem("email", data.email);
+						sessionStorage.setItem("idCardNum", data.idCardNum);
+						sessionStorage.setItem("idCardImg1", data.upcardid);
+						sessionStorage.setItem("idCardImg2", data.downcardid);
+						sessionStorage.setItem("accountBank", data.khh);
+						sessionStorage.setItem("accountName", data.kh_name);
+						sessionStorage.setItem("account", data.code);
+						sessionStorage.setItem("carduserid", data.carduserid);
+
+						// 判断身份证已上传的参数
+						sessionStorage.setItem("didUpload", 1);
+						$("#realName").val(data.realname);
+						$("#tel").text(data.tel);
+						$("#email").val(data.email);
+						$("#idNumber").val(data.idCardNum);
+						$("#accountBank").text(data.khh);
+						$("#accountName").val(data.kh_name);
+						$("#account").val(data.code);
+						$(".uploadText").text("已上传");
+
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+						layer.close(index);
+						if (textStatus == 'timeout') {
+								getData.abort();　
+								alert("请求超时");
+						}
+						if (textStatus == 'error') {
+								getData.abort();　
+								alert("请求错误" + errorThrown);
+						}
+				}
+			});
+		}
 	}
 	$(".ok").click(() => {
 	    $(".bgBlack").css("display", "none");
@@ -466,7 +463,6 @@
 	var yxy_code = sessionStorage.getItem('yxy_code');
 	// 有无单位
 	var type = localStorage.getItem('type');
-	// console.log(type)
 	if (type == 0) {
 	    // 无单位，显示输入营销员工号
 	    $(".yxy_code_box").css("display", "block");
@@ -536,26 +532,26 @@
 	var hasIdCard = true;
 	// 完成
 	$(".next").click(() => {
-	    // 判断是新用户注册还是退回修改个人信息
-	    var isUpdate = localStorage.getItem('isUpdate');
+	    // // 判断是新用户注册还是退回修改个人信息
+	    // var isUpdate = localStorage.getItem('isUpdate');
 	    console.log(isUpdate)
 	        // 真实姓名
 	    var realname = $("#realName").val();
-	    // console.log(realname)
+
 	    // 邮箱
 	    var email = $("#email").val();
-	    // console.log(email)
+
 	    // 身份证号码
 	    var idCardNum = $("#idNumber").val();
-	    // console.log(idCardNum)
+
 	    // 开户行
 	    var accountBank = $("#accountBank").val();
 	    // 开户名
 	    var accountName = $("#accountName").val();
-	    // console.log(accountName)
+
 	    // 账号
 	    var account = $("#account").val();
-	    // console.log(account)
+
 	    // 身份证上传提示
 	    var upload = $(".uploadText").text();
 	
@@ -564,11 +560,7 @@
 	
 	    // 营销员工号
 	    var yxy_code = $("#yxy_code").val();
-	    console.log(typeof(incomeRangeText))
-	
-	
-	
-	
+
 	
 	
 	    // isUpdate == 1新用户注册
@@ -644,9 +636,7 @@
 	
 	    // 用户修改个人信息的提交
 	    if (isUpdate == 2) {
-	        console.log(222222222222)
 	        var carduserid = sessionStorage.getItem("carduserid");
-	        console.log(carduserid)
 	
 	        // 身份证是否已经注册的请求
 	        $.post(urlDns + "/share/checkIdCard", {
@@ -708,17 +698,8 @@
 	        }
 	
 	    }
-	
-	
-	
-	
 	});
-	
-	// 返回上一页
-	$(".back").click(() => {
-	    // history.back();
-	    location.href = "./onLineContract.html";
-	});
+
 	
 	// 判断用户是否已经上传证件照，显示对应的文字
 	var didUpload = sessionStorage.getItem('didUpload');
@@ -732,19 +713,19 @@
 	$(".uploadIdCard").click(() => {
 	    // 真实姓名
 	    var realname = $("#realName").val();
-	    // console.log(realname)
+
 	    // 邮箱
 	    var email = $("#email").val();
-	    // console.log(email)
+
 	    // 身份证号码
 	    var idCardNum = $("#idNumber").val();
-	    // console.log(idCardNum)
+
 	    // 开户行
 	    var accountBank = $("#accountBank").val();
-	    // console.log(accountBank)
+	    
 	    // 开户名
 	    var accountName = $("#accountName").val();
-	    // console.log(accountName)
+	    
 	    // 营销员工号
 	    var yxy_code = $("#yxy_code").val();
 	    // 账号
@@ -785,55 +766,55 @@
 	function reg_noImg() {
 	    // 真实姓名
 	    var realname = $("#realName").val();
-	    // console.log(realname)
+	    
 	    // 邮箱
 	    var email = $("#email").val();
-	    // console.log(email)
+	    
 	    // 身份证号码
 	    var idCardNum = $("#idNumber").val();
-	    // console.log(idCardNum)
+	    
 	    // 开户地区
 	    var accountBank = $("#accountBank").val();
 	    // 开户名
 	    var accountName = $("#accountName").val();
-	    // console.log(accountName)
+	    
 	    // 账号
 	    var account = $("#account").val();
-	    // console.log(account)
+	    
 	    // 身份证上传提示
 	    var upload = $(".uploadText").text();
 	
 	    // 获取接受服务单位的id
 	    var comid = sessionStorage.getItem("comids");
-	    // console.log(comid)
+	    
 	    // 用户名
 	    var reUserName = localStorage.getItem('reUserName');
-	    // console.log(reUserName)
+	    
 	    // 手机号
 	    var tel = localStorage.getItem('tel');
-	    // console.log(tel)
+	    
 	    // 密码
 	    var password = localStorage.getItem('password');
-	    // console.log(password)
+	    
 	    // 用户注册的角色
 	    var userType = localStorage.getItem('userType');
-	    // console.log(userType)
+	    
 	    // 选择的开票方式
 	    var type = localStorage.getItem('type');
-	    // console.log(type)
+	    
 	    // 两张身份证照片
 	    var src1 = sessionStorage.getItem('idCardImg1');
 	    var src2 = sessionStorage.getItem('idCardImg2');
-	    // console.log(src1)
+	    
 	    // 分配比例
 	    var serviceFee = sessionStorage.getItem("serviceFee");
-	    // console.log(serviceFee)
+	   
 	    // 协议模板id
 	    // var modelId = sessionStorage.getItem('modelId');
-	    // console.log(modelId)
+	   
 	    // 获取是否要上传协议图片的判断标志
 	    var hasContractImg = sessionStorage.getItem('hasContractImg');
-	    // console.log(hasContractImg)
+	   
 	
 	    // 年收入范围
 	    var incomeRangeText = sessionStorage.getItem("incomeRange");
@@ -842,7 +823,7 @@
 	    var yxy_code = $("#yxy_code").val();
 	
 	
-	    // console.log(isUpdate)
+	    
 	    // 和秘书公司协议的模板id
 	    var yz_ms_xieyiID = sessionStorage.getItem('yz_ms_xieyiID');
 	    // 和单位协议的模板id
@@ -854,26 +835,8 @@
 	    } else {
 	        upid = "0";
 	    }
-	    console.log(upid)
-	    console.log(typeof(upid))
-	
-	
-	    console.log(reUserName)
-	    console.log(tel)
-	    console.log(email)
-	    console.log(idCardNum)
-	    console.log(accountName)
-	    console.log(account)
-	    console.log(userType)
-	    console.log(type)
-	    console.log(comid)
-	        // console.log(modelId)
-	    console.log(serviceFee)
-	    console.log(src1)
-	    console.log(yz_ms_xieyiID);
-	    console.log(yz_sf_xieyiID);
+	    
 	    var khAreaId = $(".area").attr("ids");
-	    // console.log(khAreaId)
 	
 	
 	    var index = layer.load(1, {
@@ -890,12 +853,10 @@
 	
 	    var task = plus.uploader.createUpload(urlDns + "/user_app/yz/add", { method: "POST" },
 	        function(t, status) { //上传完成
-	            console.log("返回字段：" + JSON.stringify(t))
-	            console.log("返回状态：" + JSON.stringify(status))
+	            // console.log("返回字段：" + JSON.stringify(t))
+	            // console.log("返回状态：" + JSON.stringify(status))
 	            var responseText = JSON.parse(t.responseText);
 	            if (status == 200) {
-	
-	                // console.log(t)
 	                // wt.close(); //关闭等待提示按钮
 	                if (responseText.result == 1) {
 	                    console.log("上传成功：" + responseText.result + "," + responseText.message);
@@ -906,7 +867,7 @@
 	                    $(".success").css("display", "block");
 	                    setTimeout(() => {
 	                        $(".success").css("display", "none");
-	                        location.href = "audit.html";
+	                        location.href = "./audit.html";
 	                    }, 800);
 	
 	                }
@@ -950,59 +911,59 @@
 	function reg_hasImg() {
 	    // 真实姓名
 	    var realname = $("#realName").val();
-	    // console.log(realname)
+	   
 	    // 邮箱
 	    var email = $("#email").val();
-	    // console.log(email)
+	    
 	    // 身份证号码
 	    var idCardNum = $("#idNumber").val();
-	    // console.log(idCardNum)
+	    
 	    // 开户地区
 	    var accountBank = $("#accountBank").val();
 	    // 开户名
 	    var accountName = $("#accountName").val();
-	    // console.log(accountName)
+	    
 	    // 账号
 	    var account = $("#account").val();
-	    // console.log(account)
+	    
 	    // 身份证上传提示
 	    var upload = $(".uploadText").text();
 	
 	    // 获取接受服务单位的id
 	    var comid = sessionStorage.getItem("comids");
-	    // console.log(comid)
+	   
 	    // 用户名
 	    var reUserName = localStorage.getItem('reUserName');
-	    // console.log(reUserName)
+	    
 	    // 手机号
 	    var tel = localStorage.getItem('tel');
-	    // console.log(tel)
+	   
 	    // 密码
 	    var password = localStorage.getItem('password');
-	    // console.log(password)
+	   
 	    // 用户注册的角色
 	    var userType = localStorage.getItem('userType');
-	    // console.log(userType)
+	 
 	    // 选择的开票方式
 	    var type = localStorage.getItem('type');
-	    // console.log(type)
+	    
 	    // 两张身份证照片
 	    var src1 = sessionStorage.getItem('idCardImg1');
 	    var src2 = sessionStorage.getItem('idCardImg2');
 	    // console.log(src1)
 	    // 分配比例
 	    var serviceFee = sessionStorage.getItem("serviceFee");
-	    console.log(serviceFee)
+	    
 	        // 协议模板id
 	        // var modelId = sessionStorage.getItem('modelId');
 	        // console.log(modelId)
 	        // 获取是否要上传协议图片的判断标志
 	    var hasContractImg = sessionStorage.getItem('hasContractImg');
-	    // console.log(hasContractImg)
+	    
 	
 	    // 判断是新用户注册还是退回修改个人信息
 	    var isUpdate = localStorage.getItem('isUpdate');
-	    // console.log(isUpdate)
+	   
 	    // 和秘书公司协议的模板id
 	    var yz_ms_xieyiID = sessionStorage.getItem('yz_ms_xieyiID');
 	    // 和单位协议的模板id
@@ -1019,25 +980,7 @@
 	
 	    // 营销员工号
 	    var yxy_code = $("#yxy_code").val();
-	
-	
-	    // console.log(reUserName)
-	    // console.log(tel)
-	    // console.log(email)
-	    // console.log(idCardNum)
-	    // console.log(accountName)
-	    // console.log(account)
-	    // console.log(userType)
-	    // console.log(type)
-	    // console.log(comid)
-	    //     // console.log(modelId)
-	    // console.log(serviceFee)
-	    // console.log(src1)
-	    // console.log(yz_ms_xieyiID);
-	    // console.log(yz_sf_xieyiID);
-	
-	
-	
+		
 	    var index = layer.load(1, {
 	        // 数组中第一个参数是button的透明度
 	        // 第二个是背景颜色
@@ -1059,8 +1002,6 @@
 	        function(t, status) { //上传完成
 	            var responseText = JSON.parse(t.responseText);
 	            if (status == 200) {
-	
-	                // console.log(t)
 	                // wt.close(); //关闭等待提示按钮
 	                if (responseText.result == 1) {
 	                    console.log("上传成功：" + responseText.result + "," + responseText.message);
@@ -1107,7 +1048,6 @@
 	
 	    // 要提的交照片
 	    for (var i = 0; i < contractImg.length; i++) {
-	        console.log(contractImg[i]);
 	        task.addFile(contractImg[i], { key: "contractImg" + i });
 	    }
 	
@@ -1136,58 +1076,59 @@
 	    })
 	});
 	
+	// 修改完善信息之后  最终发起提交
 	function edit_info() {
 	    // 真实姓名
 	    var realname = $("#realName").val();
-	    // console.log(realname)
+	   
 	    // 邮箱
 	    var email = $("#email").val();
-	    // console.log(email)
+	    
 	    // 身份证号码
 	    var idCardNum = $("#idNumber").val();
-	    // console.log(idCardNum)
+	  
 	    // 开户地区
 	    var accountBank = $("#accountBank").val();
 	    // 开户名
 	    var accountName = $("#accountName").val();
-	    // console.log(accountName)
+	   
 	    // 账号
 	    var account = $("#account").val();
-	    // console.log(account)
+	  
 	    // 身份证上传提示
 	    var upload = $(".uploadText").text();
 	
 	    // 获取接受服务单位的id
 	    var comid = sessionStorage.getItem("comids");
-	    // console.log(comid)
+	  
 	    // 用户名
 	    var reUserName = localStorage.getItem('reUserName');
-	    // console.log(reUserName)
+	  
 	    // 手机号
 	    var tel = localStorage.getItem('tel');
-	    // console.log(tel)
+	  
 	    // 密码
 	    var password = localStorage.getItem('password');
-	    // console.log(password)
+	  
 	    // 用户注册的角色
 	    var userType = localStorage.getItem('userType');
-	    // console.log(userType)
+	   
 	    // 选择的开票方式
 	    var type = localStorage.getItem('type');
-	    // console.log(type)
+	    
 	    // 两张身份证照片
 	    var src1 = sessionStorage.getItem('idCardImg1');
 	    var src2 = sessionStorage.getItem('idCardImg2');
-	    // console.log(src1)
+	    
 	    // 分配比例
 	    var serviceFee = sessionStorage.getItem("serviceFee");
-	    // console.log(serviceFee)
+	  
 	    // 协议模板id
 	    // var modelId = sessionStorage.getItem('modelId');
-	    // console.log(modelId)
+	 
 	    // 获取是否要上传协议图片的判断标志
 	    var hasContractImg = sessionStorage.getItem('hasContractImg');
-	    // console.log(hasContractImg)
+	  
 	
 	    // 判断是新用户注册还是退回修改个人信息
 	    var isUpdate = localStorage.getItem('isUpdate');
@@ -1203,23 +1144,7 @@
 	    // 营销员工号
 	    var yxy_code = $("#yxy_code").val();
 	
-	
-	    // console.log(reUserName)
-	    // console.log(tel)
-	    // console.log(email)
-	    // console.log(idCardNum)
-	    // console.log(accountName)
-	    // console.log(account)
-	    // console.log(userType)
-	    // console.log(type)
-	    // console.log(comid)
-	    //     // console.log(modelId)
-	    // console.log(serviceFee)
-	    // console.log(src1)
-	    // console.log(yz_ms_xieyiID);
-	    // console.log(yz_sf_xieyiID);
 	    // var khAreaId = $(".area").attr("ids");
-	    // console.log(khAreaId)
 	
 	
 	    var index = layer.load(1, {
@@ -1236,13 +1161,11 @@
 	
 	    var userId = sessionStorage.getItem('userId');
 	    var task = plus.uploader.createUpload(urlDns + "/user_app/yz/gr_xx_edit", { method: "POST" },
-	        function(t, status) { //上传完成
-	            // console.log("1:" + t.responseText.result)
-	            // console.log("2:" + JSON.stringify(status))
-	            // var responseText = JSON.parse(t.responseText);
+	        function(t, status) { 
+	            var responseText = JSON.parse(t.responseText);
 	            if (status == 200) {
 	
-	                console.log(JSON.stringify(responseText))
+	                // console.log(JSON.stringify(responseText))
 	                    // wt.close(); //关闭等待提示按钮
 	                if (responseText.result == 1) {
 	                    console.log("上传成功：" + responseText.result + "," + responseText.message);
@@ -1250,7 +1173,7 @@
 	                    $(".success").css("display", "block");
 	                    setTimeout(() => {
 	                        $(".success").css("display", "none");
-	                        location.href = "audit.html";
+	                        location.href = "./audit.html";
 	                    }, 1000);
 	                } else {
 	                    // 需要重新登录

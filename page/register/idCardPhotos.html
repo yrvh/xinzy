@@ -113,7 +113,6 @@
 <script>
     var tel = sessionStorage.getItem("tel");
     var photoType = sessionStorage.getItem("photoType");
-    console.log(photoType)
 
     var tel_app = localStorage.getItem("tel_app");
     var pass_app = localStorage.getItem("pass_app");
@@ -152,6 +151,7 @@
             pass_app: pass_app,
             code_app: code_app
         }, function(data) {
+					// console.log(JSON.stringify(data))
             if (data.result == 0) {
                 // 需要重新登录
                 if (window.plus) {

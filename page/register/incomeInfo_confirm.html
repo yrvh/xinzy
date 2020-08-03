@@ -367,7 +367,7 @@
 	
 	// 返回
 	$(".pre").click(() => {
-	    history.back();
+	    mui.back();
 	});
 	
 	var tel = sessionStorage.getItem("tel");
@@ -375,9 +375,12 @@
 	var xytype;
 	// 判断业者是否有单位
 	var ishave_dw;
+	
+	// 加载页面初始数据=============================================================
 	// ajax请求默认异步请求，但xytype变量在里面赋值还没有完，底下的代码就执行完了，
 	// xytype的值可能用的原来的值，所以将请求设置为同步请求
 	$.ajaxSettings.async = false;
+
 	$.post(urlDns + "/user_app/yz/checkUI", {
 	    tel: tel,
 	    tel_app: tel_app,
@@ -446,7 +449,7 @@
 	
 	
 	
-	// 下一页========================================
+	// 下一页==================================================
 	$(".next").click(() => {
 	    location.href = nextUrl;
 	});
@@ -469,7 +472,6 @@
 	
 	}
 	if (ishave_dw == 0) {
-		// console.log("7890")
 	    sessionStorage.setItem("ishave_dw", 0);
 	    // 无单位
 	    nextUrl = "./businessComContract_comfirm.html";
@@ -498,7 +500,7 @@
 	            //     $(".success").css("display", "none");
 	            //     location.href = "./login.html";
 	            // }, 1000);
-	            getContrat();
+	            getContrat()   // 获取三方协议
 	        }
 	
 	    });
@@ -559,11 +561,6 @@
 	// 点击签订 三方协议
 	$(".agreeThree").click(() => {
 	    var userType = localStorage.getItem("userType");
-	    var index = layer.load(1, {
-	        // 数组中第一个参数是button的透明度
-	        // 第二个是背景颜色
-	        shade: [0.3, "white"]
-	    });
 	    var agreeContractPost = $.ajax({
 	        url: urlDns + "/user_app/yz/check_3_xieyi",
 	        type: 'post',
@@ -577,7 +574,6 @@
 	        //请求成功
 	        success: function(data) {
 	            // console.log(JSON.stringify(data));
-	            layer.close(index);
 	            if (data.result == 0) {
 	                location.reload();
 	            } 
@@ -612,12 +608,6 @@
 	// 不签订 三方协议
 	$(".disagreeThree").click(() => {
 	    var userType = localStorage.getItem("userType");
-	
-	    var index = layer.load(1, {
-	        // 数组中第一个参数是button的透明度
-	        // 第二个是背景颜色
-	        shade: [0.3, "white"]
-	    });
 	    var agreeContractPost = $.ajax({
 	        url: urlDns + "/user_app/yz/uncheck_3_xieyi",
 	        type: 'post',
@@ -631,7 +621,6 @@
 	        //请求成功
 	        success: function(data) {
 	            // console.log(JSON.stringify(data));
-	            layer.close(index);
 	            if (data.result == 0) {
 	                location.reload();
 	            } else {

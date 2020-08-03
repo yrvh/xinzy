@@ -347,6 +347,8 @@
 				text-overflow: ellipsis;
 			}
 			
+			#address {overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
+			
 		</style>
 </head>
 
@@ -391,12 +393,12 @@
 
     </div>
     <div class="registerBox">
-        <!-- <div>
-            <span>登记地址</span>
+        <div>
+            <span>经营场所</span>
             <span>
                 <div id="address"></div>
             </span>
-        </div> -->
+        </div>
         <div>
             <span>登记机关</span>
             <span><div id="registerUnit"></div></span>
@@ -446,12 +448,14 @@
 	
 	var tel = sessionStorage.getItem("tel");
 	let bName = ''
+	let pName = ''
 	$.post(urlDns + "/user_app/yz/checkUI", {
 	    tel: tel,
 	    tel_app: tel_app,
 	    pass_app: pass_app,
 	    code_app: code_app
 	}, function(data) {
+			// console.log(JSON.stringify(data))
 	    if (data.result == 0) {
 	        // 需要重新登录
 	        if (window.plus) {
@@ -473,14 +477,14 @@
 	
 	        }
 					bName = data.comname
+					pName = data.address
 	        // console.log(JSON.stringify(data));
-	        console.log("发证日期：" + data.registerCompany)
 	        $("#creditNum").text(data.xycode);
 	        $("#name").text(data.jyname);
 	        $("#businessName").text(data.comname);
 	        $("#date").text(data.addtime);
 	        $(".rangeText").text(data.businessRange);
-	        // $("#address").text(data.address);
+	        $("#address").text(data.address);
 	        $("#registerUnit").text(data.registerCompany);
 	        $("#getDate").text(data.getCardTime);
 	        // $("#area_name").text(data.area_name_dg.replace("_", " "));
@@ -493,8 +497,13 @@
 	
 	// 点击商户名称   显示全称
 	$("#businessName").click(() => {
-		mui.toast("商户名称: "+bName,{ duration:'4000', type:'div' })
+		mui.alert(bName,'商户名称','关闭','','div')
 	})
+	// 点击经营场所   显示详细
+	$("#address").click(() => {
+		mui.alert(pName,'经营场所','关闭','','div')
+	})
+	
 	
 	$(".pre").click(() => {
 	    // history.back();
