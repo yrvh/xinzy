@@ -194,14 +194,26 @@
 <script src="../../../js/layer/layer.js"></script>
 
 <script type="text/javascript">
+	
+	mui.init({
+		beforeback: function() {
+			backActive()
+			return true
+		}
+	})
+	// 返回=======================
+	$(".back").click(() => {
+		mui.back();
+	});
+	// 返回之前要执行的操作 函数
+	function backActive() {
+		// sessionStorage.removeItem("income_status");
+	}
+	
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
 	
-	// 返回
-	$(".back").click(() => {
-	    mui.back();
-	});
 	
 	// 同步请求
 	$.ajaxSetup({

@@ -113,12 +113,22 @@
 <script src="../../../js/layer/layer.js"></script>
 
 <script type="text/javascript">
-	mui.init()
 	
-	// 返回
+	mui.init({
+		beforeback: function() {
+			backActive()
+			return true
+		}
+	})
+	// 返回=======================
 	$(".back").click(() => {
-			mui.back();
+		mui.back();
 	});
+	// 返回之前要执行的操作 函数
+	function backActive() {
+		// sessionStorage.removeItem("income_status");
+	}
+	
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
@@ -223,9 +233,8 @@
 										document.addEventListener('plusready', goToLogin, false);
 								}
 						} else {
-								mui.toast('通过成功!',{ duration:'4000', type:'div' })
-								mui.back();
-								// location.href = "./taxesCheck/taxset_list";
+								// mui.toast('通过成功!',{ duration:'4000', type:'div' })
+								mui.alert('通过成功!~','提示','关闭',()=>{mui.back();},'div')
 						}
 				});
 		})

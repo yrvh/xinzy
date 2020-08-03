@@ -429,14 +429,18 @@
 <script src="../../js/urlDns.js"></script>
 
 <script type="text/javascript">
-	// 返回
+	
+	mui.init({
+		beforeback: function() {
+			backActive()
+			return false
+		}
+	})
+	// 返回=======================
 	$(".back").click(() => {
-		backActive()	
+		// mui.back();
+		backActive()
 	});
-	// 监听物理返回  按键
-	mui.back = function(){
-	　backActive()
-	}
 	
 	// 点击返回操作时  要执行的函数
 	function backActive() {
@@ -458,7 +462,7 @@
 		// 获取所有Webview窗口
 		var wvs = plus.webview.all();
 		for (var i = 0, len = wvs.length; i < len; i++) {
-				//关闭除setting页面外的其他页面
+				//关闭除setting 页面外的其他页面
 				if (wvs[i].getURL() == curr.getURL())
 						continue;
 				plus.webview.close(wvs[i]);
@@ -467,13 +471,13 @@
 		sessionStorage.clear();
 		localStorage.clear();
 		// 提醒注册成功
-		mui.toast('注册成功!~~ 信息未完善!',{ duration:'6000', type:'div' })
-		
-		setTimeout(()=>{
-			//打开login页面后再关闭setting页面
+		mui.alert('注册成功!~~ 信息未完善!','提示','确认',afterClose(),'div')
+		// 点击关闭时执行的 操作
+		function afterClose() {
+			//打开login页面后再关闭 当前页面
 			plus.webview.open("./login.html");
 			curr.close();
-		},4000)
+		}
 		
 	}
 	

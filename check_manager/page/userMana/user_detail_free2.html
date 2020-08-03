@@ -171,22 +171,21 @@
 <script src="../../../js/layer/layer.js"></script>
 
 <script type="text/javascript">
-	mui.init()
 	
+	mui.init({
+		beforeback: function() {
+			backActive()
+			return true
+		}
+	})
 	// 返回=======================
 	$(".back").click(() => {
-		// backActive()
-		mui.back()
+		mui.back();
 	});
-	// 监听物理返回  按键
-	mui.back = function(){
-	// 　backActive()
-	}
 	// 返回之前要执行的操作 函数
-	// function backActive() {
-	// 	sessionStorage.removeItem("detailId")
-	// 	sessionStorage.removeItem("detailType")
-	// }
+	function backActive() {
+		// sessionStorage.removeItem("income_status");
+	}
 	
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
@@ -280,16 +279,17 @@
 	// 点击文字过长的内容时  弹窗
 	$("#name-dialog").click(()=>{
 		// 展示详细信息
-		mui.toast($("#name-dialog").html(),{ duration:'6000', type:'div' })
+		mui.alert($("#name-dialog").html(),'详细内容','关闭','','div')
 	})
 	$("#range-dialog").click(()=>{
-		mui.toast($("#range-dialog").html(),{ duration:'9000', type:'div' })
+		mui.alert($("#range-dialog").html(),'详细内容','关闭','','div')
 	})
 	$("#address-dialog").click(()=>{
-		mui.toast($("#address-dialog").html(),{ duration:'6000', type:'div' })
+		mui.alert($("#address-dialog").html(),'详细内容','关闭','','div')
 	})
 	$("#organ-dialog").click(()=>{
-		mui.toast($("#organ-dialog").html(),{ duration:'6000', type:'div' })
+		// mui.toast($("#organ-dialog").html(),{ duration:'6000', type:'div' })
+		mui.alert($("#organ-dialog").html(),'详细内容','关闭','','div')
 	})
 
 
