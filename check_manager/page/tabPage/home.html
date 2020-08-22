@@ -14,9 +14,9 @@
 			.mui-slider .mui-slider-group .mui-slider-item img { height: 220px; }
 			.line { width: 100%; height: 30px; background-color: white; }
 			
-			.home_income { width: 100%; height: 180px; background-color: white; }
-			.home_income>div { position: relative; width: 25%; text-align: center; float: left; font-size: 13px; }
-			.home_income>div>img { margin-top: 10px; width: 48px; height: 48px; }
+			.homebox { width: 100%; height: 180px; background-color: white; }
+			.homebox>div { position: relative; width: 25%; text-align: center; float: left; font-size: 13px; }
+			.homebox>div>img { margin-top: 10px; width: 48px; height: 48px; }
 			
 			.mybadge {
 				position: absolute;
@@ -48,34 +48,57 @@
 		</div>
 		
 		<div class="line"></div>
-		<div class="home_income">
-			<div class="user_mana">
+		<!-- 界面内容区域 -->
+		<div class="homebox">
+			
+			<div class="user-mana">
 				<span class="mybadge mui-badge mui-badge-danger"></span>
 				<img src="../../../img/userCheck.png" alt="" />
 				<div>用户管理</div>
 			</div>
-			<div class="income_mana">
+			
+			<div class="major-mana">
+				<span class="mybadge mui-badge mui-badge-danger"></span>
+				<img src="../../../img/invoice.png" alt="">
+				<div>业务管理</div>
+			</div>
+			
+			<div class="contract-mana">
+				<img src="../../../img/contract_ckeck.png" alt="" />
+				<div>协议模板</div>
+			</div>
+			
+			<div class="  tax-discount">
+				<img src="../../../img/taxesSetCheck.png" alt="" />
+				<div>税收优惠</div>
+			</div>
+			
+			<div class="staff-mana">
+				<span class="mybadge mui-badge mui-badge-danger"></span>
+				<img src="../../../img/staff_manage.png" alt="">
+				<div>员工查询</div>
+			</div>
+			
+			<!-- <div class="income-mana">
 				<span class="mybadge mui-badge mui-badge-danger"></span>
 				<img src="../../../img/userManage.png" alt="" />
 				<div>收入管理</div>
 			</div>
-			<div class="taxes_mana">
-				<img src="../../../img/taxesSetCheck.png" alt="" />
-				<div>税收政策设置</div>
+			
+			<div class="invoice-mana">
+				<img src="../../../img/invoiceCheck.png" alt="" />
+				<div>发票查询</div>
 			</div>
-			<div class="taxes_check">
+			
+			<div class="tax-check">
 				<span class="mybadge mui-badge mui-badge-danger"></span>
 				<img src="../../../img/taxesCheck.png" alt="" />
-				<div>纳税设置审核</div>
-			</div>
-			<div class="contract_mana">
-				<img src="../../../img/invoice.png" alt="" />
-				<div>协议管理</div>
-			</div>
-			<div class="invoice_mana">
-				<img src="../../../img/invoiceCheck.png" alt="" />
-				<div>发票管理</div>
-			</div>
+				<div>报税审核</div>
+			</div> -->
+			
+			
+			
+			
 		</div>
 	</body>
 	<script src="../../../js/jquery-3.3.1.js"></script>
@@ -90,29 +113,39 @@
 	var code_app = localStorage.getItem("code_app");
 	
 	// 用户管理
-	$(".user_mana").click(()=>{
+	$(".user-mana").click(()=>{
 		mui.openWindow('../userMana/userMana.html')
 	})
-	// 收入管理
-	$(".income_mana").click(()=>{
-		mui.openWindow('../incomeMana/incomeMana.html')
-	})
-	// 税收政策设置
-	$(".taxes_mana").click(()=>{
-		mui.openWindow('../taxesMana/taxesMana.html')
-	})
-	// 纳税设置审核
-	$(".taxes_check").click(()=>{
-		mui.openWindow('../taxesCheck/taxesCheck.html')
-	})
+	// // 收入管理
+	// $(".income-mana").click(()=>{
+	// 	mui.openWindow('../incomeMana/incomeMana.html')
+	// })
+	// // 发票管理
+	// $(".invoice-mana").click(()=>{
+	// 	mui.openWindow('../invoiceMana/invoiceMana.html')
+	// })
+	// // 报税审核
+	// $(".tax-check").click(()=>{
+	// 	mui.openWindow('../taxCheck/taxCheck.html')
+	// })
+	
 	// 协议管理
-	$(".contract_mana").click(()=>{
+	$(".contract-mana").click(()=>{
 		mui.openWindow('../contractMana/contractMana.html')
 	})
-	// 发票管理
-	$(".invoice_mana").click(()=>{
-		mui.openWindow('../invoiceMana/invoiceMana.html')
+	// 员工管理
+	$(".staff-mana").click(()=>{
+		mui.openWindow('../staffMana/staffMana.html');
 	})
+	// 税收优惠
+	$(".tax-discount").click(()=>{
+		mui.openWindow('../taxDiscount/taxDiscount.html')
+	})
+	// 业务管理
+	$(".major-mana").click(()=>{
+		mui.openWindow('../majorMana/majorMana.html')
+	})
+	
 	
 	
 	$.ajaxSettings.async = false;   // 取消ajax的异步请求,, 让协议加载完成之后再做监听
@@ -185,10 +218,10 @@
 								
 								// 渲染
 								if(user_mana_badge>0){
-										$(".user_mana .mybadge").css("display","block")
-										$(".user_mana .mybadge").text(user_mana_badge)
+										$(".user-mana .mybadge").css("display","block")
+										$(".user-mana .mybadge").text(user_mana_badge)
 									}
-								else { $(".user_mana .mybadge").css("display","none") }
+								else { $(".user-mana .mybadge").css("display","none") }
 							}
 						});	 
 					}
@@ -197,13 +230,11 @@
 			}
 			
 		});
-		
-		
-
 	})
 	
 	
-	// 获取收入管理中,  待支付的数量
+	// 获取业务管理  新消息数量
+	let major_badge = 0
 	$(function() {
 		$.post(urlDns + "/control_app/ms/fr_zg/zf/index", {
 				pass_app: pass_app,
@@ -220,39 +251,95 @@
 					}
 			} 
 			else {
-				if(data.wait_pay > 0) {
-					$(".income_mana .mybadge").css("display","block")
-					$(".income_mana .mybadge").text(data.wait_pay)
-				}
-				else { $(".income_mana .mybadge").css("display","none") }
+				major_badge += data.wait_pay
+			
+				$.post(urlDns + "/share/bs_app/nssetting/index", {
+						pass_app: pass_app,
+						tel_app: tel_app,
+						code_app: code_app
+				}, function(data) {
+					// console.log(JSON.stringify(data));
+					if (data.result == 0) {
+							// 需要重新登录
+							if (window.plus) {
+									goToLogin("../../../page/register/login.html");
+							} else {
+									document.addEventListener('plusready', goToLogin, false);
+							}
+					} 
+					else {
+						major_badge += data.wait_check
+						if(major_badge > 0) {
+							$(".major-mana .mybadge").css("display","block")
+							$(". tax-check .mybadge").text(major_badge)
+						}
+						else { $(".major-mana .mybadge").css("display","none") }
+					}
+				});
+		
 			}
 		});
 	})
 	
-	// 获取纳税设置审核中,  待审核的数量
-	$(function() {
-		$.post(urlDns + "/share/bs_app/nssetting/index", {
-				pass_app: pass_app,
-				tel_app: tel_app,
-				code_app: code_app
-		}, function(data) {
-			// console.log(JSON.stringify(data));
-			if (data.result == 0) {
-					// 需要重新登录
-					if (window.plus) {
-							goToLogin("../../../page/register/login.html");
-					} else {
-							document.addEventListener('plusready', goToLogin, false);
-					}
-			} 
-			else {
-				if(data.wait_check > 0) {
-					$(".taxes_check .mybadge").css("display","block")
-					$(".taxes_check .mybadge").text(data.wait_check)
-				}
-				else { $(".taxes_check .mybadge").css("display","none") }
-			}
-		});
-	})
+
+	
+	
+	
+	
+	
+	
+	
+	
+	// 获取收入管理中,  待支付的数量
+	// $(function() {
+	// 	$.post(urlDns + "/control_app/ms/fr_zg/zf/index", {
+	// 			pass_app: pass_app,
+	// 			tel_app: tel_app,
+	// 			code_app: code_app
+	// 	}, function(data) {
+	// 		// console.log(JSON.stringify(data));
+	// 		if (data.result == 0) {
+	// 				// 需要重新登录
+	// 				if (window.plus) {
+	// 						goToLogin("../../../page/register/login.html");
+	// 				} else {
+	// 						document.addEventListener('plusready', goToLogin, false);
+	// 				}
+	// 		} 
+	// 		else {
+	// 			if(data.wait_pay > 0) {
+	// 				$(".income-mana .mybadge").css("display","block")
+	// 				$(".income-mana .mybadge").text(data.wait_pay)
+	// 			}
+	// 			else { $(".income-mana .mybadge").css("display","none") }
+	// 		}
+	// 	});
+	// })
+	
+	// // 获取纳税设置审核中,  待审核的数量
+	// $(function() {
+	// 	$.post(urlDns + "/share/bs_app/nssetting/index", {
+	// 			pass_app: pass_app,
+	// 			tel_app: tel_app,
+	// 			code_app: code_app
+	// 	}, function(data) {
+	// 		// console.log(JSON.stringify(data));
+	// 		if (data.result == 0) {
+	// 				// 需要重新登录
+	// 				if (window.plus) {
+	// 						goToLogin("../../../page/register/login.html");
+	// 				} else {
+	// 						document.addEventListener('plusready', goToLogin, false);
+	// 				}
+	// 		} 
+	// 		else {
+	// 			if(data.wait_check > 0) {
+	// 				$(". tax-check .mybadge").css("display","block")
+	// 				$(". tax-check .mybadge").text(data.wait_check)
+	// 			}
+	// 			else { $(". tax-check .mybadge").css("display","none") }
+	// 		}
+	// 	});
+	// })
 </script>
 </html>

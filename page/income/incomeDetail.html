@@ -332,13 +332,11 @@
 <script src="../../js/urlDns.js "></script>
 
 <script type="text/javascript">
+	mui.init();
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
-	// console.log("tel_app：" + tel_app);
-	// console.log("pass_app：" + pass_app);
 	
-	mui.init();
 	var flag = false;
 	
 	// 该条记录的id
@@ -735,8 +733,9 @@
 	    history.back();
 	});
 	
-	// 保存
+	// 点击保存
 	$(".next").click(() => {
+			console.log("点击了保存")
 	    // 抬头id
 	    var comId = $(".comName").attr("id");
 	    // 服务名称
@@ -763,6 +762,7 @@
 	            tel_app: tel_app,
 	            code_app: code_app
 	        }, function(data) {
+						console.log("修改 点 保存")
 	            if (data.result == 0) {
 	                // 需要重新登录
 	                if (window.plus) {
@@ -804,6 +804,7 @@
 	            tel_app: tel_app,
 	            code_app: code_app
 	        }, function(data) {
+						console.log("新增 点击了保存")
 	            if (data.result == 0) {
 	                // 需要重新登录
 	                if (window.plus) {

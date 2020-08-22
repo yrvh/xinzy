@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../../../css/mui.min.css">
+    <title>员工管理</title>
+		
+		<style type="text/css">
+			body {
+			    padding: 0;
+			    margin: 0;
+			    font-size: 16px;
+			    color: #333333;
+			}
+			
+			header {
+			    position: relative;
+			    width: 100%;
+			    height: 44px;
+			    box-shadow: 0 2px 2px 0 rgb(231, 231, 231);
+			    background-color: white;
+			    text-align: center;
+			    line-height: 44px;
+			    font-weight: bold;
+			}
+			
+			header>img {
+			    position: absolute;
+			    width: 20px;
+			    height: 20px;
+			    top: 11px;
+			    left: 5px;
+			}
+			
+			header>div {
+			    position: absolute;
+			    top: 0;
+			    right: 10px;
+			    color: #7eb6ff;
+			}
+			
+			
+			/* .header {
+			    position: relative;
+			    width: 200px;
+			    height: 30px;
+			    border: 1px solid #7eb6ff;
+			    box-sizing: border-box;
+			    border-radius: 4px;
+			    margin: 0 auto;
+			}
+			
+			.user_com,
+			.user_free {
+			    position: absolute;
+			    top: 0;
+			    width: 50%;
+			    height: 100%;
+			    text-align: center;
+			    line-height: 30px;
+			    font-size: 13px;
+			    font-weight: bold;
+			}
+			
+			.user_com {
+			    left: 0;
+			    background-color: #7eb6ff;
+			    color: white;
+			}
+			
+			.user_free {
+			    right: 0;
+			    color: #7eb6ff;
+			} */
+			
+			ul {
+			    list-style: none;
+			    padding: 0;
+			    margin: 20px 0 0 0;
+			}
+			
+			li {
+			    display: flex;
+			    justify-content: space-between;
+			    width: 100%;
+			    height: 46px;
+			    background-color: white;
+			    margin-bottom: 2px;
+			    line-height: 46px;
+			    padding: 0 5px 0 15px;
+			    box-sizing: border-box;
+			}
+			
+			li img {
+			    width: 25px;
+			    height: 25px;
+			    vertical-align: middle;
+			}
+			
+			li>div>span {
+			    color: rgb(153, 153, 153);
+			}
+			
+			.free {
+			    display: none;
+			}
+		</style>
+</head>
+
+<body>
+    <header>
+        <img class="back" src="../../../img/back_black.png" alt=""> 员工管理
+        <!-- <div class="newOne">新增</div> -->
+        <!-- <div class="header">
+            <div class="user_com">单位用户</div>
+            <div class="user_free">业者用户</div>
+        </div> -->
+    </header>
+    <ul class="company">
+        <li class="beingUse">
+            <span>在职</span>
+            <div>
+                <span class="use"></span>
+                <img src="../../../img/next.png" alt="">
+            </div>
+        </li>
+        <li class="stopUsing">
+            <span>停职</span>
+            <div>
+                <span class="stop"></span>
+                <img src="../../../img/next.png" alt="">
+            </div>
+        </li>
+        <!-- <li class="quit">
+            <span>确认离职</span>
+            <div>
+                <span class="stop"></span>
+                <img src="../../../img/next.png" alt="">
+            </div>
+        </li> -->
+
+    </ul>
+    <!-- <ul class="free">
+        <li class="inServiceBox">
+            <span>服务中</span>
+            <div>
+                <span class="inService"></span>
+                <img src="../../../img/next.png" alt="">
+            </div>
+        </li>
+        <li class="inRegisterBox">
+            <span>注册中</span>
+            <div>
+                <span class="inRegister"></span>
+                <img src="../../../img/next.png" alt="">
+            </div>
+        </li>
+        <li class="notUseBox">
+            <span>已解约</span>
+            <div>
+                <span class="notUse"></span>
+                <img src="../../../img/next.png" alt="">
+            </div>
+        </li>
+
+    </ul> -->
+</body>
+<script src="../../../js/jquery-3.3.1.js"></script>
+<script src="../../../js/layer/layer.js"></script>
+<script src="../../../js/urlDns.js"></script>
+
+<script type="text/javascript">
+	
+	mui.init({
+		beforeback: function() {
+			backActive()
+			return true
+		}
+	})
+	// 返回=======================
+	$(".back").click(() => {
+		mui.back();
+	});
+	// 返回之前要执行的操作 函数
+	function backActive() {
+		// sessionStorage.removeItem("income_status");
+	}
+	
+	var pass_app = localStorage.getItem("pass_app");
+	var tel_app = localStorage.getItem("tel_app");
+	var code_app = localStorage.getItem("code_app");
+	
+	
+	$(function() {
+	    var index = layer.load(1, {
+	        // 数组中第一个参数是button的透明度
+	        // 第二个是背景颜色
+	        shade: [0.3, "white"]
+	    });
+	    var getData = $.ajax({
+	        url: urlDns + "/control_app/ms/employee_manage/index",
+	        type: 'post',
+	        dataType: "json",
+	        timeout: 120000, //2分钟超时
+	        data: {
+	            "pass_app": pass_app,
+	            "tel_app": tel_app,
+	            "code_app": code_app
+	        },
+	        //请求成功
+	        success: function(data) {
+	            console.log(JSON.stringify(data));
+	            layer.close(index);
+	            if (data.result == 0) {
+	                // 需要重新登录
+	                if (window.plus) {
+	                    goToLogin("../../../page/register/login.html");
+	                } else {
+	                    document.addEventListener('plusready', goToLogin, false);
+	                }
+	            } else {
+	                $(".use").text(data.use);
+	                $(".stop").text(data.stop_use);
+	            }
+	
+	        },
+	        error: function(XMLHttpRequest, textStatus, errorThrown) {
+	            layer.close(index);
+	            if (textStatus == 'timeout') {
+	                getData.abort();　
+	                alert("请求超时");
+	            }
+	            if (textStatus == 'error') {
+	                getData.abort();　
+	                alert("请求错误" + errorThrown);
+	            }
+	        }
+	    });
+	});
+	
+	// 在职
+	$(".beingUse").click(() => {
+	    location.href = "./beingUse.html";
+	});
+	
+	// 停职
+	$(".stopUsing").click(() => {
+	    location.href = "./stopUsing.html";
+	});
+	
+	// // 确认离职
+	// $(".quit").click(() => {
+	//     location.href = "./quit.html";
+	// });
+	
+	// 新增
+	$(".newOne").click(() => {
+	    location.href = "./newAStaff.html";
+	});
+</script>
+</html>

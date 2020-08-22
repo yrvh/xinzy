@@ -140,6 +140,7 @@
 	
 	// 获取标题
 	var title = sessionStorage.getItem("title")
+	$(".title").text(title)
 	// 获取进入状态
 	var user_type = sessionStorage.getItem("user_type")
 	// 获取数据ID
@@ -190,9 +191,26 @@
 		
 	}
 	
+	if(user_type = '017'){   // 这是有业者角色 退回合同
+		$(".select-btn").css("display","block")
+		$("#cont").prop("disabled",false)
+		// $("#cont").removeAttr("disabled");
+		
+		// 定义一个变量, 存退回原因
+		let nopass_con = ''
+		// 定义一个定时器,
+		let time = setInterval(() => {
+			nopass_con = $("#cont").val()
+			$(".tips").text(nopass_con.length +'/300汉字')
+		},500)
+		
+	}
+	
 	
 	$(".select-btn").click(() => {
-		taxBack()
+		if(user_type = '415') { taxBack() }
+		else if(user_type = '416') { userBack() }
+		else if(user_type = '017') { dealBack() }
 	})
 	// 审核角色: 纳税审核 退回
 	function taxBack() {
@@ -212,15 +230,14 @@
 									document.addEventListener('plusready', goToLogin, false);
 							}
 					} else {
-							mui.toast('退回成功!',{ duration:'4000', type:'div' })
-							location.href = "./taxesCheck/taxset_list.html";
+							mui.alert('退回成功! !','提示','关闭',()=>{history.go(-1)},'div')
 					}
 			});
 	}
 	
 	
 	// 审核角色: 用户审核 退回
-	function taxBack() {
+	function userBack() {
 		$.post(urlDns + '/control_app/ms/fr/user/uncheck', {
 					id: detailId,
 					contents: $("#cont").val(),
@@ -237,8 +254,30 @@
 									document.addEventListener('plusready', goToLogin, false);
 							}
 					} else {
-							mui.toast('退回成功!',{ duration:'4000', type:'div' })
-							location.href = "./userMana/user_list.html";
+							mui.alert('退回成功! !','提示','关闭',()=>{history.go(-4)},'div')
+					}
+			});
+	}
+	
+	// 有业者角色: 业务合同退回
+	function dealBack() {
+		$.post(urlDns + '/control_app/yz/fptt_ht/uncheck', {
+					id: detailId,
+					contents: $("#cont").val(),
+					pass_app: pass_app,
+					tel_app: tel_app,
+					code_app: code_app
+			}, function (data) {
+					// console.log(JSON.stringify(data))
+					if (data.result == 0) {
+							// 需要重新登录
+							if (window.plus) {
+									goToLogin("../../page/register/login.html");
+							} else {
+									document.addEventListener('plusready', goToLogin, false);
+							}
+					} else {
+							mui.alert('退回成功! !','提示','关闭',()=>{history.go(-4)},'div')
 					}
 			});
 	}

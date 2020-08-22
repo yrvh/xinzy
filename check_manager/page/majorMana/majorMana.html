@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<script src="../../../js/mui.min.js"></script>
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<title>--审核主管--业务管理--</title>
+		
+		<style type="text/css">
+			body { margin: 0; padding: 0; color: #333333; }
+			header { position: fixed; top:0; left: 0; z-index: 50; width: 100%; line-height: 44px; height: 44px; background-color: #FFF; box-shadow: 0 2px 2px 0 rgba(231,231,231,1); text-align: center;}
+			header>img { position: absolute; top: 12px; left: 5px; width: 20px; height: 20px; }
+			.occupy {width: 100%; height: 46px; background-color: #ddd; margin-bottom: 20px;}
+			
+			.change { margin: 0 auto; transform: translateY(7px); width: 288px; height: 34px; background-color: #fff; border-radius: 4px; display: flex; justify-content: space-between; border: 1px solid #7EB6FF; }
+			.change>div { font-size: 14px; text-align: center; width: 72px; line-height: 34px; position: relative; }
+			
+			.input_com{ background-color: #7EB6FF; color: #fff; }
+			.input_free,.input_coop,.input_deal{ color: #7EB6FF; }
+			.input_com,.input_free,.input_coop { border-right: 1px solid #7EB6FF;}
+			
+			.invoice-ul,.tax-ul,.deal-ul{display: none;}
+			ul { list-style: none; padding: 0 0 10px 0; margin: 20px 0 0 0; height: 88vh; overflow-y: scroll;}
+			
+			li {
+				display: flex; justify-content: space-between; width: 100%; height: 46px; 
+				background-color: #fff; margin-bottom: 2px; line-height: 46px; padding: 0 5px 0 15px; box-sizing: border-box;
+			}
+			
+			li img { width: 25px; height: 25px; vertical-align: middle; }
+			
+			li>div>span {
+			    color: rgb(153, 153, 153);
+			}
+			
+			.mybadge {display: none;}
+			.change .mybadge { display: none; position: absolute; right: 0; top: 0;}
+		</style>
+	</head>
+	<body>
+		<header>
+   <header>
+        <img class="back" src="../../../img/back_black.png" alt="">
+        <div class="change">
+            <div class="input_com">收入管理  <span class="mybadge mui-badge mui-badge-danger"></span></div>
+            <div class="input_free">发票查询</div>
+						<div class="input_coop">报税审核  <span class="mybadge mui-badge mui-badge-danger"></span></div>
+						<div class="input_deal">业务合同  <span class="mybadge mui-badge mui-badge-danger"></span></div>
+        </div>
+    </header>
+		<div class="occupy"></div>
+		
+		
+		<!-- 收入管理 -->
+		<ul class="income-ul">
+			<li class="wait-free">
+				<span>待业者确认</span>
+				<div>
+						<span class="wait-free-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="free-nopass">
+				<span>业者审核未通过</span>
+				<div>
+						<span class="free-nopass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="com-check">
+				<span>待商秘公司确认</span>
+				<div>
+						<span class="com-check-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="com-nopass">
+				<span>商秘公司审核未通过</span>
+				<div>
+						<span class="com-nopass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="wait-salesman">
+				<span>待业务员发起支付</span>
+				<div>
+						<span class="wait-salesman-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="wait-pay">
+				<span>待支付 <span class="mybadge mui-badge mui-badge-danger"></span></span>
+				<div>
+						<span class="wait-pay-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="complete-pay">
+				<span>已支付</span>
+				<div>
+						<span class="complete-pay-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+		</ul>
+		
+		<!-- 发票 -->
+		<ul class="invoice-ul">
+		    <li class="w_ss">
+		        <span>未算税</span>
+		        <div>
+		            <span class="w_ss_li"></span>
+		            <img src="../../../img/next.png" alt="">
+		        </div>
+		    </li>
+		    <li class="y_ss">
+		        <span>已算税</span>
+		        <div>
+		            <span class="y_ss_li"></span>
+		            <img src="../../../img/next.png" alt="">
+		        </div>
+		    </li>
+		    <li class="y_bs">
+		        <span>已报税</span>
+		        <div>
+		            <span class="y_bs_li"></span>
+		            <img src="../../../img/next.png" alt="">
+		        </div>
+		    </li>
+		    <li class="y_bf">
+		        <span>已作废</span>
+		        <div>
+		            <span class="y_bf_li"></span>
+		            <img src="../../../img/next.png" alt="">
+		        </div>
+		    </li>
+				<li class="y_del">
+				    <span>已删除</span>
+				    <div>
+				        <span class="y_del_li"></span>
+				        <img src="../../../img/next.png" alt="">
+				    </div>
+				</li>
+		
+		</ul>
+		
+		
+		<!-- 报税审核 -->
+		<ul class="tax-ul">
+			<li class="waitcheck">
+			    <span>修改待审核 <span class="mybadge mui-badge mui-badge-danger"></span></span>
+			    <div>
+			        <span class="waitcheck-li"></span>
+			        <img src="../../../img/next.png" alt="">
+			    </div>
+			</li>
+			<li class="pass">
+					<span>服务中</span>
+					<div>
+							<span class="pass-li"></span>
+							<img src="../../../img/next.png" alt="">
+					</div>
+			</li>
+			
+			<li class="nopass">
+					<span>审核退回</span>
+					<div>
+							<span class="nopass-li"></span>
+							<img src="../../../img/next.png" alt="">
+					</div>
+			</li>
+		    
+		</ul>
+		
+		<!-- 业务合同 -->
+		<ul class="deal-ul">
+			<li class="wait">
+				<span>待业者确认 <span class="mybadge mui-badge mui-badge-danger"></span></span>
+				<div>
+						<span class="wait-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="freeback">
+				<span>业者退回</span>
+				<div>
+						<span class="freeback-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="waitclerk">
+				<span>等待业务员确认</span>
+				<div>
+						<span class="waitclerk-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="clerkback">
+				<span>业务员退回</span>
+				<div>
+						<span class="clerkback-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="waitcom">
+				<span>待商秘公司审核</span>
+				<div>
+						<span class="waitcom-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="nopass">
+				<span>商秘公司退回</span>
+				<div>
+						<span class="nopass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="pass">
+				<span>商秘公司通过</span>
+				<div>
+						<span class="pass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+		</ul>
+	</body>
+
+<script src="../../../js/jquery-3.3.1.js"></script>
+<script src="../../../js/urlDns.js"></script>
+
+<script type="text/javascript">
+	
+	mui.init({
+		beforeback: function() {
+			backActive()
+			return true
+		}
+	})
+	// 返回=======================
+	$(".back").click(() => {
+		mui.back();
+	});
+	// 返回之前要执行的操作 函数
+	function backActive() {
+		// sessionStorage.removeItem("addtype");
+		sessionStorage.removeItem("income_status");
+	}
+	
+	
+	var pass_app = localStorage.getItem("pass_app");
+	var tel_app = localStorage.getItem("tel_app");
+	var code_app = localStorage.getItem("code_app");
+	
+	let addtype = 2   //  2收入  1发票     11报税   业务合同9
+	getInfo(9)
+	getInfo(11)
+	getInfo(2)
+	
+	// 角色切换
+	$(".input_com").click(()=>{
+		$(".input_com").css("background-color","#7EB6FF");
+		$(".input_com").css("color","white");
+		$(".input_free").css("background-color","white");
+		$(".input_free").css("color","#7EB6FF");
+		$(".input_coop").css("background-color","white");
+		$(".input_coop").css("color","#7EB6FF");
+		$(".input_deal").css("background-color","white");
+		$(".input_deal").css("color","#7EB6FF");
+		
+		$(".income-ul").css("display","block");
+		$(".invoice-ul").css("display","none");
+		$(".tax-ul").css("display","none");
+		$(".deal-ul").css("display","none");
+			
+			getInfo(2) // 重新获取收入的 页面
+	})
+	
+	$(".input_free").click(()=>{
+		$(".input_com").css("background-color","white");
+		$(".input_com").css("color","#7EB6FF");
+		$(".input_free").css("background-color","#7EB6FF");
+		$(".input_free").css("color","white");
+		$(".input_coop").css("background-color","white");
+		$(".input_coop").css("color","#7EB6FF");
+		$(".input_deal").css("background-color","white");
+		$(".input_deal").css("color","#7EB6FF");
+		
+		$(".income-ul").css("display","none");
+		$(".invoice-ul").css("display","block");
+		$(".tax-ul").css("display","none");
+		$(".deal-ul").css("display","none");
+		
+		getInfo(1) // 重新获取发票页面数据
+	})
+	
+	$(".input_coop").click(()=>{
+		$(".input_com").css("background-color","white");
+		$(".input_com").css("color","#7EB6FF");
+		$(".input_free").css("background-color","white");
+		$(".input_free").css("color","#7EB6FF");
+		$(".input_coop").css("background-color","#7EB6FF");
+		$(".input_coop").css("color","white");
+		$(".input_deal").css("background-color","white");
+		$(".input_deal").css("color","#7EB6FF");
+		
+		$(".income-ul").css("display","none");
+		$(".invoice-ul").css("display","none");
+		$(".tax-ul").css("display","block");
+		$(".deal-ul").css("display","none");
+			
+		getInfo(11) // 重新获取报税审核
+	})
+	
+	$(".input_deal").click(()=>{
+		$(".input_com").css("background-color","white");
+		$(".input_com").css("color","#7EB6FF");
+		$(".input_free").css("background-color","white");
+		$(".input_free").css("color","#7EB6FF");
+		$(".input_coop").css("background-color","white");
+		$(".input_coop").css("color","#7EB6FF");
+		$(".input_deal").css("background-color","#7EB6FF");
+		$(".input_deal").css("color","white");
+		
+		$(".income-ul").css("display","none");
+		$(".invoice-ul").css("display","none");
+		$(".tax-ul").css("display","none");
+		$(".deal-ul").css("display","block");
+			
+		getInfo(9) // 重新获取报税审核
+	})
+	
+	// 判断下一个 页面返回来是处在 收入  发票  报税
+	addtype = sessionStorage.getItem("addtype");
+	if (addtype == "2") {
+		$(".input_com").css("background-color","#7EB6FF");
+		$(".input_com").css("color","white");
+		$(".input_free").css("background-color","white");
+		$(".input_free").css("color","#7EB6FF");
+		$(".input_coop").css("background-color","white");
+		$(".input_coop").css("color","#7EB6FF");
+		$(".input_deal").css("background-color","white");
+		$(".input_deal").css("color","#7EB6FF");
+		
+		$(".income-ul").css("display","block");
+		$(".invoice-ul").css("display","none");
+		$(".tax-ul").css("display","none");
+		$(".deal-ul").css("display","none");
+		getInfo(2)
+	}
+	else if (addtype == "1") {
+		$(".input_com").css("background-color","white");
+		$(".input_com").css("color","#7EB6FF");
+		$(".input_free").css("background-color","#7EB6FF");
+		$(".input_free").css("color","white");
+		$(".input_coop").css("background-color","white");
+		$(".input_coop").css("color","#7EB6FF");
+		$(".input_deal").css("background-color","white");
+		$(".input_deal").css("color","#7EB6FF");
+		
+		$(".income-ul").css("display","none");
+		$(".invoice-ul").css("display","block");
+		$(".tax-ul").css("display","none");
+		$(".deal-ul").css("display","none");
+		getInfo(1)
+	}
+	else if (addtype == "11") {
+		$(".input_com").css("background-color","white");
+		$(".input_com").css("color","#7EB6FF");
+		$(".input_free").css("background-color","white");
+		$(".input_free").css("color","#7EB6FF");
+		$(".input_coop").css("background-color","#7EB6FF");
+		$(".input_coop").css("color","white");
+		$(".input_deal").css("background-color","white");
+		$(".input_deal").css("color","#7EB6FF");
+		
+		$(".income-ul").css("display","none");
+		$(".invoice-ul").css("display","none");
+		$(".tax-ul").css("display","block");
+		$(".deal-ul").css("display","none");
+		getInfo(11)
+	}
+	else if (addtype == "9") {
+		$(".input_com").css("background-color","white");
+		$(".input_com").css("color","#7EB6FF");
+		$(".input_free").css("background-color","white");
+		$(".input_free").css("color","#7EB6FF");
+		$(".input_coop").css("background-color","white");
+		$(".input_coop").css("color","#7EB6FF");
+		$(".input_deal").css("background-color","#7EB6FF");
+		$(".input_deal").css("color","white");
+		
+		$(".income-ul").css("display","none");
+		$(".invoice-ul").css("display","none");
+		$(".tax-ul").css("display","none");
+		$(".deal-ul").css("display","block");
+		getInfo(9)
+	}
+	
+	
+	// 跳转到列表页
+	// ========收入管理=======
+	$(".wait-free").click(() => {
+		sessionStorage.setItem("addtype", "2");
+		sessionStorage.setItem("income_status", 1);
+		location.href = './incomeManaList.html';
+	});
+	$(".free-nopass").click(() => {
+		sessionStorage.setItem("addtype", "2");
+		sessionStorage.setItem("income_status", 3);
+		location.href = './incomeManaList.html';
+	});
+	$(".com-check").click(() => {
+		sessionStorage.setItem("addtype", "2");
+		sessionStorage.setItem("income_status", 2);
+		location.href = './incomeManaList.html';
+	});
+	$(".com-nopass").click(() => {
+		sessionStorage.setItem("addtype", "2");
+		sessionStorage.setItem("income_status", 5);
+		location.href = './incomeManaList.html';
+	});
+	$(".wait-salesman").click(() => {
+		sessionStorage.setItem("addtype", "2");
+		sessionStorage.setItem("income_status", 6);
+		location.href = './incomeManaList.html';
+	});
+	$(".wait-pay").click(() => {
+		sessionStorage.setItem("addtype", "2");
+		sessionStorage.setItem("income_status", 7);
+		location.href = './incomeManaList.html';
+	});
+	$(".complete-pay").click(() => {
+		sessionStorage.setItem("addtype", "2");
+		sessionStorage.setItem("income_status", 8);
+		location.href = './incomeManaList.html';
+	});
+	
+	// =======发票查询============
+	$(".w_ss").click(() => {
+		sessionStorage.setItem("addtype", "1");
+		sessionStorage.setItem("income_status", 0);
+		location.href = './invoice_query_list.html';
+	});
+	
+	$(".y_ss").click(() => {
+		sessionStorage.setItem("addtype", "1");
+		sessionStorage.setItem("income_status", 1);
+		location.href = './invoice_query_list.html';
+	});
+	
+	$(".y_bs").click(() => {
+		sessionStorage.setItem("addtype", "1");
+		sessionStorage.setItem("income_status", 2);
+		location.href = './invoice_query_list.html';
+	});
+	
+	$(".y_bf").click(() => {
+		sessionStorage.setItem("addtype", "1");
+		sessionStorage.setItem("income_status", 3);
+		location.href = './invoice_query_list.html';
+	});
+	
+	$(".y_del").click(() => {
+		sessionStorage.setItem("addtype", "1");
+		sessionStorage.setItem("income_status", 4);
+		location.href = './invoice_query_list.html';
+	});
+	
+	// =======报税审核============
+	$(".waitcheck").click(() => {
+		sessionStorage.setItem("addtype", "11");
+		sessionStorage.setItem("income_status", 0);
+		location.href = './taxset_list.html';
+	});
+	$(".pass").click(() => {
+		sessionStorage.setItem("addtype", "11");
+		sessionStorage.setItem("income_status", 1);
+		location.href = './taxset_list.html';
+	});
+	$(".nopass").click(() => {
+		sessionStorage.setItem("addtype", "11");
+		sessionStorage.setItem("income_status", 2);
+		location.href = './taxset_list.html';
+	});
+	
+	// =======业务合同============
+	$(".deal-ul .wait").click(() => {
+		sessionStorage.setItem("addtype", "9");
+		sessionStorage.setItem("income_status", 2);
+		location.href = './dealList_a.html';
+	});
+	$(".deal-ul .freeback").click(() => {
+		sessionStorage.setItem("addtype", "9");
+		sessionStorage.setItem("income_status", 3);
+		location.href = './dealList_a.html';
+	});
+	$(".deal-ul .waitclerk").click(() => {
+		sessionStorage.setItem("addtype", "9");
+		sessionStorage.setItem("income_status", 4);
+		location.href = './dealList_a.html';
+	});
+	$(".deal-ul .clerkback").click(() => {
+		sessionStorage.setItem("addtype", "9");
+		sessionStorage.setItem("income_status", 5);
+		location.href = './dealList_a.html';
+	});
+	$(".deal-ul .waitcom").click(() => {
+		sessionStorage.setItem("addtype", "9");
+		sessionStorage.setItem("income_status", 6);
+		location.href = './dealList_a.html';
+	});
+	$(".deal-ul .nopass").click(() => {
+		sessionStorage.setItem("addtype", "9");
+		sessionStorage.setItem("income_status", 7);
+		location.href = './dealList_a.html';
+	});
+	$(".deal-ul .pass").click(() => {
+		sessionStorage.setItem("addtype", "9");
+		sessionStorage.setItem("income_status", 1);
+		location.href = './dealList_a.html';
+	});
+	
+	
+	
+	
+	// 请求数据的函数
+	function getInfo(enterType) {
+		// 收入管理
+		if(enterType==2){
+			mui.get(urlDns + "/control_app/ms/fr_zg/zf/index", {
+				pass_app: pass_app,
+				tel_app: tel_app,
+				code_app: code_app
+			}, function(data) {
+				// console.log(JSON.stringify(data));
+				if (data.result == 0) {
+					// 需要重新登录
+					if (window.plus) {
+						goToLogin("../../../page/register/login.html");
+					} 
+					else {
+						document.addEventListener('plusready', goToLogin, false);
+					}
+				} 
+				else {
+					if(data.wait_pay > 0) {
+						$(".income-ul .mybadge").css("display","inline-block")
+						$(".income-ul .mybadge").text(data.wait_pay)
+						$(".input_com .mybadge").css("display","inline-block")
+						$(".input_com .mybadge").text(data.wait_pay)
+					}
+					else { 
+						$(".mybadge").css("display","none")
+						$(".input_com .mybadge").css("display","none")
+					}
+						
+				$(".wait-free-li").text(data.send);
+				$(".free-nopass-li").text(data.yz_nopass);
+				$(".com-check-li").text(data.wait_check);
+				$(".com-nopass-li").text(data.ms_nopass);
+				$(".wait-salesman-li").text(data.ms_send_pay);
+				$(".wait-pay-li").text(data.wait_pay);
+				$(".complete-pay-li").text(data.pay);
+				}
+					
+			});
+		}
+		// 发票查询
+		else if(enterType==1) {
+			mui.post(urlDns + "/control_app/ms/fr_zg/fp/index",{
+			    // 0.收入录入1.业者录入
+			    tel_app:tel_app,
+			    pass_app:pass_app,
+			    code_app:code_app
+			},function(data){
+			    // console.log(JSON.stringify(data))
+					if (data.result == 0) {
+						// 需要重新登录
+						if (window.plus) {
+							goToLogin("../../../page/register/login.html");
+						} 
+						else {
+							document.addEventListener('plusready', goToLogin, false);
+						}
+					} 
+					else {
+						$(".w_ss_li").text(data.w_ss);
+						$(".y_ss_li").text(data.y_ss);
+						$(".y_bs_li").text(data.y_bs);
+						$(".y_bf_li").text(data.y_bf);
+						$(".y_del_li").text(data.y_del);
+					}
+			})
+		}
+		// 报税审核
+		else if(enterType==11){
+			console.log("函数执行了")
+			mui.get(urlDns + "/share/bs_app/nssetting/index", {
+				pass_app: pass_app,
+				tel_app: tel_app,
+				code_app: code_app
+			}, function(data) {
+				console.log("数据请求,响应了")
+				console.log(JSON.stringify(data));
+				if (data.result == 0) {
+					// 需要重新登录
+					if (window.plus) {
+						goToLogin("../../../page/register/login.html");
+					} 
+					else {
+						document.addEventListener('plusready', goToLogin, false);
+					}
+				} 
+				else {
+					if(data.wait_check > 0) {
+						$(".tax-ul .mybadge").css("display","inline-block")
+						$(".tax-ul .mybadge").text(data.wait_check)
+						$(".input_coop .mybadge").css("display","inline-block")
+						$(".input_coop .mybadge").text(data.wait_check)
+					}
+					else { 
+						$(".mybadge").css("display","none")
+						$(".input_coop .mybadge").css("display","none")
+					}
+							
+					$(".waitcheck-li").text(data.wait_check);
+					$(".pass-li").text(data.check);
+					$(".nopass-li").text(data.no_check);
+					}
+			});
+		}
+		
+		// 业务合同
+		else if(enterType==9) {
+				mui.post(urlDns + '/control_app/ms/fptt_ht/main',{
+				    tel_app:tel_app,
+				    pass_app:pass_app,
+				    code_app:code_app
+				}, function(data) {
+					// console.log(JSON.stringify(data));
+					if (data.result == 0) {
+						// 需要重新登录
+						if (window.plus) {
+							goToLogin("../../../page/register/login.html");
+						} 
+						else {
+							document.addEventListener('plusready', goToLogin, false);
+						}
+					}
+					else {
+						if(data.uu2 > 0) {
+							$(".deal-ul .mybadge").css("display","inline-block")
+							$(".deal-ul .mybadge").text(data.uu2)
+							$(".input_deal .mybadge").css("display","inline-block")
+							$(".input_deal .mybadge").text(data.uu2)
+						}
+						else { 
+							$(".deal-ul .mybadge").css("display","none")
+							$(".input_deal .mybadge").css("display","none")
+						}
+						
+						$(".deal-ul .wait-li").text(data.uu2);
+						$(".deal-ul .freeback-li").text(data.uu3);
+						$(".deal-ul .waitclerk-li").text(data.uu4);
+						$(".deal-ul .clerkback-li").text(data.uu5);
+						$(".deal-ul .waitcom-li").text(data.uu6);
+						$(".deal-ul .nopass-li").text(data.uu7);
+						$(".deal-ul .pass-li").text(data.uu1);
+					}
+				})
+				
+			}
+		}
+</script>
+
+</html>

@@ -195,7 +195,10 @@
 			});
 		})
 		
+		
+		
 		// 获取收入管理中,  待业者确认的数量
+		let income_badge = 0
 		$(function() {
 			$.post(urlDns + "/control_app/yz/zf/index", {
 					pass_app: pass_app,
@@ -204,25 +207,48 @@
 			}, function(data) {
 				// console.log(JSON.stringify(data));
 				if (data.result == 0) {
-						// 需要重新登录
-						if (window.plus) {
-								goToLogin("../register/login.html");
-						} else {
-								document.addEventListener('plusready', goToLogin, false);
-						}
-				} 
-				else {
-					if(data.waisend > 0){
-						$(".income .mybadge").css("display","block")
-						$(".income .mybadge").text(data.waisend)
+					// 需要重新登录
+					if (window.plus) {
+							goToLogin("../register/login.html");
+					} else {
+							document.addEventListener('plusready', goToLogin, false);
 					}
-					else if(data.send > 0) {
-						$(".income .mybadge").css("display","block")
-						$(".income .mybadge").text(data.send)
-					}
-					else { $(".income .mybadge").css("display","none") }
 				}
-			});
+				// 二次请求-----------
+				else {
+					if(data.waisend > 0) {income_badge += data.waisend}
+					else if(data.send > 0) {income_badge += data.send}
+					
+					mui.post(urlDns + '/control_app/yz/fptt_ht/main',{
+					    tel_app:tel_app,
+					    pass_app:pass_app,
+					    code_app:code_app
+					}, function(data) {
+						// console.log(JSON.stringify(data));
+						if (data.result == 0) {
+							// 需要重新登录
+							if (window.plus) {
+								goToLogin("../../page/register/login.html");
+							} 
+							else {
+								document.addEventListener('plusready', goToLogin, false);
+							}
+						}
+						else {
+							income_badge += data.uu2
+							if(income_badge > 0){
+								$(".income .mybadge").css("display","block")
+								$(".income .mybadge").text(income_badge)
+							}
+							else { $(".income .mybadge").css("display","none") }
+						}
+					})
+				}
+				// 二次请求--------
+				
+				
+				
+			})
 		})
 </script>
 

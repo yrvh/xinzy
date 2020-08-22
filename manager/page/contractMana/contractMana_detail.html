@@ -9,65 +9,46 @@
 	<link rel="stylesheet" href="../../../css/mui.min.css">
 	<title>协议模板</title>
 	<style>
-		html,
+		/* --------- 详情页: 头部样式 start---------- */
 		body {
-				width: 100%;
-				/* height: 100%; */
-				margin: 0;
-				padding: 0;
-				color: #333333;
-				font-size: 16px;
-		}
-		
-		header {
-				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 44px;
-				background-color: white;
-				box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
-				text-align: center;
-				line-height: 44px;
-				font-weight: bold;
-				font-size: 16px;
-		}
-		
+			margin: 0; padding: 0; color: #333333; 
+			}
+		header { 
+			position: fixed; top:0; left: 0; z-index: 50; width: 100%; line-height: 44px; height: 44px; background-color: #FFF; box-shadow: 0 2px 2px 0 rgba(231,231,231,1); text-align: center;
+			}
 		header>img {
-				position: absolute;
-				top: 12px;
-				left: 5px;
-				width: 20px;
-				height: 20px;
+			position: absolute; top: 12px; left: 5px; width: 20px; height: 20px; 
 		}
-		
-		.title {
-				width: 100%;
-				height: 50px;
-				background-color: white;
-				margin-top: 65px;
-				line-height: 50px;
-				font-size: 16px;
-				font-weight: 700;
-				padding: 5px 15px;
-				padding-bottom: 60px;
+		.occupy {
+			width: 100%; height: 46px; background-color: #ddd; margin-bottom: 20px;
 		}
+		/* .select-btn {
+			position: absolute; top: 0; right: 5px; line-height: 44px; display: none; color: #7EB6FF; margin-right: 10px;
+		}
+		.select_all { 
+			position: absolute; width: 40px; line-height: 44px; color: #7EB6FF; left: 5px; display: none;
+		} */
+		/* --------- 详情页: 头部样式 end---------- */
 		
 		.second {
-				width: 100%;
-				height: 50px;
-				background-color: white;
-				padding: 0 15px;
-				font-size: 17px;
-				margin-top: 66px;
-				line-height: 50px;
-				font-weight: bold;
+			background-color: #fff;
+			box-sizing: border-box;
+			width: 100%;
+			height: 50px;
+			padding: 0 15px;
+			font-size: 17px;
+			margin-bottom: 10px;
+			line-height: 50px;
+			font-weight: bold;
 		}
 		
 		.cont {
+			background-color: #2AC845;
+				box-sizing: border-box;
 				width: 100%;
 				background-color: white;
-				padding: 0 15px;
+				padding: 15px;
+				overflow: scroll;
 		}
 		
 		p {
@@ -111,9 +92,12 @@
 
 <body>
 	<header>
-			<img class="back" src="../../../img/back_black.png" alt=""> <span class="pageTitle">协议模板</span>
+			<img class="back" src="../../../img/back_black.png" alt=""> 
+			<span class="pageTitle">协议模板</span>
 	</header>
-	<div class="second">与接受服务单位协议内容</div>
+	<div class="occupy"></div>
+	
+	<div class="second"></div>
 	<div class="cont"></div>
 </body>
 <script src="../../../js/jquery-3.3.1.js"></script>
@@ -121,11 +105,21 @@
 <script src="../../../js/urlDns.js"></script>
 
 <script>
-	mui.init();
-	// 返回
+	
+	mui.init({
+		beforeback: function() {
+			backActive()
+			return true
+		}
+	})
+	// 返回=======================
 	$(".back").click(() => {
-			mui.back();
+		mui.back();
 	});
+	// 返回之前要执行的操作 函数
+	function backActive() {
+		// sessionStorage.removeItem("income_status");
+	}
 
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");

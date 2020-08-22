@@ -1,208 +1,375 @@
 <!DOCTYPE html>
-<html lang="">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="../../../js/mui.min.js"></script>
-    <link rel="stylesheet" href="../../../css/mui.min.css">
-    <title>有单位业者-收入管理</title>
-    <script>
-        mui.init();
-    </script>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<script src="../../../js/mui.min.js"></script>
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<title>--审核主管--用户管理--</title>
 		
 		<style type="text/css">
-			body {
-			    margin: 0;
-			    padding: 0;
-			    color: #333333;
-			}
+			body { margin: 0; padding: 0; color: #333333; }
+			header { position: fixed; top:0; left: 0; z-index: 50; width: 100%; line-height: 44px; height: 44px; background-color: #FFF; box-shadow: 0 2px 2px 0 rgba(231,231,231,1); text-align: center;}
+			header>img { position: absolute; top: 12px; left: 5px; width: 20px; height: 20px; }
+			.occupy {width: 100%; height: 46px; background-color: #ddd; margin-bottom: 20px;}
 			
-			header {
-			    position: relative;
-			    text-align: center;
-			    line-height: 44px;
-			    width: 100%;
-			    height: 44px;
-			    background-color: white;
-			    box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
-			}
+			.change { margin: 0 auto; transform: translateY(7px); width: 178px; height: 34px; background-color: #fff; border-radius: 4px; display: flex; justify-content: space-between; border: 1px solid #7EB6FF; }
+			.change>div { font-size: 14px; text-align: center; width: 90px; line-height: 34px; position: relative;}
 			
-			header>img {
-			    position: absolute;
-			    top: 12px;
-			    left: 5px;
-			    width: 20px;
-			    height: 20px;
-			}
+			.income_info{ background-color: #7EB6FF; color: #fff; }
+			.deal_contract{ color: #7EB6FF; }
 			
-			header>div {
-			    position: absolute;
-			    top: 0;
-			    right: 5px;
-			    height: 44px;
-			    line-height: 44px;
-			}
 			
-			.next {
-			    line-height: 44px;
-			    color: #7EB6FF;
-			    margin-right: 10px;
-			}
-			
-			ul {
-			    list-style: none;
-			    padding: 0;
-			    margin: 20px 0 0 0;
-			}
+			.deal-ul,{display: none;}
+			ul { list-style: none; padding: 0 0 10px 0; margin: 20px 0 0 0; height: 88vh; overflow-y: scroll;}
 			
 			li {
-			    display: flex;
-			    justify-content: space-between;
-			    width: 100%;
-			    height: 46px;
-			    background-color: white;
-			    margin-bottom: 2px;
-			    line-height: 46px;
-			    padding: 0 5px 0 15px;
-			    box-sizing: border-box;
+				display: flex; justify-content: space-between; width: 100%; height: 46px; 
+				background-color: #fff; margin-bottom: 2px; line-height: 46px; padding: 0 5px 0 15px; box-sizing: border-box;
 			}
 			
-			li img {
-			    width: 25px;
-			    height: 25px;
-			    vertical-align: middle;
-			}
+			li img { width: 25px; height: 25px; vertical-align: middle; }
 			
 			li>div>span {
 			    color: rgb(153, 153, 153);
 			}
 			
 			.mybadge {display: none;}
+			.change .mybadge { display: none; position: absolute; right: 0; top: 0;}
 		</style>
-</head>
-
-<body>
-    <header>
-        <img class="back" src="../../../img/back_black.png" alt=""> 收入管理
-        <!-- <div class="next">新增</div> -->
+	</head>
+	<body>
+		<header>
+   <header>
+        <img class="back" src="../../../img/back_black.png" alt="">
+        <div class="change">
+            <div class="income_info">收入信息 <span class="mybadge mui-badge mui-badge-danger"></span></div>
+            <div class="deal_contract">业务合同 <span class="mybadge mui-badge mui-badge-danger"></span></div>
+        </div>
     </header>
+		<div class="occupy"></div>
+		
+		
+		<!-- 收入信息 -->
+		<ul class="income-ul">
+			<li class="wait">
+				<span>待确认 <span class="mybadge mui-badge mui-badge-danger"></span></span>
+				<div>
+						<span class="wait-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="freeback">
+				<span>业者退回</span>
+				<div>
+						<span class="freeback-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="waitcom">
+			    <span>待商秘公司确认</span>
+			    <div>
+			        <span class="waitcom-li"></span>
+			        <img src="../../../img/next.png" alt="">
+			    </div>
+			</li>
+			<li class="nopass">
+			    <span>商秘公司退回</span>
+			    <div>
+			        <span class="nopass-li"></span>
+			        <img src="../../../img/next.png" alt="">
+			    </div>
+			</li>
+			<li class="pass">
+			    <span>商秘公司已确认</span>
+			    <div>
+			        <span class="pass-li"></span>
+			        <img src="../../../img/next.png" alt="">
+			    </div>
+			</li>
+		</ul>
+		
+		<!-- 业务合同 -->
+		<ul class="deal-ul">
+			<li class="wait">
+				<span>待业者确认 <span class="mybadge mui-badge mui-badge-danger"></span></span>
+				<div>
+						<span class="wait-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="freeback">
+				<span>业者退回</span>
+				<div>
+						<span class="freeback-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="waitclerk">
+				<span>等待业务员确认</span>
+				<div>
+						<span class="waitclerk-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="clerkback">
+				<span>业务员退回</span>
+				<div>
+						<span class="clerkback-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="waitcom">
+				<span>待商秘公司审核</span>
+				<div>
+						<span class="waitcom-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="nopass">
+				<span>商秘公司退回</span>
+				<div>
+						<span class="nopass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="pass">
+				<span>商秘公司通过</span>
+				<div>
+						<span class="pass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+		</ul>
+		
+	</body>
 
-
-    <ul>
-        <li class="noSubmit">
-            <span>待确认 <span class="mybadge mui-badge mui-badge-danger"></span></span>
-            <div>
-                <span class="noSubmitNum"></span>
-                <img src="../../../img/next.png" alt="">
-            </div>
-        </li>
-        <li class="noExamine">
-            <span>已退回</span>
-            <div>
-                <span class="noExamineNum"></span>
-                <img src="../../../img/next.png" alt="">
-            </div>
-        </li>
-        <li class="ToBack">
-            <span>待商秘公司确认</span>
-            <div>
-                <span class="ToBackNum"></span>
-                <img src="../../../img/next.png" alt="">
-            </div>
-        </li>
-        <li class="completed">
-            <span>商秘公司退回</span>
-            <div>
-                <span class="completedNum"></span>
-                <img src="../../../img/next.png" alt="">
-            </div>
-        </li>
-        <li class="confirmed">
-            <span>商秘公司已确认</span>
-            <div>
-                <span class="confirmedNum"></span>
-                <img src="../../../img/next.png" alt="">
-            </div>
-        </li>
-
-    </ul>
-</body>
 <script src="../../../js/jquery-3.3.1.js"></script>
 <script src="../../../js/urlDns.js"></script>
 
 <script type="text/javascript">
+	
+	mui.init({
+		beforeback: function() {
+			backActive()
+			return true
+		}
+	})
+	// 返回=======================
+	$(".back").click(() => {
+		mui.back();
+	});
+	// 返回之前要执行的操作 函数
+	function backActive() {
+		sessionStorage.removeItem("addtype");
+		sessionStorage.removeItem("income_status");
+	}
+	
+	
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
-	// console.log("tel_app：" + tel_app);
-	// console.log("pass_app：" + pass_app);
 	
-	// 返回
-	$(".back").click(() => {
-	    mui.back();
+	getInfo(9)
+	getInfo(2)
+	
+	
+	// 角色切换
+	$(".income_info").click(()=>{
+		$(".income_info").css("background-color","#7EB6FF");
+		$(".income_info").css("color","white");
+		$(".deal_contract").css("background-color","white");
+		$(".deal_contract").css("color","#7EB6FF");
+		$(".input_coop").css("background-color","white");
+		$(".input_coop").css("color","#7EB6FF");
+		$(".income-ul").css("display","block");
+		$(".deal-ul").css("display","none");
+		$(".coop-ul").css("display","none");
+			
+			getInfo(2) // 重新获取收入信息 页面数据信息
+	})
+	
+	$(".deal_contract").click(()=>{
+		$(".income_info").css("background-color","white");
+		$(".income_info").css("color","#7EB6FF");
+		$(".deal_contract").css("background-color","#7EB6FF");
+		$(".deal_contract").css("color","white");
+		$(".input_coop").css("background-color","white");
+		$(".input_coop").css("color","#7EB6FF");
+		$(".income-ul").css("display","none");
+		$(".deal-ul").css("display","block");
+		$(".coop-ul").css("display","none");
+	
+		getInfo(9) // 重新获取 业务合同 页面数据信息
+	})
+	
+	
+	// 判断下一个 页面返回来是处在 收入  合同  的界面
+	var addtype = sessionStorage.getItem("addtype");
+	if (addtype == "2") {
+		$(".income_info").css("background-color","#7EB6FF");
+		$(".income_info").css("color","white");
+		$(".deal_contract").css("background-color","white");
+		$(".deal_contract").css("color","#7EB6FF");
+		$(".input_coop").css("background-color","white");
+		$(".input_coop").css("color","#7EB6FF");
+		$(".income-ul").css("display","block");
+		$(".deal-ul").css("display","none");
+		$(".coop-ul").css("display","none");
+		getInfo(2)
+	}
+	if (addtype == "9") {
+		$(".income_info").css("background-color","white");
+		$(".income_info").css("color","#7EB6FF");
+		$(".deal_contract").css("background-color","#7EB6FF");
+		$(".deal_contract").css("color","white");
+		$(".input_coop").css("background-color","white");
+		$(".input_coop").css("color","#7EB6FF");
+		$(".income-ul").css("display","none");
+		$(".deal-ul").css("display","block");
+		$(".coop-ul").css("display","none");
+		getInfo(9)
+	}
+	
+	
+	// 跳转到列表页
+	// ========收入信息=======
+	$(".income-ul .wait").click(() => {
+		sessionStorage.setItem("addtype", "2");
+		sessionStorage.setItem("income_status", 1);
+		location.href = './incomeDetailList_a.html';
+	});
+	$(".income-ul .freeback").click(() => {
+		sessionStorage.setItem("addtype", "2");
+		sessionStorage.setItem("income_status", 3);
+		location.href = './incomeDetailList_a.html';
+	});
+	$(".income-ul .waitcom").click(() => {
+		sessionStorage.setItem("addtype", "2");
+		sessionStorage.setItem("income_status", 2);
+		location.href = './incomeDetailList_a.html';
+	});
+	$(".income-ul .nopass").click(() => {
+		sessionStorage.setItem("addtype", "2");
+		sessionStorage.setItem("income_status", 5);
+		location.href = './incomeDetailList_a.html';
+	});
+	$(".income-ul .pass").click(() => {
+		sessionStorage.setItem("addtype", "2");
+		sessionStorage.setItem("income_status", 6);
+		location.href = './incomeDetailList_a.html';
 	});
 	
-	// 数据请求放在自运行函数里，避免新增或删除操作返回后数据没有刷新
-	$(function() {
-	    $.get(urlDns + "/control_app/yz/zf/index", {
-	        pass_app: pass_app,
-	        tel_app: tel_app,
-	        code_app: code_app
-	    }, function(data) {
-	        console.log(JSON.stringify(data));
-	        if (data.result == 0) {
-	            // 需要重新登录
-	            if (window.plus) {
-	                goToLogin("../../register/login.html");
-	            } else {
-	                document.addEventListener('plusready', goToLogin, false);
-	            }
-	        } else {
-						
-						if(data.send > 0) {
-							$(".mybadge").css("display","inline-block")
-							$(".mybadge").text(data.waisend)
+	// =======业务合同============
+	$(".deal-ul .wait").click(() => {
+		sessionStorage.setItem("addtype", "9");
+		sessionStorage.setItem("income_status", 2);
+		location.href = './dealList_a.html';
+	});
+	$(".deal-ul .freeback").click(() => {
+		sessionStorage.setItem("addtype", "9");
+		sessionStorage.setItem("income_status", 3);
+		location.href = './dealList_a.html';
+	});
+	$(".deal-ul .waitclerk").click(() => {
+		sessionStorage.setItem("addtype", "9");
+		sessionStorage.setItem("income_status", 4);
+		location.href = './dealList_a.html';
+	});
+	$(".deal-ul .clerkback").click(() => {
+		sessionStorage.setItem("addtype", "9");
+		sessionStorage.setItem("income_status", 5);
+		location.href = './dealList_a.html';
+	});
+	$(".deal-ul .waitcom").click(() => {
+		sessionStorage.setItem("addtype", "9");
+		sessionStorage.setItem("income_status", 6);
+		location.href = './dealList_a.html';
+	});
+	$(".deal-ul .nopass").click(() => {
+		sessionStorage.setItem("addtype", "9");
+		sessionStorage.setItem("income_status", 7);
+		location.href = './dealList_a.html';
+	});
+	$(".deal-ul .pass").click(() => {
+		sessionStorage.setItem("addtype", "9");
+		sessionStorage.setItem("income_status", 1);
+		location.href = './dealList_a.html';
+	});
+	
+	var my_url
+	// 请求数据的函数
+	function getInfo(enterType) {
+		// 2.收入信息  9.业务合同
+		if (enterType==2){
+			my_url = '/control_app/yz/zf/index'   // 收入信息 的请求地址
+		}
+		else {
+			my_url = '/control_app/yz/fptt_ht/main'
+		}
+		mui.post(urlDns + my_url,{
+		    tel_app:tel_app,
+		    pass_app:pass_app,
+		    code_app:code_app
+		}, function(data) {
+			// console.log(JSON.stringify(data));
+			if (data.result == 0) {
+				// 需要重新登录
+				if (window.plus) {
+					goToLogin("../../../page/register/login.html");
+				} 
+				else {
+					document.addEventListener('plusready', goToLogin, false);
+				}
+			}
+			else {
+				// 收入信息
+				if(enterType == 2) {
+					if(data.send > 0) {
+						$(".income-ul .mybadge").css("display","inline-block")
+						$(".income-ul .mybadge").text(data.send)
+						$(".income_info .mybadge").css("display","inline-block")
+						$(".income_info .mybadge").text(data.send)
+					}
+					else { 
+						$(".income-ul .mybadge").css("display","none")
+						$(".income_info .mybadge").css("display","none")
 						}
-						else { $(".mybadge").css("display","none") }
-						
-						$(".noSubmitNum").text(data.send);
-						$(".noExamineNum").text(data.yz_nopass);
-						$(".ToBackNum").text(data.yz_pass);
-						$(".completedNum").text(data.ms_nopass);
-						$(".confirmedNum").text(data.ms_pass);
-	        }
+					
+					$(".income-ul .wait-li").text(data.send);
+					$(".income-ul .freeback-li").text(data.yz_nopass);
+					$(".income-ul .waitcom-li").text(data.yz_pass);
+					$(".income-ul .nopass-li").text(data.ms_nopass);
+					$(".income-ul .pass-li").text(data.ms_pass);
+					
+				}
+							
+				// 业务合同
+				if(enterType == 9) {
+					if(data.uu2 > 0) {
+						$(".deal-ul .mybadge").css("display","inline-block")
+						$(".deal-ul .mybadge").text(data.uu2)
+						$(".deal_contract .mybadge").css("display","inline-block")
+						$(".deal_contract .mybadge").text(data.uu2)
+					}
+					else { 
+						$(".deal-ul .mybadge").css("display","none")
+						$(".deal_contract .mybadge").css("display","none")
+					}
+					
+					$(".deal-ul .wait-li").text(data.uu2);
+					$(".deal-ul .freeback-li").text(data.uu3);
+					$(".deal-ul .waitclerk-li").text(data.uu4);
+					$(".deal-ul .clerkback-li").text(data.uu5);
+					$(".deal-ul .waitcom-li").text(data.uu6);
+					$(".deal-ul .nopass-li").text(data.uu7);
+					$(".deal-ul .pass-li").text(data.uu1);
+				}
+			}
 	
-	    });
-	});
-	
-	// 新增
-	// $(".next").click(() => {
-	//     sessionStorage.setItem("isIn", 2);
-	//     location.href = './incomeDetail.html';
-	// });
-	
-	$(".noSubmit").click(() => {
-	    sessionStorage.setItem("id", "noSubmit");
-	    location.href = './incomeDetailList_a.html';
-	});
-	$(".noExamine").click(() => {
-	    sessionStorage.setItem("id", "noExamine");
-	    location.href = './incomeDetailList_a.html';
-	});
-	$(".ToBack").click(() => {
-	    sessionStorage.setItem("id", "ToBack");
-	    location.href = './incomeDetailList_a.html';
-	});
-	$(".completed").click(() => {
-	    sessionStorage.setItem("id", "completed");
-	    location.href = './incomeDetailList_a.html';
-	});
-	$(".confirmed").click(() => {
-	    sessionStorage.setItem("id", "confirmed");
-	    location.href = './incomeDetailList_a.html';
-	});
+		});
+	}
 </script>
 
 </html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script src="../../../js/mui.min.js"></script>
+	<link rel="stylesheet" href="../../../css/mui.min.css">
+	<script src="../../../js/mescroll.min.js"></script>
+	<link rel="stylesheet" href="../../../css/mescroll.min.css">
+	<title>审核主管--用户--详情页面</title>
+	
+	<style type="text/css">
+		body { margin: 0; padding: 0; font-size: 16px; color: #333333; }
+		
+		header { position: fixed;
+			top: 0; left: 0; text-align: center; width: 100%;
+			height: 44px; line-height: 44px; background-color: white;
+			box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+			font-weight: bold; font-size: 16px; z-index: 99; }
+		header>div {
+			position: absolute;
+			top: 0;
+			right: 5px;
+			height: 44px;
+			line-height: 44px;
+		}
+		
+		header>div>span {
+			color: #999999;
+		}
+		.select-btn { line-height: 44px; color: #7EB6FF; margin-right: 10px;}
+		
+		.back { width: 20px; height: 20px; position: absolute; top: 12px; left: 5px; color: #7EB6FF; }		
+		
+		.the-place { width: 100%; height: 44px; margin-bottom: 20px;}
+		
+		.com-status { width: 100%; line-height: 44px; background-color: #fff; margin: 20px 0; padding: 0 15px;}
+		
+		ul { list-style: none; padding: 0 15px; margin-bottom: 20px; background-color: #fff;}
+		
+		li { border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; width: 100%; height: 46px; margin-bottom: 2px; line-height: 46px; box-sizing: border-box; }
+		
+		li>div { display: flex; align-items: center; justify-content: space-between;}
+		
+		li img { width: 25px; height: 25px; }
+		
+		li>div>span { color: rgb(153, 153, 153); }
+		
+		.info-title { line-height: 50px; font-weight: 800; font-size: 17px;}
+		ul>li:last-of-type {border: none !important;}
+		
+		
+		.row{ background-color: #ddd;}
+		
+		
+		.income-info,.taxes-info {display: none;}
+	</style>
+</head>
+
+<body>
+	<header>
+			<img class="back" src="../../../img/back_black.png" alt="">
+			<span class="title-span">个人信息(1)</span>
+			<div class="select-btn">下一页</div>
+	</header>
+	<div class="the-place"></div>
+	<div class="com-status">【注册状态】 <span class="status-li"></span></div>
+	
+	
+	<!-- 个人信息 -->
+	<div class="personal">
+		<ul class="personal_info">
+			<div class="info-title">个人信息</div>
+			<li class="per-name">
+				<span>姓名</span>
+				<div>
+					<span class="per-name-li"></span>
+				</div>
+			</li>
+			<li class="per-tel">
+				<span>手机号码</span>
+				<div>
+					<span class="per-tel-li"></span>
+				</div>
+			</li>
+			<li class="per-email">
+				<span>电子邮箱</span>
+				<div>
+					<span class="per-email-li"></span>
+				</div>
+			</li>
+			<li class="per-IDcard">
+				<span>身份证号码</span>
+				<div>
+					<span class="per-IDcard-li"></span>
+				</div>
+			</li>
+			<li class="per-idcardimg">
+				<span>证件照片</span>
+				<div>
+					<span class="per-idcardimg-li"></span>
+					<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+		</ul>
+		
+		<ul class="account-info">
+			<div class="info-title">个人账户信息</div>
+			<li class="account-bank">
+				<span>开户机构</span>
+				<div>
+					<span class="account-bank-li"></span>
+				</div>
+			</li>
+			<li class="account-name">
+				<span>开户名</span>
+				<div>
+					<span class="account-name-li"></span>
+				</div>
+			</li>
+			<li class="account-num">
+				<span>账号</span>
+				<div>
+					<span class="account-num-li"></span>
+				</div>
+			</li>
+		</ul>
+		
+		<ul class="income-info">
+			<div class="info-title">收入信息</div>
+			<li class="income-scope">
+				<span>收入范围(元)</span>
+				<div>
+					<span class="income-scope-li"></span>
+				</div>
+			</li>
+		</ul>
+		
+		<ul class="taxes-info">
+			<div class="info-title">纳税信息</div>
+			<li class="taxes-type">
+				<span>行业类型</span>
+				<div>
+					<span class="taxes-type-li"></span>
+				</div>
+			</li>
+			
+			<div class="added row">增值税 (<span></span>)</div>
+			<li class="taxes-added">
+				<span>核定定额 (元)</span>
+				<div>
+					<span class="taxes-added-li"></span>
+				</div>
+			</li>
+			
+			<div class="income row">个人所得税</div>
+			<li class="taxes-income">
+				<span>核定定额(元)</span>
+				<div>
+					<span class="taxes-income-li"></span>
+				</div>
+			</li>
+		</ul>
+	</div>
+	
+	
+	
+</body>
+<script src="../../../js/jquery-3.3.1.js"></script>
+<script src="../../../js/urlDns.js"></script>
+<script src="../../../js/layer/layer.js"></script>
+
+<script type="text/javascript">
+	
+	mui.init({
+		beforeback: function() {
+			backActive()
+			return true
+		}
+	})
+	// 返回=======================
+	$(".back").click(() => {
+		mui.back();
+	});
+	// 返回之前要执行的操作 函数
+	function backActive() {
+		sessionStorage.removeItem("detailId")
+		sessionStorage.removeItem("detailType")
+	}
+	
+	var pass_app = localStorage.getItem("pass_app");
+	var tel_app = localStorage.getItem("tel_app");
+	var code_app = localStorage.getItem("code_app");
+	
+	// 获得到进入的 状态值
+	let income_status = sessionStorage.getItem("income_status");
+	if(income_status==8 || income_status==77 || income_status==7 || income_status==4 || income_status==44){
+		$(".income-info").css("display","block")
+		$(".taxes-info").css("display","block")
+	}
+	
+	// 获取用户id和用户类型
+	let detailId = sessionStorage.getItem("detailId")
+	// console.log(detailId)
+	let detailType = sessionStorage.getItem("detailType")
+	
+	
+	// 控制显示哪个页面 1业者  11伙伴
+	if(detailType==1){
+		getDetail(1)
+	}
+	if(detailType==11){
+		getDetail(11)
+	}
+
+	
+	// 定义请求详情的函数
+	function getDetail(uType) {
+		// console.log(detailId)
+		var getData = mui.ajax({
+				url: urlDns + "/control_app/ms/fr/user/yz/showUI",
+				type: 'post',
+				dataType: "json",
+				timeout: 120000, //2分钟超时
+				data: {
+						"pass_app": pass_app,
+						"tel_app": tel_app,
+						"code_app": code_app,
+						"id": detailId
+				},
+				//请求成功
+				success: function(data) {
+						// console.log(JSON.stringify(data));
+						if (data.result == 0) {
+								console.log("iggs没  res=0")
+								// 需要重新登录
+								if (window.plus) {
+										goToLogin("../../../page/register/login.html");
+								} else {
+										document.addEventListener('plusready', goToLogin, false);
+								}
+						} 
+						else {
+							$(".status-li").text(data.regState)
+							$(".per-name-li").text(data.realname)
+							$(".per-tel-li").text(data.tel)
+							$(".per-email-li").text(data.email)
+							$(".per-IDcard-li").text(data.idcard)
+							if(data.cardupurl!=undefined && data.cardupurl!=''&&data.carddownurl!=undefined && data.carddownurl!='') {
+								$(".per-idcardimg-li").text("已上传")
+								// 点击个人 身份证 跳到详细信息页
+								$(".per-idcardimg").click(() => {
+									sessionStorage.setItem("cardType","free")
+									sessionStorage.setItem("freecard1",data.cardupurl)
+									sessionStorage.setItem("freecard2",data.carddownurl)
+									location.href = "./idCardPt.html";
+								})
+							}
+							else { $(".per-idcardimg-li").text("未上传") }
+							
+							$(".account-bank-li").text(data.khh_sr)
+							$(".account-name-li").text(data.kh_name_sr)
+							$(".account-num-li").text(data.code_sr)
+							$(".income-scope-li").text(data.monthsy)
+							$(".taxes-type-li").text(data.hyname)
+							if(data.zzsjntype==1){
+								$(".added span").text("按月")
+							}
+							else if(data.zzsjntype==2){
+								$(".added span").text("按季")
+							}
+							else{
+								$(".added span").text("按年")
+							}
+							
+							$(".taxes-added-li").text(data.zzshdde)
+							$(".taxes-income-li").text(data.gshdde)
+						}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+						if (textStatus == 'timeout') {
+								getData.abort();　
+								alert("请求超时");
+						}
+						if (textStatus == 'error') {
+								getData.abort();　
+								
+								if(errorThrown==null){
+									mui.alert('个人信息尚未完善!~','提示','关闭','','div')
+								}
+								else {
+									alert("请求错误" + errorThrown);
+								}
+						}
+				}
+		});
+	}
+
+	
+	
+	// 点击 下一页
+	$(".select-btn").click(() => {
+		location.href = "./user_detail_free2.html"
+	})
+	
+</script>
+</html>

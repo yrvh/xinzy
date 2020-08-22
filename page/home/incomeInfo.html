@@ -255,7 +255,7 @@ section div {
         <div class="personalIncomeTitle">个人所得税</div>
         <div class="personalIncome">
             <span>核定定额 (元)</span>
-            <span class="personalIncomeNum"></span>
+            <div class="personalIncomeNum"></div>
         </div>
     </section>
 
@@ -296,7 +296,16 @@ section div {
 	        $(".incomeNum").text(data.monthsy);
 	        $(".type").text(data.hyname);
 	        $(".valueAddedNum").text(data.zzshdde);
-	        $(".personalIncomeNum").text(data.gshdde);
+					
+					if(data.nstype==1) {
+						$(".taxes").css("display","none")
+						$(".personalIncomeNum").text(data.gshdde)
+					}
+					else {
+						$(".personalIncome>span").text("核定应税所得率")
+					}
+					
+					
 	        if (data.zzsjntype == 1) {
 	            $(".valueAddedTitle").text("增值税（按月）");
 	        } else if (data.zzsjntype == 2) {

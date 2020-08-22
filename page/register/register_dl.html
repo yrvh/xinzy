@@ -49,12 +49,12 @@
 			    font-weight: 700;
 			}
 			
-			.userInfoBox {
+			.userTypeBox {
 			    margin-top: 64px;
 			}
 			
-			.userInfoBox,
-			.accountInfoBox,
+			.userTypeBox,
+			.telBox,
 			#areaBox_contract {
 			    background-color: white;
 			    padding: 0 15px;
@@ -62,13 +62,13 @@
 			    font-size: 16px;
 			}
 			
-			.accountInfoBox,
+			.telBox,
 			#areaBox_contract {
 			    margin-top: 20px;
 			}
 			
-			.userInfoBox>div,
-			.accountInfoBox>div,
+			.userTypeBox>div,
+			.telBox>div,
 			#areaBox_contract>div {
 			    width: calc(100% - 30px);
 			    height: 46px;
@@ -87,14 +87,14 @@
 			    border: none !important;
 			}
 			
-			.userInfoBox>div:nth-of-type(n + 1),
-			.accountInfoBox>div:nth-of-type(n + 1) {
+			.userTypeBox>div:nth-of-type(n + 1),
+			.telBox>div:nth-of-type(n + 1) {
 			    display: flex;
 			    justify-content: space-between;
 			}
 			
-			.userInfoBox input,
-			.accountInfoBox input {
+			.userTypeBox input,
+			.telBox input {
 			    padding-right: 0;
 			    /* text-align: right; */
 			    border: none;
@@ -104,7 +104,7 @@
 			    color: #666666;
 			}
 			
-			.userInfoBox img {
+			.userTypeBox img {
 			    margin-right: -7px;
 			    width: 25px;
 			    vertical-align: middle;
@@ -338,126 +338,168 @@
 				width: 17px;
 				height: 17px;
 			}
-		</style>
+			
+			/* --------- 弹出平台协议的样式------  */
+			.ctra-dialog {background-color: #FFF; display: none; position: fixed; width: 100%; height: 100vh; overflow-y: auto; left: 0; top: 0; z-index: 100;}
+			
+			.ctra-header {
+					position: fixed;
+					top: 0;
+					left: 0;
+					text-align: center;
+					width: 100%;
+					height: 44px;
+					line-height: 44px;
+					background-color: white;
+					box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+					font-weight: bold;
+					font-size: 16px;
+			}
+			
+			.ctra-header>img {
+					position: absolute;
+					top: 12px;
+					left: 5px;
+					width: 20px;
+					height: 20px;
+			}
+			p {margin: 0;}
+			.itemContent {
+					width: 100%;
+					height: calc(100vh - 64px);
+					margin-top: 64px;
+					padding: 15px 8px 0 15px;
+			}
+	</style>
 </head>
 
 <body>
-    <header>
-        <img class="back" src="../../img/back_black.png" alt=""> 注册信息
-        <!-- <div class="next">完成</div> -->
-    </header>
-    <!-- 个人基本信息 -->
-    <div class="userInfoBox">
-        <div class="last uploadIdCard">
-            <span>用户类型</span>
-            <span class="upload">
-                <span class="uploadText">自由职业者（含合作伙伴）</span>
-            <img src="../../img/next.png" alt="">
-            </span>
-        </div>
-    </div>
-    <!-- 个人账户信息 -->
-    <div class="accountInfoBox">
-        <div class="areaBox">
-            <span>手机号码</span>
-            <div>
-                <!-- <span ids="" class="area"></span> -->
-                <input type="tel" maxlength="15" name="userNum"  id="accountBank" class="">
-								<img class="toEmpty toEmptyUserNum" src="../../img/toEmpty.png" alt="">
-            </div>
+	<!-- 装 协议的容器 -->
+	<div class="ctra-dialog">
+		<header class="ctra-header">
+		    <img class="back" src="../../img/back_black.png" alt=""> 慧业通服务平台条款
+		</header>
+		<div class="itemContent">
+		
+		</div>
+	</div>
+	
+	
+	<header>
+			<img class="back" src="../../img/back_black.png" alt=""> 注册信息
+			<!-- <div class="next">完成</div> -->
+	</header>
+	<!-- 选 用户类型 -->
+	<div class="userTypeBox">
+			<div class="last uploadIdCard">
+					<span>用户类型</span>
+					<span class="upload">
+							<span class="uploadText">自由职业者（含合作伙伴）</span>
+					<img src="../../img/next.png" alt="">
+					</span>
+			</div>
+	</div>
+	<!-- 手机号 -->
+	<div class="telBox">
+			<div class="areaBox">
+					<span>手机号码</span>
+					<div>
+							<!-- <span ids="" class="area"></span> -->
+							<input type="tel" maxlength="15" name="telNum"  id="tel-num" class="">
+							<img class="toEmpty toEmptyUserNum" src="../../img/toEmpty.png" alt="">
+					</div>
 
-        </div>
-        <div class="check_code_box">
-            <span>验证码</span>
-            <span><input id="accountName" value="" type="text"></span>
-            <div class="get_check_code">获取验证码</div>
-        </div>
-        <!-- <div class="">
-            <span>密码</span>
-            <span><input id="account" type="password"></span>
-        </div>
-        <div class="last">
-            <span>确认密码</span>
-            <span><input id="password" type="password"></span>
-        </div> -->
-    </div>
-    <div id="areaBox_contract">
-        <div class="areaBox_contract">
-            <input type="checkbox" name="agree" id="agree">&nbsp;&nbsp;
-            <span>我已阅读并同意</span>
-            <span class="clause">《隐私政策与用户协议》</span>
+			</div>
+			<div class="check_code_box">
+					<span>验证码</span>
+					<span><input id="se-code" value="" type="text"></span>
+					<div class="get_check_code">获取验证码</div>
+			</div>
+	</div>
+	<div id="areaBox_contract">
+			<div class="areaBox_contract">
+					<input type="checkbox" name="agree" id="agree">&nbsp;&nbsp;
+					<span>我已阅读并同意</span>
+					<span class="clause">《隐私政策与用户协议》</span>
+			</div>
+	</div>
+	<div class="errorBg">
+			<div class="error"></div>
+	</div>
+	<section class="bgBlack">
+			<div class="tipsBox">
+					<div class="tipsCont">
+					</div>
+					<div class="ok">好的</div>
+			</div>
+	</section>
+	<div class="success">
+			<img src="../../img/success.png" alt="">
+	</div>
+	<div class="black3">
+			<section>
+					<div class="openTips">继续完善资料</div>
+					<div class="close">否</div>
+					<div class="open">是</div>
 
-        </div>
-    </div>
-    <div class="errorBg">
-        <div class="error"></div>
-    </div>
-    <section class="bgBlack">
-        <div class="tipsBox">
-            <div class="tipsCont">
-            </div>
-            <div class="ok">好的</div>
-        </div>
-    </section>
-    <div class="success">
-        <img src="../../img/success.png" alt="">
-    </div>
-    <div class="black3">
-        <section>
-            <div class="openTips">继续完善资料</div>
-            <div class="close">否</div>
-            <div class="open">是</div>
+			</section>
 
-        </section>
-
-    </div>
-    <footer>
-        <div class="submit">提交</div>
-    </footer>
+	</div>
+	<footer>
+			<div class="submit">提交</div>
+	</footer>
 </body>
 <script src="../../js/jquery-3.3.1.js"></script>
 <script src="../../js/layer/layer.js"></script>
 <script src="../../js/urlDns.js"></script>
 
 <script type="text/javascript">
-	sessionStorage.removeItem("name")
+	
+		mui.init({
+			beforeback: function() {
+				backActive()
+				return false
+				// if(is_agree){
+				// 	backActive()
+				// 	return false
+				// }
+				// else{ return true }
+			}
+		})
+		// 返回=======================
+		$(".back").click(() => {
+			mui.back();
+		});
+		// 返回之前要执行的操作 函数
+		function backActive() {
+			if(is_agree) {
+				$(".ctra-dialog").css("display","none")
+				is_agree = false
+			}
+			else{
+			location.href = "./login.html";
+			localStorage.removeItem("upid");
+			}
+		}
 	
 	// 返回
 	$(".back").click(() => {
-	    location.href = "./login.html";
-	    localStorage.removeItem("upid");
+	    
 	});
 	
 	// 扫码储存的id
 	var upid = localStorage.getItem("upid");
-	// console.log(upid);
+	
+	var is_agree = false   // 用户是否处在 查看条款
+	
+	let usertype = 1;   // 用户类型，1为业者，2为单位
+	
+	let telNum = ''   // 存放手机号码
+	let msm= ''  // 存放系统的验证码
+	let verify= ''  // 存放用户输入的验证码
 	
 	
-	var checkedXzy = sessionStorage.getItem("checkedXzy");
-	// 已经点击过薪自由条款，返回时保留原本填好的数据状态
-	if (checkedXzy == 1) {
-	    $("#agree").attr("checked", "true");
-	    var tel = sessionStorage.getItem("tel_dl");
-	    var pwd1 = sessionStorage.getItem("password_dl");
-	    var pwd2 = sessionStorage.getItem("password2_dl");
-	    var verify = sessionStorage.getItem("verify_dl");
-	    var usertype = sessionStorage.getItem("usertype");
-	    $("#accountBank").val(tel);
-	    $("#accountName").val(verify);
-	    $("#account").val(pwd1);
-	    $("#password").val(pwd2);
-	
-	    if (usertype == 1) {
-	        $(".uploadText").text("自由职业者（含合作伙伴）");
-	    }
-	    if (usertype == 2) {
-	        $(".uploadText").text("接受服务单位");
-	    }
-	}
-	
-	// 用户类型，1为业者，2为单位
-	// 选择注册角色
-	var usertype = 1;
+	// 选择用户类型
 	$(".uploadIdCard").click(() => {
 	    var popPicker = new mui.PopPicker();
 	    popPicker.setData([{
@@ -472,46 +514,22 @@
 	        $(".uploadText").text(selectItems[0].text)
 	        if (selectItems[0].value == "yz") {
 	            usertype = 1;
-	            sessionStorage.setItem("usertype", usertype);
 	        }
 	        if (selectItems[0].value == "dw") {
 	            usertype = 2;
-	            sessionStorage.setItem("usertype", usertype);
-	
 	        }
-	        // console.log("用户类型" + usertype)
 	    })
 	});
 	
-	// 点击获取验证码
-	$(".get_check_code").on("click", get_code);
+	
 	// 定义一个计时器变量
 	let time = 60
-	
-	// 获取同意条款页返回来的 time值
-	time = sessionStorage.getItem("timeback") || 60
-	// 获得是否是从同意条款页面返回来的
-	if(sessionStorage.getItem("is_agree") == '1' && time != '60'){
-		
-		$(".get_check_code").off("click")
-		$(".get_check_code").text(time + "秒");
-		$(".get_check_code").css("color", "gray");
-		let tt = setInterval(() => {
-			time = time - 1;
-			$(".get_check_code").text(time + "秒");
-			if (time < 1) {
-					clearInterval(tt);
-					time = 60
-					$(".get_check_code").text("重新获取");
-					$(".get_check_code").css("color", "#7EB6FF");
-					$(".get_check_code").on("click", get_code);
-			}
-		}, 1000);
-	}
-	
+
+	// 点击获取验证码
+	$(".get_check_code").on("click", get_code);
+	// 获取验证码
 	function get_code() {
-		time = 59
-		var tel = $("#accountBank").val();
+		var tel = $("#tel-num").val();
 		if (tel == "") {
 			errorTips("请输入手机号");
 		} 
@@ -529,9 +547,7 @@
 					$(".get_check_code").on("click", get_code);
 				} 
 				else {
-					// console.log(data.msm)
-					// 存一下在session里，防止查看条款跳转页面没保存好
-					sessionStorage.setItem("check_code", data.msm);
+					msm = data.msm   // 记录系统发的验证码
 
 					// 倒计时
 					$(".get_check_code").text(time + "秒");
@@ -551,6 +567,77 @@
 		}
 	}
 	
+	// 点击 同意条款的 复选框
+	$("#agree").click(() => {
+		if ($("#agree").prop("checked") == true) {
+			// 打开条款页面
+			getCtraPplatform()
+		}
+			
+	});
+	// 点击平台协议名字,  弹出平台协议
+	$(".clause").click(() => {
+		// 打开条款页面
+		getCtraPplatform() 
+	});
+	
+	// 执行加载 协议的函数
+	function getCtraPplatform(){
+		is_agree = true
+		$(".ctra-dialog").css("display","block")
+		if ($(document.body).height() < $(window).height() - 185) {
+		    // 减掉的64是除了$(".cont")以外其他元素的高度
+		    $(".itemContent").css("height", "calc(100vh - 64px)");
+		}
+		
+		let indexC;
+		setTimeout(() => {
+		    indexC = layer.load(1, {
+		        // 数组中第一个参数是button的透明度
+		        // 第二个是背景颜色
+		        shade: [0.3, "white"]
+		    });
+		}, 0);
+		
+		
+		var ajaxPost = $.ajax({
+		    url: urlDns + "/api/reg_dl/get_xyData",
+		    type: 'post',
+		    dataType: "json",
+		    timeout: 120000, //2分钟超时
+		    //请求成功
+		    success: function(data) {
+		        layer.close(indexC);
+		        $(".itemContent").html(data.xy_text);
+		        // if ($(document.body).height() < $(window).height() - 185) {
+		        //     // 减掉的64是除了$(".cont")以外其他元素的高度
+		        //     $(".itemContent").css("height", "calc(100vh - 64px)");
+		        // } else {
+		        //     $(".itemContent").css("height", "100%");
+		        // }
+		    },
+		    error: function(XMLHttpRequest, textStatus, errorThrown) {
+		        layer.close(indexC);
+		        // console.log(textStatus)
+		        if (textStatus == 'timeout') {
+		            // console.log("请求超时");
+		            ajaxPost.abort();　
+		            alert("请求超时");
+		        }
+		        if (textStatus == 'error') {
+		            ajaxPost.abort();　
+		            alert("请求错误" + errorThrown);
+		        }
+		    }
+		});
+	}
+	
+	
+	// 点击叉号  清空登录的输入框账号
+	$(".toEmptyUserNum").click(() => {
+		$("#tel-num").val('')
+		$("#tel-num").focus()   // 获取输入框 焦点
+	})
 	
 	// 给用户弹出错误提示的方法
 	function errorTips(info) {
@@ -564,33 +651,103 @@
 	    }, 3000);
 	}
 	
+
+	// ==========最终 发起提交=================================================
+	
 	// 手机号正则
 	var userNumReg = /^(13[0-9]|14[5-9]|15[012356789]|166|17[0-8]|18[0-9]|19[8-9])[0-9]{8}$/;
 	// 检验密码格式 8-18位字母和数字组成
 	// var pwdReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,18}$/;
 	
-	// 提交
+	// 点击提交按钮
 	$(".submit").click(function() {
-	    submitFun();
-	});
+		// 手机号
+		telNum = $("#tel-num").val();
+		// 验证码
+		verify = $("#se-code").val();
+			
+		// 判断用户数据的错误类型
+		if (telNum == "") {
+			errorInfo = "请输入手机号";
+			errorTips(errorInfo);
+		} else if (!userNumReg.test(telNum)) {
+			errorInfo = "手机号不正确";
+			errorTips(errorInfo);
+		} else if (verify == "") {
+			errorInfo = "请输入验证码";
+			errorTips(errorInfo);
+		} else if (verify != msm) {
+			errorInfo = "验证码错误";
+			errorTips(errorInfo);
+		} else if ($("#agree").checked==false) {
+			errorInfo = "请阅读并同意条款";
+			errorTips(errorInfo);
+		} 
+		else {
+			var index = layer.load(1, {
+				// 数组中第一个参数是button的透明度
+				// 第二个是背景颜色
+				shade: [0.3, "white"]
+			});
+		
+			var hasUserPost = $.ajax({
+				url: urlDns + "/api/reg_dl/index",
+				type: 'post',
+				dataType: "json",
+				data: {
+					usertype: usertype,
+					tel: telNum,
+					upid: upid
+				},
+				timeout: 120000, //2分钟超时
+				//请求成功
+				success: function(data) {
+					layer.close(index);
+					console.log(JSON.stringify(data))
+					if (data.status == 0) {
+							errorTips(data.message);
+					}
+					// 注册成功
+					if (data.status == 1) {
+							sessionStorage.setItem("tel", telNum);
+							sessionStorage.setItem("uid", data.uid);
+							$(".black3").css("display", "block");
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					layer.close(index);
+					if (textStatus == 'timeout') {
+							hasUserPost.abort();
+							alert("请求超时");
+							console.log("请求超时")
+					}
+					if (textStatus == 'error') {
+							hasUserPost.abort();
+							console.log("请求错误")
+							alert("请求错误" + errorThrown);
+					}
+				}
+			})
+		}
+	})
 	
-	// 继续完善资料
+	// 点击继续完善资料
 	$(".open").click(() => {
-	    var usertype = sessionStorage.getItem("usertype");
-	    // 业者
-	    if (usertype == 1) {
-	        location.href = "./info_dl.html";
-	    }
-	    // 单位
-	    if (usertype == 2) {
-	        location.href = "./info_com_detail_dl.html";
-	    }
+		// 业者
+		if (usertype == 1) {
+				location.href = "./info_dl.html";
+		}
+		// 单位
+		if (usertype == 2) {
+				location.href = "./info_com_detail_dl.html";
+		}
 	
 	});
 	
-	// 不完善资料，直接提交
+	// 点击不完善资料，直接提交
 	$(".close").click(() => {
-	    errorTips("注册成功，等待审核")
+			$(".black3").css("display", "none");
+	    errorTips("注册成功，等待审核");
 	    setTimeout(() => {
 	        // 获取当前窗口
 	        var curr = plus.webview.currentWebview();
@@ -610,130 +767,6 @@
 	        curr.close();
 	    }, 3000);
 	});
-	
-	// 提交的请求
-	function submitFun() {
-	    // console.log("验证码" + check_code)
-	    // 手机号
-	    var reUserNum = $("#accountBank").val();
-	    // // 密码
-	    // var pwd1 = $("#account").val();
-	    // // 确认密码
-	    // var pwd2 = $("#password").val();
-	    // 验证码
-	    var verify = $("#accountName").val();
-	    // 勾选同意条款的按钮
-	    // $("#agree").attr("checked", "true")
-	    var agree = document.getElementById("agree").checked;
-	    // console.log($("#agree").prop("checked"));
-	    var usertype = sessionStorage.getItem("usertype");
-	    // console.log(usertype)
-	
-	    var check_code = sessionStorage.getItem("check_code");
-	
-	
-	    // 判断用户数据的错误类型
-	    if (reUserNum == "") {
-	        errorInfo = "请输入手机号";
-	        errorTips(errorInfo);
-	    } else if (!userNumReg.test(reUserNum)) {
-	        errorInfo = "手机号不正确";
-	        errorTips(errorInfo);
-	    } else if (verify == "") {
-	        errorInfo = "请输入验证码";
-	        errorTips(errorInfo);
-	    } else if (verify != check_code) {
-	        errorInfo = "验证码错误";
-	        errorTips(errorInfo);
-	    } else if (!agree) {
-	        errorInfo = "请阅读并同意条款";
-	        errorTips(errorInfo);
-	    } else {
-	        var index = layer.load(1, {
-	            // 数组中第一个参数是button的透明度
-	            // 第二个是背景颜色
-	            shade: [0.3, "white"]
-	        });
-	
-	        var hasUserPost = $.ajax({
-	            url: urlDns + "/api/reg_dl/index",
-	            type: 'post',
-	            dataType: "json",
-	            data: {
-	                usertype: usertype,
-	                tel: reUserNum,
-	                // password: pwd1,
-	                upid: upid
-	            },
-	            timeout: 120000, //2分钟超时
-	            //请求成功
-	            success: function(data) {
-	                layer.close(index);
-	                console.log(JSON.stringify(data))
-	                if (data.status == 0) {
-	                    errorTips(data.message);
-	                }
-	                // 注册成功
-	                if (data.status == 1) {
-	                    sessionStorage.setItem("tel", reUserNum);
-	                    sessionStorage.setItem("uid", data.uid);
-	                    $(".black3").css("display", "block");
-	                }
-	
-	            },
-	            error: function(XMLHttpRequest, textStatus, errorThrown) {
-	                layer.close(index);
-	                if (textStatus == 'timeout') {
-	                    hasUserPost.abort();
-	                    alert("请求超时");
-	                    console.log("请求超时")
-	                }
-	                if (textStatus == 'error') {
-	                    hasUserPost.abort();
-	                    console.log("请求错误")
-	                    alert("请求错误" + errorThrown);
-	                }
-	            }
-	        });
-	    }
-	
-	}
-	
-	
-	//同意条款
-	$("#agree").click(() => {
-	    // console.log($("#agree").prop("checked"))
-	    // 手机号
-	    var reUserNum = $("#accountBank").val();
-	    // 密码
-	    var pwd1 = $("#account").val();
-	    // 确认密码
-	    var pwd2 = $("#password").val();
-	    // 验证码
-	    var verify = $("#accountName").val();
-	
-	    sessionStorage.setItem('tel_dl', reUserNum);
-	    sessionStorage.setItem('password_dl', pwd1);
-	    sessionStorage.setItem('password2_dl', pwd2);
-	    sessionStorage.setItem('verify_dl', verify);
-	    sessionStorage.setItem('checkedXzy', 1);
-	    sessionStorage.setItem('usertype', usertype);
-	
-	    // 同意的时候打开条款页面
-	    if ($("#agree").prop("checked") == true) {
-				sessionStorage.setItem("timeto",time)
-				location.href = "./xzyClause_dl.html";
-	    }
-	});
-	$(".clause").click(() => {
-			sessionStorage.setItem("timeto",time)
-	    location.href = "./xzyClause_dl.html";
-	});
-	
-	// 点击叉号  清空登录的输入框账号
-	$(".toEmptyUserNum").click(() => {
-		$("#accountBank").val('')
-	})
 </script>
 
 </html>

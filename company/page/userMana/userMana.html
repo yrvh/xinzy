@@ -127,15 +127,15 @@
 	getInfo()
 	// 跳转到列表页
 	$(".wait-comfirm").click(() => {
-		sessionStorage.setItem("income_status", 1);
+		sessionStorage.setItem("income_status", 5);
 		location.href = './user_list.html';
 	});
 	$(".already-comfirm").click(() => {
-		sessionStorage.setItem("income_status", 2);
+		sessionStorage.setItem("income_status", 3);
 		location.href = './user_list.html';
 	});
 	$(".no-comfirm").click(() => {
-		sessionStorage.setItem("income_status", 3);
+		sessionStorage.setItem("income_status", 55);
 		location.href = './user_list.html';
 	});
 	$(".com-pass").click(() => {
@@ -143,7 +143,7 @@
 		location.href = './user_list.html';
 	});
 	$(".contract-again").click(() => {
-		sessionStorage.setItem("income_status", 5);
+		sessionStorage.setItem("income_status", 88);
 		location.href = './user_list.html';
 	});
 	
@@ -172,11 +172,11 @@
 				}
 				else { $(".mybadge").css("display","none") }
 
-				$(".wait-comfirm-li").text(data.dw_1);
-				$(".already-comfirm-li").text(data.dw_3);
-				$(".no-comfirm-li").text(data.dw_2);
-				$(".com-pass-li").text(data.dw_22);
-				$(".contract-again-li").text(data.dw_6);			
+				$(".wait-comfirm-li").text(data.waitingchecks);
+				$(".already-comfirm-li").text(data.checks);
+				$(".no-comfirm-li").text(data.nochecks);
+				$(".com-pass-li").text(data.services);
+				$(".contract-again-li").text(data.rechecks);
 			}
 	
 		});

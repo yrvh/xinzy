@@ -48,19 +48,20 @@
 		li>div>span { color: rgb(153, 153, 153); }
 		
 		.info-title { line-height: 50px; font-weight: 800; font-size: 17px;}
+		ul>li:last-of-type {border: none !important;}
 		
-		.com-license,.corp-email,.account-num,.comfree-contract,
-		.per-idcardimg,.account-num,.income-scope,.taxes-type,.taxes-added,
-		.taxes-income,.com-range,.com-license,.account-num{border: none !important;}
 		
 		.row{ background-color: #ddd;}
+		
+		
+		.income-info,.taxes-info {display: none;}
 	</style>
 </head>
 
 <body>
 	<header>
 			<img class="back" src="../../../img/back_black.png" alt="">
-			<span class="title-span">个人信息(1)</span>
+			<span class="title-span">个人信息及收入(1)</span>
 			<div class="select-btn">下一页</div>
 	</header>
 	<div class="the-place"></div>
@@ -192,9 +193,16 @@
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
 	
+	// 获得到进入的 状态值
+	let income_status = sessionStorage.getItem("income_status");
+	if(income_status==8 || income_status==77 || income_status==7 || income_status==4 || income_status==44){
+		$(".income-info").css("display","block")
+		$(".taxes-info").css("display","block")
+	}
 	
 	// 获取用户id和用户类型
 	let detailId = sessionStorage.getItem("detailId")
+	// console.log(detailId)
 	let detailType = sessionStorage.getItem("detailType")
 	
 	
@@ -209,13 +217,9 @@
 	
 	// 定义请求详情的函数
 	function getDetail(uType) {
-		var index = layer.load(1, {
-				// 数组中第一个参数是button的透明度
-				// 第二个是背景颜色
-				shade: [0.3, "white"]
-		});
-		var getData = $.ajax({
-				url: urlDns + "/control_app/ms/fr/yz/showUI",
+		// console.log(detailId)
+		var getData = mui.ajax({
+				url: urlDns + "/control_app/ms/fr/user/yz/showUI",
 				type: 'post',
 				dataType: "json",
 				timeout: 120000, //2分钟超时
@@ -227,8 +231,7 @@
 				},
 				//请求成功
 				success: function(data) {
-						console.log(JSON.stringify(data));
-						layer.close(index);
+						// console.log(JSON.stringify(data));
 						if (data.result == 0) {
 								// 需要重新登录
 								if (window.plus) {
@@ -271,18 +274,30 @@
 							}
 							
 							$(".taxes-added-li").text(data.zzshdde)
-							$(".taxes-income-li").text(data.gshdde)
+							if(data.nstype==1) {
+								$(".taxes-type").css("display","none")
+								$(".taxes-income-li").text(data.gshdde)
+							}
+							else {
+								$(".taxes-income>span").text("核定应税所得率")
+							}
+							
 						}
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
-						layer.close(index);
 						if (textStatus == 'timeout') {
 								getData.abort();　
 								alert("请求超时");
 						}
 						if (textStatus == 'error') {
 								getData.abort();　
-								alert("请求错误" + errorThrown);
+								
+								if(errorThrown==null){
+									mui.alert('个人信息尚未完善!~','提示','关闭','','div')
+								}
+								else {
+									alert("请求错误" + errorThrown);
+								}
 						}
 				}
 		});

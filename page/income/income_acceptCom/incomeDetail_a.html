@@ -265,7 +265,7 @@
 <body>
     <header>
         <img class="back" src="../../../img/back_black.png" alt="">
-        <span>收入</span>
+        <span>收入详情</span>
         <!-- <div class="next">保存</div> -->
     </header>
     <div class="accptCom">
@@ -348,8 +348,6 @@
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
-	// console.log("tel_app：" + tel_app);
-	// console.log("pass_app：" + pass_app);
 	
 	mui.init();
 	
@@ -362,9 +360,9 @@
 	var incomeDetailId = sessionStorage.getItem("incomeDetailId");
 	console.log(incomeDetailId);
 	
-	var isIn = sessionStorage.getItem("isIn");
-	console.log(isIn)
-	if (isIn == 1) {
+	var income_status = sessionStorage.getItem("income_status")
+	console.log(income_status)
+	if (income_status == 1) {
 	    // 显示退回/确认按钮
 	    $("footer").css("display", "block");
 	
@@ -398,7 +396,7 @@
 	}
 	
 	
-	if (isIn == 0) {
+	else {
 	    // 不显示退回/确认按钮
 	    $("footer").css("display", "none");
 	    $.post(urlDns + "/control_app/yz/zf/editUI", {

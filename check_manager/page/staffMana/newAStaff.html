@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../../../css/mui.min.css">
+    <title>新增员工</title>
+		
+		<style type="text/css">
+			body {
+			    padding: 0;
+			    margin: 0;
+			    font-size: 16px;
+			    color: #333333;
+			}
+			
+			header {
+			    position: relative;
+			    width: 100%;
+			    height: 44px;
+			    box-shadow: 0 2px 2px 0 rgb(231, 231, 231);
+			    background-color: white;
+			    text-align: center;
+			    line-height: 44px;
+			    font-weight: bold;
+			}
+			
+			header>img {
+			    position: absolute;
+			    width: 20px;
+			    height: 20px;
+			    top: 11px;
+			    left: 5px;
+			}
+			
+			.cancel,
+			.save {
+			    /* display: none; */
+			    position: absolute;
+			    top: 0;
+			    line-height: 44px;
+			}
+			
+			.cancel {
+			    left: 10px;
+			    color: #7EB6FF;
+			}
+			
+			.save {
+			    right: 10px;
+			    color: #7EB6FF;
+			}
+			
+			.contBox {
+			    position: relative;
+			    width: 100%;
+			    background-color: white;
+			    margin-top: 20px;
+			}
+			
+			.contBox>div {
+			    position: relative;
+			    width: calc(100% - 30px);
+			    height: 45px;
+			    border-bottom: 1px solid #e7e7e7;
+			    margin-left: 15px;
+			    display: flex;
+			    justify-content: space-between;
+			}
+			
+			.contBox>div:nth-last-of-type(1) {
+			    border: none;
+			}
+			
+			.contBox>div span {
+			    line-height: 45px;
+			}
+			
+			.contBox>div input {
+			    width: 65%;
+			    margin: 0;
+			    padding: 0;
+			    height: 44px;
+			    outline: none;
+			    border: none;
+			    text-align: right;
+			    color: #666666;
+			    font-size: 14px;
+			}
+			
+			.contBox>div img {
+			    position: absolute;
+			    top: 8px;
+			    right: -7px;
+			    width: 25px;
+			    height: 25px;
+			}
+			
+			footer {
+			    width: 100%;
+			    height: 50px;
+			    position: fixed;
+			    bottom: 0;
+			    left: 0;
+			    background-color: white;
+			}
+			
+			footer div {
+			    position: absolute;
+			    top: 5px;
+			    width: calc((100% - 30px)/2);
+			    height: 40px;
+			    border-radius: 4px;
+			    text-align: center;
+			    line-height: 40px;
+			}
+			
+			.stop {
+			    left: 10px;
+			    border: 1px solid rgb(204, 204, 204);
+			    color: #7EB6FF;
+			}
+			
+			.edit {
+			    right: 10px;
+			    background-color: #7EB6FF;
+			    color: white;
+			}
+			
+			.idCardPt {
+			    position: relative;
+			}
+			
+			.uploadTips {
+			    position: absolute;
+			    top: 0;
+			    right: 20px;
+			    color: #666666;
+			    font-size: 14px;
+			}
+			
+			.idCardNext {
+			    margin-top: 3px;
+			}
+			
+			.success {
+			    display: none;
+			    width: 100%;
+			    height: 100vh;
+			    position: fixed;
+			    top: 0;
+			    left: 0;
+			    z-index: 9999;
+			}
+			
+			.success>img {
+			    width: 120px;
+			    height: 120px;
+			    margin-left: calc((100% - 120px)/2);
+			    margin-top: calc((100vh - 120px)/2);
+			}
+			
+			.errorBg {
+			    width: 100%;
+			    height: 100vh;
+			    position: absolute;
+			    top: 0;
+			    left: 0;
+			    z-index: 999;
+			    display: none;
+			}
+			
+			.errorBg .error {
+			    position: absolute;
+			    padding: 10px 15px;
+			    top: calc((100vh - 25px)/2);
+			    left: 0;
+			    width: 50%;
+			    margin-left: 25%;
+			    background-color: rgba(126, 182, 255, 0.7);
+			    color: white;
+			    font-size: 12px;
+			    text-align: center;
+			    line-height: 20px;
+			    font-size: 15px;
+			    border-radius: 3px;
+			}
+		</style>
+</head>
+
+<body>
+    <header>
+        <!-- <div class="cancel">取消</div> -->
+        <img class="back" src="../../../img/back_black.png" alt=""> 员工信息
+        <!-- <div class="save">确定</div> -->
+    </header>
+
+    <div class="contBox">
+        <div>
+            <span>姓名</span>
+            <input type="text" name="" value="" class="name">
+        </div>
+        <div>
+            <span>手机号码</span>
+            <input type="tel" name="" value="" class="tel">
+        </div>
+        <div>
+            <span>电子邮箱</span>
+            <input type="email" name="" value="" class="email">
+        </div>
+        <div>
+            <span>身份证号码</span>
+            <input type="text" name="" value="" class="idCard">
+        </div>
+        <div class="idCardPt">
+            <span>证件照片</span>
+            <span class="uploadTips">未上传</span>
+            <img class="idCardNext" src="../../../img/next.png" alt="">
+        </div>
+        </form>
+
+    </div>
+
+    <!-- 错误提示 -->
+    <div class="errorBg">
+        <div class="error"></div>
+    </div>
+    <!-- 提交成功的提示 -->
+    <div class="success">
+        <img src="../../../img/success.png" alt="">
+    </div>
+
+
+    <!-- <footer>
+        <div class="stop">停用</div>
+        <div class="edit">编辑</div>
+    </footer> -->
+</body>
+<script src="../../../js/jquery-3.3.1.js"></script>
+<script src="../../../js/layer/layer.js"></script>
+<script src="../../../js/urlDns.js"></script>
+
+<script type="text/javascript">
+	
+	mui.init({
+		beforeback: function() {
+			backActive()
+			return true
+		}
+	})
+	// 返回=======================
+	$(".back").click(() => {
+		mui.back();
+	});
+	// 返回之前要执行的操作 函数
+	function backActive() {
+		sessionStorage.removeItem("staff_edit_name");
+		sessionStorage.removeItem("staff_edit_tel");
+		sessionStorage.removeItem("staff_edit_email");
+		sessionStorage.removeItem("staff_edit_idCard");
+		sessionStorage.removeItem("staffIC1");
+		sessionStorage.removeItem("staffIC2");
+		sessionStorage.removeItem("staff_didUpload");
+	}
+	
+	var pass_app = localStorage.getItem("pass_app");
+	var tel_app = localStorage.getItem("tel_app");
+	var code_app = localStorage.getItem("code_app");
+	
+	
+	// 邮箱正则
+	var emailReg = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
+	// 身份证正则
+	var idNumReg = /^[1-9][0-9]{5}([1][9][0-9]{2}|[2][0][0|1][0-9])([0][1-9]|[1][0|1|2])([0][1-9]|[1|2][0-9]|[3][0|1])[0-9]{3}([0-9]|[X])$/;
+	// 手机号正则
+	var userNumReg = /^(13[0-9]|14[5-9]|15[012356789]|166|17[0-8]|18[0-9]|19[8-9])[0-9]{8}$/;
+	
+	
+	// 上传身份证回来如果有已经填写的信息，进行渲染
+	var staff_edit_name = sessionStorage.getItem("staff_edit_name");
+	var staff_edit_tel = sessionStorage.getItem("staff_edit_tel");
+	var staff_edit_email = sessionStorage.getItem("staff_edit_email");
+	var staff_edit_idCard = sessionStorage.getItem("staff_edit_idCard");
+	
+	if (staff_edit_name) {
+	    $(".name").val(staff_edit_name);
+	}
+	if (staff_edit_tel) {
+	    $(".tel").val(staff_edit_tel);
+	}
+	if (staff_edit_email) {
+	    $(".email").val(staff_edit_email);
+	}
+	if (staff_edit_idCard) {
+	    $(".idCard").val(staff_edit_idCard);
+	}
+	
+	
+	// 判断证件照片是否已经上传
+	var staff_didUpload = sessionStorage.getItem("staff_didUpload");
+	console.log(staff_didUpload);
+	if (staff_didUpload == 1) {
+	    $(".uploadTips").text("已上传");
+	} else {
+	    $(".uploadTips").text("未上传");
+	}
+	
+	// 证件照片
+	$(".idCardPt").click(() => {
+	    // 储存已经填写的信息
+	    var name = $(".name").val();
+	    var tel = $(".tel").val();
+	    var email = $(".email").val();
+	    var idCard = $(".idCard").val();
+	    sessionStorage.setItem("staff_edit_name", name);
+	    sessionStorage.setItem("staff_edit_tel", tel);
+	    sessionStorage.setItem("staff_edit_email", email);
+	    sessionStorage.setItem("staff_edit_idCard", idCard);
+	    location.href = "./uploadIdCard.html";
+	});
+	
+	$(".save").click(() => {
+	    var name = $(".name").val();
+	    var tel = $(".tel").val();
+	    var email = $(".email").val();
+	    var idCard = $(".idCard").val();
+	    var uploadTips = $(".uploadTips").text();
+	    var staffIC1 = sessionStorage.getItem("staffIC1");
+	    var staffIC2 = sessionStorage.getItem("staffIC2");
+	
+	    if (name == "") {
+	        errorTips("请输入姓名");
+	    } else if (tel == "") {
+	        errorTips("请输入手机号");
+	    } else if (!userNumReg.test(tel)) {
+	        errorTips("手机号不正确");
+	    } else if (email == "") {
+	        errorTips("请输入邮箱");
+	    } else if (!emailReg.test(email)) {
+	        errorTips("邮箱格式不正确");
+	    } else if (idCard == "") {
+	        errorTips("请输入身份证号码");
+	    } else if (!idNumReg.test(idCard)) {
+	        errorTips("身份证号码不正确");
+	    } else if (uploadTips != "已上传") {
+	        errorTips("请上传证件照片");
+	    } else {
+	        var index = layer.load(1, {
+	            // 数组中第一个参数是button的透明度
+	            // 第二个是背景颜色
+	            shade: [0.3, "white"]
+	        });
+	        var task = plus.uploader.createUpload(urlDns + "/control_app/ms/employee_manage/add", { method: "POST" },
+	            function(t, status) { //上传完成
+	                var responseText = JSON.parse(t.responseText);
+	                if (status == 200) {
+	                    if (responseText.result == 0) {
+	                        // 需要重新登录
+	                        if (window.plus) {
+	                            goToLogin("../../../page/register/login.html");
+	                        } else {
+	                            document.addEventListener('plusready', goToLogin, false);
+	                        }
+	                    } else {
+	
+	                        // console.log(t)
+	                        // wt.close(); //关闭等待提示按钮
+	                        layer.close(index);
+	                        console.log("上传成功：" + responseText.result + "," + responseText.message);
+	                        // 清除等待提示的加载圈
+	                        layer.close(index);
+	                        // 清除缓存  
+	                        sessionStorage.removeItem("staff_edit_name");
+	                        sessionStorage.removeItem("staff_edit_tel");
+	                        sessionStorage.removeItem("staff_edit_email");
+	                        sessionStorage.removeItem("staff_edit_idCard");
+	                        sessionStorage.removeItem("staffIC1");
+	                        sessionStorage.removeItem("staffIC2");
+	                        sessionStorage.removeItem("staff_didUpload");
+	                        $(".success").css("display", "block");
+	                        setTimeout(() => {
+	                            $(".success").css("display", "none");
+	                            history.back();
+	                        }, 800);
+	
+	                    }
+	
+	                } else {
+	                    layer.close(index);
+	                    alert("上传失败：" + responseText.message);
+	                    // wt.close(); //关闭等待提示按钮
+	                }
+	            }
+	        );
+	        //添加其他参数
+	        task.addData("realname", name);
+	        task.addData("tel", tel);
+	        task.addData("email", email);
+	        task.addData("idCardNum", idCard);
+	        task.addData("tel_app", tel_app);
+	        task.addData("pass_app", pass_app);
+	        task.addData("code_app", code_app);
+	
+	        // 两张身份证
+	        task.addFile(staffIC1, { key: "idCardUpUrl" });
+	        task.addFile(staffIC2, { key: "idCardDownUrl" });
+	
+	        task.start();
+	    }
+	});
+	
+	// 给用户弹出错误提示的方法
+	function errorTips(info) {
+	    $(".error").text(info);
+	    $(".errorBg").css("display", "block");
+	    $('.errorBg').click(() => {
+	        $(".errorBg").css("display", "none");
+	    });
+	    setTimeout(function() {
+	        $(".errorBg").css("display", "none");
+	    }, 1500);
+	}
+</script>
+</html>

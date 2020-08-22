@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<script src="../../../js/mui.min.js"></script>
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<title>--审核主管--用户管理--</title>
+		
+		<style type="text/css">
+			body { margin: 0; padding: 0; color: #333333; }
+			header { position: fixed; top:0; left: 0; z-index: 50; width: 100%; line-height: 44px; height: 44px; background-color: #FFF; box-shadow: 0 2px 2px 0 rgba(231,231,231,1); text-align: center;}
+			header>img { position: absolute; top: 12px; left: 5px; width: 20px; height: 20px; }
+			.occupy {width: 100%; height: 46px; background-color: #ddd; margin-bottom: 20px;}
+			
+			.change { margin: 0 auto; transform: translateY(7px); width: 268px; height: 34px; background-color: #fff; border-radius: 4px; display: flex; justify-content: space-between; border: 1px solid #7EB6FF; }
+			.change>div { font-size: 14px; text-align: center; width: 90px; line-height: 34px; }
+			
+			.input_com{ background-color: #7EB6FF; color: #fff; }
+			.input_free,.input_coop{ color: #7EB6FF; }
+			.input_free { border-right: 1px solid #7EB6FF; border-left: 1px solid #7EB6FF; }
+			
+			
+			.free-ul,.coop-ul{display: none;}
+			ul { list-style: none; padding: 0 0 10px 0; margin: 20px 0 0 0; height: 88vh; overflow-y: scroll;}
+			
+			li {
+				display: flex; justify-content: space-between; width: 100%; height: 46px; 
+				background-color: #fff; margin-bottom: 2px; line-height: 46px; padding: 0 5px 0 15px; box-sizing: border-box;
+			}
+			
+			li img { width: 25px; height: 25px; vertical-align: middle; }
+			
+			li>div>span {
+			    color: rgb(153, 153, 153);
+			}
+			
+			.mybadge {display: none;}
+		</style>
+	</head>
+	<body>
+		<header>
+   <header>
+        <img class="back" src="../../../img/back_black.png" alt="">
+        <div class="change">
+            <div class="input_com">单位用户</div>
+            <div class="input_free">业者用户</div>
+						<div class="input_coop">合作伙伴</div>
+        </div>
+    </header>
+		<div class="occupy"></div>
+		
+		
+		<!-- 单位 -->
+		<ul class="company-ul">
+			<li class="wait-check">
+				<span>待主管审核 <span class="mybadge mui-badge mui-badge-danger"></span></span>
+				<div>
+						<span class="wait-check-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="complete-data">
+				<span>待完善资料</span>
+				<div>
+						<span class="complete-data-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="wait-company">
+				<span>待单位确认资料</span>
+				<div>
+						<span class="wait-company-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="company-nopass">
+				<span>单位退回</span>
+				<div>
+						<span class="company-nopass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="wait-salesman">
+				<span>待营销员确认</span>
+				<div>
+						<span class="wait-salesman-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="com-pass">
+				<span>服务中</span>
+				<div>
+						<span class="com-pass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="com-nopass">
+				<span>主管退回</span>
+				<div>
+						<span class="com-nopass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+		</ul>
+		
+		<!-- 业者 -->
+		<ul class="free-ul">
+			<li class="wait-check">
+				<span>待主管审核 <span class="mybadge mui-badge mui-badge-danger"></span></span>
+				<div>
+						<span class="wait-check-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="complete-data">
+				<span>待完善资料</span>
+				<div>
+						<span class="complete-data-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="wait-data">
+				<span>待业者确认资料</span>
+				<div>
+						<span class="wait-data-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="data-nopass">
+				<span>业者退回资料</span>
+				<div>
+						<span class="data-nopass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="wait-setcost">
+				<span>待设置服务费</span>
+				<div>
+						<span class="wait-setcost-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="wait-company">
+				<span>待单位确认</span>
+				<div>
+						<span class="wait-company-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="company-nopass">
+				<span>单位退回</span>
+				<div>
+						<span class="company-nopass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="complete-info">
+				<span>待完善个人信息</span>
+				<div>
+						<span class="complete-info-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="confirm-info">
+				<span>待确认个人信息</span>
+				<div>
+						<span class="confirm-info-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="info-nopass">
+				<span>确认个人信息退回</span>
+				<div>
+						<span class="info-nopass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="wait-salesman">
+				<span>待营销员审核服务费用</span>
+				<div>
+						<span class="wait-salesman-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="salesman-nopass">
+				<span>营销员审核退回</span>
+				<div>
+						<span class="salesman-nopass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="com-pass">
+				<span>服务中</span>
+				<div>
+						<span class="com-pass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="com-nopass">
+				<span>主管退回</span>
+				<div>
+						<span class="com-nopass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+		</ul>
+		
+		
+		<!-- 合作伙伴 -->
+		<ul class="coop-ul">
+			<li class="wait-check">
+				<span>待主管审核 <span class="mybadge mui-badge mui-badge-danger"></span></span>
+				<div>
+						<span class="wait-check-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="complete-data">
+				<span>待完善资料</span>
+				<div>
+						<span class="complete-data-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="wait-data">
+				<span>待合作伙伴确认资料</span>
+				<div>
+						<span class="wait-data-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="data-nopass">
+				<span>合作伙伴退回资料</span>
+				<div>
+						<span class="data-nopass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="complete-info">
+				<span>待完善个人信息</span>
+				<div>
+						<span class="complete-info-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="confirm-info">
+				<span>待确认个人信息</span>
+				<div>
+						<span class="confirm-info-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="info-nopass">
+				<span>确认个人信息退回</span>
+				<div>
+						<span class="info-nopass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="wait-salesman">
+				<span>待营销员审核服务费用</span>
+				<div>
+						<span class="wait-salesman-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="salesman-nopass">
+				<span>营销员审核退回</span>
+				<div>
+						<span class="salesman-nopass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="com-pass">
+				<span>服务中</span>
+				<div>
+						<span class="com-pass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="com-nopass">
+				<span>主管退回</span>
+				<div>
+						<span class="com-nopass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+		</ul>
+	</body>
+
+<script src="../../../js/jquery-3.3.1.js"></script>
+<script src="../../../js/urlDns.js"></script>
+
+<script type="text/javascript">
+	
+	mui.init({
+		beforeback: function() {
+			backActive()
+			return true
+		}
+	})
+	// 返回=======================
+	$(".back").click(() => {
+		mui.back();
+	});
+	// 返回之前要执行的操作 函数
+	function backActive() {
+		sessionStorage.removeItem("addtype");
+		sessionStorage.removeItem("income_status");
+	}
+	
+	
+	var pass_app = localStorage.getItem("pass_app");
+	var tel_app = localStorage.getItem("tel_app");
+	var code_app = localStorage.getItem("code_app");
+	
+	if (addtype==undefined){
+		getInfo(2)   // 初次加载时, 获取页面信息 2:单位录入   1:业者录入  11合作伙伴
+	}
+	
+	// 角色切换
+	$(".input_com").click(()=>{
+		$(".input_com").css("background-color","#7EB6FF");
+		$(".input_com").css("color","white");
+		$(".input_free").css("background-color","white");
+		$(".input_free").css("color","#7EB6FF");
+		$(".input_coop").css("background-color","white");
+		$(".input_coop").css("color","#7EB6FF");
+		$(".company-ul").css("display","block");
+		$(".free-ul").css("display","none");
+		$(".coop-ul").css("display","none");
+			
+			getInfo(2) // 重新获取单位的 页面数据信息
+	})
+	
+	$(".input_free").click(()=>{
+		$(".input_com").css("background-color","white");
+		$(".input_com").css("color","#7EB6FF");
+		$(".input_free").css("background-color","#7EB6FF");
+		$(".input_free").css("color","white");
+		$(".input_coop").css("background-color","white");
+		$(".input_coop").css("color","#7EB6FF");
+		$(".company-ul").css("display","none");
+		$(".free-ul").css("display","block");
+		$(".coop-ul").css("display","none");
+	
+		getInfo(1) // 重新获取业者的 页面数据信息
+	})
+	
+	$(".input_coop").click(()=>{
+		$(".input_com").css("background-color","white");
+		$(".input_com").css("color","#7EB6FF");
+		$(".input_free").css("background-color","white");
+		$(".input_free").css("color","#7EB6FF");
+		$(".input_coop").css("background-color","#7EB6FF");
+		$(".input_coop").css("color","white");
+		$(".company-ul").css("display","none");
+		$(".free-ul").css("display","none");
+		$(".coop-ul").css("display","block");
+			
+		getInfo(11) // 重新获取合作伙伴的 页面数据信息
+	})
+	
+	// 判断下一个 页面返回来是处在 单位  业者   伙伴 的界面
+	var addtype = sessionStorage.getItem("addtype");
+	if (addtype == "2") {
+		$(".input_com").css("background-color","#7EB6FF");
+		$(".input_com").css("color","white");
+		$(".input_free").css("background-color","white");
+		$(".input_free").css("color","#7EB6FF");
+		$(".input_coop").css("background-color","white");
+		$(".input_coop").css("color","#7EB6FF");
+		$(".company-ul").css("display","block");
+		$(".free-ul").css("display","none");
+		$(".coop-ul").css("display","none");
+		getInfo(2)
+	}
+	if (addtype == "1") {
+		$(".input_com").css("background-color","white");
+		$(".input_com").css("color","#7EB6FF");
+		$(".input_free").css("background-color","#7EB6FF");
+		$(".input_free").css("color","white");
+		$(".input_coop").css("background-color","white");
+		$(".input_coop").css("color","#7EB6FF");
+		$(".company-ul").css("display","none");
+		$(".free-ul").css("display","block");
+		$(".coop-ul").css("display","none");
+		getInfo(1)
+	}
+	if (addtype == "11") {
+		$(".input_com").css("background-color","white");
+		$(".input_com").css("color","#7EB6FF");
+		$(".input_free").css("background-color","white");
+		$(".input_free").css("color","#7EB6FF");
+		$(".input_coop").css("background-color","#7EB6FF");
+		$(".input_coop").css("color","white");
+		$(".company-ul").css("display","none");
+		$(".free-ul").css("display","none");
+		$(".coop-ul").css("display","block");
+		getInfo(11)
+	}
+	
+	
+	// 跳转到列表页
+	// ========单位用户=======
+	$(".company-ul .wait-check").click(() => {
+		sessionStorage.setItem("addtype", "2");
+		sessionStorage.setItem("income_status", 1);
+		location.href = './user_list.html';
+	});
+	$(".company-ul .complete-data").click(() => {
+		sessionStorage.setItem("addtype", "2");
+		sessionStorage.setItem("income_status", 3);
+		location.href = './user_list.html';
+	});
+	$(".company-ul .wait-company").click(() => {
+		sessionStorage.setItem("addtype", "2");
+		sessionStorage.setItem("income_status", 2);
+		location.href = './user_list.html';
+	});
+	$(".company-ul .company-nopass").click(() => {
+		sessionStorage.setItem("addtype", "2");
+		sessionStorage.setItem("income_status", 22);
+		location.href = './user_list.html';
+	});
+	$(".company-ul .wait-salesman").click(() => {
+		sessionStorage.setItem("addtype", "2");
+		sessionStorage.setItem("income_status", 6);
+		location.href = './user_list.html';
+	});
+	$(".company-ul .com-pass").click(() => {
+		sessionStorage.setItem("addtype", "2");
+		sessionStorage.setItem("income_status", 8);
+		location.href = './user_list.html';
+	});
+	$(".company-ul .com-nopass").click(() => {
+		sessionStorage.setItem("addtype", "2");
+		sessionStorage.setItem("income_status", 11);
+		location.href = './user_list.html';
+	});
+	
+	// =======业者用户============
+	$(".free-ul .wait-check").click(() => {
+		sessionStorage.setItem("addtype", "1");
+		sessionStorage.setItem("income_status", 7);
+		location.href = './user_list.html';
+	});
+	$(".free-ul .complete-data").click(() => {
+		sessionStorage.setItem("addtype", "1");
+		sessionStorage.setItem("income_status", 3);
+		location.href = './user_list.html';
+	});
+	$(".free-ul .wait-data").click(() => {
+		sessionStorage.setItem("addtype", "1");
+		sessionStorage.setItem("income_status", 4);
+		location.href = './user_list.html';
+	});
+	$(".free-ul .data-nopass").click(() => {
+		sessionStorage.setItem("addtype", "1");
+		sessionStorage.setItem("income_status", 44);
+		location.href = './user_list.html';
+	});
+	$(".free-ul .wait-setcost").click(() => {
+		sessionStorage.setItem("addtype", "1");
+		sessionStorage.setItem("income_status", 111);
+		location.href = './user_list.html';
+	});
+	$(".free-ul .wait-company").click(() => {
+		sessionStorage.setItem("addtype", "1");
+		sessionStorage.setItem("income_status", 5);
+		location.href = './user_list.html';
+	});
+	$(".free-ul .company-nopass").click(() => {
+		sessionStorage.setItem("addtype", "1");
+		sessionStorage.setItem("income_status", 55);
+		location.href = './user_list.html';
+	});
+	$(".free-ul .complete-info").click(() => {
+		sessionStorage.setItem("addtype", "1");
+		sessionStorage.setItem("income_status", 33);
+		location.href = './user_list.html';
+	});
+	$(".free-ul .comfirm-info").click(() => {
+		sessionStorage.setItem("addtype", "1");
+		sessionStorage.setItem("income_status", 2);
+		location.href = './user_list.html';
+	});
+	$(".free-ul .info-nopass").click(() => {
+		sessionStorage.setItem("addtype", "1");
+		sessionStorage.setItem("income_status", 22);
+		location.href = './user_list.html';
+	});	
+	$(".free-ul .wait-salesman").click(() => {
+		sessionStorage.setItem("addtype", "1");
+		sessionStorage.setItem("income_status", 1);
+		location.href = './user_list.html';
+	});
+	$(".free-ul .salesman-nopass").click(() => {
+		sessionStorage.setItem("addtype", "1");
+		sessionStorage.setItem("income_status", 11);
+		location.href = './user_list.html';
+	});
+	$(".free-ul .com-pass").click(() => {
+		sessionStorage.setItem("addtype", "1");
+		sessionStorage.setItem("income_status", 8);
+		location.href = './user_list.html';
+	});
+	$(".free-ul .com-nopass").click(() => {
+		sessionStorage.setItem("addtype", "1");
+		sessionStorage.setItem("income_status", 77);
+		location.href = './user_list.html';
+	});
+	
+	// =======合作伙伴============
+
+	$(".coop-ul .wait-check").click(() => {
+		sessionStorage.setItem("addtype", "11");
+		sessionStorage.setItem("income_status", 7);
+		location.href = './user_list.html';
+	});
+	$(".coop-ul .complete-data").click(() => {
+		sessionStorage.setItem("addtype", "11");
+		sessionStorage.setItem("income_status", 3);
+		location.href = './user_list.html';
+	});
+	$(".coop-ul .wait-data").click(() => {
+		sessionStorage.setItem("addtype", "11");
+		sessionStorage.setItem("income_status", 4);
+		location.href = './user_list.html';
+	});
+	$(".coop-ul .data-nopass").click(() => {
+		sessionStorage.setItem("addtype", "11");
+		sessionStorage.setItem("income_status", 44);
+		location.href = './user_list.html';
+	});
+	$(".coop-ul .complete-info").click(() => {
+		sessionStorage.setItem("addtype", "11");
+		sessionStorage.setItem("income_status", 33);
+		location.href = './user_list.html';
+	});
+	$(".coop-ul .comfirm-info").click(() => {
+		sessionStorage.setItem("addtype", "11");
+		sessionStorage.setItem("income_status", 2);
+		location.href = './user_list.html';
+	});
+	$(".coop-ul .info-nopass").click(() => {
+		sessionStorage.setItem("addtype", "11");
+		sessionStorage.setItem("income_status", 22);
+		location.href = './user_list.html';
+	});	
+	$(".coop-ul .wait-salesman").click(() => {
+		sessionStorage.setItem("addtype", "11");
+		sessionStorage.setItem("income_status", 1);
+		location.href = './user_list.html';
+	});
+	$(".coop-ul .salesman-nopass").click(() => {
+		sessionStorage.setItem("addtype", "11");
+		sessionStorage.setItem("income_status", 11);
+		location.href = './user_list.html';
+	});
+	$(".coop-ul .com-pass").click(() => {
+		sessionStorage.setItem("addtype", "11");
+		sessionStorage.setItem("income_status", 8);
+		location.href = './user_list.html';
+	});
+	$(".coop-ul .com-nopass").click(() => {
+		sessionStorage.setItem("addtype", "11");
+		sessionStorage.setItem("income_status", 77);
+		location.href = './user_list.html';
+	});
+	
+	
+	
+	// 请求数据的函数
+	function getInfo(enterType) {
+		enterType = enterType.toString()
+		
+		mui.post(urlDns + "/control_app/ms/fr/user/main",{
+		    // 2.有单位  1.业者用户  11.合作伙伴
+		    tel_app:tel_app,
+		    pass_app:pass_app,
+		    code_app:code_app,
+				usertype: enterType
+		}, function(data) {
+			// console.log(JSON.stringify(data));
+			if (data.result == 0) {
+				// 需要重新登录
+				if (window.plus) {
+					goToLogin("../../../page/register/login.html");
+				} 
+				else {
+					document.addEventListener('plusready', goToLogin, false);
+				}
+			} 
+			else {
+				// 单位用户
+				if(enterType == '2') {
+					if(data.dw_1 > 0) {
+						$(".company-ul .mybadge").css("display","inline-block")
+						$(".company-ul .mybadge").text(data.dw_1)
+					}
+					else { $(".company-ul .mybadge").css("display","none") }
+					
+					$(".company-ul .wait-check-li").text(data.dw_1);
+					$(".company-ul .complete-data-li").text(data.dw_3);
+					$(".company-ul .wait-company-li").text(data.dw_2);
+					$(".company-ul .company-nopass-li").text(data.dw_22);
+					$(".company-ul .wait-salesman-li").text(data.dw_6);
+					$(".company-ul .com-pass-li").text(data.dw_8);
+					$(".company-ul .com-nopass-li").text(data.dw_11);
+					
+				}
+							
+				// 业者用户
+				if(enterType == '1') {
+					if(data.yz_7 > 0) {
+						$(".free-ul .mybadge").css("display","inline-block")
+						$(".free-ul .mybadge").text(data.yz_7)
+					}
+					else { $(".free-ul .mybadge").css("display","none") }
+					
+					$(".free-ul .wait-check-li").text(data.yz_7);
+					$(".free-ul .complete-data-li").text(data.yz_3);
+					$(".free-ul .wait-data-li").text(data.yz_4);
+					$(".free-ul .data-nopass-li").text(data.yz_44);
+					$(".free-ul .wait-setcost-li").text(data.yz_111);
+					$(".free-ul .wait-company-li").text(data.yz_5);
+					$(".free-ul .company-nopass-li").text(data.yz_55);
+					$(".free-ul .complete-info-li").text(data.yz_33);
+					$(".free-ul .confirm-info-li").text(data.yz_2);
+					$(".free-ul .info-nopass-li").text(data.yz_22);
+					$(".free-ul .wait-salesman-li").text(data.yz_1);
+					$(".free-ul .salesman-nopass-li").text(data.yz_11);
+					$(".free-ul .com-pass-li").text(data.yz_8);
+					$(".free-ul .com-nopass-li").text(data.yz_77);
+				}
+				
+				// 合作伙伴
+				if(enterType == '11') {
+					if(data.hhr_7 > 0) {
+						$(".coop-ul .mybadge").css("display","inline-block")
+						$(".coop-ul .mybadge").text(data.hhr_7)
+					}
+					else { $(".coop-ul .mybadge").css("display","none") }
+					
+					$(".coop-ul .wait-check-li").text(data.hhr_7);
+					$(".coop-ul .complete-data-li").text(data.hhr_3);
+					$(".coop-ul .wait-data-li").text(data.hhr_4);
+					$(".coop-ul .data-nopass-li").text(data.hhr_44);
+					$(".coop-ul .complete-info-li").text(data.yz_33);
+					$(".coop-ul .confirm-info-li").text(data.hhr_2);
+					$(".coop-ul .info-nopass-li").text(data.hhr_22);
+					$(".coop-ul .wait-salesman-li").text(data.hhr_1);
+					$(".coop-ul .salesman-nopass-li").text(data.hhr_11);
+					$(".coop-ul .com-pass-li").text(data.hhr_8);
+					$(".coop-ul .com-nopass-li").text(data.hhr_77);
+				}
+			}
+	
+		});
+	}
+</script>
+
+</html>

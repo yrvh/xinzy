@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../../../css/mui.min.css">
+    <script src="../../../js/mui.picker.min.js"></script>
+    <link rel="stylesheet" href="../../../css/mui.picker.min.css">
+    <title>接收业务</title>
+		
+		<style type="text/css">
+			body {
+			    padding: 0;
+			    margin: 0;
+			    font-size: 16px;
+			    color: #333333;
+			}
+			
+			header {
+			    position: fixed;
+			    top: 0;
+			    left: 0;
+			    z-index: 999;
+			    width: 100%;
+			    height: 44px;
+			    box-shadow: 0 2px 2px 0 rgb(231, 231, 231);
+			    background-color: white;
+			    text-align: center;
+			    line-height: 44px;
+			    font-weight: bold;
+			}
+			
+			header>img {
+			    position: absolute;
+			    width: 20px;
+			    height: 20px;
+			    top: 11px;
+			    left: 5px;
+			}
+			
+			header>div {
+			    position: absolute;
+			    top: 0;
+			    right: 10px;
+			    color: #7eb6ff;
+			}
+			
+			.staffNameBox {
+			    position: fixed;
+			    top: 64px;
+			    left: 0;
+			    z-index: 999;
+			    width: 100%;
+			    height: 40px;
+			    background-color: white;
+			}
+			
+			.staffNameBox span {
+			    position: absolute;
+			    top: 0;
+			    left: 15px;
+			    line-height: 40px;
+			}
+			
+			.staffNameBox img {
+			    position: absolute;
+			    right: 7px;
+			    top: 8px;
+			    width: 25px;
+			    height: 25px;
+			}
+			
+			.cont {
+			    width: 100%;
+			    position: absolute;
+			    top: 104px;
+			    left: 0;
+			    padding-bottom: 70px;
+			}
+			
+			.title {
+			    width: 100%;
+			    height: 20px;
+			    font-size: 12px;
+			    line-height: 20px;
+			    padding-left: 15px;
+			}
+			
+			.item {
+			    position: relative;
+			    width: 100%;
+			    height: 46px;
+			    background-color: white;
+			    border: 1px solid rgb(231, 231, 231);
+			}
+			
+			.select {
+			    position: absolute;
+			    top: 15px;
+			    left: 10px;
+			}
+			
+			.comImg {
+			    position: absolute;
+			    top: 6px;
+			    left: 15px;
+			    width: 34px;
+			    height: 34px;
+			}
+			
+			.comName {
+			    position: absolute;
+			    left: 15px;
+			    width: 60%;
+			    line-height: 46px;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;
+			}
+			
+			.freeName {
+			    position: absolute;
+			    left: 15px;
+			    width: 60%;
+			    line-height: 46px;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;
+			}
+			
+			.bg {
+			    position: fixed;
+			    top: 44px;
+			    left: 0;
+			    z-index: 999;
+			    width: 100%;
+			    height: 20px;
+			    background-color: #efeff4;
+			}
+			
+			footer {
+			    position: fixed;
+			    bottom: 0;
+			    left: 0;
+			    width: 100%;
+			    height: 50px;
+			    background-color: white;
+			}
+			
+			footer span {
+			    line-height: 50px;
+			    margin-left: 15px;
+			    color: #7eb6ff;
+			}
+			
+			.success {
+			    display: none;
+			    width: 100%;
+			    height: 100vh;
+			    position: fixed;
+			    top: 0;
+			    left: 0;
+			    z-index: 9999;
+			}
+			
+			.success>img {
+			    width: 120px;
+			    height: 120px;
+			    margin-left: calc((100% - 120px)/2);
+			    margin-top: calc((100vh - 120px)/2);
+			}
+		</style>
+</head>
+
+<body>
+    <header>
+        <img class="back" src="../../../img/back_black.png" alt=""> 接收业务
+        <!-- <div class="accept">确定</div> -->
+    </header>
+    <div class="bg"></div>
+    <div class="staffNameBox">
+        <span class="staff"></span>
+        <img src="../../../img/next.png" alt="">
+    </div>
+    <div class="cont">
+        <!-- <div class="title">单位用户</div>
+        <div class="item">
+            <img class="comImg" src="../../../img/taxes.png" alt="">
+            <div class="comName">北海骄龙网络科技有限公司</div>
+        </div>
+        <div class="title">业者用户</div>
+        <div class="item">
+            <div class="freeName">王五</div>
+        </div> -->
+    </div>
+
+    <!-- 提交成功的提示 -->
+    <div class="success">
+        <img src="../../../img/success.png" alt="">
+    </div>
+
+</body>
+<script src="../../../js/jquery-3.3.1.js"></script>
+<script src="../../../js/layer/layer.js"></script>
+<script src="../../../js/urlDns.js"></script>
+
+<script type="text/javascript">
+	
+	mui.init({
+		beforeback: function() {
+			backActive()
+			return true
+		}
+	})
+	// 返回=======================
+	$(".back").click(() => {
+		mui.back();
+	});
+	// 返回之前要执行的操作 函数
+	function backActive() {
+		// sessionStorage.removeItem("income_status");
+	}
+	
+	var pass_app = localStorage.getItem("pass_app");
+	var tel_app = localStorage.getItem("tel_app");
+	var code_app = localStorage.getItem("code_app");
+
+	
+	var business_out_id = sessionStorage.getItem("business_out_id");
+	// console.log(business_out_id)
+	business_out_id = JSON.parse(business_out_id);
+	
+	// 选择的业务员id
+	var staffId;
+	
+	// 默认的业务员信息
+	var defaultId = {};
+	
+	// 业务员的数组
+	var staffArr = [];
+	
+	// 同步请求
+	$.ajaxSetup({
+	    async: false
+	});
+	
+	$(function() {
+	    var index = layer.load(1, {
+	        // 数组中第一个参数是button的透明度
+	        // 第二个是背景颜色
+	        shade: [0.3, "white"]
+	    });
+	
+	    // 请求业务员列表
+	    var getData = $.ajax({
+	        url: urlDns + "/control_app/ms/business_change/list",
+	        type: 'post',
+	        dataType: "json",
+	        timeout: 120000, //2分钟超时
+	        data: {
+	            "pass_app": pass_app,
+	            "tel_app": tel_app,
+	            "code_app": code_app
+	        },
+	        //请求成功
+	        success: function(data) {
+	            console.log(JSON.stringify(data));
+	            if (data.result == 0) {
+	                // 需要重新登录
+	                if (window.plus) {
+	                    goToLogin("../../../page/register/login.html");
+	                } else {
+	                    document.addEventListener('plusready', goToLogin, false);
+	                }
+	            } else {
+	                // console.log(data.rows[0].name)
+	                defaultId.value = data.rows[0].id;
+	                defaultId.text = data.rows[0].name;
+	                staffId = defaultId.value;
+	                // layer.close(index);
+	                for (var i = 0; i < data.rows.length; i++) {
+	                    var object = {};
+	                    object.value = data.rows[i].id;
+	                    object.text = data.rows[i].name;
+	                    staffArr.push(object);
+	                }
+	            }
+	
+	
+	        },
+	        error: function(XMLHttpRequest, textStatus, errorThrown) {
+	            layer.close(index);
+	            if (textStatus == 'timeout') {
+	                getData.abort();　
+	                alert("请求超时");
+	            }
+	            if (textStatus == 'error') {
+	                getData.abort();　
+	                alert("请求错误" + errorThrown);
+	            }
+	        }
+	    });
+	
+	    // console.log(defaultId.value)
+	    // 请求初始数据
+	    var getDefaultData = $.ajax({
+	        url: urlDns + "/control_app/ms/business_change/user_list",
+	        type: 'post',
+	        dataType: "json",
+	        timeout: 120000, //2分钟超时
+	        data: {
+	            "id": defaultId.value,
+	            "pass_app": pass_app,
+	            "tel_app": tel_app,
+	            "code_app": code_app
+	        },
+	        //请求成功
+	        success: function(data) {
+	            console.log(JSON.stringify(data));
+	            layer.close(index);
+	            if (data.result == 0) {
+	                // 需要重新登录
+	                if (window.plus) {
+	                    goToLogin("../../../page/register/login.html");
+	                } else {
+	                    document.addEventListener('plusready', goToLogin, false);
+	                }
+	            } else {
+	                // 总的html代码
+	                var htmlStr = "";
+	                // 单位的html代码
+	                var htmlStr_com = '';
+	                // 业者的html代码
+	                var htmlStr_free = '';
+	                for (var i = 0; i < data.rows.length; i++) {
+	                    if (data.rows[i].usertype == 1) {
+	                        // usertype == 1 业者  2 单位
+	                        htmlStr_free += `
+	                        <div class="item">
+	                            <div class="freeName">${data.rows[i].name}</div>
+	                        </div>
+	                    `;
+	                    }
+	                    if (data.rows[i].usertype == 2) {
+	                        // usertype == 1 业者  2 单位
+	                        htmlStr_com += `
+	                        <div class="item">
+	                            <div class="comName">${data.rows[i].name}</div>
+	                        </div>
+	                    `;
+	                    }
+	                }
+	                if (htmlStr_com != "") {
+	                    htmlStr_com = '<div class="title">单位用户</div>' + htmlStr_com;
+	                }
+	                if (htmlStr_free != "") {
+	                    htmlStr_free = '<div class="title">业者用户</div>' + htmlStr_free;
+	                }
+	
+	                htmlStr = htmlStr_com + htmlStr_free;
+	                $(".cont").html(htmlStr);
+	                $(".staff").text(defaultId.text);
+	                staffId = defaultId.value;
+	            }
+	
+	
+	        },
+	        error: function(XMLHttpRequest, textStatus, errorThrown) {
+	            layer.close(index);
+	            if (textStatus == 'timeout') {
+	                getDefaultData.abort();　
+	                alert("请求超时");
+	            }
+	            if (textStatus == 'error') {
+	                // getDefaultData.abort();　
+	                alert("请求错误" + errorThrown);
+	            }
+	        }
+	    });
+	});
+	
+	// 选择业务员
+	$(".staffNameBox").click(() => {
+	    var popPicker = new mui.PopPicker();
+	    popPicker.setData(staffArr)
+	        // [{ value: 'ywj', text: '北海骄龙网络有限公司' },
+	        //     { value: 'aaa', text: 'xxxxxxx有限公司' },
+	        //     { value: 'lj', text: 'xxxxxxx有限公司' },
+	        //     { value: 'ymt', text: 'xxxxxxx有限公司' },
+	        // ]
+	    popPicker.show(function(selectItems) {
+	        staffId = selectItems[0].value;
+	        getStaffData(selectItems[0].value, selectItems[0].text);
+	    })
+	});
+	
+	// 请求业务员下业务数据的方法
+	function getStaffData(id, name) {
+	    var index = layer.load(1, {
+	        // 数组中第一个参数是button的透明度
+	        // 第二个是背景颜色
+	        shade: [0.3, "white"]
+	    });
+	    var getData = $.ajax({
+	        url: urlDns + "/control_app/ms/business_change/user_list",
+	        type: 'post',
+	        dataType: "json",
+	        timeout: 120000, //2分钟超时
+	        data: {
+	            "id": id,
+	            "pass_app": pass_app,
+	            "tel_app": tel_app,
+	            "code_app": code_app
+	        },
+	        //请求成功
+	        success: function(data) {
+	            console.log(JSON.stringify(data));
+	            layer.close(index);
+	            if (data.result == 0) {
+	                // 需要重新登录
+	                if (window.plus) {
+	                    goToLogin("../../../page/register/login.html");
+	                } else {
+	                    document.addEventListener('plusready', goToLogin, false);
+	                }
+	            } else {
+	                // 总的html代码
+	                var htmlStr = "";
+	                // 单位的html代码
+	                var htmlStr_com = '';
+	                // 业者的html代码
+	                var htmlStr_free = '';
+	                for (var i = 0; i < data.rows.length; i++) {
+	                    if (data.rows[i].usertype == 1) {
+	                        // usertype == 1 业者  2 单位
+	                        htmlStr_free += `
+	                        <div class="item">
+	                            <div class="freeName">${data.rows[i].name}</div>
+	                        </div>
+	                    `;
+	                    }
+	                    if (data.rows[i].usertype == 2) {
+	                        // usertype == 1 业者  2 单位
+	                        htmlStr_com += `
+	                        <div class="item">
+	                            <div class="comName">${data.rows[i].name}</div>
+	                        </div>
+	                    `;
+	                    }
+	                }
+	                if (htmlStr_com != "") {
+	                    htmlStr_com = '<div class="title">单位用户</div>' + htmlStr_com;
+	                }
+	                if (htmlStr_free != "") {
+	                    htmlStr_free = '<div class="title">业者用户</div>' + htmlStr_free;
+	                }
+	
+	                htmlStr = htmlStr_com + htmlStr_free;
+	                $(".cont").html(htmlStr);
+	                $(".staff").text(name);
+	
+	            }
+	
+	        },
+	        error: function(XMLHttpRequest, textStatus, errorThrown) {
+	            layer.close(index);
+	            if (textStatus == 'timeout') {
+	                getData.abort();　
+	                alert("请求超时");
+	            }
+	            if (textStatus == 'error') {
+	                getData.abort();　
+	                alert("请求错误" + errorThrown);
+	            }
+	        }
+	    });
+	}
+	
+	// 确定按钮
+	$(".accept").click(() => {
+	    // console.log(staffId)
+	    var index = layer.load(1, {
+	        // 数组中第一个参数是button的透明度
+	        // 第二个是背景颜色
+	        shade: [0.3, "white"]
+	    });
+	    var getData = $.ajax({
+	        url: urlDns + "/control_app/ms/business_change/change",
+	        type: 'post',
+	        // 当参数为数组时，直接传过去后台接收不到，要设置traditional: true
+	        // 防止深度序列化
+	        traditional: true,
+	        dataType: "json",
+	        timeout: 120000, //2分钟超时
+	        data: {
+	            "id": business_out_id,
+	            "userid": staffId,
+	            "pass_app": pass_app,
+	            "tel_app": tel_app,
+	            "code_app": code_app
+	        },
+	        //请求成功
+	        success: function(data) {
+	            console.log(JSON.stringify(data));
+	            layer.close(index);
+	            if (data.result == 0) {
+	                // 需要重新登录
+	                if (window.plus) {
+	                    goToLogin("../../../page/register/login.html");
+	                } else {
+	                    document.addEventListener('plusready', goToLogin, false);
+	                }
+	            } else {
+	                $(".success").css("display", "block");
+	                setTimeout(() => {
+	                    $(".success").css("display", "none");
+	                    history.go(-2);
+	                }, 1000);
+	            }
+	
+	
+	        },
+	        error: function(XMLHttpRequest, textStatus, errorThrown) {
+	            layer.close(index);
+	            if (textStatus == 'timeout') {
+	                getData.abort();　
+	                alert("请求超时");
+	            }
+	            if (textStatus == 'error') {
+	                getData.abort();　
+	                alert("请求错误" + errorThrown);
+	            }
+	        }
+	    });
+	});
+</script>
+</html>

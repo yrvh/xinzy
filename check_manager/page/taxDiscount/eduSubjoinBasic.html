@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../../../css/mui.min.css">
     <script src="../../../js/mui.picker.min.js"></script>
     <link rel="stylesheet" href="../../../css/mui.picker.min.css">
-    <title>城市建设维护税</title>
+    <title>地方教育费附加</title>
 		
 		<style type="text/css">
 			body {
@@ -78,61 +78,7 @@
 			    height: 25px;
 			}
 			
-			
-			/* .taxes {
-			    width: 100%;
-			    height: 20px;
-			    font-size: 13px;
-			    line-height: 20px;
-			    padding-left: 15px;
-			}
-			
-			.taxesValueBox {
-			    width: 100%;
-			    background-color: white;
-			    padding: 0 15px;
-			}
-			
-			.taxesValueBox>div {
-			    display: flex;
-			    justify-content: space-between;
-			    width: 100%;
-			    height: 40px;
-			    border-bottom: 1px solid #e7e7e7;
-			}
-			
-			.taxesValueBox>div:nth-last-of-type(1) {
-			    border: none;
-			}
-			
-			.taxesValueBox>div>span {
-			    line-height: 40px;
-			}
-			
-			.taxesValueBox>div>span:nth-of-type(2) {
-			    color: #666666;
-			    font-size: 14px;
-			} */
-			
-			.taxes {
-			    display: flex;
-			    justify-content: space-between;
-			    width: 100%;
-			    height: 40px;
-			    margin-top: 10px;
-			    background-color: white;
-			    padding: 0 15px;
-			}
-			
-			.taxes>span {
-			    line-height: 40px;
-			}
-			
-			.taxes>span:nth-of-type(2) {
-			    color: #666666;
-			    font-size: 14px;
-			}
-			
+			.taxes,
 			.discount {
 			    display: flex;
 			    justify-content: space-between;
@@ -143,10 +89,12 @@
 			    padding: 0 15px;
 			}
 			
+			.taxes>span,
 			.discount>span {
 			    line-height: 40px;
 			}
 			
+			.taxes>span:nth-of-type(2),
 			.discount>span:nth-of-type(2) {
 			    color: #666666;
 			    font-size: 14px;
@@ -156,7 +104,7 @@
 
 <body>
     <header>
-        <img class="back" src="../../../img/back_black.png" alt=""> 城市建设维护税
+        <img class="back" src="../../../img/back_black.png" alt=""> 地方教育费附加
     </header>
     <div class="areaBox">
         <div class="areaTitle">服务区域</div>
@@ -165,21 +113,6 @@
             <img src="../../../img/next.png" alt="">
         </div>
     </div>
-    <!-- <div class="taxes">税率（全国）</div>
-    <div class="taxesValueBox">
-        <div>
-            <span>城市郊区</span>
-            <span>7%</span>
-        </div>
-        <div>
-            <span>县/镇</span>
-            <span>5%</span>
-        </div>
-        <div>
-            <span>乡村</span>
-            <span>1%</span>
-        </div>
-    </div> -->
     <div class="taxes">
         <span>税率（全国）</span>
         <span class="taxesValue">%</span>
@@ -194,23 +127,32 @@
 <script src="../../../js/layer/layer.js"></script>
 
 <script type="text/javascript">
+	
+	mui.init({
+		beforeback: function() {
+			backActive()
+			return true
+		}
+	})
+	// 返回=======================
+	$(".back").click(() => {
+		mui.back();
+	});
+	// 返回之前要执行的操作 函数
+	function backActive() {
+		// sessionStorage.removeItem("income_status");
+	}
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
-	// console.log("tel_app：" + tel_app);
-	// console.log("pass_app：" + pass_app);
-	
-	// 返回
-	$(".back").click(() => {
-	    history.back();
-	});
+
 	
 	// 同步请求
 	$.ajaxSetup({
 	    async: false
 	});
 	
-	// 默认的省份信息
+	// 默认省份信息
 	var defaultId = {};
 	
 	// 省份数组
@@ -281,8 +223,8 @@
 	        timeout: 120000, //2分钟超时
 	        data: {
 	            "regionid": defaultId.value,
-	            // 城建税 2
-	            "typeid": 2,
+	            // 地方教育税 4
+	            "typeid": 4,
 	            "pass_app": pass_app,
 	            "tel_app": tel_app,
 	            "code_app": code_app
@@ -299,8 +241,8 @@
 	                    document.addEventListener('plusready', goToLogin, false);
 	                }
 	            } else {
-	                $(".discountValue").text(data.yhfd + "%");
 	                $(".taxesValue").text(data.sv + "%");
+	                $(".discountValue").text(data.yhfd + "%");
 	                $(".province").text(defaultId.text);
 	            }
 	
@@ -320,6 +262,7 @@
 	    });
 	
 	})
+	
 	
 	
 	// 弹出省份选择列表
@@ -351,8 +294,8 @@
 	        timeout: 120000, //2分钟超时
 	        data: {
 	            "regionid": id,
-	            // 城建税 2
-	            "typeid": 2,
+	            // 地方教育税 4
+	            "typeid": 4,
 	            "pass_app": pass_app,
 	            "tel_app": tel_app,
 	            "code_app": code_app
@@ -369,9 +312,10 @@
 	                    document.addEventListener('plusready', goToLogin, false);
 	                }
 	            } else {
-	                $(".discountValue").text(data.yhfd + "%");
 	                $(".taxesValue").text(data.sv + "%");
+	                $(".discountValue").text(data.yhfd + "%");
 	                $(".province").text(name);
+	
 	            }
 	
 	

@@ -62,6 +62,24 @@
 <script src="../../js/layer/layer.js"></script>
 <script src="../../js/urlDns.js"></script>
 <script>
+		
+		mui.init({
+			beforeback: function() {
+				backActive()
+				return true
+			}
+		})
+		// 返回=======================
+		$(".back").click(() => {
+			mui.back();
+		});
+		// 返回之前要执行的操作 函数
+		function backActive() {
+			sessionStorage.setItem("is_agree",1)   // 用于判断是否有条款页面返回的
+			sessionStorage.setItem("timeback",time)   // 把计时的时间传回去
+			sessionStorage.setItem("inreg",1);
+		}
+	
     if ($(document.body).height() < $(window).height() - 185) {
         // 减掉的64是除了$(".cont")以外其他元素的高度
         $(".itemContent").css("height", "calc(100vh - 64px)");
@@ -117,13 +135,6 @@
             }
         }
 
-    });
-
-    $(".back").click(() => {
-			sessionStorage.setItem("is_agree",1)   // 用于判断是否有条款页面返回的
-			sessionStorage.setItem("timeback",time)   // 把计时的时间传回去
-			sessionStorage.setItem("inreg",1);
-			history.back();
     });
 </script>
 

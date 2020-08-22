@@ -61,7 +61,7 @@
 			}
 			
 			.accountInfoBox {
-			    margin-top: 20px;
+			    margin: 20px 0;
 			}
 			
 			.userInfoBox>div,
@@ -416,7 +416,7 @@
     </div>
     <!-- 个人账户信息 -->
     <div class="accountInfoBox">
-        <div class="accountInfoTitle">基本账户信息</div>
+        <div class="accountInfoTitle">工商账户信息</div>
         <!-- <div>
             <span>开户地区</span>
             <span><div id="area_name"></div></span>
@@ -466,12 +466,12 @@
 	    } else {
 	        if (data.dlregid > 0) {
 	            // 代理注册
-	            if (data.ishave_dw == 1) {
+	            if (data.ishave_dw == 1 && data.xytype) {
 	                // 有单位
 	                $(".pageNum").text("(2/5)");
 	            }
-	            if (data.ishave_dw == 0) {
-	                // 无单位
+	            else {
+	                // 无单位 和合作伙伴
 	                $(".pageNum").text("(2/4)");
 	            }
 	

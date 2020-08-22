@@ -1,121 +1,144 @@
 <!DOCTYPE html>
-<html lang="">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="../../../js/mui.min.js"></script>
-    <link rel="stylesheet" href="../../../css/mui.min.css">
-    <title>主管首页</title>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+		<script src="../../../js/mui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../../css/mui.min.css"/>
+    <title>审核主管首页</title>
 		
 		<style type="text/css">
-			body {
-			    margin: 0;
-			    padding: 0;
-			    font-size: 16px;
-			}
+			body { margin: 0; padding: 0; font-size: 16px; }
 			
-			.mui-slider .mui-slider-group .mui-slider-item img {
-			    height: 220px;
-			}
+			.mui-slider .mui-slider-group .mui-slider-item img { height: 220px; }
+			.line { width: 100%; height: 30px; background-color: white; }
 			
-			.home_income {
-			    width: 100%;
-			    height: 100px;
-			    background-color: white !important;
-			}
+			.homebox { width: 100%; height: 180px; background-color: white; }
+			.homebox>div { position: relative; width: 25%; text-align: center; float: left; font-size: 13px; }
+			.homebox>div>img { margin-top: 10px; width: 48px; height: 48px; }
 			
-			.line {
-			    width: 100%;
-			    height: 30px;
-			    background-color: white;
-			}
-			
-			.home_income>div {
-			    width: 25%;
-			    text-align: center;
-			    float: left;
-			    font-size: 13px;
-			}
-			
-			.home_income>div>img {
-			    margin-top: 10px;
-			    width: 48px;
-			    height: 48px;
+			.mybadge {
+				position: absolute;
+				right: 15px;
+				top: 5px;
+				display: none;
 			}
 		</style>
-</head>
-
-<body>
-    <!-- 头部轮播图 -->
-    <div class="mui-slider">
-        <div class="mui-slider-group mui-slider-loop">
-            <!--支持循环，需要重复图片节点-->
-            <div class="mui-slider-item mui-slider-item-duplicate">
-                <a href="#"><img src="../../../img/slider1.jpg" /></a>
-            </div>
-            <div class="mui-slider-item">
-                <a href="#"><img src="../../../img/indexBgImg.png" /></a>
-            </div>
-            <div class="mui-slider-item">
-                <a href="#"><img src="../../../img/slider1.jpg" /></a>
-            </div>
-
-            <!--支持循环，需要重复图片节点-->
-            <div class="mui-slider-item mui-slider-item-duplicate">
-                <a href="#"><img src="../../../img/indexBgImg.png" /></a>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="line"></div>
-    <div class="home_income">
-        <!-- <div class="user_mana">
-            <img src="../../../img/income.png" alt="">
-            <div>支付管理</div>
-        </div> -->
-        <div class="staff_mana">
-            <img src="../../../img/staff_manage.png" alt="">
-            <div>员工管理</div>
-        </div>
-        <div class="contract_mana">
-            <img src="../../../img/contract_ckeck.png" alt="">
-            <div>协议审核</div>
-        </div>
-        <div class="taxes_setting">
-            <img src="../../../img/check.png" alt="">
-            <div>查询</div>
-        </div>
-
-    </div>
-</body>
-<script src="../../../js/jquery-3.3.1.js"></script>
-<script src="../../../js/layer/layer.js"></script>
-<script src="../../../js/urlDns.js"></script>
+	</head>
+	<body>
+		<!-- 头部轮播图 -->
+		<div class="mui-slider">
+			<div class="mui-slider-group mui-slider-loop">
+			    <!--支持循环，需要重复图片节点-->
+			    <div class="mui-slider-item mui-slider-item-duplicate">
+			        <a href="#"><img src="../../../img/slider1.jpg" /></a>
+			    </div>
+			    <div class="mui-slider-item">
+			        <a href="#"><img src="../../../img/indexBgImg.png" /></a>
+			    </div>
+			    <div class="mui-slider-item">
+			        <a href="#"><img src="../../../img/slider1.jpg" /></a>
+			    </div>
+			    <!--支持循环，需要重复图片节点-->
+			    <div class="mui-slider-item mui-slider-item-duplicate">
+			        <a href="#"><img src="../../../img/indexBgImg.png" /></a>
+			    </div>
+			</div>
+		</div>
+		
+		<div class="line"></div>
+		<!-- 界面内容区域 -->
+		<div class="homebox">
+			
+			<div class="user-mana">
+				<img src="../../../img/userCheck.png" alt="" />
+				<div>用户管理</div>
+			</div>
+			
+			<div class="major-mana">
+				<img src="../../../img/invoice.png" alt="">
+				<div>业务管理</div>
+			</div>
+			
+			<div class="contract-mana">
+				<img src="../../../img/contract_ckeck.png" alt="" />
+				<div>协议模板</div>
+			</div>
+			
+			<div class="  tax-discount">
+				<img src="../../../img/taxesSetCheck.png" alt="" />
+				<div>税收优惠</div>
+			</div>
+			
+			<div class="staff-mana">
+				<img src="../../../img/staff_manage.png" alt="">
+				<div>员工查询</div>
+			</div>
+			
+			<!-- <div class="income-mana">
+				<span class="mybadge mui-badge mui-badge-danger"></span>
+				<img src="../../../img/userManage.png" alt="" />
+				<div>收入管理</div>
+			</div>
+			
+			<div class="invoice-mana">
+				<img src="../../../img/invoiceCheck.png" alt="" />
+				<div>发票查询</div>
+			</div>
+			
+			<div class="tax-check">
+				<span class="mybadge mui-badge mui-badge-danger"></span>
+				<img src="../../../img/taxesCheck.png" alt="" />
+				<div>报税审核</div>
+			</div> -->
+			
+			
+		</div>
+	</body>
+	<script src="../../../js/jquery-3.3.1.js"></script>
+	<script src="../../../js/layer/layer.js"></script>
+	<script src="../../../js/urlDns.js"></script>
 
 <script type="text/javascript">
 	mui.init();
 	
-	// 支付管理
-	// $(".user_mana").click(() => {
-	//     mui.openWindow('../income/income_a.html');
-	// });
+	var pass_app = localStorage.getItem("pass_app");
+	var tel_app = localStorage.getItem("tel_app");
+	var code_app = localStorage.getItem("code_app");
 	
+	// 用户管理
+	$(".user-mana").click(()=>{
+		mui.openWindow('../userMana/userMana.html')
+	})
+	// 收入管理
+	$(".income-mana").click(()=>{
+		mui.openWindow('../incomeMana/incomeMana.html')
+	})
+	// 发票管理
+	$(".invoice-mana").click(()=>{
+		mui.openWindow('../invoiceMana/invoiceMana.html')
+	})
+	// 报税审核
+	$(".tax-check").click(()=>{
+		mui.openWindow('../taxCheck/taxCheck.html')
+	})
+	
+	// 协议管理
+	$(".contract-mana").click(()=>{
+		mui.openWindow('../contractMana/contractMana.html')
+	})
 	// 员工管理
-	$(".staff_mana").click(() => {
-	    mui.openWindow('../staffMana/staffMana.html');
-	});
-	
-	// 协议审核
-	$(".contract_mana").click(() => {
-	    mui.openWindow('../contractMana/contractMana.html');
-	});
-	
-	// 查询
-	$(".taxes_setting").click(() => {
-	    mui.openWindow('../query/query.html');
-	});
+	$(".staff-mana").click(()=>{
+		mui.openWindow('../staffMana/staffMana.html');
+	})
+	// 税收优惠
+	$(".tax-discount").click(()=>{
+		mui.openWindow('../taxDiscount/taxDiscount.html')
+	})
+	// 业务管理
+	$(".major-mana").click(()=>{
+		mui.openWindow('../majorMana/majorMana.html')
+	})
 </script>
 </html>

@@ -7,65 +7,37 @@
 		<script src="../../../js/mui.min.js"></script>
 		<link rel="stylesheet" href="../../../css/mui.min.css">
 		<title>--审核主管--用户管理--</title>
-		<script type="text/javascript">
-			mui.init();
-		</script>
 		
 		<style type="text/css">
 			body { margin: 0; padding: 0; color: #333333; }
-			header { position: relative; width: 100%; height: 44px; background-color: white; box-shadow: 0 2px 2px 0 rgba(231,231,231,1);}
-			
+			header { position: fixed; top:0; left: 0; z-index: 50; width: 100%; line-height: 44px; height: 44px; background-color: #FFF; box-shadow: 0 2px 2px 0 rgba(231,231,231,1); text-align: center;}
 			header>img { position: absolute; top: 12px; left: 5px; width: 20px; height: 20px; }
+			.occupy {width: 100%; height: 46px; background-color: #ddd; margin-bottom: 20px;}
 			
-			ul {
-			    list-style: none;
-			    padding: 0;
-			    margin: 20px 0 0 0;
-			}
+			.change { margin: 0 auto; transform: translateY(7px); width: 268px; height: 34px; background-color: #fff; border-radius: 4px; display: flex; justify-content: space-between; border: 1px solid #7EB6FF; }
+			.change>div { font-size: 14px; text-align: center; width: 90px; line-height: 34px; position: relative;}
+			
+			.input_com{ background-color: #7EB6FF; color: #fff; }
+			.input_free,.input_coop{ color: #7EB6FF; }
+			.input_free { border-right: 1px solid #7EB6FF; border-left: 1px solid #7EB6FF; }
+			
+			
+			.free-ul,.coop-ul{display: none;}
+			ul { list-style: none; padding: 0 0 10px 0; margin: 20px 0 0 0; height: 88vh; overflow-y: scroll;}
 			
 			li {
-			    display: flex;
-			    justify-content: space-between;
-			    width: 100%;
-			    height: 46px;
-			    background-color: white;
-			    margin-bottom: 2px;
-			    line-height: 46px;
-			    padding: 0 5px 0 15px;
-			    box-sizing: border-box;
+				display: flex; justify-content: space-between; width: 100%; height: 46px; 
+				background-color: #fff; margin-bottom: 2px; line-height: 46px; padding: 0 5px 0 15px; box-sizing: border-box;
 			}
 			
-			li img {
-			    width: 25px;
-			    height: 25px;
-			    vertical-align: middle;
-			}
+			li img { width: 25px; height: 25px; vertical-align: middle; }
 			
 			li>div>span {
 			    color: rgb(153, 153, 153);
 			}
 			
-			
-			.change { 
-				margin: 0 auto; 
-				transform: translateY(7px);
-				width: 268px;
-				height: 34px;
-				background-color: white;
-				border-radius: 4px;
-				display: flex;
-				justify-content: space-between;
-				border: 1px solid #7EB6FF;
-			}
-			.change>div { font-size: 14px; text-align: center; width: 90px; line-height: 34px; }
-			
-			.input_com{ background-color: #7EB6FF; color: white; }
-			.input_free,.input_coop{ color: #7EB6FF; }
-			.input_free { border-right: 1px solid #7EB6FF; border-left: 1px solid #7EB6FF; }
-			.free-ul,.coop-ul{display: none;}
-			
-			
 			.mybadge {display: none;}
+			.change .mybadge { display: none; position: absolute; right: 0; top: 0;}
 		</style>
 	</head>
 	<body>
@@ -73,11 +45,12 @@
    <header>
         <img class="back" src="../../../img/back_black.png" alt="">
         <div class="change">
-            <div class="input_com">单位用户</div>
-            <div class="input_free">业者用户</div>
-						<div class="input_coop">合作伙伴</div>
+            <div class="input_com">单位用户  <span class="mybadge mui-badge mui-badge-danger"></span></div>
+            <div class="input_free">业者用户  <span class="mybadge mui-badge mui-badge-danger"></span></div>
+						<div class="input_coop">合作伙伴  <span class="mybadge mui-badge mui-badge-danger"></span></div>
         </div>
     </header>
+		<div class="occupy"></div>
 		
 		
 		<!-- 单位 -->
@@ -344,9 +317,10 @@
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
 	
-	if (addtype==undefined){
-		getInfo(2)   // 初次加载时, 获取页面信息 2:单位录入   1:业者录入  11合作伙伴
-	}
+	getInfo(1)
+	getInfo(11)
+	getInfo(2)
+	
 	
 	// 角色切换
 	$(".input_com").click(()=>{
@@ -628,8 +602,13 @@
 					if(data.dw_1 > 0) {
 						$(".company-ul .mybadge").css("display","inline-block")
 						$(".company-ul .mybadge").text(data.dw_1)
+						$(".input_com .mybadge").css("display","inline-block")
+						$(".input_com .mybadge").text(data.dw_1)
 					}
-					else { $(".company-ul .mybadge").css("display","none") }
+					else { 
+						$(".company-ul .mybadge").css("display","none")
+						$(".input_com .mybadge").css("display","none")
+						}
 					
 					$(".company-ul .wait-check-li").text(data.dw_1);
 					$(".company-ul .complete-data-li").text(data.dw_3);
@@ -646,8 +625,13 @@
 					if(data.yz_7 > 0) {
 						$(".free-ul .mybadge").css("display","inline-block")
 						$(".free-ul .mybadge").text(data.yz_7)
+						$(".input_free .mybadge").css("display","inline-block")
+						$(".input_free .mybadge").text(data.yz_7)
 					}
-					else { $(".free-ul .mybadge").css("display","none") }
+					else { 
+						$(".free-ul .mybadge").css("display","none")
+						$(".input_free .mybadge").css("display","none")
+					}
 					
 					$(".free-ul .wait-check-li").text(data.yz_7);
 					$(".free-ul .complete-data-li").text(data.yz_3);
@@ -670,8 +654,13 @@
 					if(data.hhr_7 > 0) {
 						$(".coop-ul .mybadge").css("display","inline-block")
 						$(".coop-ul .mybadge").text(data.hhr_7)
+						$(".input_coop .mybadge").css("display","inline-block")
+						$(".input_coop .mybadge").text(data.hhr_7)
 					}
-					else { $(".coop-ul .mybadge").css("display","none") }
+					else {
+						$(".coop-ul .mybadge").css("display","none")
+						$(".input_coop .mybadge").css("display","none")
+					}
 					
 					$(".coop-ul .wait-check-li").text(data.hhr_7);
 					$(".coop-ul .complete-data-li").text(data.hhr_3);

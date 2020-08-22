@@ -116,8 +116,6 @@
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
-	console.log("tel_app：" + tel_app);
-	console.log("pass_app：" + pass_app);
 	
 	// 请求用户名和手机号
 	$(function() {
@@ -140,7 +138,7 @@
 	        },
 	        //请求成功
 	        success: function(data) {
-	            console.log(JSON.stringify(data));
+	            // console.log(JSON.stringify(data));
 	            layer.close(index);
 	            if (data.result == 0) {
 	                // 需要重新登录

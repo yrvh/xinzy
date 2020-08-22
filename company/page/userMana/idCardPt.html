@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../../../js/mui.min.js"></script>
     <link rel="stylesheet" href="../../../css/mui.min.css">
-    <!-- <link rel="stylesheet" href="../../../css/scale.css"> -->
+    <link rel="stylesheet" href="../../../css/scale.css">
     <script>
         mui.init();
     </script>
@@ -50,7 +50,7 @@
 			.title {
 			    width: 100%;
 			    margin-top: 30px;
-			    margin-bottom: 50px;
+			    margin-bottom: 40px;
 			    padding-left: 15px;
 			}
 			
@@ -115,45 +115,86 @@
 			.mui-table-view-cell:before {
 			    height: 0
 			}
+			
+			.photo-box {
+				box-sizing: border-box;
+				position: relative;
+				width: 220px;
+				height: 160px;
+				margin: 0 auto;
+				background-image: url(../../../img/idCardBgImg.jpg);
+				background-size: 100% 100%;
+				margin-bottom: 50px;
+			}
+			.up,
+			.down {
+			    position: absolute;
+			    top: 20px;
+			    left: 20px;
+			    /* z-index: 2; */
+			    width: 180px;
+			    height: 120px;
+			}
+			
+			.Certific {
+			    display: none;
+			    width: 300px;
+			    height: 250px;
+			    position: absolute;
+			    top: calc((100vh - 250px)/2);
+			    left: calc((100% - 300px)/2);
+			}
+			.list{margin-top: 50px;}
 		</style>
 </head>
 
 <body>
     <header>
-        <img class="back" src="../../../img/back_black.png" alt="">身份验证
+        <img class="back" src="../../../img/back_black.png" alt="">证件信息
         <!-- <div class="next">确定</div> -->
     </header>
-    <div class="title">拍摄/上传您的二代身份证</div>
-    <ul class="list">
-        <ul class="list listBox">
-            <li class='mui-table-view-cell mui-media'>
-                <img class="idCardBgImg" src="../../../img/idCardBgImg.jpg" alt="">
-                <img id="headimg1" class="headimg" src='../../../img/IDCard1.png'>
-                <p>
-                    <a class="imageup 1"></a>
-                </p>
-            </li>
-            <li class='photo-down mui-table-view-cell mui-media'>
-                <img class="idCardBgImg" src="../../../img/idCardBgImg.jpg" alt="">
-                <img id="headimg2" class="headimg" src='../../../img/IDCard2.png'>
-                <p>
-                    <a class="imageup 2"></a>
-                </p>
-            </li>
-
-
-        </ul>
-
-    </ul>
-    <!-- <section class="imgzoom_pack">
+    <!-- <div class="title">证件信息</div> -->
+		<div class="list">
+			<div class="photo-box">
+					<img id="headimg1" class="up" src="../../../img/IDCard1.png" alt="">
+			</div>
+			<div class="photo-box photo-down">
+					<img id="headimg2" class="down" src="../../../img/IDCard2.png" alt="">
+			</div>
+		</div>
+    <section class="imgzoom_pack">
         <div class="imgzoom_x">X</div>
         <div class="imgzoom_img"><img src="" /></div>
-    </section> -->
+    </section>
 </body>
 <script src="../../../js/jquery-3.3.1.js"></script>
 <script src="../../../js/urlDns.js"></script>
+<script src="../../../js/scale.js"></script>
 
 <script type="text/javascript">
+	
+	mui.init({
+		beforeback: function() {
+			backActive()
+			return true
+		}
+	})
+	// 返回=======================
+	$(".back").click(() => {
+		mui.back();
+	});
+	// 返回之前要执行的操作 函数
+	function backActive() {
+		sessionStorage.removeItem("corpcard1")
+		sessionStorage.removeItem("corpcard2")
+		sessionStorage.removeItem("agentcard1")
+		sessionStorage.removeItem("agentcard2")
+		sessionStorage.removeItem("freecard1")
+		sessionStorage.removeItem("freecard2")
+		sessionStorage.removeItem("licenseurl")
+	}
+	
+	
 	// 获得是 法人还是联系人
 	let cardType = sessionStorage.getItem("cardType")
 	let src1 = ''
@@ -166,6 +207,12 @@
 		src1 = sessionStorage.getItem('agentcard1');
 		src2 = sessionStorage.getItem('agentcard2');
 	}
+	if(cardType=='free') {
+		src1 = sessionStorage.getItem('freecard1');
+		src2 = sessionStorage.getItem('freecard2');
+		// console.log(src1)
+		// console.log(src2)
+	}
 	if(cardType=='license') {
 		src1 = sessionStorage.getItem('licenseurl');
 		$(".photo-down").css("display","none")
@@ -174,190 +221,13 @@
 	$("#headimg1").attr("src", src1);
 	$("#headimg2").attr("src", src2);
 	
-	// 判断是否处于编辑的状态
-	// var edit_staff = sessionStorage.getItem("edit_staff");
-	// if (edit_staff == 1) {
-	//     // 处于编辑的状态
-	//     $(".next").css("display", "block");
+	// 监听图片预览放大
 	
-	//     //扩展API完成后执行的操作
-	//     // function plusReady() {
-	//     //给选中的li增加判别class
-	//     $(".list li").on("tap", ".imageup", function() {
-	//             // alert('11');
-	//             var $li = $(this).parents("li");
-	//             console.log($($li).text())
-	//             $li.addClass("selectLi");
-	//             $li.siblings().removeClass("selectLi");
-	//             page.imgUp();
-	//         })
-	//         // }
-	
-	// } else {
-	//     $(".next").css("display", "none");
-	//     // document.addEventListener("DOMContentLoaded", function(event) {
-	//     //     ImagesZoom.init({
-	//     //         "elem": ".listBox"
-	//     //     });
-	//     // }, false);
-	// }
-	
-	// 返回
-	$(".back").click(() => {
-		sessionStorage.removeItem("corpcard1")
-		sessionStorage.removeItem("corpcard2")
-		sessionStorage.removeItem("agentcard1")
-		sessionStorage.removeItem("agentcard2")
-		history.back();
-	});
-	
-	
-	// 确定按钮
-	$(".next").click(() => {
-	    var files1 = document.getElementById('headimg1');
-	    var files2 = document.getElementById('headimg2');
-	    sessionStorage.setItem('staffIC1', files1.src) //存
-	    sessionStorage.setItem('staffIC2', files2.src)
-	    history.back();
-	});
-	
-	
-	//弹出系统按钮选择框
-	var page = null;
-	page = {
-	    imgUp: function() {
-	        var m = this;
-	        /* console.log(m);*/
-	        plus.nativeUI.actionSheet({
-	            cancel: "取消",
-	            buttons: [
-	                { title: "拍摄" },
-	                { title: "相册" }
-	            ]
-	        }, function(e) { //1 是拍照  2 从相册中选择 
-	            switch (e.index) {
-	                case 1:
-	                    appendByCamera();
-	                    break;
-	                case 2:
-	                    appendByGallery();
-	                    break;
-	            }
-	        });
-	    }
-	}
-	
-	
-	// 拍照添加文件
-	function appendByCamera() {
-	    plus.camera.getCamera().captureImage(function(e) {
-	        console.log("e is" + e);
-	        plus.io.resolveLocalFileSystemURL(e, function(entry) {
-	            var path = entry.toLocalURL();
-	            var indexa = liIndex()
-	            console.log(indexa);
-	            // ===============================
-	            plus.zip.compressImage({
-	                    src: path,
-	                    dst: '_doc/zip_' + path.substr(path.lastIndexOf('/') + 1),
-	                    quality: 60, //质量1-100	
-	                    overwrite: true,
-	                    width: "50%", //缩小到原来的一半			
-	                    height: "50%" //缩小到原来的一半		
-	                },
-	                function(event) {
-	
-	                    console.log("<=====压缩文件路径=====>" + event.target);
-	                    console.log("<=====压缩后的大小=====>" + event.size); //除1024单位为K
-	                    console.log("<=====压缩后的宽度=====>" + event.width);
-	                    console.log("<=====压缩后的高度=====>" + event.height);
-	                    // var filesize = 1 * 1024 * 1024;
-	                    // if (event.size > filesize) {
-	                    //     alert("上传图片大小不能超过1M！");
-	                    //     return;
-	                    // }
-	                    $(".headimg")[indexa].src = event.target;
-	                    // 选择好照片就判断一次是否可以使用“确定按钮”
-	                    // showNext();
-	                },
-	                function(error) {
-	                    errorTips("图片上传出错");
-	                    console.log("压缩失败:" + error.message);
-	                });
-	            // ========================================
-	            // $(".headimg")[indexa].src = path;
-	
-	
-	        }, function(e) {
-	            mui.toast("读取拍照文件错误：" + e.message);
-	        });
-	
-	    });
-	}
-	// 从相册添加文件
-	function appendByGallery() {
-	    plus.gallery.pick(function(path) {
-	        var indexa = liIndex();
-	        console.log(indexa);
-	        console.log(path);
-	
-	        // ===============================
-	        plus.zip.compressImage({
-	                src: path,
-	                dst: '_doc/zip_' + path.substr(path.lastIndexOf('/') + 1),
-	                quality: 60, //质量1-100	
-	                overwrite: true,
-	                width: "50%", //缩小到原来的一半			
-	                height: "50%" //缩小到原来的一半		
-	            },
-	            function(event) {
-	
-	                console.log("<=====压缩文件路径=====>" + event.target);
-	                console.log("<=====压缩后的大小=====>" + event.size); //除1024单位为K
-	                console.log("<=====压缩后的宽度=====>" + event.width);
-	                console.log("<=====压缩后的高度=====>" + event.height);
-	                // var filesize = 1 * 1024 * 1024;
-	                // if (event.size > filesize) {
-	                //     alert("上传图片大小不能超过1M！");
-	                //     return;
-	                // }
-	                $(".headimg")[indexa].src = event.target;
-	                // 选择好照片就判断一次是否可以使用“确定按钮”
-	                // showNext();
-	            },
-	            function(error) {
-	                errorTips("图片上传出错");
-	                console.log("压缩失败:" + error.message);
-	            });
-	        // ========================================
-	        // $(".headimg")[indexa].src = path;
-	        // // 选择好照片就判断一次是否可以使用“确定按钮”
-	        // showNext();
-	    });
-	}
-	
-	
-	//判断点击的是上传的第几个li             
-	function liIndex() {
-	    var lis = $(".list").children();
-	    console.log(lis.length)
-	    for (var i = 0; i < lis.length; i++) {
-	        console.log($(lis[i]).attr("class"))
-	        var lisClass = $(lis[i]).attr("class").split(" ");
-	        if (lisClass[2] == "selectLi") {
-	            console.log(i);
-	            // alert(i)
-	            return i - 1;
-	        }
-	    }
-	}
-	
-	
-	//扩展API是否准备好，如果没有准备好则监听plusReady 
-	// if (window.plus) {
-	//     plusReady();
-	// } else {
-	//     document.addEventListener("plusready", plusReady, false);
-	// }
+	window.document.addEventListener("DOMContentLoaded", function(event) {
+		console.log(9090)
+			ImagesZoom.init({
+				"elem": ".photo-box"
+			});
+	}, false);
 </script>
 </html>

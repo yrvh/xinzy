@@ -21,7 +21,7 @@
 			    line-height: 44px;
 			    width: 100%;
 			    height: 44px;
-			    background-color: white;
+			    background-color: #fff;
 			    box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
 			}
 			
@@ -43,7 +43,7 @@
 			
 			section {
 			    margin-top: 20px;
-			    background-color: white;
+			    background-color: #fff;
 			}
 			
 			section>div {
@@ -65,7 +65,7 @@
 			    width: 100%;
 			    height: 46px;
 			    line-height: 46px;
-			    background-color: white;
+			    background-color: #fff;
 			}
 			
 			.setDefalt>div,
@@ -135,7 +135,7 @@
 			    bottom: 0;
 			    left: 0;
 			    z-index: 60;
-			    background-color: white;
+			    background-color: #fff;
 			}
 			
 			.del,
@@ -157,7 +157,7 @@
 			
 			.save {
 			    background-color: #7EB6FF;
-			    color: white;
+			    color: #fff;
 			    right: 10px;
 			}
 			
@@ -171,7 +171,7 @@
 			    text-align: center;
 			    line-height: 40px;
 			    background-color: #7EB6FF;
-			    color: white;
+			    color: #fff;
 			}
 			
 			.contractBox {
@@ -229,7 +229,7 @@
 			    width: 270px;
 			    height: 144px;
 			    border-radius: 13px;
-			    background-color: white;
+			    background-color: #fff;
 			    margin: 0 auto;
 			    margin-top: calc((100vh - 144px)/2);
 			}
@@ -281,20 +281,175 @@
 			}
 			/* .comName {border: none;} */
 			
-			.info-bg { display: none; padding: 0 20px; font-size: 15px; width: 100%; min-height: 100vh; position: absolute; top: 0; z-index: 70; background-color: rgba(50,50,50,.7);}
-			.info-bg ul {background-color: #fff; padding: 0 10px;}
-			.info-bg ul li{width: 100%; height: 42px; list-style: none; display: flex; justify-content: space-between; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd;}
-			.info-bg ul li span{ display: inline-block; width: 100px;}
-			.info-bg input {border: none; flex: 1; margin: 0; font-size: 15px;}
-			.textarea-li {height: 70px !important;}
+			
+			
+			
+			/* --------- 弹出 详情页面------  */
+			.ctra-dialog {background-color: #eee; display: none; position: fixed; width: 100%; height: 100vh; overflow-y: auto; left: 0; top: 0; z-index: 100;}
+			
+			.ctra-header {
+				position: fixed; top: 0; left: 0; text-align: center; width: 100%;
+				height: 44px; line-height: 44px; background-color: #fff;
+				box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1); font-weight: bold; font-size: 16px;
+			}
+			.ctra-header>img {
+				position: absolute; top: 12px; left: 5px; width: 20px; height: 20px;
+			}
+			.select-back {
+				position: absolute; width: 80px; /* line-height: 46px; */ color: #7EB6FF; top: 0; left: 5px;
+			}
+			.itemContent { margin-top: 70px; padding: 0 20px; font-size: 15px; width: 100%; }
+			.itemContent ul { background-color: #fff; padding: 0 10px; margin-bottom: 30px;}
+			.itemContent ul li{width: 100%; height: 42px; list-style: none; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd;}
+			.itemContent ul li span{ display: inline-block; width: 100px;}
+			.itemContent input {border: none; flex: 1; margin: 0; font-size: 15px;}
+			.textarea-li {height: 120px !important;}
 			.textarea-li textarea{display: inline-block; margin: 0; font-size: 15px;}
 			
 			.address-ul,.bank-ul { display: none; }
-			
 		</style>
 </head>
 
 <body>
+		<!-- 装 每个协议的容器 -->
+		<div class="ctra-dialog">
+			<header class="ctra-header">
+			  <!-- <img class="back" src="../../img/back_black.png" alt=""> 慧业通服务平台条款 -->
+				<div class="back select-back"><<返回</div>
+				<span class="title-span"></span>
+			</header>
+			<div class="itemContent">
+				<!-- (1)邮寄地址 -->
+				<ul class="address-ul address1-ul">
+					<li>
+						<span class="is-active">是否默认:</span>
+						<div class="mui-switch mui-switch-mini mui-active">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>
+					<li>
+						<span class="user">联系人:</span>
+						<input type="text" placeholder="请输入联系人...">
+					</li>
+					<li>
+						<span class="user-tel">电话:</span>
+						<input type="text" placeholder="请输入电话号...">
+					</li>
+					<li class="textarea-li">
+						<span class="user-address">邮寄地址:</span>
+						<textarea rows="3" cols="15" placeholder="请输入邮寄地址..."></textarea>
+					</li>
+				</ul>
+				
+				<ul class="address-ul address2-ul">
+					<li>
+						<span class="is-active">是否默认:</span>
+						<div class="mui-switch mui-switch-mini">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>
+					<li>
+						<span class="user">联系人:</span>
+						<input type="text" placeholder="请输入联系人...">
+					</li>
+					<li>
+						<span class="user-tel">电话:</span>
+						<input type="text" placeholder="请输入电话号...">
+					</li>
+					<li class="textarea-li">
+						<span class="user-address">邮寄地址:</span>
+						<textarea rows="3" cols="15" placeholder="请输入邮寄地址..."></textarea>
+					</li>
+				</ul>
+				
+				<ul class="address-ul address3-ul">
+					<li>
+						<span class="is-active">是否默认:</span>
+						<div class="mui-switch mui-switch-mini">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>
+					<li>
+						<span class="user">联系人:</span>
+						<input type="text" placeholder="请输入联系人...">
+					</li>
+					<li>
+						<span class="user-tel">电话:</span>
+						<input type="text" placeholder="请输入电话号...">
+					</li>
+					<li class="textarea-li">
+						<span class="user-address">邮寄地址:</span>
+						<textarea rows="3" cols="15" placeholder="请输入邮寄地址..."></textarea>
+					</li>
+				</ul>
+				
+				<!-- (2)银行账户信息 -->
+				<ul class="bank-ul bank1-ul">
+					<li>
+						<span class="is-active">是否默认:</span>
+						<div class="mui-switch mui-switch-mini mui-active">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>
+					<li>
+						<span class="bank-open">开户行:</span>
+						<input type="text" placeholder="请输入开户行...">
+					</li>
+					<li>
+						<span class="bank-name">开户名:</span>
+						<input type="text" placeholder="请输入开户名...">
+					</li>
+					<li>
+						<span class="bank-num">银行卡号:</span>
+						<input type="text" placeholder="请输入银行卡号...">
+					</li>
+				</ul>
+				
+				<ul class="bank-ul bank2-ul">
+					<li>
+						<span class="is-active">是否默认:</span>
+						<div class="mui-switch mui-switch-mini">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>
+					<li>
+						<span class="bank-open">开户行:</span>
+						<input type="text" placeholder="请输入开户行...">
+					</li>
+					<li>
+						<span class="bank-name">开户名:</span>
+						<input type="text" placeholder="请输入开户名...">
+					</li>
+					<li>
+						<span class="bank-num">银行卡号:</span>
+						<input type="text" placeholder="请输入银行卡号...">
+					</li>
+				</ul>
+				
+				<ul class="bank-ul bank3-ul">
+					<li>
+						<span class="is-active">是否默认:</span>
+						<div class="mui-switch mui-switch-mini">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>
+					<li>
+						<span class="bank-open">开户行:</span>
+						<input type="text" placeholder="请输入开户行...">
+					</li>
+					<li>
+						<span class="bank-name">开户名:</span>
+						<input type="text" placeholder="请输入开户名...">
+					</li>
+					<li>
+						<span class="bank-num">银行卡号:</span>
+						<input type="text" placeholder="请输入银行卡号...">
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+	
     <header>
         <img class="back" src="../../img/back_black.png" alt="">
         <span class="title">新增发票抬头</span>
@@ -325,140 +480,6 @@
 				    <img src="../../img/next.png" alt="">
 				</div>
     </section>
-		
-		<!-- 灰色背景 -->
-		<div class="info-bg">
-			<!-- (1)邮寄地址 -->
-			<ul class="address-ul address1-ul">
-				<li>
-					<span class="is-active">是否默认:</span>
-					<div class="mui-switch mui-switch-mini mui-active">
-						<div class="mui-switch-handle"></div>
-					</div>
-				</li>
-				<li>
-					<span class="user">联系人:</span>
-					<input type="text" placeholder="请输入联系人...">
-				</li>
-				<li>
-					<span class="user-tel">电话:</span>
-					<input type="text" placeholder="请输入电话号...">
-				</li>
-				<li class="textarea-li">
-					<span class="user-address">邮寄地址:</span>
-					<textarea rows="2" cols="15" placeholder="请输入邮寄地址..."></textarea>
-				</li>
-			</ul>
-			
-			<ul class="address-ul address2-ul">
-				<li>
-					<span class="is-active">是否默认:</span>
-					<div class="mui-switch mui-switch-mini">
-						<div class="mui-switch-handle"></div>
-					</div>
-				</li>
-				<li>
-					<span class="user">联系人:</span>
-					<input type="text" placeholder="请输入联系人...">
-				</li>
-				<li>
-					<span class="user-tel">电话:</span>
-					<input type="text" placeholder="请输入电话号...">
-				</li>
-				<li class="textarea-li">
-					<span class="user-address">邮寄地址:</span>
-					<textarea rows="2" cols="15" placeholder="请输入邮寄地址..."></textarea>
-				</li>
-			</ul>
-			
-			<ul class="address-ul address3-ul">
-				<li>
-					<span class="is-active">是否默认:</span>
-					<div class="mui-switch mui-switch-mini">
-						<div class="mui-switch-handle"></div>
-					</div>
-				</li>
-				<li>
-					<span class="user">联系人:</span>
-					<input type="text" placeholder="请输入联系人...">
-				</li>
-				<li>
-					<span class="user-tel">电话:</span>
-					<input type="text" placeholder="请输入电话号...">
-				</li>
-				<li class="textarea-li">
-					<span class="user-address">邮寄地址:</span>
-					<textarea rows="2" cols="15" placeholder="请输入邮寄地址..."></textarea>
-				</li>
-			</ul>
-			
-			<!-- (2)银行账户信息 -->
-			<ul class="bank-ul bank1-ul">
-				<li>
-					<span class="is-active">是否默认:</span>
-					<div class="mui-switch mui-switch-mini mui-active">
-						<div class="mui-switch-handle"></div>
-					</div>
-				</li>
-				<li>
-					<span class="bank-open">开户行:</span>
-					<input type="text" placeholder="请输入开户行...">
-				</li>
-				<li>
-					<span class="bank-name">开户名:</span>
-					<input type="text" placeholder="请输入开户名...">
-				</li>
-				<li>
-					<span class="bank-num">银行卡号:</span>
-					<input type="text" placeholder="请输入银行卡号...">
-				</li>
-			</ul>
-			
-			<ul class="bank-ul bank2-ul">
-				<li>
-					<span class="is-active">是否默认:</span>
-					<div class="mui-switch mui-switch-mini">
-						<div class="mui-switch-handle"></div>
-					</div>
-				</li>
-				<li>
-					<span class="bank-open">开户行:</span>
-					<input type="text" placeholder="请输入开户行...">
-				</li>
-				<li>
-					<span class="bank-name">开户名:</span>
-					<input type="text" placeholder="请输入开户名...">
-				</li>
-				<li>
-					<span class="bank-num">银行卡号:</span>
-					<input type="text" placeholder="请输入银行卡号...">
-				</li>
-			</ul>
-			
-			<ul class="bank-ul bank3-ul">
-				<li>
-					<span class="is-active">是否默认:</span>
-					<div class="mui-switch mui-switch-mini">
-						<div class="mui-switch-handle"></div>
-					</div>
-				</li>
-				<li>
-					<span class="bank-open">开户行:</span>
-					<input type="text" placeholder="请输入开户行...">
-				</li>
-				<li>
-					<span class="bank-name">开户名:</span>
-					<input type="text" placeholder="请输入开户名...">
-				</li>
-				<li>
-					<span class="bank-num">银行卡号:</span>
-					<input type="text" placeholder="请输入银行卡号...">
-				</li>
-			</ul>
-			
-		</div>
-		
-		
 		
     <div class="setDefalt">
         <div class="contractBox">
@@ -518,32 +539,46 @@
 	//     if (r != null) return unescape(r[2]);
 	//     return null;
 	// }
-	
-	// 返回
-	$(".back").click(() => {
-	    history.back();
-	    sessionStorage.removeItem("header_contractImg");
-	    sessionStorage.removeItem("comAddress");
-	    sessionStorage.removeItem("headerName");
-	    sessionStorage.removeItem("taxesCode");
-	    sessionStorage.removeItem("email");
-	    sessionStorage.removeItem("hasHeaderContractImg");
-	});
+		mui.init({
+			beforeback: function() {
+				if(is_agree){
+					backActive()
+					return false
+				}
+				else{ 
+					// history.go(-2)
+					return true 
+				}
+			}
+		})
+		// 返回=======================
+		$(".back").click(() => {
+			mui.back();
+		});
+		// 返回之前要执行的操作 函数
+		function backActive() {
+			if(is_agree) {
+				$(".ctra-dialog").css("display","none")
+				is_agree = false
+			}
+			sessionStorage.removeItem("header_contractImg");
+			sessionStorage.removeItem("hasHeaderContractImg");
+		}
+		
+	// 是否处在 地址或银行账户  详情页
+	var is_agree = false   
 	
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
-	// console.log("tel_app：" + tel_app);
-	// console.log("pass_app：" + pass_app);
+	
 	
 	var contractImg = sessionStorage.getItem("header_contractImg");
-	// console.log(contractImg);
 	var header_contractImg = JSON.parse(contractImg);
-	console.log(header_contractImg);
 	var hasHeaderContractImg = sessionStorage.getItem("hasHeaderContractImg");
-	console.log(hasHeaderContractImg);
-	var comAddress = sessionStorage.getItem("comAddress");
-	console.log(comAddress)
+	// console.log(contractImg);
+	// console.log(header_contractImg);
+	// console.log(hasHeaderContractImg);
 	
 	
 	var headerName = sessionStorage.getItem("headerName", headerName);
@@ -558,10 +593,7 @@
 	if (headerName) {
 	    $(".email").val(email);
 	}
-	
-	if (comAddress) {
-	    $(".addressStr").text(comAddress);
-	}
+
 	if (hasHeaderContractImg == 1) {
 	    $(".uploadTips").text("已上传");
 	
@@ -600,16 +632,21 @@
 	    location.href = "./header_contract.html";
 	});
 	
-	// 公司地址
+	// 点击 公司地址
 	$(".address").click(() => {
-	    var headerName = $(".headerName").val();
-	    var taxesCode = $(".taxesCode").val();
-	    var email = $(".email").val();
-	    sessionStorage.setItem("headerName", headerName);
-	    sessionStorage.setItem("taxesCode", taxesCode);
-	    sessionStorage.setItem("email", email);
-	    sessionStorage.setItem("type", "address")
-	    location.href = "../textPage.html";
+		is_agree = true
+		$(".title-span").text("邮寄地址列表")
+		$(".ctra-dialog").css("display","block")
+		$(".bank-ul").css("display","none")
+		$(".address-ul").css("display","block")
+	});
+	// 点击 银行账户信息
+	$(".bankinfo").click(() => {
+		is_agree = true
+		$(".title-span").text("银行账户列表")
+		$(".ctra-dialog").css("display","block")
+		$(".address-ul").css("display","none")
+		$(".bank-ul").css("display","block")
 	});
 	
 
@@ -625,7 +662,7 @@
 	//     }
 	// });
 	
-	// 新增保存
+	// 点击 保存
 	$(".onlySave").click(() => {
 	    // 发票抬头
 	    var headerName = $(".comName").val();
@@ -671,10 +708,6 @@
 	                        // wt.close(); //关闭等待提示按钮
 	                        console.log("上传成功：" + responseText.result + "," + responseText.message);
 	                        sessionStorage.removeItem("header_contractImg");
-	                        sessionStorage.removeItem("comAddress");
-	                        sessionStorage.removeItem("headerName");
-	                        sessionStorage.removeItem("taxesCode");
-	                        sessionStorage.removeItem("email");
 	                        sessionStorage.removeItem("hasHeaderContractImg");
 	
 	                        layer.close(index);
@@ -716,6 +749,7 @@
 	
 	});
 	
+	// 点击弹窗中的 "是"  来上传业务合同照片
 	$(".open").click(() => {
 	    // 发票抬头
 	    var headerName = $(".comName").val();
@@ -758,10 +792,6 @@
 	                    // if (responseText == 1) {
 	                    console.log("上传成功：" + responseText.status + "," + responseText.message);
 	                    sessionStorage.removeItem("header_contractImg");
-	                    sessionStorage.removeItem("comAddress");
-	                    sessionStorage.removeItem("headerName");
-	                    sessionStorage.removeItem("taxesCode");
-	                    sessionStorage.removeItem("email");
 	                    layer.close(index);
 	                    $(".success").css("display", "block");
 	                    setTimeout(() => {

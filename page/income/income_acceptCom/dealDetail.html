@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script src="../../../js/mui.min.js"></script>
+	<link rel="stylesheet" href="../../../css/scale.css">
+	<link rel="stylesheet" href="../../../css/mui.min.css">
+	<script src="../../../js/mescroll.min.js"></script>
+	<link rel="stylesheet" href="../../../css/mescroll.min.css">
+	<title>有业者--合同--详情</title>
+			
+		<style type="text/css">
+			body { margin: 0; padding: 0; color: #333333; background-color: #fff;}
+			header { position: fixed; top:0; left: 0; z-index: 50; width: 100%; line-height: 44px; height: 44px; background-color: #FFF; box-shadow: 0 2px 2px 0 rgba(231,231,231,1); text-align: center;}
+			header>img { position: absolute; top: 12px; left: 5px; width: 20px; height: 20px; }
+			.occupy {width: 100%; height: 46px; background-color: #ddd; margin-bottom: 20px;}
+			
+		
+			/* --------- 弹出平台协议的样式------  */
+			/* .ctra-dialog {background-color: #FFF; display: none; position: fixed; width: 100%; height: 100vh; overflow-y: auto; left: 0; top: 0; z-index: 100;} */
+			/* p {margin: 0;} */
+			.itemContent {
+					width: 100%;
+					/* height: calc(100vh - 40px); */
+					padding: 10px 8px 60px;
+			}
+			.type-title{
+				margin-bottom: 20px; border: 1px solid #7EB6FF; color: #7EB6FF; height: 44px; line-height: 44px; font-size: 18px; text-align: center;
+			}
+			
+			
+			.imgBox {
+				width: 96%;
+				height: 70vh;
+				border: 1px solid #aaaaaa;
+				margin: 10px auto;
+			}
+			
+			.imgBox>img {
+			    width: 100%;
+			    height: 100%;
+			}
+			
+			
+			
+			
+			.select-back {
+				position: absolute;
+				width: 80px;
+				/* line-height: 46px; */
+				color: #7EB6FF;
+				top: 0;
+				left: 5px;
+			}
+			footer {
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				height: 50px;
+				background-color: white;
+				display: none;
+				/* display: flex; */
+				justify-content: space-around;
+				align-items: center;
+			}
+			.footer-item { 
+				border-radius: 5px; 
+				width: 45%; height: 43px; 
+				line-height: 43px; 
+				text-align: center;
+				border: 1px solid #7EB6FF;
+			}
+			.nopass { color: #7EB6FF; }
+			.pass { background-color: #7EB6FF; color: #fff; }
+		</style>
+	</head>
+	<body>
+			<header>
+			  <!-- <img class="back" src="../../img/back_black.png" alt=""> 慧业通服务平台条款 -->
+				<div class="back select-back"><<返回</div>
+				<span class="title-span">协议详情</span>
+			</header>
+			<div class="occupy"></div>
+			<div class="type-title"></div>
+			<div class="itemContent">
+			
+			</div>
+			<!-- 图片预览放大的功能 -->
+			<!-- <section class="imgzoom_pack">
+				<div class="imgzoom_x">X</div>
+				<div class="imgzoom_img"><img src="" /></div>
+			</section> -->
+		</div>
+
+		
+		<footer>
+			<div class="footer-item nopass">退回</div>
+			<div class="footer-item pass"> 通过</div>
+		</footer>
+	</body>
+	<script src="../../../js/jquery-3.3.1.js"></script>
+	<script src="../../js/layer/layer.js"></script>
+	<script src="../../../js/urlDns.js"></script>
+	<script src="../../../js/scale.js"></script>
+	
+	<script type="text/javascript">
+		mui.init({
+			beforeback: function() {
+				backActive()
+				return true
+			}
+		})
+		// 返回=======================
+		$(".back").click(() => {
+			mui.back();
+		});
+		// 返回之前要执行的操作 函数
+		function backActive() {
+			sessionStorage.removeItem("detailId");
+		}
+		
+		var pass_app = localStorage.getItem("pass_app");
+		var tel_app = localStorage.getItem("tel_app");
+		var code_app = localStorage.getItem("code_app");
+	
+		// // 获取状态码
+		let income_status = sessionStorage.getItem("income_status");
+		if(income_status == 2){
+			$("footer").css("display","flex")
+		}
+		// 获取id
+		let detailId = sessionStorage.getItem("detailId")
+		// 获取协议的名字
+		let detailName = sessionStorage.getItem("detailName")
+		$(".type-title").text(detailName)
+
+	
+	
+		
+		
+	$.ajaxSettings.async = false;   // 取消ajax的异步请求,, 让协议加载完成之后再做监听
+	getCtraPplatform()
+	
+	// 执行加载 协议的函数
+	function getCtraPplatform(){
+		let ajaxPost = $.ajax({
+			url: urlDns + "/control_app/yz/fptt_ht/showUI",
+			type: 'post',
+			dataType: "json",
+			timeout: 120000, //2分钟超时
+			data: {
+				id:detailId,
+				pass_app: pass_app,
+				tel_app: tel_app,
+				code_app: code_app,
+			},
+			//请求成功
+			success: function(data) {
+				// console.log(JSON.stringify(data))
+				let htmlStr = "";
+				let len = data.imgs.length || 0
+				for (var i = 0; i < len; i++) {
+						htmlStr += `
+				<div class="imgBox">
+						<img class="img-crt" src="${data.imgs[i]}" alt="">
+				</div>
+				`;
+				}
+				$(".itemContent").html(htmlStr);
+					
+				// if(data.type==1) {
+				// 	$(".itemContent").html(data.text);
+				// }
+				// else {
+				// 	let htmlStr = "";
+				// 	let img_arr = data.imgUrls.split(",")
+				// 	let len = img_arr.length || 0
+				// 	for (var i = 0; i < len; i++) {
+				// 			htmlStr += `
+				// 	<div class="imgBox">
+				// 			<img class="img-crt" src="${img_arr[i]}" alt="">
+				// 	</div>
+				// 	`;
+				// 	}
+				// 	$(".itemContent").html(htmlStr);
+				// }
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				if (textStatus == 'timeout') {
+						// console.log("请求超时");
+						ajaxPost.abort();　
+						alert("请求超时");
+				}
+				if (textStatus == 'error') {
+						ajaxPost.abort();　
+						alert("请求错误" + errorThrown);
+				}
+			}
+		})
+	}
+		
+	// 监听图片预览放大
+	// window.document.addEventListener("DOMContentLoaded", function(event) {
+	// 		ImagesZoom.init({
+	// 			"elem": ".itemContent"
+	// 		});
+	// }, false)
+	
+	// 点击退回
+	$(".nopass").click(() => {
+		sessionStorage.setItem("itemid",detailId)
+		sessionStorage.setItem("title","退回理由")
+		sessionStorage.setItem("detail_content","")
+		sessionStorage.setItem("user_type","017")
+		location.href = "../../business_content.html";
+	})
+	
+		// 点击通过
+		$(".pass").click(() => {
+			$.post(urlDns + '/control_app/yz/fptt_ht/check', {
+						id: detailId,
+						pass_app: pass_app,
+						tel_app: tel_app,
+						code_app: code_app
+				}, function (data) {
+						console.log(JSON.stringify(data))
+						if (data.result == 0) {
+								// 需要重新登录
+								if (window.plus) {
+										goToLogin("../../../page/register/login.html");
+								} else {
+										document.addEventListener('plusready', goToLogin, false);
+								}
+						} 
+						else {
+							mui.alert('通过成功! !','提示','关闭',()=>{history.go(-1)},'div')
+						}
+				});
+		})
+	</script>
+	</html>
+
+

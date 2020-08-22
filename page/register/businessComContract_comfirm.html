@@ -355,7 +355,7 @@
 
 <body>
     <header>
-        <img class="back" src="../../img/back_black.png" alt=""> 商务秘书公司协议<span class="pageNum" style="color:rgb(153, 153, 153)">(4/4)</span>
+        <img class="back" src="../../img/back_black.png" alt=""> 商务秘书公司协议<span class="pageNum" style="color:rgb(153, 153, 153)"></span>
     </header>
     <!-- <div class="title">关于*****的协议书</div> -->
     <!-- <div class="first">甲方：<span></span></div> -->
@@ -426,7 +426,8 @@
                 document.addEventListener('plusready', goToLogin, false);
             }
         } else {
-					// console.log(JSON.stringify(data))
+					console.log("合作伙伴的协议")
+					console.log(JSON.stringify(data))
 					localStorage.setItem("ishave_dw", data.ishave_dw);
 					localStorage.setItem("userType", data.userType);
 						
@@ -439,8 +440,8 @@
 							//有单位
 							$(".pageNum").text("(5/5)");
 					}
-					// console.log(data.fpbili);
-					// console.log(data.xy_mstext);
+					// console.log("获取的服务比例:"+ data.fpbili)
+					// console.log("获取协议内容:"+ data.xy_mstext)
 					$("#serviceFee").val(data.fpbili);
 					$(".cont").html(data.xy_mstext);
 					// 当协议内容不超过一页时

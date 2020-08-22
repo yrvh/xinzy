@@ -314,7 +314,7 @@
         <div class="personalIncomeTitle">个人所得税</div>
         <div class="personalIncome">
             <span>核定定额 (元)</span>
-            <span class="personalIncomeNum"></span>
+            <div class="personalIncomeNum"></div>
         </div>
     </section>
     <div class="btnBox">
@@ -372,13 +372,11 @@
 	
 	var tel = sessionStorage.getItem("tel");
 	// 判断和单位的协议是文本还是图片
-	var xytype;
+	let xytype;
 	// 判断业者是否有单位
 	var ishave_dw;
 	
 	// 加载页面初始数据=============================================================
-	// ajax请求默认异步请求，但xytype变量在里面赋值还没有完，底下的代码就执行完了，
-	// xytype的值可能用的原来的值，所以将请求设置为同步请求
 	$.ajaxSettings.async = false;
 
 	$.post(urlDns + "/user_app/yz/checkUI", {
@@ -395,86 +393,84 @@
 	            document.addEventListener('plusready', goToLogin, false);
 	        }
 	    } else {
-	        localStorage.setItem("ishave_dw", data.ishave_dw);
-	        localStorage.setItem("userType", data.userType);
-	        // console.log(JSON.stringify(data));
-	        // console.log("用户类型：" + data.userType)
-	            // console.log(data.zzshdde);
-	            // console.log(data.gshdde);
-	        // console.log(data.ishave_dw);
-	        // console.log(data.dlregid);
-	        // zzsjntype增值税是按月还是按季，1.按月 2. 按季度 3.按年
-	        // console.log(data.zzsjntype);
-	        if (data.zzsjntype == 1) {
-	            $(".valueAddedTitle").text("增值税（按月）");
-	        } else if (data.zzsjntype == 2) {
-	            $(".valueAddedTitle").text("增值税（按季）");
-	        } else if (data.zzsjntype == 3) {
-	            $(".valueAddedTitle").text("增值税（按年）");
-	        }
-	        if (data.dlregid == 0) {
-	            // 自行注册
-	            $(".next").css("display", "none");
-	            $(".btnBox").css("display", "block");
-	        }
-	        if (data.dlregid > 0) {
-	            // 代理注册
-	            $(".next").css("display", "block");
-	            $(".btnBox").css("display", "none");
-	            if (data.ishave_dw == 1) {
-	                // 有单位
-	                $(".pageNum").text("(3/5)");
-	            }
-	            if (data.ishave_dw == 0) {
-	                // 无单位
-	                $(".pageNum").text("(3/4)");
-	            }
-	        }
-	
-	        xytype = data.xytype;
-	        ishave_dw = data.ishave_dw;
-	        // console.log("收入范围：" + data.monthsy)
-	            // 收入范围
-	        $(".incomeNum").text(data.monthsy);
-	        // 行业类型
-	        $(".type").text(data.hyname);
-	        // 增值税核定定额
-	        $(".valueAddedNum").text(data.zzshdde);
-	        // 个税核定定额
-	        $(".personalIncomeNum").text(data.gshdde);
+				console.log(data.ishave_dw)
+				console.log(data.xytype)
+				localStorage.setItem("ishave_dw", data.ishave_dw);
+				localStorage.setItem("userType", data.userType);
+				if (data.zzsjntype == 1) {
+						$(".valueAddedTitle").text("增值税（按月）");
+				} else if (data.zzsjntype == 2) {
+						$(".valueAddedTitle").text("增值税（按季）");
+				} else if (data.zzsjntype == 3) {
+						$(".valueAddedTitle").text("增值税（按年）");
+				}
+				if (data.dlregid == 0) {
+						// 自行注册
+						$(".next").css("display", "none");
+						$(".btnBox").css("display", "block");
+				}
+				if (data.dlregid > 0) {
+						// 代理注册
+						$(".next").css("display", "block");
+						$(".btnBox").css("display", "none");
+						if (data.ishave_dw == 1 && data.xytype) {
+								// 有单位
+								$(".pageNum").text("(3/5)");
+						}
+						else {
+								// 无单位 和合作伙伴
+								$(".pageNum").text("(3/4)");
+						}
+				}	
+				xytype = data.xytype
+				ishave_dw = data.ishave_dw
+				// console.log("收入范围：" + data.monthsy)
+						// 收入范围
+				$(".incomeNum").text(data.monthsy);
+				// 行业类型
+				$(".type").text(data.hyname);
+				// 增值税核定定额
+				$(".valueAddedNum").text(data.zzshdde);
+				// 个税核定定额
+				if(data.nstype==1) {
+					$(".taxes").css("display","none")
+					$(".personalIncomeNum").text(data.gshdde)
+				}
+				else {
+					$(".personalIncome>span").text("核定应税所得率")
+				}
 	    }
 	
 	});
-	// console.log(xytype);
 	
 	
 	
-	// 下一页==================================================
+	// 点击  下一页==================================================
 	$(".next").click(() => {
+		console.log(nextUrl)
 	    location.href = nextUrl;
 	});
 	
 	// 下一页的跳转地址
 	var nextUrl;
-	if (ishave_dw == 1) {
-	    sessionStorage.setItem("ishave_dw", 1);
-	    // 有单位
 	
+	if (ishave_dw == 1) {   // 有单位
+	    sessionStorage.setItem("ishave_dw", 1);
 	    // xytype为1，协议是文本，为2是图片
 	    if (xytype == 1) {
-	        // 和单位的协议是文本
-	        nextUrl = "./twoContract_confirm.html";
+	        nextUrl = "./twoContract_confirm.html";   // 有单位业者,协议是文字的拿到这个路径
 	    }
-	    if (xytype == 2) {
-	        // 和单位的协议是图片
-	        nextUrl = "./twoContractImg_confirm.html";
+	    else if (xytype == 2) {
+	        nextUrl = "./twoContractImg_confirm.html";   // 有单位业者,协议是图片的拿到这个路径
 	    }
+			else {
+				nextUrl = "./businessComContract_comfirm.html";   // 合作伙伴拿到的是这个路径
+			}
 	
 	}
 	if (ishave_dw == 0) {
 	    sessionStorage.setItem("ishave_dw", 0);
-	    // 无单位
-	    nextUrl = "./businessComContract_comfirm.html";
+	    nextUrl = "./businessComContract_comfirm.html";   // 无单位业者   拿到的是这个角色
 	}
 	
 	
@@ -530,25 +526,20 @@
 	        //请求成功
 	        success: function(data) {
 	            // console.log(JSON.stringify(data));
-	            // console.log("用户类型：" + data.userType)
 	            if (data.result == 0) {
 	                location.reload();
 	            } else {
-	
-	                $(".cont").html(data.text);
-	
+									$(".cont").html(data.text);
 	            }
 	
 	        },
 	        error: function(XMLHttpRequest, textStatus, errorThrown) {
-	            // console.log(textStatus)
 	            if (textStatus == 'timeout') {
 	                threeContractPost.abort();
 	                alert("请求超时");
 	                $(".threeBoxBg").css("display", "none");
 	            }
 	            if (textStatus == 'error') {
-	                // console.log(errorThrown)
 	                threeContractPost.abort();　
 	                $(".threeBoxBg").css("display", "none");
 	                alert("请求错误" + errorThrown);

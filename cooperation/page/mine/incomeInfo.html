@@ -190,7 +190,19 @@
 	        $(".incomeNum").text(data.monthsy);
 	        $(".type").text(data.hyname);
 	        $(".valueAddedNum").text(data.zzshdde);
-	        $(".personalIncomeNum").text(data.gshdde);
+	        
+					
+					
+					// 个税核定定额
+					if(data.nstype==1) {
+						$(".taxes").css("display","none")
+						$(".personalIncomeNum").text(data.gshdde)
+					}
+					else {
+						$(".personalIncome>span").text("核定应税所得率")
+					}
+					
+					
 	        if (data.zzsjntype == 1) {
 	            $(".valueAddedTitle").text("增值税（按月）");
 	        } else if (data.zzsjntype == 2) {

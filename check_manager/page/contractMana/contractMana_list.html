@@ -450,8 +450,6 @@
 
 
 	function getInfoList() {
-		
-		console.log("执行了")
 		// 请求数据
 		mui.post(urlDns + "/control_app/ms/xieyi_fr/list", {
 			// 进入的状态
@@ -464,8 +462,8 @@
 			tel_app: tel_app,
 			code_app: code_app
 		}, function(data) {
-			console.log("请求响应了")
-			console.log(JSON.stringify(data));
+			// console.log("请求响应了")
+			// console.log(JSON.stringify(data));
 			if (data.result == 0) {
 				// 需要重新登录
 				if (window.plus) {

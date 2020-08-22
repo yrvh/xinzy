@@ -11,337 +11,114 @@
 	<title>审核主管--用户管理--列表页</title>
 
 	<style type="text/css">
+		/* --------- 列表页: 头部样式 start---------- */
 		body {
-			/* position: relative; */
-			margin: 0;
-			padding: 0;
-			color: #333333;
-		}
-
-		header {
-			box-sizing: border-box;
-			position: fixed;
-			top: 0;
-			left: 0;
-			z-index: 50;
-			text-align: center;
-			line-height: 44px;
-			width: 100%;
-			height: 44px;
-			background-color: white;
-			box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
-		}
-
+			margin: 0; padding: 0; color: #333333; 
+			}
+		header { 
+			position: fixed; top:0; left: 0; z-index: 50; width: 100%; line-height: 44px; height: 44px; background-color: #FFF; box-shadow: 0 2px 2px 0 rgba(231,231,231,1); text-align: center;
+			}
 		header>img {
-			position: absolute;
-			top: 12px;
-			left: 5px;
-			width: 20px;
-			height: 20px;
+			position: absolute; top: 12px; left: 5px; width: 20px; height: 20px; 
 		}
-
-		header>div {
-			position: absolute;
-			top: 0;
-			right: 5px;
-			height: 44px;
-			line-height: 44px;
+		.occupy {
+			width: 100%; height: 46px; background-color: #ddd; margin-bottom: 20px;
 		}
-
-		header>div>span {
-			color: #999999;
+		.select-btn {
+			position: absolute; top: 0; right: 5px; line-height: 44px; display: none; color: #7EB6FF; margin-right: 10px;
 		}
-
-		.list {
-			margin-top: 152px;
-			margin-bottom: 20px;
+		.select_all { 
+			position: absolute; width: 40px; line-height: 44px; color: #7EB6FF; left: 5px; display: none;
 		}
-
-		.list>div {
-			position: relative;
-			width: 100%;
-			background-color: white;
-			margin-top: 10px;
-		}
-
-		.list>div:nth-of-type(1) {
-			margin-top: 20px;
-		}
-
-
-		/* .list>div:nth-last-of-type(1) {
-				margin-bottom: 10px;
-		} */
-
-		.list>div>div {
-			width: 100%;
-			display: flex;
-			justify-content: space-between;
-		}
-
-		.list>div img {
-			width: 25px;
-			height: 25px;
-			vertical-align: middle;
-		}
-
-		.list>div>div:nth-of-type(1) {
-			height: 40px;
-			line-height: 40px;
-			border-bottom: 1px solid rgb(240, 240, 240);
-			font-size: 14px;
-			padding: 0 5px 0 15px;
-		}
-
-		.time {
-			color: #999999;
-		}
-
-		.amount {
-			/* display: none; */
-			height: 30px;
-			line-height: 30px;
-			font-size: 12px;
-			color: #999999;
-			padding: 0 15px 0 15px;
-		}
-
+		/* --------- 列表页: 头部样式 end---------- */
+		
+		/* --------- 列表页: 搜索框 start---------- */
 		.searchBox {
-			/* display: none; */
-			position: fixed;
-			top: 44px;
-			left: 0;
-			z-index: 50;
-			width: 100%;
-			height: 44px;
-			padding: 7px 0 7px 15px;
-			background-color: #F2F2F2;
+			/* display: none; */ position: fixed; top: 44px; left: 0; z-index: 50; width: 100%; height: 44px; padding: 7px 0 7px 15px; background-color: #F2F2F2;
 		}
-
+		
 		.searchIn {
-			position: relative;
-			width: calc(100% - 60px);
-			height: 30px;
-			background-color: white;
-			border-radius: 3px;
-			box-sizing: border-box;
+			position: relative; width: calc(100% - 60px); height: 30px; background-color: #fff; border-radius: 3px; box-sizing: border-box;
 		}
-
+		
 		.searchIn>input {
-			position: absolute;
-			top: 0;
-			left: 25px;
-			padding: 0;
-			width: 80%;
-			height: 30px;
-			font-size: 14px;
-			text-align: left;
-			background-color: white;
+			position: absolute; top: 0; left: 25px; padding: 0; width: 80%; height: 30px; font-size: 14px; text-align: left; background-color: #fff;
 		}
-
+		
 		.searchIn>input::placeholder {
 			font-size: 12px;
 		}
-
-		.searchImg {
-			position: absolute;
-			top: 7.5px;
-			left: 5px;
-			width: 15px;
-			height: 15px;
+		
+		.searchImg { 
+			position: absolute; top: 7.5px; left: 5px; width: 15px;	height: 15px;
 		}
-
+		
 		.toEmpty {
-			position: absolute;
-			top: 7.5px;
-			right: 10px;
-			width: 15px;
-			height: 15px;
+			position: absolute; top: 7.5px;	right: 10px; width: 15px;	height: 15px;
 		}
-
+		
 		.search {
-			position: absolute;
-			top: 0;
-			right: 15px;
-			line-height: 44px;
-			font-size: 14px;
-			color: #7EB6FF;
+			position: absolute;	top: 0;	right: 15px; line-height: 44px;	font-size: 14px; color: #7EB6FF;
 		}
-
-		.del,
-		.submit {
-			position: absolute;
-			top: 0;
-			width: calc((100% - 45px)/2);
-			height: 40px;
-			margin-top: 5px;
-			border-radius: 4px;
-		}
-
-		.del div:nth-of-type(1),
-		.submit div:nth-of-type(1) {
-			font-weight: bold;
-		}
-
-		.del div:nth-of-type(2),
-		.submit div:nth-of-type(2) {
-			color: #999999;
-		}
-
-		.del {
-			left: 0;
-			margin-left: 15px;
-			text-align: left;
-		}
-
-		.submit {
-			right: 0;
-			margin-right: 15px;
-			text-align: right;
-		}
-
-		.select {
-			display: none;
-			position: absolute;
-			top: 11px;
-			left: 10px;
-		}
-
+		/* --------- 列表页: 搜索框 end---------- */
+		
+		/* --------- 列表页: 筛选 start---------- */
 		.filterBox {
-			position: fixed;
-			top: 88px;
-			left: 0;
-			z-index: 50;
-			/* display: none; */
-			width: 100%;
-			height: 44px;
-			color: rgb(153, 153, 153);
-			background-color: white;
-			padding: 0 5px 0 15px;
-			font-size: 14px;
-			line-height: 44px;
-			border-bottom: 1px solid rgb(240, 240, 240);
+			position: fixed; top: 88px; left: 0; z-index: 50; /* display: none; */
+			width: 100%; height: 44px; color: rgb(153, 153, 153); background-color: #fff; padding: 0 5px 0 15px;
+			font-size: 14px; line-height: 44px; border-bottom: 1px solid rgb(240, 240, 240);
 		}
-
-		.nextImg {
-			position: absolute;
-			top: 8px;
-			right: 5px;
-			width: 25px;
-			height: 25px;
-		}
-
-		.filterImg {
-			position: relative;
-			top: 2px;
-			width: 15px;
-			height: 15px;
-		}
-
-		.filterParam {
-			background-color: white;
-		}
-
+		
+		.nextImg { position: absolute; top: 8px; right: 5px; width: 25px; height: 25px; }
+		
+		.filterImg { position: relative; top: 2px; width: 15px; height: 15px; }
+		
+		.filterParam { background-color: #fff; }
+		
 		.selectTime {
-			padding: 0 15px;
-			display: flex;
-			justify-content: space-between;
-			width: 100%;
-			height: 44px;
-			background-color: white;
-			border-bottom: 1px solid rgb(240, 240, 240);
-			line-height: 44px;
-			font-size: 14px;
+			padding: 0 15px; display: flex; justify-content: space-between; width: 100%; height: 44px;
+			background-color: #fff; border-bottom: 1px solid rgb(240, 240, 240); line-height: 44px; font-size: 14px;
 		}
-
+		
 		.timeBox {
-			width: 75%;
-			display: flex;
-			justify-content: space-between;
+			width: 75%; display: flex; justify-content: space-between;
 		}
-
-		#startTime,
-		#endTime {
-			display: flex;
-			justify-content: space-around;
-			/* position: relative; */
-			width: 40%;
-			height: 30px;
-			border: 1px solid rgb(204, 204, 204);
-			border-radius: 4px;
-			margin-top: 8px;
+		
+		#startTime,#endTime {
+			display: flex; justify-content: space-around; /* position: relative; */
+			width: 40%; height: 30px; border: 1px solid rgb(204, 204, 204); border-radius: 4px; margin-top: 8px;
 		}
-
-		#startTime>img,
-		#endTime>img {
-			width: 16px;
-			height: 16px;
-			margin-top: 5px;
+		
+		#startTime>img,#endTime>img {
+			width: 16px; height: 16px; margin-top: 5px;
 		}
-
-		#startTime>span,
-		#endTime>span {
-			font-size: 13px;
-			line-height: 30px;
-		}
-
-		#startDate,
-		#endDate {
-			color: #666666;
-		}
-
+		
+		#startTime>span,#endTime>span { font-size: 13px; line-height: 30px; }
+		
+		#startDate,#endDate {	color: #666666; }
 		.free-com {
-			width: 92%;
-			margin: 0 auto;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			height: 44px;
-			border-bottom: 1px solid rgb(240, 240, 240);
+			width: 92%; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;
+			height: 44px; border-bottom: 1px solid rgb(240, 240, 240);
 		}
 		.free-com>div { display: flex; justify-content: space-between; align-items: center;}
-		
-		.free-com span {
-			font-size: 14px;
-		}
-
-		.free-com img {
-			width: 25px;
-			height: 25px;
-			/* vertical-align: center; */
-		}
+		.free-com span { font-size: 14px; }
+		.free-com img { width: 25px; height: 25px; /* vertical-align: center; */ }
 		.selectCom {display: none;}
-
-		.okBox {
-			position: relative;
-			width: 100%;
-			height: 44px;
-		}
-
+		
+		.okBox { position: relative; width: 100%; height: 44px; }
+		
 		.okBox div {
-			top: 8px;
-			position: absolute;
-			width: calc((100% - 45px)/2);
-			height: 28px;
-			border-radius: 4px;
-			font-size: 14px;
-			text-align: center;
-			line-height: 28px;
+			top: 8px; position: absolute; width: calc((100% - 45px)/2); height: 28px;
+			border-radius: 4px; font-size: 14px; text-align: center; line-height: 28px;
 		}
-
-		.ok {
-			right: 15px;
-			color: white;
-			background-color: #7EB6FF;
-		}
-
+		
+		.ok { right: 15px; color: #fff; background-color: #7EB6FF; }
+		
 		.reset {
-			left: 8px;
-			color: #7EB6FF;
-			border: 1px solid rgb(204, 204, 204);
+			left: 8px; color: #7EB6FF; border: 1px solid rgb(204, 204, 204);
 		}
-
-		.filterParamBg {
+		
+		.filterParamBox {
 			display: none;
 			position: absolute;
 			background-color: rgba(0, 0, 0, 0.2);
@@ -351,67 +128,85 @@
 			width: 100%;
 			height: calc(100vh - 133px);
 		}
-
+		
 		.noneParamBg {
-			/* background-color: #009F95; */
-			width: 100%;
-			height: calc(100vh - 392px);
-			position: absolute;
+			/* background-color: #009F95; */ width: 100%; height: calc(100vh - 392px); position: absolute; bottom: 0; left: 0;
+		}
+		/* --------- 列表页: 筛选 end---------- */
+		
+
+		/* --------- 列表页: 主界面内容 start---------- */
+		.list { margin-top: 108px; margin-bottom: 20px; }
+
+		.list>div { position: relative; width: 100%; background-color: #fff; margin-top: 10px;}
+
+		.list>div>div { width: 100%; display: flex; justify-content: space-between; }
+
+		.list>div img { width: 25px; height: 25px; vertical-align: middle; }
+
+		.list>div>div:nth-of-type(1) {
+			height: 40px;
+			line-height: 40px;
+			border-bottom: 1px solid rgb(240, 240, 240);
+			font-size: 14px;
+			padding: 0 5px 0 15px;
+		}
+		.time { color: #999999; }
+
+		.amount {
+			/* display: none; */ height: 30px; line-height: 30px; font-size: 12px; color: #999999; padding: 0 15px 0 15px;
+		}
+		.select {
+			display: none; position: absolute; top: 11px; left: 10px;
+		}
+		.comName {
+			position: relative;
+		}
+		/* --------- 列表页: 主界面内容 end---------- */
+		
+
+		footer {
+			position: fixed;
 			bottom: 0;
 			left: 0;
+			width: 100%;
+			height: 50px;
+			background-color: #fff;
+			display: none;
+			justify-content: center;
+			align-items: center;
+			
 		}
+		.footer-item { border-radius: 5px; width: 90%; height: 43px; line-height: 43px; text-align: center; background-color: #7EB6FF; color: #fff;}
+	
+	
+	
+		/* --------- 列表页: 支付时的弹窗 start---------- */
+		.dialog-container { position: fixed; width: 100%; height: 100%; background-color: rgba(180,180,180,.8); left: 0; top: 0; z-index: 60; display: none; justify-content: center; align-items: center;}
+		.dialog { width: 80%; height: 340px; background-color: #fff; padding-left: 12px; }
 		
-	.select_all {		
-		position: absolute;
-		width: 40px;
-		/* line-height: 46px; */
-		color: #7EB6FF;
-		left: 5px;
-		display: none;
-	}
-	footer {
-		position: fixed;
-		bottom: 0;
-		left: 0;
-		width: 100%;
-		height: 50px;
-		background-color: white;
-		display: none;
-		justify-content: center;
-		align-items: center;
-		
-	}
-	.footer-item { border-radius: 5px; width: 90%; height: 43px; line-height: 43px; text-align: center; background-color: #7EB6FF; color: #fff;}
-	
-	.comName {
-		position: relative;
-	}
-	.select-btn {display: none; line-height: 44px; color: #7EB6FF; margin-right: 10px;}
-	
-	.dialog-container { position: fixed; width: 100%; height: 100%; background-color: rgba(180,180,180,.8); left: 0; top: 0; z-index: 60; display: none; justify-content: center; align-items: center;}
-	.dialog { width: 80%; height: 340px; background-color: #fff; padding-left: 12px; }
-	
-	.dialog>div { border-bottom: 1px solid #ddd; line-height: 48px; }
-	.dialog input {width: 50%; font-size: 15px; border: none; margin: 0 3px 0 0;}
-	.dialog-title { font-size: 19px; font-weight: 800; padding: 14px 0 9px;}
-	/* .dialog-money { margin: 20px 0;} */
-	.dialog-tel {display: flex; }
-	.get-code {font-size: 12px; color: #7EB6FF; font-family: "Microsoft YaHei"; font-weight: 600;}
-	.dialog-code {margin-bottom: 40px;}
-	.dialog-btn {
-		width:300px;
-		border-radius: 4px;
-		text-align: center;
-		margin: 0 auto;
-		border: 1px solid #7EB6FF !important;
-		transform: translateX(-6px);
-		display: flex;
-		justify-content: space-between;
-		overflow: hidden;
-	}
-	.cancel,.success {width: 50%;}
-	.cancel {color: #7EB6FF;}
-	.success { background-color: #7EB6FF; color: #fff; }
+		.dialog>div { border-bottom: 1px solid #ddd; line-height: 48px; }
+		.dialog input {width: 50%; font-size: 15px; border: none; margin: 0 3px 0 0;}
+		.dialog-title { font-size: 19px; font-weight: 800; padding: 14px 0 9px;}
+		/* .dialog-money { margin: 20px 0;} */
+		.dialog-tel {display: flex; }
+		.get-code {font-size: 12px; color: #7EB6FF; font-family: "Microsoft YaHei"; font-weight: 600;}
+		.dialog-code {margin-bottom: 40px;}
+		.dialog-btn {
+			width:300px;
+			border-radius: 4px;
+			text-align: center;
+			margin: 0 auto;
+			border: 1px solid #7EB6FF !important;
+			transform: translateX(-6px);
+			display: flex;
+			justify-content: space-between;
+			overflow: hidden;
+		}
+		.cancel,.success {width: 50%;}
+		.cancel {color: #7EB6FF;}
+		.success { background-color: #7EB6FF; color: #fff; }
+		/* --------- 列表页:支付时的弹窗 end---------- */
 	
 	</style>
 </head>
@@ -430,12 +225,15 @@
 		</div>
 	</div>
 	
+	<!-- 头部区域 -->
 	<header>
 		<div class="select_all">全选</div>
 		<img class="back" src="../../../img/back_black.png" alt="">
 		<span></span>
 		<div class="select-btn">选择</div>
 	</header>
+	<div class="occupy"></div>
+	
 	<!-- 搜索框 -->
 	<div class="searchBox">
 		<div class="searchIn">
@@ -455,7 +253,7 @@
 		<img class="nextImg" src="../../../img/next.png" alt="">
 	</div>
 	<!-- 帅选条件 内容展示 -->
-	<div class="filterParamBg">
+	<div class="filterParamBox">
 		<div class="filterParam">
 			<div class="selectFreeType free-com">
 				<span>业者类型</span>
@@ -472,6 +270,7 @@
 					<img src="../../../img/next.png" alt="">
 				</div>
 			</div>
+			
 			
 			<!-- <div class="selectFree free-com">
 				<span>业者姓名</span>
@@ -529,7 +328,7 @@
 	</div>
 
 
-	<!-- 数据列表 -->
+	<!-- 主界面内容 -->
 	<section class="list">
 
 	</section>
@@ -545,7 +344,7 @@
 <script src="../../../js/urlDns.js"></script>
 
 <script type="text/javascript">
-	
+
 	mui.init({
 		beforeback: function() {
 			backActive()
@@ -558,7 +357,7 @@
 	});
 	// 返回之前要执行的操作 函数
 	function backActive() {
-		// sessionStorage.removeItem("income_status");
+		sessionStorage.removeItem("income_status");
 	}
 
 	var pass_app = localStorage.getItem("pass_app");
@@ -685,7 +484,7 @@
 	
 	getInfoList()   //调用函数初始化 界面上要展示的数据列表 
 	
-	function getInfoList(name='',sfid='',yztype=2,hhrid='',yxyid='',ywyid='') {
+	function getInfoList(name='',sfid='',yztype='',hhrid='',yxyid='',ywyid='') {
 		// console.log(page)
 		// 请求数据
 		mui.post(urlDns + "/control_app/ms/fr/user/list", {
@@ -709,7 +508,7 @@
 			tel_app: tel_app,
 			code_app: code_app
 		}, function(data) {
-			console.log(JSON.stringify(data));
+			// console.log(JSON.stringify(data));
 			if (data.result == 0) {
 				// 需要重新登录
 				if (window.plus) {
@@ -784,16 +583,16 @@
 		open = !open;
 		if (open == true) {
 			$(".nextImg").attr("src", "../../../img/down.png");
-			$(".filterParamBg").css("display", "block");
+			$(".filterParamBox").css("display", "block");
 		} else {
 			$(".nextImg").attr("src", "../../../img/next.png");
-			$(".filterParamBg").css("display", "none");
+			$(".filterParamBox").css("display", "none");
 		}
 	});
 
 	// 点击空白收起过滤条件
 	$(".noneParamBg").click(() => {
-		$(".filterParamBg").css("display", "none");
+		$(".filterParamBox").css("display", "none");
 		$(".nextImg").attr("src", "../../../img/next.png");
 		open = !open;
 	});
@@ -813,7 +612,7 @@
 	// 当点击搜索框的时候，把筛选条件框 收起来
 	$(".searchBox").click(() => {
 		$(".nextImg").attr("src", "../../../img/next.png");
-		$(".filterParamBg").css("display", "none");
+		$(".filterParamBox").css("display", "none");
 		open = !open;
 	});
 
@@ -824,22 +623,22 @@
 	// 重置筛选条件
 	$(".reset").click(() => {
 		// 清空文字
-		$(".selectFreeTypeLi").text("全部")
+		$(".selectFreeTypeLi").text("")
 		$(".selectComName").text("");
 		// $(".selectFreeName").text("");
 		$(".selectCoopName").text("")
 		$(".selectSellName").text("")
 		$(".selectClerkName").text("")
 		// 清空uid
-		$(".selectFreeTypeLi").attr("uid","2")
+		$(".selectFreeTypeLi").attr("uid","")
 		$(".selectComName").attr("uid","")
 		// $(".selectFreeName").attr("uid","")
 		$(".selectCoopName").attr("uid","")
 		$(".selectSellName").attr("uid","")
 		$(".selectClerkName").attr("uid","")
 		
-		$("#startDate").text(year + "-" + format(month));
-		$("#endDate").text(year + "-" + format(month));
+		// $("#startDate").text(year + "-" + format(month));
+		// $("#endDate").text(year + "-" + format(month));
 	});
 
 	// 点击确定
@@ -857,7 +656,7 @@
 		// 发起ajax请求
 		getInfoList('',sf,yz,coop,sell,clerk)
 		// 隐藏筛选框
-		$(".filterParamBg").css("display", "none");
+		$(".filterParamBox").css("display", "none");
 		$(".nextImg").attr("src", "../../../img/next.png");
 		open = !open;
 
@@ -866,6 +665,7 @@
 	// 跳转详情页面
 	$(document).on("click", ".list .href", function(e) {
 		var detailId = $(this).attr("detailId");
+		// console.log(detailId)
 		sessionStorage.setItem('detailId', detailId);
 		
 		if(addtype==2) {
@@ -1137,7 +937,7 @@
 	    flag = !flag;
 	    if (flag == true) {
 				// 隐藏筛选框
-				$(".filterParamBg").css("display", "none");
+				$(".filterParamBox").css("display", "none");
 				$(".nextImg").attr("src", "../../../img/next.png");
 				open = !open;
 				
@@ -1189,9 +989,6 @@
 			mui.toast('选中的条目不能为空!',{ duration:'4000', type:'div' })
 		}
 		else{
-			// console.log(ids2)
-			// console.log("99990")
-			// console.log("tsgo0000")
 			// 请求通过详情的数据
 			mui.post(urlDns + "/control_app/ms/fr/user/check", {
 				pass_app: pass_app,
@@ -1210,18 +1007,20 @@
 				} else {
 					$(".dialog-container").css("display","none")
 					// 弹出支付成功的提示框
-					mui.toast('通过成功!',{ duration:'5000', type:'div' })
+					mui.alert('通过成功!~','提示','关闭',theBack,'div')
 					
 					// 回到页面的上一个状态
-					$(".select-btn").text("选择");
-					$(".back").css("display", "block");
-					$("footer").css("display","none");
-					$(".filterBox").css("display","block")
-					$(".searchBox").css("display", "block");
-					$(".select").css("display", "none");
-					$(".select_all").css("display", "none");
-					$(".comName").css("left", "0px");
-					$(".list").css("margin-top","152px");
+					function theBack() {
+						$(".select-btn").text("选择");
+						$(".back").css("display", "block");
+						$("footer").css("display","none");
+						$(".filterBox").css("display","block")
+						$(".searchBox").css("display", "block");
+						$(".select").css("display", "none");
+						$(".select_all").css("display", "none");
+						$(".comName").css("left", "0px");
+						$(".list").css("margin-top","152px");
+					}
 				}
 			});
 		}

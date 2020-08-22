@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script src="../../../js/mui.min.js"></script>
+	<link rel="stylesheet" href="../../../css/mui.min.css">
+	<script src="../../../js/mescroll.min.js"></script>
+	<link rel="stylesheet" href="../../../css/mescroll.min.css">
+	<title>审核主管--用户--详情页面 公司信息2</title>
+	
+	<style type="text/css">
+		body { margin: 0; padding: 0; font-size: 16px; color: #333333; }
+		
+		header { position: fixed;
+			top: 0; left: 0; text-align: center; width: 100%;
+			height: 44px; line-height: 44px; background-color: white;
+			box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+			font-weight: bold; font-size: 16px; z-index: 99; }
+		header>div {
+			position: absolute;
+			top: 0;
+			right: 5px;
+			height: 44px;
+			line-height: 44px;
+		}
+		
+		header>div>span {
+			color: #999999;
+		}
+		.select-btn { line-height: 44px; color: #7EB6FF; margin-right: 10px;}
+		
+		.back { width: 20px; height: 20px; position: absolute; top: 12px; left: 5px; color: #7EB6FF; }		
+		
+		.the-place { width: 100%; height: 44px; margin-bottom: 20px;}
+		
+		.com-status { width: 100%; line-height: 44px; background-color: #fff; margin: 20px 0; padding: 0 15px;}
+		
+		ul { list-style: none; padding: 0 15px; margin-bottom: 20px; background-color: #fff;}
+		
+		li { border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; width: 100%; height: 46px; margin-bottom: 2px; line-height: 46px; box-sizing: border-box; }
+		
+		li>div { display: flex; align-items: center; justify-content: space-between;}
+		
+		li img { width: 25px; height: 25px; }
+		
+		li>div>span { color: rgb(153, 153, 153); }
+		
+		.info-title { line-height: 50px; font-weight: 800; font-size: 17px;}
+		
+		.com-license,.corp-email,.account-num,.comfree-contract,
+		.per-IDcardImg,.account-num,.income-scope,.taxes-type,.taxes-added,
+		.taxes-income,.com-range,.com-license,.account-num{border: none !important;}
+		
+		.select-back {
+			position: absolute;
+			width: 80px;
+			/* line-height: 46px; */
+			color: #7EB6FF;
+			top: 0;
+			left: 5px;
+		}
+		.account-info {display: none;}
+	</style>
+</head>
+
+<body>
+	<header>
+		<div class="back select-back">上一页</div>
+		<span class="title-span">公司账户信息(2)</span>
+		<div class="select-btn">下一页</div>
+	</header>
+	<div class="the-place"></div>
+	<!-- <div class="com-status">注册状态: <span class="status-li">待主管审核</span></div> -->
+	
+
+	<!-- 公司基本信息 -->
+	<div class="company-info">
+		<ul class="account-info">
+			<li class="account-bank">
+					<span>开户行</span>
+					<div>
+							<span class="account-bank-li"></span>
+					</div>
+			</li>
+			<li class="account-name">
+					<span>开户名</span>
+					<div>
+							<span class="account-name-li"></span>
+					</div>
+			</li>
+			<li class="account-num">
+					<span>账号</span>
+					<div>
+							<span class="account-num-li"></span>
+					</div>
+			</li>
+		</ul>
+		
+		<ul class="accountdg-info">
+			<li class="accountdg-bank">
+					<span>开户行</span>
+					<div>
+							<span class="accountdg-bank-li"></span>
+					</div>
+			</li>
+			<li class="accountdg-name">
+					<span>开户名</span>
+					<div>
+							<span class="accountdg-name-li"></span>
+					</div>
+			</li>
+			<li class="accountdg-num">
+					<span>账号</span>
+					<div>
+							<span class="accountdg-num-li"></span>
+					</div>
+			</li>
+		</ul>
+	</div>
+	
+	
+	
+</body>
+<script src="../../../js/jquery-3.3.1.js"></script>
+<script src="../../../js/urlDns.js"></script>
+<script src="../../../js/layer/layer.js"></script>
+
+<script type="text/javascript">
+	mui.init({
+		beforeback: function() {
+			backActive()
+			return true
+		}
+	})
+	// 返回=======================
+	$(".back").click(() => {
+		mui.back();
+	});
+	// 返回之前要执行的操作 函数
+	function backActive() {
+		sessionStorage.removeItem("kh_name_sr")
+		sessionStorage.removeItem("khh_sr")
+		sessionStorage.removeItem("code_sr")
+		sessionStorage.removeItem("id_sr")
+		
+		sessionStorage.removeItem("ishave_yhcard_dg")
+		sessionStorage.removeItem("kh_name_dg")
+		sessionStorage.removeItem("khh_dg")
+		sessionStorage.removeItem("code_dg")
+		sessionStorage.removeItem("id_dg")
+	}
+	
+	// 获得传递过来的数据
+	let ishave_yhcard_dg = sessionStorage.getItem("ishave_yhcard_dg")
+	
+
+	// 渲染页面
+	// $(".account-bank-li").text( sessionStorage.getItem("kh_name_sr") );
+	// $(".account-name-li").text( sessionStorage.getItem("khh_sr") );
+	// $(".account-num-li").text( sessionStorage.getItem("code_sr"));
+
+	if(ishave_yhcard_dg==1) {
+		$(".accountdg-bank-li").text( sessionStorage.getItem("kh_name_dg") );
+		$(".accountdg-name-li").text( sessionStorage.getItem("khh_dg") );
+		$(".accountdg-num-li").text( sessionStorage.getItem("code_dg") );
+	}
+	
+
+	// 点击 下一页
+	$(".select-btn").click(() => {
+		location.href = "./user_detail_com3.html"
+	})
+</script>
+</html>
+
+

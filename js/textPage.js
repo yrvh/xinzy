@@ -1,8 +1,6 @@
 var pass_app = localStorage.getItem("pass_app");
 var tel_app = localStorage.getItem("tel_app");
 var code_app = localStorage.getItem("code_app");
-// console.log("tel_app：" + tel_app);
-// console.log("pass_app：" + pass_app)
 
 // 字数
 var wordNum = 0;
