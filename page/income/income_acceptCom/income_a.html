@@ -88,6 +88,27 @@
 			        <img src="../../../img/next.png" alt="">
 			    </div>
 			</li>
+			<!-- <li class="wait-startpay">
+				<span>待发起支付</span>
+				<div>
+						<span class="wait-startpay-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="wait-pay">
+				<span>待支付</span>
+				<div>
+						<span class="wait-pay-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="proceeds">
+				<span>用户已收款</span>
+				<div>
+						<span class="proceeds-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li> -->
 		</ul>
 		
 		<!-- 业务合同 -->
@@ -121,7 +142,7 @@
 				</div>
 			</li>
 			<li class="waitcom">
-				<span>待商秘公司审核</span>
+				<span>待商秘公司确认</span>
 				<div>
 						<span class="waitcom-li"></span>
 						<img src="../../../img/next.png" alt="">
@@ -141,6 +162,7 @@
 						<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
+			
 		</ul>
 		
 	</body>
@@ -181,11 +203,8 @@
 		$(".income_info").css("color","white");
 		$(".deal_contract").css("background-color","white");
 		$(".deal_contract").css("color","#7EB6FF");
-		$(".input_coop").css("background-color","white");
-		$(".input_coop").css("color","#7EB6FF");
 		$(".income-ul").css("display","block");
 		$(".deal-ul").css("display","none");
-		$(".coop-ul").css("display","none");
 			
 			getInfo(2) // 重新获取收入信息 页面数据信息
 	})
@@ -195,11 +214,8 @@
 		$(".income_info").css("color","#7EB6FF");
 		$(".deal_contract").css("background-color","#7EB6FF");
 		$(".deal_contract").css("color","white");
-		$(".input_coop").css("background-color","white");
-		$(".input_coop").css("color","#7EB6FF");
 		$(".income-ul").css("display","none");
 		$(".deal-ul").css("display","block");
-		$(".coop-ul").css("display","none");
 	
 		getInfo(9) // 重新获取 业务合同 页面数据信息
 	})
@@ -212,11 +228,8 @@
 		$(".income_info").css("color","white");
 		$(".deal_contract").css("background-color","white");
 		$(".deal_contract").css("color","#7EB6FF");
-		$(".input_coop").css("background-color","white");
-		$(".input_coop").css("color","#7EB6FF");
 		$(".income-ul").css("display","block");
 		$(".deal-ul").css("display","none");
-		$(".coop-ul").css("display","none");
 		getInfo(2)
 	}
 	if (addtype == "9") {
@@ -224,11 +237,8 @@
 		$(".income_info").css("color","#7EB6FF");
 		$(".deal_contract").css("background-color","#7EB6FF");
 		$(".deal_contract").css("color","white");
-		$(".input_coop").css("background-color","white");
-		$(".input_coop").css("color","#7EB6FF");
 		$(".income-ul").css("display","none");
 		$(".deal-ul").css("display","block");
-		$(".coop-ul").css("display","none");
 		getInfo(9)
 	}
 	
@@ -259,6 +269,21 @@
 		sessionStorage.setItem("addtype", "2");
 		sessionStorage.setItem("income_status", 6);
 		location.href = './incomeDetailList_a.html';
+	});
+	$(".income-ul .wait-startpay").click(() => {
+		sessionStorage.setItem("addtype", "2");
+		// sessionStorage.setItem("income_status", 6);
+		// location.href = './incomeDetailList_a.html';
+	});
+	$(".income-ul .wait-pay").click(() => {
+		sessionStorage.setItem("addtype", "2");
+		// sessionStorage.setItem("income_status", 6);
+		// location.href = './incomeDetailList_a.html';
+	});
+	$(".income-ul .proceeds").click(() => {
+		sessionStorage.setItem("addtype", "2");
+		// sessionStorage.setItem("income_status", 6);
+		// location.href = './incomeDetailList_a.html';
 	});
 	
 	// =======业务合同============
@@ -342,7 +367,9 @@
 					$(".income-ul .waitcom-li").text(data.yz_pass);
 					$(".income-ul .nopass-li").text(data.ms_nopass);
 					$(".income-ul .pass-li").text(data.ms_pass);
-					
+					// $(".income-ul .wait-startpay-li").text(data.ms_pass);
+					// $(".income-ul .wait-pay-li").text(data.ms_pass);
+					// $(".income-ul .proceeds-li").text(data.ms_pass);
 				}
 							
 				// 业务合同

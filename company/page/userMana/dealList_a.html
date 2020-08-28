@@ -260,15 +260,27 @@
 	var income_status = sessionStorage.getItem("income_status");
 	
 	// 渲染标题
-	if (income_status == 6) {
-		$("header span").text("待商秘公司确认");
+	if (income_status == 2) {
+		$("header span").text("待业者确认");
 		$(".select-btn").css("display","block")
 	}
+	else if (income_status == 3) {
+		$("header span").text("业者退回");
+	}
+	else if (income_status == 4) {
+		$("header span").text("待业务员确认");
+	}
+	else if (income_status == 5) {
+		$("header span").text("业务员退回");
+	}
+	else if (income_status == 6) {
+		$("header span").text("待主管审核");
+	}
 	else if (income_status == 7) {
-		$("header span").text("商秘公司退回");
+		$("header span").text("审核退回");
 	}
 	else if (income_status == 1) {
-		$("header span").text("商秘公司通过");
+		$("header span").text("审核通过");
 	}
 
 	
@@ -280,8 +292,7 @@
 	
 	function getInfoList() {
 		// 请求数据
-		mui.post(urlDns + "/share_app/ms_zg_ywy/ht/list", {
-			yzid: '',
+		mui.post(urlDns + "/control_app/sf/fptt_ht/list", {
 			// 状态
 			status: income_status,
 			// 第几页
@@ -292,7 +303,7 @@
 			tel_app: tel_app,
 			code_app: code_app
 		}, function(data) {
-			console.log(JSON.stringify(data));
+			// console.log(JSON.stringify(data));
 			if (data.result == 0) {
 				// 需要重新登录
 				if (window.plus) {
@@ -586,7 +597,7 @@
 		}
 		else{
 			// ajax请求 通过
-			mui.post(urlDns + "/share_app/ms_zg_ywy/ht/check", {
+			mui.post(urlDns + "/control_app/yz/fptt_ht/check", {
 				pass_app: pass_app,
 				tel_app: tel_app,
 				code_app: code_app,

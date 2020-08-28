@@ -7,69 +7,51 @@
 		<script src="../../../js/mui.min.js"></script>
 		<link rel="stylesheet" href="../../../css/mui.min.css">
 		<title>--单位--商户管理--</title>
-		<script type="text/javascript">
-			mui.init();
-		</script>
 		
 		<style type="text/css">
 			body { margin: 0; padding: 0; color: #333333; }
-			header { position: relative; width: 100%; height: 44px; background-color: white; box-shadow: 0 2px 2px 0 rgba(231,231,231,1);}
-			
+			header { position: fixed; top:0; left: 0; z-index: 50; width: 100%; line-height: 44px; height: 44px; background-color: #FFF; box-shadow: 0 2px 2px 0 rgba(231,231,231,1); text-align: center;}
 			header>img { position: absolute; top: 12px; left: 5px; width: 20px; height: 20px; }
+			.occupy {width: 100%; height: 46px; background-color: #ddd; margin-bottom: 20px;}
 			
-			ul {
-			    list-style: none;
-			    padding: 0;
-			    margin: 20px 0 0 0;
-			}
+			.change { margin: 0 auto; transform: translateY(7px); width: 180px; height: 34px; background-color: #fff; border-radius: 4px; display: flex; justify-content: space-between; border: 1px solid #7EB6FF; }
+			.change>div { font-size: 14px; text-align: center; width: 90px; line-height: 34px; position: relative;}
+			
+			.input_free{ background-color: #7EB6FF; color: #fff; }
+			.input_deal{ color: #7EB6FF; }
+			
+			.deal-ul{display: none;}
+			ul { list-style: none; padding: 0 0 10px 0; margin: 20px 0 0 0; height: 88vh; overflow-y: scroll;}
 			
 			li {
-			    display: flex;
-			    justify-content: space-between;
-			    width: 100%;
-			    height: 46px;
-			    background-color: white;
-			    margin-bottom: 2px;
-			    line-height: 46px;
-			    padding: 0 5px 0 15px;
-			    box-sizing: border-box;
+				display: flex; justify-content: space-between; width: 100%; height: 46px; 
+				background-color: #fff; margin-bottom: 2px; line-height: 46px; padding: 0 5px 0 15px; box-sizing: border-box;
 			}
 			
-			li img {
-			    width: 25px;
-			    height: 25px;
-			    vertical-align: middle;
-			}
+			li img { width: 25px; height: 25px; vertical-align: middle; }
 			
 			li>div>span {
 			    color: rgb(153, 153, 153);
 			}
 			
-			
-			.change { 
-				width: 100px;
-				margin: 0 auto; 
-				transform: translateY(7px);
-				height: 34px;
-				border-radius: 4px;
-				line-height: 34px;
-				text-align: center;
-				font-weight: 700;
-			}
-		
-			.free-ul,.coop-ul{display: none;}
 			.mybadge {display: none;}
+			.change .mybadge { display: none; position: absolute; right: 0; top: 0;}
 		</style>
 	</head>
 	<body>
 		<header>
    <header>
         <img class="back" src="../../../img/back_black.png" alt="">
-        <div class="change">商户管理</div>
+        <div class="change">
+            <div class="input_free">商户管理  <span class="mybadge mui-badge mui-badge-danger"></span></div>
+						<div class="input_deal">业务合同  <span class="mybadge mui-badge mui-badge-danger"></span></div>
+        </div>
     </header>
+		<div class="occupy"></div>
 		
 		
-		<ul class="company-ul">
+		<!-- 商户管理 -->
+		<ul class="free-ul">
 			<li class="wait-comfirm">
 				<span>待确认 <span class="mybadge mui-badge mui-badge-danger"></span></span>
 				<div>
@@ -105,7 +87,46 @@
 						<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
-
+		
+		</ul>
+		
+		<!-- 业务合同 -->
+		<ul class="deal-ul">
+			<li class="wait">
+				<span>待业者确认 <span class="mybadge mui-badge mui-badge-danger"></span></span>
+				<div>
+						<span class="wait-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="freeback">
+				<span>业者退回</span>
+				<div>
+						<span class="freeback-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="waitcom">
+				<span>待商秘公司审核</span>
+				<div>
+						<span class="waitcom-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="nopass">
+				<span>商秘公司退回</span>
+				<div>
+						<span class="nopass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="pass">
+				<span>商秘公司通过</span>
+				<div>
+						<span class="pass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
 		</ul>
 	</body>
 
@@ -113,74 +134,209 @@
 <script src="../../../js/urlDns.js"></script>
 
 <script type="text/javascript">
-	// 返回
+	
+	mui.init({
+		beforeback: function() {
+			backActive()
+			return true
+		}
+	})
+	// 返回=======================
 	$(".back").click(() => {
-		sessionStorage.removeItem("income_status");
-		history.back();
+		mui.back();
 	});
+	// 返回之前要执行的操作 函数
+	function backActive() {
+		sessionStorage.removeItem("addtype");
+		sessionStorage.removeItem("income_status");
+	}
+	
 	
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
 	
-
-	getInfo()
+	getInfo(9)
+	getInfo(2)
+	
+	
+	// 角色切换
+	$(".input_free").click(()=>{
+		$(".input_free").css("background-color","#7EB6FF");
+		$(".input_free").css("color","white");
+		$(".input_deal").css("background-color","white");
+		$(".input_deal").css("color","#7EB6FF");
+		$(".free-ul").css("display","block");
+		$(".deal-ul").css("display","none");
+			
+			getInfo(2) // 重新获取单位的 页面数据信息
+	})
+	
+	
+	$(".input_deal").click(()=>{
+		$(".input_free").css("background-color","white");
+		$(".input_free").css("color","#7EB6FF");
+		$(".input_deal").css("background-color","#7EB6FF");
+		$(".input_deal").css("color","white");
+		$(".free-ul").css("display","none");
+		$(".deal-ul").css("display","block");
+			
+		getInfo(9) // 重新获取合作伙伴的 页面数据信息
+	})
+	
+	// 判断下一个 页面返回来是处在 单位  业者   伙伴 的界面
+	var addtype = sessionStorage.getItem("addtype");
+	if (addtype == "2") {
+		$(".input_free").css("background-color","#7EB6FF");
+		$(".input_free").css("color","white");
+		$(".input_deal").css("background-color","white");
+		$(".input_deal").css("color","#7EB6FF");
+		$(".free-ul").css("display","block");
+		$(".deal-ul").css("display","none");
+		getInfo(2)
+	}
+	if (addtype == "9") {
+		$(".input_free").css("background-color","white");
+		$(".input_free").css("color","#7EB6FF");
+		$(".input_deal").css("background-color","#7EB6FF");
+		$(".input_deal").css("color","white");
+		$(".free-ul").css("display","none");
+		$(".deal-ul").css("display","block");
+		getInfo(9)
+	}
+	
+	
 	// 跳转到列表页
-	$(".wait-comfirm").click(() => {
+	// ========商户管理=============
+	$(".free-ul .wait-comfirm").click(() => {
 		sessionStorage.setItem("income_status", 5);
 		location.href = './user_list.html';
 	});
-	$(".already-comfirm").click(() => {
+	$(".free-ul .already-comfirm").click(() => {
 		sessionStorage.setItem("income_status", 3);
 		location.href = './user_list.html';
 	});
-	$(".no-comfirm").click(() => {
+	$(".free-ul .no-comfirm").click(() => {
 		sessionStorage.setItem("income_status", 55);
 		location.href = './user_list.html';
 	});
-	$(".com-pass").click(() => {
+	$(".free-ul .com-pass").click(() => {
 		sessionStorage.setItem("income_status", 8);
 		location.href = './user_list.html';
 	});
-	$(".contract-again").click(() => {
+	$(".free-ul .contract-again").click(() => {
 		sessionStorage.setItem("income_status", 88);
 		location.href = './user_list.html';
 	});
+	// =======业务合同============
+	$(".deal-ul .wait").click(() => {
+		sessionStorage.setItem("addtype", "9");
+		sessionStorage.setItem("income_status", 2);
+		location.href = './dealList_a.html';
+	});
+	$(".deal-ul .freeback").click(() => {
+		sessionStorage.setItem("addtype", "9");
+		sessionStorage.setItem("income_status", 3);
+		location.href = './dealList_a.html';
+	});
+	$(".deal-ul .waitcom").click(() => {
+		sessionStorage.setItem("addtype", "9");
+		sessionStorage.setItem("income_status", 6);
+		location.href = './dealList_a.html';
+	});
+	$(".deal-ul .nopass").click(() => {
+		sessionStorage.setItem("addtype", "9");
+		sessionStorage.setItem("income_status", 7);
+		location.href = './dealList_a.html';
+	});
+	$(".deal-ul .pass").click(() => {
+		sessionStorage.setItem("addtype", "9");
+		sessionStorage.setItem("income_status", 1);
+		location.href = './dealList_a.html';
+	});
+	
 	
 	
 	// 请求数据的函数
-	function getInfo() {
-		mui.post(urlDns + "/control_app/ms/fr/user/main",{
-		    tel_app:tel_app,
-		    pass_app:pass_app,
-		    code_app:code_app
-		}, function(data) {
-			// console.log(JSON.stringify(data));
-			if (data.result == 0) {
-				// 需要重新登录
-				if (window.plus) {
-					goToLogin("../../../page/register/login.html");
+	
+	function getInfo(enterType) {
+		// 收入管理
+		if(enterType==2){
+			mui.post(urlDns + "/control_app/sf/user/main",{
+			    tel_app:tel_app,
+			    pass_app:pass_app,
+			    code_app:code_app
+			}, function(data) {
+				// console.log(JSON.stringify(data));
+				if (data.result == 0) {
+					// 需要重新登录
+					if (window.plus) {
+						goToLogin("../../../page/register/login.html");
+					} 
+					else {
+						document.addEventListener('plusready', goToLogin, false);
+					}
 				} 
 				else {
-					document.addEventListener('plusready', goToLogin, false);
+					if(data.waitingchecks > 0) {
+							$(".free-ul .mybadge").css("display","inline-block")
+							$(".free-ul .mybadge").text(data.waitingchecks)
+							$(".input_free .mybadge").css("display","inline-block")
+							$(".input_free .mybadge").text(data.waitingchecks)
+						}
+						else { 
+							$(".free-ul .mybadge").css("display","none")
+							$(".input_free .mybadge").css("display","none")
+						}
+			
+					$(".wait-comfirm-li").text(data.waitingchecks);
+					$(".already-comfirm-li").text(data.checks);
+					$(".no-comfirm-li").text(data.nochecks);
+					$(".com-pass-li").text(data.services);
+					$(".contract-again-li").text(data.rechecks);
 				}
-			} 
-			else {
-				if(data.wait_pay > 0) {
-					$(".mybadge").css("display","inline-block")
-					$(".mybadge").text(data.wait_pay)
-				}
-				else { $(".mybadge").css("display","none") }
-
-				$(".wait-comfirm-li").text(data.waitingchecks);
-				$(".already-comfirm-li").text(data.checks);
-				$(".no-comfirm-li").text(data.nochecks);
-				$(".com-pass-li").text(data.services);
-				$(".contract-again-li").text(data.rechecks);
+			})
+		}
+		
+		// 业务合同
+		else if(enterType==9) {
+				mui.post(urlDns + '/control_app/sf/fptt_ht/main',{
+				    tel_app:tel_app,
+				    pass_app:pass_app,
+				    code_app:code_app
+				}, function(data) {
+					// console.log(JSON.stringify(data));
+					if (data.result == 0) {
+						// 需要重新登录
+						if (window.plus) {
+							goToLogin("../../../page/register/login.html");
+						} 
+						else {
+							document.addEventListener('plusready', goToLogin, false);
+						}
+					}
+					else {
+						if(data.uu2 > 0) {
+							$(".deal-ul .mybadge").css("display","inline-block")
+							$(".deal-ul .mybadge").text(data.uu2)
+							$(".input_deal .mybadge").css("display","inline-block")
+							$(".input_deal .mybadge").text(data.uu2)
+						}
+						else { 
+							$(".deal-ul .mybadge").css("display","none")
+							$(".input_deal .mybadge").css("display","none")
+						}
+						
+						$(".deal-ul .wait-li").text(data.uu2);
+						$(".deal-ul .freeback-li").text(data.uu3);
+						$(".deal-ul .waitcom-li").text(data.uu6);
+						$(".deal-ul .nopass-li").text(data.uu7);
+						$(".deal-ul .pass-li").text(data.uu1);
+					}
+				})
+				
 			}
-	
-		});
-	}
+		}
 </script>
 
 </html>

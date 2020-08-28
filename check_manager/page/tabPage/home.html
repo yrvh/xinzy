@@ -269,14 +269,35 @@
 					} 
 					else {
 						major_badge += data.wait_check
-						if(major_badge > 0) {
-							$(".major-mana .mybadge").css("display","block")
-							$(". tax-check .mybadge").text(major_badge)
-						}
-						else { $(".major-mana .mybadge").css("display","none") }
+						mui.get(urlDns + "/share/bs_app/nssetting/index", {
+							pass_app: pass_app,
+							tel_app: tel_app,
+							code_app: code_app
+						}, function(data) {
+							// console.log("数据请求,响应了")
+							// console.log(JSON.stringify(data));
+							if (data.result == 0) {
+								// 需要重新登录
+								if (window.plus) {
+									goToLogin("../../../page/register/login.html");
+								} 
+								else {
+									document.addEventListener('plusready', goToLogin, false);
+								}
+							} 
+							else {
+								major_badge += data.bb6
+								if(major_badge > 0) {
+									$(".major-mana .mybadge").css("display","block")
+									$(". tax-check .mybadge").text(major_badge)
+								}
+								else { $(".major-mana .mybadge").css("display","none") }
+								
+							}
+						})
+						
 					}
 				});
-		
 			}
 		});
 	})

@@ -355,12 +355,12 @@
 
 <body>
     <header>
-        <img class="back" src="../../img/back_black.png" alt=""> 商务秘书公司协议<span class="pageNum" style="color:rgb(153, 153, 153)"></span>
+        <img class="back" src="../../img/back_black.png" alt=""> 商务秘书公司协议<span class="pageNum" style="color:rgb(153, 153, 153)">(4/4)</span>
     </header>
     <!-- <div class="title">关于*****的协议书</div> -->
     <!-- <div class="first">甲方：<span></span></div> -->
     <!-- <div class="second">乙方：<span></span></div> -->
-    <div class="serviceFeeBox">服务费用：按乙方总收入的<input disabled id="serviceFee" type="text" value="4.5">%收取</div>
+    <!-- <div class="serviceFeeBox">服务费用：按乙方总收入的<input disabled id="serviceFee" type="text" value="4.5">%收取</div> -->
     <div class="cont"></div>
 
     <div class="btnBox position">
@@ -408,8 +408,9 @@
     });
 
     var tel = sessionStorage.getItem("tel");
-    var ishave_dw
-
+    let ishave_dw   // 是否有单位
+		let userType   // 角色类型
+		
 		// 获取协议的数据 内容
     $.post(urlDns + "/user_app/yz/checkUI", {
         tel: tel,
@@ -417,7 +418,6 @@
         pass_app: pass_app,
         code_app: code_app
     }, function(data) {
-        // console.log(data.ishave_dw)
         if (data.result == 0) {
             // 需要重新登录
             if (window.plus) {
@@ -426,23 +426,13 @@
                 document.addEventListener('plusready', goToLogin, false);
             }
         } else {
-					console.log("合作伙伴的协议")
-					console.log(JSON.stringify(data))
-					localStorage.setItem("ishave_dw", data.ishave_dw);
+					// console.log(JSON.stringify(data))
+					ishave_dw = data.ishave_dw
+					userType = data.userType
 					localStorage.setItem("userType", data.userType);
-						
-
-					if (data.ishave_dw == 0) {
-							// 无单位
-							$(".pageNum").text("(4/4)");
-					}
-					if (data.ishave_dw == 1) {
-							//有单位
-							$(".pageNum").text("(5/5)");
-					}
 					// console.log("获取的服务比例:"+ data.fpbili)
 					// console.log("获取协议内容:"+ data.xy_mstext)
-					$("#serviceFee").val(data.fpbili);
+					// $("#serviceFee").val(data.fpbili);
 					$(".cont").html(data.xy_mstext);
 					// 当协议内容不超过一页时
 					if ($(document.body).height() < $(window).height() - 50) {
@@ -506,8 +496,6 @@
             timeout: 120000, //2分钟超时
             //请求成功
             success: function(data) {
-                // console.log(JSON.stringify(data));
-                // console.log("用户类型：" + data.userType)
                 if (data.result == 0) {
                     location.reload();
                 } else {
@@ -537,8 +525,6 @@
 
     // 签订 三方协议
     $(".agreeThree").click(() => {
-			// console.log("点击了00033")
-        var userType = localStorage.getItem("userType");
         var index = layer.load(1, {
             // 数组中第一个参数是button的透明度
             // 第二个是背景颜色
@@ -591,7 +577,6 @@
 
     // 不签订 三方协议
     $(".disagreeThree").click(() => {
-        var userType = localStorage.getItem("userType");
         var index = layer.load(1, {
             // 数组中第一个参数是button的透明度
             // 第二个是背景颜色
@@ -641,7 +626,7 @@
 
     })
 
-    // 退回
+    // 点击退回
     $(".refuse").click(() => {
         sessionStorage.setItem("type", "return");
         location.href = "../textPage.html";

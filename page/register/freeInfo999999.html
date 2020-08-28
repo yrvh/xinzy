@@ -335,14 +335,13 @@
 	$.ajaxSettings.async = false;
 	var tel = localStorage.getItem("tel");
 	var realname = sessionStorage.getItem('realname');
-	
 	var updateInfo = sessionStorage.getItem('updateInfo');
-	console.log(updateInfo)
 	
 	// 判断是新用户注册还是退回修改个人信息
 	var isUpdate = localStorage.getItem('isUpdate');
 	console.log(isUpdate)
-	
+	    // 获取是否要上传协议图片的判断标志
+	var hasContractImg = sessionStorage.getItem('hasContractImg');
 	
 	// // 省市联动的数据
 	// var province = [];
@@ -370,9 +369,8 @@
 	//     }
 	// });
 	
-	// 退回来 重新修改填写内容, 旧信息的展示
 	if (updateInfo == 1) {
-		isUpdate = 2   // 是退回来修改的,,把这个值改成2
+		isUpdate = 2
 		var tel_app = localStorage.getItem("tel_app");
 		var pass_app = localStorage.getItem("pass_app");
 		var code_app = localStorage.getItem("code_app");
@@ -443,8 +441,6 @@
 			});
 		}
 	}
-	
-	// 点击确定, 关闭提示框
 	$(".ok").click(() => {
 	    $(".bgBlack").css("display", "none");
 	});
@@ -465,7 +461,7 @@
 	var incomeRangeText = sessionStorage.getItem('incomeRangeText');
 	// 营销员工号
 	var yxy_code = sessionStorage.getItem('yxy_code');
-	// 有无单位 type
+	// 有无单位
 	var type = localStorage.getItem('type');
 	if (type == 0) {
 	    // 无单位，显示输入营销员工号
@@ -534,375 +530,176 @@
 	var hasBankCode = true;
 	// 身份证号时候已经被注册
 	var hasIdCard = true;
-	// 点击完成
+	// 完成
 	$(".next").click(() => {
-		//真实姓名
-		var realname = $("#realName").val();
-		// 邮箱
-		var email = $("#email").val();
-		// 身份证号码
-		var idCardNum = $("#idNumber").val();
-		// 开户行
-		var accountBank = $("#accountBank").val();
-		// 开户名
-		var accountName = $("#accountName").val();
-		// 账号
-		var account = $("#account").val();
-		// 身份证上传提示
-		var upload = $(".uploadText").text();
-		// 年收入范围
-		var incomeRangeText = $("#incomeRangeText").text();
-		// 营销员工号
-		var yxy_code = $("#yxy_code").val();
-		
-		if (isUpdate == 1) {
-				// 身份证是否已经注册的请求
-				$.post(urlDns + "/share/checkIdCard_dl", {
-						idcard: idCardNum
-				}, function(data) {
-					hasIdCard = data.valid;
-				});
-				// // 银行卡号是否已经注册的请求
-				// $.post(urlDns + "/share/bankCard", {
-				//     code: account
-				// }, function(data) {
-				//     console.log("卡号：" + data.valid)
-				//     hasBankCode = data.valid;
+	    // // 判断是新用户注册还是退回修改个人信息
+	    // var isUpdate = localStorage.getItem('isUpdate');
+	    console.log(isUpdate)
+	        // 真实姓名
+	    var realname = $("#realName").val();
 
-				// });
-				// 判断用户数据的错误类型
-				if (realname == "") {
-						errorInfo = "请输入姓名";
-						errorTips(errorInfo);
-				} else if (email == "") {
-						errorInfo = "请输入电子邮箱";
-						errorTips(errorInfo);
-				} else if (!emailReg.test(email)) {
-						errorInfo = "邮箱格式不正确";
-						errorTips(errorInfo);
-				} else if (idCardNum == "") {
-						errorInfo = "请输入身份证号码";
-						errorTips(errorInfo);
-				} else if (!idNumReg.test(idCardNum)) {
-						errorInfo = "身份证号格式不正确";
-						errorTips(errorInfo);
-				} else if (hasIdCard != true) {
-						errorInfo = "身份证号码已被注册";
-						errorTips(errorInfo);
-				} else if (incomeRangeText == "") {
-						errorInfo = "请选择年收入范围";
-						errorTips(errorInfo);
-				} else if (accountBank == "") {
-						errorInfo = "请输入开户行";
-						errorTips(errorInfo);
-				} else if (accountName == "") {
-						errorInfo = "请输入开户名";
-						errorTips(errorInfo);
-				} else if (account == "") {
-						errorInfo = "请输入账号";
-						errorTips(errorInfo);
-				} else if (upload != "已上传") {
-						errorInfo = "请上传身份证照片";
-						errorTips(errorInfo);
-				} else if (!bankCardReg.test(account)) {
-						errorInfo = "银行卡号格式不正确";
-						errorTips(errorInfo);
-				} else if (yxy_code != "" && !yxy_codeReg.test(yxy_code)) {
-						errorInfo = "营销员工号为四位整数";
-						errorTips(errorInfo);
-				} else {
-					newUser()
-				}
-		}
+	    // 邮箱
+	    var email = $("#email").val();
 
-		// 用户修改个人信息的提交
-		if (isUpdate == 2) {
-				var carduserid = sessionStorage.getItem("carduserid");
+	    // 身份证号码
+	    var idCardNum = $("#idNumber").val();
 
-				// 身份证是否已经注册的请求
-				$.post(urlDns + "/share/checkIdCard_dl", {
-						idcard: idCardNum,
-						realname: realname,
-						tel_app: tel_app,
-						pass_app: pass_app
-				}, function(data) {
-						hasIdCard = data.valid;
+	    // 开户行
+	    var accountBank = $("#accountBank").val();
+	    // 开户名
+	    var accountName = $("#accountName").val();
 
-				});
-				// // 银行卡号是否已经注册的请求
-				// $.post(urlDns + "/share/bankCard", {
-				//     code: account,
-				//     carduserid: carduserid,
-				//     tel_app: tel_app,
-				//     pass_app: pass_app
-				// }, function(data) {
-				//     hasBankCode = data.valid;
+	    // 账号
+	    var account = $("#account").val();
 
-				// });
+	    // 身份证上传提示
+	    var upload = $(".uploadText").text();
+	
+	    // 年收入范围
+	    var incomeRangeText = $("#incomeRangeText").text();
+	
+	    // 营销员工号
+	    var yxy_code = $("#yxy_code").val();
 
-				// 判断用户数据的错误类型
-				if (realname == "") {
-						errorInfo = "请输入姓名";
-						errorTips(errorInfo);
-				} else if (email == "") {
-						errorInfo = "请输入电子邮箱";
-						errorTips(errorInfo);
-				} else if (!emailReg.test(email)) {
-						errorInfo = "邮箱格式不正确";
-						errorTips(errorInfo);
-				} else if (idCardNum == "") {
-						errorInfo = "请输入身份证号码";
-						errorTips(errorInfo);
-				} else if (!idNumReg.test(idCardNum)) {
-						errorInfo = "身份证号格式不正确";
-						errorTips(errorInfo);
-				} else if (hasIdCard != true) {
-						errorInfo = "身份证号码已被注册";
-						errorTips(errorInfo);
-				} else if (accountBank == "") {
-						errorInfo = "请输入开户行";
-						errorTips(errorInfo);
-				} else if (accountName == "") {
-						errorInfo = "请输入开户名";
-						errorTips(errorInfo);
-				} else if (account == "") {
-						errorInfo = "请输入账号";
-						errorTips(errorInfo);
-				} else if (upload != "已上传") {
-						errorInfo = "请上传身份证照片";
-						errorTips(errorInfo);
-				} else if (!bankCardReg.test(account)) {
-						errorInfo = "银行卡号格式不正确";
-						errorTips(errorInfo);
-				} else {
-						edit_info();
-				}
-
-		}
+	
+	
+	    // isUpdate == 1新用户注册
+	    if (isUpdate == 1) {
+	        // 身份证是否已经注册的请求
+	        $.post(urlDns + "/share/checkIdCard", {
+	            idcard: idCardNum
+	        }, function(data) {
+	            hasIdCard = data.valid;
+	
+	        });
+	        // // 银行卡号是否已经注册的请求
+	        // $.post(urlDns + "/share/bankCard", {
+	        //     code: account
+	        // }, function(data) {
+	        //     console.log("卡号：" + data.valid)
+	        //     hasBankCode = data.valid;
+	
+	        // });
+	        // 判断用户数据的错误类型
+	        if (realname == "") {
+	            errorInfo = "请输入姓名";
+	            errorTips(errorInfo);
+	        } else if (email == "") {
+	            errorInfo = "请输入电子邮箱";
+	            errorTips(errorInfo);
+	        } else if (!emailReg.test(email)) {
+	            errorInfo = "邮箱格式不正确";
+	            errorTips(errorInfo);
+	        } else if (idCardNum == "") {
+	            errorInfo = "请输入身份证号码";
+	            errorTips(errorInfo);
+	        } else if (!idNumReg.test(idCardNum)) {
+	            errorInfo = "身份证号格式不正确";
+	            errorTips(errorInfo);
+	        } else if (hasIdCard != true) {
+	            errorInfo = "身份证号码已被注册";
+	            errorTips(errorInfo);
+	        } else if (incomeRangeText == "") {
+	            errorInfo = "请选择年收入范围";
+	            errorTips(errorInfo);
+	        } else if (accountBank == "") {
+	            errorInfo = "请输入开户行";
+	            errorTips(errorInfo);
+	        } else if (accountName == "") {
+	            errorInfo = "请输入开户名";
+	            errorTips(errorInfo);
+	        } else if (account == "") {
+	            errorInfo = "请输入账号";
+	            errorTips(errorInfo);
+	        } else if (upload != "已上传") {
+	            errorInfo = "请上传身份证照片";
+	            errorTips(errorInfo);
+	        } else if (!bankCardReg.test(account)) {
+	            errorInfo = "银行卡号格式不正确";
+	            errorTips(errorInfo);
+	        } else if (yxy_code != "" && !yxy_codeReg.test(yxy_code)) {
+	            errorInfo = "营销员工号为四位整数";
+	            errorTips(errorInfo);
+	        } else {
+	            // 线上签订协议，没有协议图片
+	            if (hasContractImg == 0) {
+	                reg_noImg();
+	            }
+	
+	            // 用户上传了与单位的协议图片
+	            if (hasContractImg == 1) {
+	                reg_hasImg();
+	            }
+	
+	        }
+	    }
+	
+	    // 用户修改个人信息的提交
+	    if (isUpdate == 2) {
+	        var carduserid = sessionStorage.getItem("carduserid");
+	
+	        // 身份证是否已经注册的请求
+	        $.post(urlDns + "/share/checkIdCard", {
+	            idcard: idCardNum,
+	            realname: realname,
+	            tel_app: tel_app,
+	            pass_app: pass_app
+	        }, function(data) {
+	            hasIdCard = data.valid;
+	
+	        });
+	        // // 银行卡号是否已经注册的请求
+	        // $.post(urlDns + "/share/bankCard", {
+	        //     code: account,
+	        //     carduserid: carduserid,
+	        //     tel_app: tel_app,
+	        //     pass_app: pass_app
+	        // }, function(data) {
+	        //     hasBankCode = data.valid;
+	
+	        // });
+	
+	        // 判断用户数据的错误类型
+	        if (realname == "") {
+	            errorInfo = "请输入姓名";
+	            errorTips(errorInfo);
+	        } else if (email == "") {
+	            errorInfo = "请输入电子邮箱";
+	            errorTips(errorInfo);
+	        } else if (!emailReg.test(email)) {
+	            errorInfo = "邮箱格式不正确";
+	            errorTips(errorInfo);
+	        } else if (idCardNum == "") {
+	            errorInfo = "请输入身份证号码";
+	            errorTips(errorInfo);
+	        } else if (!idNumReg.test(idCardNum)) {
+	            errorInfo = "身份证号格式不正确";
+	            errorTips(errorInfo);
+	        } else if (hasIdCard != true) {
+	            errorInfo = "身份证号码已被注册";
+	            errorTips(errorInfo);
+	        } else if (accountBank == "") {
+	            errorInfo = "请输入开户行";
+	            errorTips(errorInfo);
+	        } else if (accountName == "") {
+	            errorInfo = "请输入开户名";
+	            errorTips(errorInfo);
+	        } else if (account == "") {
+	            errorInfo = "请输入账号";
+	            errorTips(errorInfo);
+	        } else if (upload != "已上传") {
+	            errorInfo = "请上传身份证照片";
+	            errorTips(errorInfo);
+	        } else if (!bankCardReg.test(account)) {
+	            errorInfo = "银行卡号格式不正确";
+	            errorTips(errorInfo);
+	        } else {
+	            edit_info();
+	        }
+	
+	    }
 	});
-	
-// 新注册的用户发起请求
-	function newUser() {
-	    // 真实姓名
-	    var realname = $("#realName").val();
-	    // 邮箱
-	    var email = $("#email").val();
-	    // 身份证号码
-	    var idCardNum = $("#idNumber").val();
-	    // 开户地区
-	    var accountBank = $("#accountBank").val();
-	    // 开户名
-	    var accountName = $("#accountName").val();
-	    // 账号
-	    var account = $("#account").val();
-	    // 身份证上传提示
-	    var upload = $(".uploadText").text();
-	    // 获取接受服务单位的id
-	    var comid = sessionStorage.getItem("comids");
-	    // 用户名
-	    var reUserName = localStorage.getItem('reUserName');
-	    // 手机号
-	    var tel = localStorage.getItem('tel');
-	    // 密码
-	    var password = localStorage.getItem('password');
-	    // 用户注册的角色
-	    var userType = localStorage.getItem('userType');
-	    console.log("填写个人信息  用户类型" + userType)
-	    // 选择的开票方式
-	    var type = localStorage.getItem('type');
-	    // 两张身份证照片
-	    var src1 = sessionStorage.getItem('idCardImg1');
-	    var src2 = sessionStorage.getItem('idCardImg2');
-	    // 协议模板id
-	    // var modelId = sessionStorage.getItem('modelId');
-	    // 年收入范围
-	    var incomeRangeText = sessionStorage.getItem("incomeRange");
-	    // 营销员工号
-	    var yxy_code = $("#yxy_code").val();
-	    // 推荐人id
-	    var upid = localStorage.getItem("upid");
-	    if (upid) {
-	        upid = '"' + upid + '"';
-	    } else {
-	        upid = "0";
-	    }
-	    var khAreaId = $(".area").attr("ids");
-	
-	
-	    var index = layer.load(1, {
-	        // 数组中第一个参数是button的透明度
-	        // 第二个是背景颜色
-	        shade: [0.3, "white"]
-	    });
-	
-	    // 请求超时
-	    var postTimeOut = setTimeout(() => {
-	        layer.close(index);
-	        errorTips("请求超时");
-	    }, 300000);
-	
-	    var task = plus.uploader.createUpload(urlDns + "/user_app/yz/add", { method: "POST" },
-	        function(t, status) { //上传完成
-	            console.log("返回字段：" + JSON.stringify(t))
-	            console.log("返回状态：" + JSON.stringify(status))
-							let responseText
-	            if (status == 200) {
-								responseText = JSON.parse(t.responseText);
-								console.log(responseText)
-	                // wt.close(); //关闭等待提示按钮
-	                if (responseText.result == 1) {
-	                    console.log("上传成功：" + responseText.result + "," + responseText.message);
-	                    // 提交成功，清除请求超时的定时器
-	                    clearTimeout(postTimeOut);
-	                    // 清除等待提示的加载圈
-	                    layer.close(index);
-	                    $(".success").css("display", "block"); 
-	                    setTimeout(() => {
-	                        $(".success").css("display", "none");
-	                        location.href = "./audit.html";
-	                    }, 800);
-	
-	                }
-	            } 
-							else {
-	                alert("上传失败：" + responseText.message);
-	                // wt.close(); //关闭等待提示按钮
-	            }
-	        }
-	    );
-	    //添加其他参数
-	    task.addData("username", reUserName);
-	    task.addData("tel", tel);
-	    task.addData("password", password);
-	    task.addData("realname", realname);
-	    task.addData("email", email);
-	    task.addData("idCardNum", idCardNum);
-	    task.addData("khh", accountBank);
-	    task.addData("accountName", accountName);
-	    task.addData("account", account);
-	    task.addData("userType", userType);
-	    task.addData("type", type);
-	    task.addData("comids", comid);
-	    task.addData("monthsy", incomeRangeText);
-	    if (yxy_code != "") {
-	        task.addData("employeecode", yxy_code);
-	    }
-	
-	    // 两张身份证
-			console.log(src1)
-			console.log(src2)
-	    task.addFile(src1, { key: "idCardUpUrl" });
-	    task.addFile(src2, { key: "idCardDownUrl" });
-	
-	    task.start();
-	}
-	
-	
-	// 被退回 修改信息   修改完成后发起的提交
-	function edit_info() {
-	    // 真实姓名
-	    var realname = $("#realName").val();
-	    // 邮箱
-	    var email = $("#email").val();
-	    // 身份证号码
-	    var idCardNum = $("#idNumber").val();
-	    // 开户地区
-	    var accountBank = $("#accountBank").val();
-	    // 开户名
-	    var accountName = $("#accountName").val();
-	    // 账号
-	    var account = $("#account").val();
-	    // 身份证上传提示
-	    var upload = $(".uploadText").text();
-	    // 获取接受服务单位的id
-	    var comid = sessionStorage.getItem("comids");
-	    // 用户名
-	    var reUserName = localStorage.getItem('reUserName');
-	    // 手机号
-	    var tel = localStorage.getItem('tel');
-	    // 密码
-	    var password = localStorage.getItem('password');
-	    // 用户注册的角色
-	    var userType = localStorage.getItem('userType');
-	    // 选择的开票方式
-	    var type = localStorage.getItem('type');
-	    // 两张身份证照片
-	    var src1 = sessionStorage.getItem('idCardImg1');
-	    var src2 = sessionStorage.getItem('idCardImg2');
-	    // 协议模板id
-	    // var modelId = sessionStorage.getItem('modelId');
-	
-	    // 年收入范围
-	    var incomeRangeText = sessionStorage.getItem("incomeRange");
-	
-	    // 营销员工号
-	    var yxy_code = $("#yxy_code").val();
-	
-	    // var khAreaId = $(".area").attr("ids");
-	    var index = layer.load(1, {
-	        // 数组中第一个参数是button的透明度
-	        // 第二个是背景颜色
-	        shade: [0.3, "white"]
-	    });
-	
-	    // 请求超时
-	    var postTimeOut = setTimeout(() => {
-	        layer.close(index);
-	        errorTips("请求超时");
-	    }, 300000);
-	
-	    var userId = sessionStorage.getItem('userId');
-	    var task = plus.uploader.createUpload(urlDns + "/user_app/yz/gr_xx_edit", { method: "POST" },
-	        function(t, status) { 
-	            let responseText
-	            if (status == 200) {
-								responseText = JSON.parse(t.responseText);
-	                if (responseText.result == 1) {
-	                    console.log("上传成功：" + responseText.result + "," + responseText.message);
-	                    layer.close(index);
-	                    $(".success").css("display", "block");
-	                    setTimeout(() => {
-	                        $(".success").css("display", "none");
-	                        location.href = "./audit.html";
-	                    }, 1000);
-	                } 
-									else {
-	                    // 需要重新登录
-	                    if (window.plus) {
-	                        goToLogin("./login.html");
-	                    } else {
-	                        document.addEventListener('plusready', goToLogin, false);
-	                    }
-	                }
-	            } 
-							else {
-	                alert("上传失败：" + responseText.message);
-	            }
-	        }
-	    );
-	    //添加其他参数
-	    task.addData("realname", realname);
-	    task.addData("email", email);
-	    task.addData("idCardNum", idCardNum);
-	    task.addData("khh", accountBank);
-	    task.addData("accountName", accountName);
-	    task.addData("account", account);
-	    task.addData("tel_app", tel_app);
-	    task.addData("pass_app", pass_app);
-	    task.addData("code_app", code_app);
-	    task.addData("monthsy", incomeRangeText);
-	    if (yxy_code != "") {
-	        task.addData("employeecode", yxy_code);
-	    }
-	
-	    // 两张身份证
-	    task.addFile(src1, { key: "idCardUpUrl" });
-	    task.addFile(src2, { key: "idCardDownUrl" });
-	
-	    task.start();
-	}
-	//==============================================================
-	
+
 	
 	// 判断用户是否已经上传证件照，显示对应的文字
 	var didUpload = sessionStorage.getItem('didUpload');
@@ -965,6 +762,298 @@
 	
 	//     })
 	// });
+	
+	function reg_noImg() {
+	    // 真实姓名
+	    var realname = $("#realName").val();
+	    
+	    // 邮箱
+	    var email = $("#email").val();
+	    
+	    // 身份证号码
+	    var idCardNum = $("#idNumber").val();
+	    
+	    // 开户地区
+	    var accountBank = $("#accountBank").val();
+	    // 开户名
+	    var accountName = $("#accountName").val();
+	    
+	    // 账号
+	    var account = $("#account").val();
+	    
+	    // 身份证上传提示
+	    var upload = $(".uploadText").text();
+	
+	    // 获取接受服务单位的id
+	    var comid = sessionStorage.getItem("comids");
+	    
+	    // 用户名
+	    var reUserName = localStorage.getItem('reUserName');
+	    
+	    // 手机号
+	    var tel = localStorage.getItem('tel');
+	    
+	    // 密码
+	    var password = localStorage.getItem('password');
+	    
+	    // 用户注册的角色
+	    var userType = localStorage.getItem('userType');
+	    
+	    // 选择的开票方式
+	    var type = localStorage.getItem('type');
+	    
+	    // 两张身份证照片
+	    var src1 = sessionStorage.getItem('idCardImg1');
+	    var src2 = sessionStorage.getItem('idCardImg2');
+	    
+	    // 分配比例
+	    var serviceFee = sessionStorage.getItem("serviceFee");
+	   
+	    // 协议模板id
+	    // var modelId = sessionStorage.getItem('modelId');
+	   
+	    // 获取是否要上传协议图片的判断标志
+	    var hasContractImg = sessionStorage.getItem('hasContractImg');
+	   
+	
+	    // 年收入范围
+	    var incomeRangeText = sessionStorage.getItem("incomeRange");
+	
+	    // 营销员工号
+	    var yxy_code = $("#yxy_code").val();
+	
+	
+	    
+	    // 和秘书公司协议的模板id
+	    var yz_ms_xieyiID = sessionStorage.getItem('yz_ms_xieyiID');
+	    // 和单位协议的模板id
+	    var yz_sf_xieyiID = sessionStorage.getItem('yz_sf_xieyiID');
+	    // 推荐人id
+	    var upid = localStorage.getItem("upid");
+	    if (upid) {
+	        upid = '"' + upid + '"';
+	    } else {
+	        upid = "0";
+	    }
+	    
+	    var khAreaId = $(".area").attr("ids");
+	
+	
+	    var index = layer.load(1, {
+	        // 数组中第一个参数是button的透明度
+	        // 第二个是背景颜色
+	        shade: [0.3, "white"]
+	    });
+	
+	    // 请求超时
+	    var postTimeOut = setTimeout(() => {
+	        layer.close(index);
+	        errorTips("请求超时");
+	    }, 300000);
+	
+	    var task = plus.uploader.createUpload(urlDns + "/user_app/yz/add", { method: "POST" },
+	        function(t, status) { //上传完成
+	            // console.log("返回字段：" + JSON.stringify(t))
+	            // console.log("返回状态：" + JSON.stringify(status))
+	            var responseText = JSON.parse(t.responseText);
+	            if (status == 200) {
+	                // wt.close(); //关闭等待提示按钮
+	                if (responseText.result == 1) {
+	                    console.log("上传成功：" + responseText.result + "," + responseText.message);
+	                    // 提交成功，清除请求超时的定时器
+	                    clearTimeout(postTimeOut);
+	                    // 清除等待提示的加载圈
+	                    layer.close(index);
+	                    $(".success").css("display", "block");
+	                    setTimeout(() => {
+	                        $(".success").css("display", "none");
+	                        location.href = "./audit.html";
+	                    }, 800);
+	
+	                }
+	            } else {
+	                alert("上传失败：" + responseText.message);
+	                // wt.close(); //关闭等待提示按钮
+	            }
+	        }
+	    );
+	    //添加其他参数
+	    task.addData("username", reUserName);
+	    task.addData("tel", tel);
+	    task.addData("password", password);
+	    task.addData("realname", realname);
+	    task.addData("email", email);
+	    task.addData("idCardNum", idCardNum);
+	    task.addData("khh", accountBank);
+	    task.addData("accountName", accountName);
+	    task.addData("account", account);
+	    task.addData("userType", userType);
+	    task.addData("type", type);
+	    task.addData("comids", comid);
+	    task.addData("yz_ms_xieyiID", yz_ms_xieyiID);
+	    task.addData("yz_sf_xieyiID", yz_sf_xieyiID);
+	    task.addData("monthsy", incomeRangeText);
+	    if (yxy_code != "") {
+	        task.addData("employeecode", yxy_code);
+	    }
+	    task.addData("fpbili", serviceFee);
+	    // 推荐人id
+	    task.addData("upid", upid);
+	
+	    // 两张身份证
+	    task.addFile(src1, { key: "idCardUpUrl" });
+	    task.addFile(src2, { key: "idCardDownUrl" });
+	
+	    task.start();
+	}
+	
+	
+	function reg_hasImg() {
+	    // 真实姓名
+	    var realname = $("#realName").val();
+	   
+	    // 邮箱
+	    var email = $("#email").val();
+	    
+	    // 身份证号码
+	    var idCardNum = $("#idNumber").val();
+	    
+	    // 开户地区
+	    var accountBank = $("#accountBank").val();
+	    // 开户名
+	    var accountName = $("#accountName").val();
+	    
+	    // 账号
+	    var account = $("#account").val();
+	    
+	    // 身份证上传提示
+	    var upload = $(".uploadText").text();
+	
+	    // 获取接受服务单位的id
+	    var comid = sessionStorage.getItem("comids");
+	   
+	    // 用户名
+	    var reUserName = localStorage.getItem('reUserName');
+	    
+	    // 手机号
+	    var tel = localStorage.getItem('tel');
+	   
+	    // 密码
+	    var password = localStorage.getItem('password');
+	   
+	    // 用户注册的角色
+	    var userType = localStorage.getItem('userType');
+	 
+	    // 选择的开票方式
+	    var type = localStorage.getItem('type');
+	    
+	    // 两张身份证照片
+	    var src1 = sessionStorage.getItem('idCardImg1');
+	    var src2 = sessionStorage.getItem('idCardImg2');
+	    // console.log(src1)
+	    // 分配比例
+	    var serviceFee = sessionStorage.getItem("serviceFee");
+	    
+	        // 协议模板id
+	        // var modelId = sessionStorage.getItem('modelId');
+	        // console.log(modelId)
+	        // 获取是否要上传协议图片的判断标志
+	    var hasContractImg = sessionStorage.getItem('hasContractImg');
+	    
+	
+	    // 判断是新用户注册还是退回修改个人信息
+	    var isUpdate = localStorage.getItem('isUpdate');
+	   
+	    // 和秘书公司协议的模板id
+	    var yz_ms_xieyiID = sessionStorage.getItem('yz_ms_xieyiID');
+	    // 和单位协议的模板id
+	    var yz_sf_xieyiID = sessionStorage.getItem('yz_sf_xieyiID');
+	    // 推荐人id
+	    var upid = localStorage.getItem("upid");
+	    if (upid) {
+	        upid = '"' + upid + '"';
+	    } else {
+	        upid = "0";
+	    }
+	    // 年收入范围
+	    var incomeRangeText = sessionStorage.getItem("incomeRange");
+	
+	    // 营销员工号
+	    var yxy_code = $("#yxy_code").val();
+		
+	    var index = layer.load(1, {
+	        // 数组中第一个参数是button的透明度
+	        // 第二个是背景颜色
+	        shade: [0.3, "white"]
+	    });
+	
+	    // 请求超时
+	    var postTimeOut = setTimeout(() => {
+	        layer.close(index);
+	        errorTips("请求超时");
+	    }, 300000);
+	
+	    // 上传的协议图片
+	    var contractImg = sessionStorage.getItem('contractImg');
+	    // 储存在sessionStorage里的是字符串，取出来要序列化
+	    contractImg = JSON.parse(contractImg);
+	
+	    var task = plus.uploader.createUpload(urlDns + "/user_app/yz/add", { method: "POST" },
+	        function(t, status) { //上传完成
+	            var responseText = JSON.parse(t.responseText);
+	            if (status == 200) {
+	                // wt.close(); //关闭等待提示按钮
+	                if (responseText.result == 1) {
+	                    console.log("上传成功：" + responseText.result + "," + responseText.message);
+	                    layer.close(index);
+	                    $(".success").css("display", "block");
+	                    setTimeout(() => {
+	                        $(".success").css("display", "none");
+	                        location.href = "./audit.html";
+	                    }, 800);
+	                }
+	            } else {
+	                alert("上传失败：" + responseText.message);
+	                // wt.close(); //关闭等待提示按钮
+	            }
+	        }
+	    );
+	    //添加其他参数
+	    task.addData("username", reUserName);
+	    task.addData("tel", tel);
+	    task.addData("password", password);
+	    task.addData("realname", realname);
+	    task.addData("email", email);
+	    task.addData("idCardNum", idCardNum);
+	    task.addData("khh", accountBank);
+	    task.addData("accountName", accountName);
+	    task.addData("account", account);
+	    task.addData("userType", userType);
+	    task.addData("type", type);
+	    task.addData("comids", comid);
+	    task.addData("yz_ms_xieyiID", yz_ms_xieyiID);
+	    task.addData("yz_sf_xieyiID", yz_sf_xieyiID);
+	    task.addData("fpbili", serviceFee);
+	    // 推荐人id
+	    task.addData("upid", upid);
+	    task.addData("monthsy", incomeRangeText);
+	    if (yxy_code != "") {
+	        task.addData("employeecode", yxy_code);
+	    }
+	
+	
+	    // 两张身份证
+	    task.addFile(src1, { key: "idCardUpUrl" });
+	    task.addFile(src2, { key: "idCardDownUrl" });
+	
+	    // 要提的交照片
+	    for (var i = 0; i < contractImg.length; i++) {
+	        task.addFile(contractImg[i], { key: "contractImg" + i });
+	    }
+	
+	    task.start();
+	}
+	
 	// 选择年收入范围
 	$(".incomeRange").click(() => {
 	    var popPicker = new mui.PopPicker();
@@ -976,6 +1065,8 @@
 	        { value: '6', text: '>2,400,000' },
 	    ])
 	
+	
+	
 	    popPicker.show(function(selectItems) {
 	        // getProData(selectItems[0].value, selectItems[0].text);
 	        $("#incomeRangeText").text(selectItems[0].text)
@@ -985,7 +1076,140 @@
 	    })
 	});
 	
+	// 修改完善信息之后  最终发起提交
+	function edit_info() {
+	    // 真实姓名
+	    var realname = $("#realName").val();
+	   
+	    // 邮箱
+	    var email = $("#email").val();
+	    
+	    // 身份证号码
+	    var idCardNum = $("#idNumber").val();
+	  
+	    // 开户地区
+	    var accountBank = $("#accountBank").val();
+	    // 开户名
+	    var accountName = $("#accountName").val();
+	   
+	    // 账号
+	    var account = $("#account").val();
+	  
+	    // 身份证上传提示
+	    var upload = $(".uploadText").text();
 	
+	    // 获取接受服务单位的id
+	    var comid = sessionStorage.getItem("comids");
+	  
+	    // 用户名
+	    var reUserName = localStorage.getItem('reUserName');
+	  
+	    // 手机号
+	    var tel = localStorage.getItem('tel');
+	  
+	    // 密码
+	    var password = localStorage.getItem('password');
+	  
+	    // 用户注册的角色
+	    var userType = localStorage.getItem('userType');
+	   
+	    // 选择的开票方式
+	    var type = localStorage.getItem('type');
+	    
+	    // 两张身份证照片
+	    var src1 = sessionStorage.getItem('idCardImg1');
+	    var src2 = sessionStorage.getItem('idCardImg2');
+	    
+	    // 分配比例
+	    var serviceFee = sessionStorage.getItem("serviceFee");
+	  
+	    // 协议模板id
+	    // var modelId = sessionStorage.getItem('modelId');
+	 
+	    // 获取是否要上传协议图片的判断标志
+	    var hasContractImg = sessionStorage.getItem('hasContractImg');
+	  
+	
+	    // 判断是新用户注册还是退回修改个人信息
+	    var isUpdate = localStorage.getItem('isUpdate');
+	    // console.log(isUpdate)
+	    // 和秘书公司协议的模板id
+	    var yz_ms_xieyiID = sessionStorage.getItem('yz_ms_xieyiID');
+	    // 和单位协议的模板id
+	    var yz_sf_xieyiID = sessionStorage.getItem('yz_sf_xieyiID');
+	
+	    // 年收入范围
+	    var incomeRangeText = sessionStorage.getItem("incomeRange");
+	
+	    // 营销员工号
+	    var yxy_code = $("#yxy_code").val();
+	
+	    // var khAreaId = $(".area").attr("ids");
+	
+	
+	    var index = layer.load(1, {
+	        // 数组中第一个参数是button的透明度
+	        // 第二个是背景颜色
+	        shade: [0.3, "white"]
+	    });
+	
+	    // 请求超时
+	    var postTimeOut = setTimeout(() => {
+	        layer.close(index);
+	        errorTips("请求超时");
+	    }, 300000);
+	
+	    var userId = sessionStorage.getItem('userId');
+	    var task = plus.uploader.createUpload(urlDns + "/user_app/yz/gr_xx_edit", { method: "POST" },
+	        function(t, status) { 
+	            var responseText = JSON.parse(t.responseText);
+	            if (status == 200) {
+	
+	                // console.log(JSON.stringify(responseText))
+	                    // wt.close(); //关闭等待提示按钮
+	                if (responseText.result == 1) {
+	                    console.log("上传成功：" + responseText.result + "," + responseText.message);
+	                    layer.close(index);
+	                    $(".success").css("display", "block");
+	                    setTimeout(() => {
+	                        $(".success").css("display", "none");
+	                        location.href = "./audit.html";
+	                    }, 1000);
+	                } else {
+	                    // 需要重新登录
+	                    if (window.plus) {
+	                        goToLogin("./login.html");
+	                    } else {
+	                        document.addEventListener('plusready', goToLogin, false);
+	                    }
+	                }
+	            } else {
+	                alert("上传失败：" + responseText.message);
+	                // wt.close(); //关闭等待提示按钮
+	            }
+	        }
+	    );
+	    //添加其他参数
+	    task.addData("realname", realname);
+	    task.addData("email", email);
+	    task.addData("idCardNum", idCardNum);
+	    task.addData("khh", accountBank);
+	    task.addData("accountName", accountName);
+	    task.addData("account", account);
+	    task.addData("tel_app", tel_app);
+	    task.addData("pass_app", pass_app);
+	    task.addData("code_app", code_app);
+	    task.addData("monthsy", incomeRangeText);
+	    if (yxy_code != "") {
+	        task.addData("employeecode", yxy_code);
+	    }
+	
+	    // 两张身份证
+	    task.addFile(src1, { key: "idCardUpUrl" });
+	    task.addFile(src2, { key: "idCardDownUrl" });
+	
+	    task.start();
+	}
 </script>
 
 </html>

@@ -143,6 +143,7 @@
 	$(".title").text(title)
 	// 获取进入状态
 	var user_type = sessionStorage.getItem("user_type")
+		console.log(user_type)
 	// 获取数据ID
 	var detailId = sessionStorage.getItem("detailId");
 	// 获取传过来的内容
@@ -155,13 +156,13 @@
 	
 	
 	// 不同角色,不同状态执行不同的内容================
-	if(user_type = '441'){   // 这是法人的角色, 查看收入劳务内容
+	if(user_type == '441'){   // 这是法人的角色, 查看收入劳务内容
 		$("#cont").val(detail_content);
 	}
-	if(user_type = '411'){   // 这是审核主管的角色, 查看收入劳务内容
+	if(user_type == '411'){   // 这是审核主管的角色, 查看收入劳务内容
 		$("#cont").val(detail_content);
 	}
-	if(user_type = '415'){   // 这是审核主管的角色, 输入退回纳税原因
+	if(user_type == '415'){   // 这是审核主管的角色, 输入退回纳税原因
 		$(".select-btn").css("display","block")
 		$("#cont").prop("disabled",false)
 		// $("#cont").removeAttr("disabled");
@@ -176,7 +177,21 @@
 		
 	}
 	
-	if(user_type = '416'){   // 这是审核主管的角色, 输入退回用户原因
+	if(user_type == '416'){   // 这是审核主管的角色, 输入退回用户原因
+		$(".select-btn").css("display","block")
+		$("#cont").prop("disabled",false)
+		// $("#cont").removeAttr("disabled");
+		
+		// 定义一个变量, 存退回原因
+		let nopass_con = ''
+		// 定义一个定时器,
+		let time = setInterval(() => {
+			nopass_con = $("#cont").val()
+			$(".tips").text(nopass_con.length +'/300汉字')
+		},500)
+		
+	}
+	if(user_type == '417'){   // 这是审核主管的角色, 输入退回用户原因
 		$(".select-btn").css("display","block")
 		$("#cont").prop("disabled",false)
 		// $("#cont").removeAttr("disabled");
@@ -191,7 +206,7 @@
 		
 	}
 	
-	if(user_type = '017'){   // 这是有业者角色 退回合同
+	if(user_type == '017'){   // 这是有业者角色 退回合同
 		$(".select-btn").css("display","block")
 		$("#cont").prop("disabled",false)
 		// $("#cont").removeAttr("disabled");
@@ -208,9 +223,12 @@
 	
 	
 	$(".select-btn").click(() => {
-		if(user_type = '415') { taxBack() }
-		else if(user_type = '416') { userBack() }
-		else if(user_type = '017') { dealBack() }
+		console.log(user_type)
+		if(user_type == '415') { taxBack() }
+		else if(user_type == '416') { userBack() }
+		else if(user_type == "417") { dealBackMs()
+		 }
+		else if(user_type == '017') { dealBack() }
 	})
 	// 审核角色: 纳税审核 退回
 	function taxBack() {
@@ -255,6 +273,29 @@
 							}
 					} else {
 							mui.alert('退回成功! !','提示','关闭',()=>{history.go(-4)},'div')
+					}
+			});
+	}
+	
+	// 主管角色: 业务合同退回
+	function dealBackMs() {
+		$.post(urlDns + '/share_app/ms_zg_ywy/ht/uncheck', {
+					id: detailId,
+					contents: $("#cont").val(),
+					pass_app: pass_app,
+					tel_app: tel_app,
+					code_app: code_app
+			}, function (data) {
+					// console.log(JSON.stringify(data))
+					if (data.result == 0) {
+							// 需要重新登录
+							if (window.plus) {
+									goToLogin("../../page/register/login.html");
+							} else {
+									document.addEventListener('plusready', goToLogin, false);
+							}
+					} else {
+							mui.alert('退回成功! !','提示','关闭',()=>{history.go(-2)},'div')
 					}
 			});
 	}

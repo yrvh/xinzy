@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="../../../css/mui.min.css">
 	<link rel="stylesheet" href="../../../css/mui.picker.min.css">
 	<script src="../../../js/mui.picker.min.js"></script>
-	<title>单位--用户管理--列表页</title>
+	<title>单位--商户管理--列表页</title>
 
 	<style type="text/css">
 		/* --------- 列表页: 头部样式 start---------- */
@@ -22,7 +22,7 @@
 			position: absolute; top: 12px; left: 5px; width: 20px; height: 20px; 
 		}
 		.occupy {
-			width: 100%; height: 46px; background-color: #ddd; margin-bottom: 20px;
+			width: 100%; height: 46px; background-color: #ddd; border-bottom: 20px;
 		}
 		.select-btn {
 			position: absolute; top: 0; right: 5px; line-height: 44px; display: none; color: #7EB6FF; margin-right: 10px;
@@ -31,6 +31,12 @@
 			position: absolute; width: 40px; line-height: 44px; color: #7EB6FF; left: 5px; display: none;
 		}
 		/* --------- 列表页: 头部样式 end---------- */
+		
+		
+		/*-----------列表页: 单选框start------------*/
+		.myradio { width: 100%; position: fixed; top: 60px; background-color: #fff; border-bottom: 1px solid #eee; display: flex; justify-content: space-around;}
+		/*-----------列表页: 单选框end------------*/
+		
 		
 		/* --------- 列表页: 搜索框 start---------- */
 		.searchBox {
@@ -136,7 +142,7 @@
 		
 
 		/* --------- 列表页: 主界面内容 start---------- */
-		.list { margin-top: 108px; margin-bottom: 20px; }
+		.list { margin: 70px 0 20px; background-color: #2AC845; }
 
 		.list>div { position: relative; width: 100%; background-color: #fff; margin-top: 10px;}
 
@@ -221,46 +227,30 @@
 	<div class="occupy"></div>
 	
 	<!-- 搜索框 -->
-	<div class="searchBox">
+	<!-- <div class="searchBox">
 		<div class="searchIn">
 			<img class="searchImg" src="../../../img/search.png" alt="">
 			<input class="searchCont" type="search" placeholder="请输入业者姓名/手机号码">
 			<img class="toEmpty" src="../../../img/toEmpty.png" alt="">
 		</div>
 		<div class="search">搜索</div>
-	</div>
-
-	<!-- 筛选条件按钮 -->
-	<div class="filterBox">
-		<div>
-			<img class="filterImg" src="../../../img/filter.png" alt="">
-			<span>筛选条件：</span>
+	</div> -->
+	
+	<!-- 注册类型的单选框 -->
+	<div class="myradio">
+		<div class="mui-input-row mui-radio mui-left">
+			<label>代理注册</label>
+			<input name="radio1" type="radio" checked="">
 		</div>
-		<img class="nextImg" src="../../../img/next.png" alt="">
-	</div>
-	<!-- 帅选条件 内容展示 -->
-	<div class="filterParamBox">
-		<div class="filterParam">
-			<div class="selectFreeType free-com">
-				<span>业者类型</span>
-				<div>
-					<span class="selectFreeTypeLi">全部</span>
-					<img src="../../../img/next.png" alt="">
-				</div>
-			</div>
-		
-			<div class="okBox">
-				<div class="reset">重置条件</div>
-				<div class="ok">确定</div>
-			</div>
+		<div class="mui-input-row mui-radio mui-left">
+			<label>自行注册</label>
+			<input name="radio1" type="radio">
 		</div>
-		<div class="noneParamBg"></div>
 	</div>
-
-
+	
 	<!-- 主界面内容 -->
 	<section class="list">
-
+		
 	</section>
 	
 	<footer>
@@ -294,59 +284,49 @@
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
 	
-	// 获取进入的角色
-	var addtype = sessionStorage.getItem("addtype")
 	// 获取状态码
 	var income_status = sessionStorage.getItem("income_status");
 	
 	// 渲染标题
-	if (income_status == 7) {
-		$("header span").text("");
+	if (income_status == 5) {
+		$("header span").text("等待确认");
 		$(".select-btn").css("display","block")
 	}
-	if (income_status == 7) {
-		$("header span").text("");
+	if (income_status == 3) {
+		$("header span").text("已确认");
 	}
-	if (income_status == 7) {
-		$("header span").text("");
+	if (income_status == 55) {
+		$("header span").text("已拒绝");
 	}
-	if (income_status == 7) {
-		$("header span").text("");
+	if (income_status == 8) {
+		$("header span").text("服务中");
 	}
-	if (income_status == 7) {
-		$("header span").text("");
+	if (income_status == 88) {
+		$("header span").text("重新签订");
 	}
 	
 	
 	var page = 1   // 设置当前 在第几个页面
 	
 	getInfoList()   //调用函数初始化 界面上要展示的数据列表 
-	
-	function getInfoList(name='',sfid='',yztype='',hhrid='',yxyid='',ywyid='') {
-		// console.log(page)
+	function getInfoList() {
 		// 请求数据
-		mui.post(urlDns + "/control_app/ms/fr/user/list", {
-			usertype: addtype,
+		mui.post(urlDns + "/control_app/sf/user/list", {
+			//注册类型
+			regType: "0",
 			// 状态
-			stauts: income_status,
+			status: income_status,
 			// 第几页
 			page: page,
 			// 一页的条数
 			rows: 20,
 			// 搜索框的内容
-			tel: name,
-			// 过滤条件的单位ID
-			sfid,
-			// 过滤条件的业者ID
-			yztype,
-			hhrid,
-			yxyid,
-			ywyid,
+			// tel: name,
 			pass_app: pass_app,
 			tel_app: tel_app,
 			code_app: code_app
 		}, function(data) {
-			// console.log(JSON.stringify(data));
+			console.log(JSON.stringify(data));
 			if (data.result == 0) {
 				// 需要重新登录
 				if (window.plus) {
@@ -359,38 +339,22 @@
 				if(page==1){ $(".list").html(''); }   // 发起请求之前,先清空页面
 				let htmlStr = ""
 				for (let i = 0; i < data.rows.length; i++) {
-					if(addtype==2){
-						htmlStr +=`
-							<div>
-									<input class="select" name="hh" value="beihai" type="checkbox">
-									<div class="comTime">
-											<span class="comName">${data.rows[i].name}</span>
-											<div class="href" detailId="${data.rows[i].id}">
-													<span class="time">${data.rows[i].tel}</span>
-													<img src="../../../img/next.png" alt="">
-											</div>
-									</div>
-									<div class="amount">
-											<span>${data.rows[i].comname}</span>
-											<span></span>
+					htmlStr +=`
+						<div>
+							<input class="select" name="hh" value="beihai" type="checkbox">
+							<div class="comTime">
+									<span class="comName">${data.rows[i].name}</span>
+									<div class="href" detailId="${data.rows[i].id}">
+										<span class="time">${data.rows[i].tel}</span>
+										<img src="../../../img/next.png" alt="">
 									</div>
 							</div>
-						`;
-					}
-					else{
-						htmlStr +=`
-							<div>
-									<input class="select" name="hh" value="beihai" type="checkbox">
-									<div class="comTime">
-											<span class="comName">${data.rows[i].name}</span>
-											<div class="href" detailId="${data.rows[i].id}">
-													<span class="time">${data.rows[i].tel}</span>
-													<img src="../../../img/next.png" alt="">
-											</div>
-									</div>
+							<div class="amount">
+									<span>身份证</span>
+									<span>${data.rows[i].idcard}</span>
 							</div>
-						`;
-					}
+						</div>
+					`;
 				}
 				$(".list").append(htmlStr);
 			}
@@ -401,45 +365,19 @@
 	$(window).scroll(function() {
 		if ($(window).scrollTop() + $(window).height() == $(document).height()) {
 			// 获取各个 参数
-			let name_pull = $(".searchCont").val() || ''
-			let sf_pull = $(".selectComName").attr('uid') || ''
-			let yz_pull = $(".selectFreeTypeLi").attr('uid') || ''
-			let coop_pull = $(".selectCoopName").attr('uid') || ''
-			let sell_pull = $(".selectSellName").attr('uid') || ''
-			let clerk_pull = $(".selectClerkName").attr('uid') || ''
+			// let name_pull = $(".searchCont").val() || ''
 			page = page + 1;
 			// 发起ajax请求
-			getInfoList(name_pull,sf_pull,yz_pull,coop_pull,sell_pull,clerk_pull)
-			
+			getInfoList()
 		}
 	});
 	
-	
-	// 展开/收起过滤条件
-	var open = false;
-	$(".filterBox").click(() => {
-		open = !open;
-		if (open == true) {
-			$(".nextImg").attr("src", "../../../img/down.png");
-			$(".filterParamBox").css("display", "block");
-		} else {
-			$(".nextImg").attr("src", "../../../img/next.png");
-			$(".filterParamBox").css("display", "none");
-		}
-	});
-
-	// 点击空白收起过滤条件
-	$(".noneParamBg").click(() => {
-		$(".filterParamBox").css("display", "none");
-		$(".nextImg").attr("src", "../../../img/next.png");
-		open = !open;
-	});
 
 	// 点击搜索时发起请求
 	$(".search").click(() => {
 		page = 1
-		let name = $(".searchCont").val()
-		getInfoList(name)
+		// let name = $(".searchCont").val()
+		getInfoList()
 	})
 	// 点击搜索旁边的叉号 清空搜索条件
 	$(".toEmpty").click(() => {
@@ -454,320 +392,15 @@
 		open = !open;
 	});
 
-
-	
-
-
-	// 重置筛选条件
-	$(".reset").click(() => {
-		// 清空文字
-		$(".selectFreeTypeLi").text("")
-		$(".selectComName").text("");
-		// $(".selectFreeName").text("");
-		$(".selectCoopName").text("")
-		$(".selectSellName").text("")
-		$(".selectClerkName").text("")
-		// 清空uid
-		$(".selectFreeTypeLi").attr("uid","")
-		$(".selectComName").attr("uid","")
-		// $(".selectFreeName").attr("uid","")
-		$(".selectCoopName").attr("uid","")
-		$(".selectSellName").attr("uid","")
-		$(".selectClerkName").attr("uid","")
-		
-		// $("#startDate").text(year + "-" + format(month));
-		// $("#endDate").text(year + "-" + format(month));
-	});
-
-	// 点击确定
-	$(".ok").click(() => {
-		page=1
-		// 获取各个角色, 人的uid
-		let sf = $(".selectComName").attr('uid') || ''
-		let yz = $(".selectFreeTypeLi").attr('uid') || ''
-		let coop = $(".selectCoopName").attr('uid') || ''
-		let sell = $(".selectSellName").attr('uid') || ''
-		let clerk = $(".selectClerkName").attr('uid') || ''
-
-		// 清空搜索框
-		$(".searchCont").val('')
-		// 发起ajax请求
-		getInfoList('',sf,yz,coop,sell,clerk)
-		// 隐藏筛选框
-		$(".filterParamBox").css("display", "none");
-		$(".nextImg").attr("src", "../../../img/next.png");
-		open = !open;
-
-	})
-
 	// 跳转详情页面
 	$(document).on("click", ".list .href", function(e) {
 		var detailId = $(this).attr("detailId");
-		// console.log(detailId)
 		sessionStorage.setItem('detailId', detailId);
-		
-		if(addtype==2) {
-			location.href = "./user_detail_com.html";
-		}
-		if(addtype==1 || addtype==11) {
-			sessionStorage.setItem("detailType",addtype)
-			location.href = "./user_detail_free.html";
-		}
+		location.href = "./user_detail_free.html";
 	});
 	
 	
 	// ================================================================
-	
-	let freeTypeArr =[   // 该数组存放 业者类型  2 全部,0 有单位,  1 无单位
-		{"value":2,"text":"全部"},
-		{"value":0,"text":"有单位"},
-		{"value":1,"text":"无单位"},
-		] 
-	
-	let comArr = [];   // 该数组存放请求回来的 所有单位
-	$.get(urlDns + "/control_app/ms/fr_zg/zf/get_sfData", {
-		pass_app: pass_app,
-		tel_app: tel_app,
-		code_app: code_app
-	}, function(data) {
-		// console.log(JSON.stringify(data));
-		if (data.result == 0) {
-			// 需要重新登录
-			if (window.plus) {
-				goToLogin("../../../page/register/login.html");
-			} else {
-				document.addEventListener('plusready', goToLogin, false);
-			}
-		} 
-		else {
-			for (let i = 0; i < data.rows.length; i++) {
-				comArr.push({
-					"value": data.rows[i].id,
-					"text": data.rows[i].name
-				});
-			}
-			// console.log(JSON.stringify(comArr))
-		}
-	});
-
-	let freeArr   // 该数组存放请求回来的 所有业者
-	getFreeArr()
-	function getFreeArr(id=0,islr=2) {
-		freeArr = []
-		// console.log("执行了获得业者列表的函数:"+ uid)
-		$.get(urlDns + "/control_app/ms/fr_zg/zf/get_yzData", {
-			pass_app: pass_app,
-			tel_app: tel_app,
-			code_app: code_app,
-			sfid: id,
-			islr
-		}, function(data) {
-			// console.log(JSON.stringify(data));
-			if (data.result == 0) {
-				// 需要重新登录
-				if (window.plus) {
-					goToLogin("../../../page/register/login.html");
-				} else {
-					document.addEventListener('plusready', goToLogin, false);
-				}
-			} 
-			else {
-				for (let i = 0; i < data.rows.length; i++) {
-					freeArr.push({
-						"value": data.rows[i].id,
-						"text": data.rows[i].name
-					});
-				}
-				// console.log(JSON.stringify(freeArr))
-			}
-		});
-	}
-	
-	let coopArr   // 该数组存放请求回来的 合作伙伴
-	getCoopArr()
-	function getCoopArr() {
-		coopArr = []
-		$.get(urlDns + "/control_app/ms/fr_zg/zf/get_hhrData", {
-			pass_app: pass_app,
-			tel_app: tel_app,
-			code_app: code_app
-		}, function(data) {
-			// console.log(JSON.stringify(data));
-			if (data.result == 0) {
-				// 需要重新登录
-				if (window.plus) {
-					goToLogin("../../../page/register/login.html");
-				} else {
-					document.addEventListener('plusready', goToLogin, false);
-				}
-			} 
-			else {
-				for (let i = 0; i < data.rows.length; i++) {
-					coopArr.push({
-						"value": data.rows[i].id,
-						"text": data.rows[i].name
-					});
-				}
-				// console.log(JSON.stringify(coopArr))
-			}
-		});
-	}
-	
-	let sellArr   // 该数组存放请求回来的 营销员
-	getSellArr()
-	function getSellArr() {
-		sellArr = []
-		$.get(urlDns + "/control_app/ms/fr_zg/zf/get_yxyData", {
-			pass_app: pass_app,
-			tel_app: tel_app,
-			code_app: code_app
-		}, function(data) {
-			// console.log(JSON.stringify(data));
-			if (data.result == 0) {
-				// 需要重新登录
-				if (window.plus) {
-					goToLogin("../../../page/register/login.html");
-				} else {
-					document.addEventListener('plusready', goToLogin, false);
-				}
-			} 
-			else {
-				for (let i = 0; i < data.rows.length; i++) {
-					sellArr.push({
-						"value": data.rows[i].id,
-						"text": data.rows[i].name
-					});
-				}
-				// console.log(JSON.stringify(sellArr))
-			}
-		});
-	}
-	
-	let clerkArr   // 该数组存放请求回来的 业务员
-	getClerkArr()
-	function getClerkArr() {
-		clerkArr = []
-		$.get(urlDns + "/control_app/ms/fr_zg/zf/get_ywyData", {
-			pass_app: pass_app,
-			tel_app: tel_app,
-			code_app: code_app
-		}, function(data) {
-			if (data.result == 0) {
-				// 需要重新登录
-				if (window.plus) {
-					goToLogin("../../../page/register/login.html");
-				} else {
-					document.addEventListener('plusready', goToLogin, false);
-				}
-			} 
-			else {
-				for (let i = 0; i < data.rows.length; i++) {
-					clerkArr.push({
-						"value": data.rows[i].id,
-						"text": data.rows[i].name
-					});
-				}
-				// console.log(JSON.stringify(clerkArr))
-			}
-		});
-	}
-	
-	
-	
-	// 点击 业者类型
-	$(".selectFreeType").on("click", selectFreeType);
-	
-	function selectFreeType() {
-		var popPicker = new mui.PopPicker();
-		popPicker.setData(freeTypeArr)
-		popPicker.show(function(selectItems) {
-			$(".selectFreeTypeLi").text(selectItems[0].text);
-			$(".selectFreeTypeLi").attr("uid", selectItems[0].value);
-			
-			let fType = $(".selectFreeTypeLi").attr("uid")
-			if(fType==2) {
-				// $(".selectFree").css("display","none")
-				$(".selectCom").css("display","none")
-				getFreeArr(0,2)
-			}
-			else if(fType==1) {
-				// $(".selectFree").css("display","flex")
-				$(".selectCom").css("display","none")
-				getFreeArr(0,1)
-			}
-			else {
-				// $(".selectFree").css("display","none")
-				$(".selectCom").css("display","flex")
-				getFreeArr(0,0)
-			}
-		})
-	}
-	
-	// 点击 接受服务单位
-	$(".selectCom").on("click", selectCom);
-	
-	function selectCom() {
-		var popPicker = new mui.PopPicker();
-		popPicker.setData(comArr)
-
-		popPicker.show(function(selectItems) {
-			$(".selectComName").text(selectItems[0].text);
-			$(".selectComName").attr("uid", selectItems[0].value);
-			getFreeArr($(".selectComName").attr("uid"),0)
-		})
-	}
-	
-	// 点击 业者姓名
-	$(".selectFree").on("click", selectFree);
-	
-	function selectFree() {
-		var popPicker = new mui.PopPicker();
-		popPicker.setData(freeArr)
-
-		popPicker.show(function(selectItems) {
-			$(".selectFreeName").text(selectItems[0].text);
-			$(".selectFreeName").attr("uid", selectItems[0].value);
-		})
-	}
-	
-	// 点击 合作伙伴姓名
-	$(".selectCoop").on("click", selectCoop);
-	
-	function selectCoop() {
-		var popPicker = new mui.PopPicker();
-		popPicker.setData(coopArr)
-
-		popPicker.show(function(selectItems) {
-			$(".selectCoopName").text(selectItems[0].text);
-			$(".selectCoopName").attr("uid", selectItems[0].value);
-		})
-	}
-	
-	// 点击 营销员姓名
-	$(".selectSell").on("click", selectSell);
-	
-	function selectSell() {
-		var popPicker = new mui.PopPicker();
-		popPicker.setData(sellArr)
-
-		popPicker.show(function(selectItems) {
-			$(".selectSellName").text(selectItems[0].text);
-			$(".selectSellName").attr("uid", selectItems[0].value);
-		})
-	}
-	
-	// 点击 业务员姓名
-	$(".selectClerk").on("click", selectClerk);
-	
-	function selectClerk() {
-		var popPicker = new mui.PopPicker();
-		popPicker.setData(clerkArr)
-
-		popPicker.show(function(selectItems) {
-			$(".selectClerkName").text(selectItems[0].text);
-			$(".selectClerkName").attr("uid", selectItems[0].value);
-		})
-	}
 	
 	// 点击选择按钮
 	let flag = false;
@@ -782,23 +415,23 @@
 				$(".select-btn").text("取消选择");
 				$(".back").css("display", "none");
 				$("footer").css("display","flex");
-				$(".filterBox").css("display","none")
-				$(".searchBox").css("display", "none");
+				// $(".searchBox").css("display", "none");
+				$(".myradio").css("display", "none");
 				$(".select").css("display", "block");
 				$(".select_all").css("display", "block");
 				$(".comName").css("left", "20px");
-				$(".list").css("margin-top","66px")
+				$(".list").css("margin-top","20px");
 	    } 
 			else {
 				$(".select-btn").text("选择");
 				$(".back").css("display", "block");
 				$("footer").css("display","none");
-				$(".filterBox").css("display","block")
-				$(".searchBox").css("display", "block");
+				// $(".searchBox").css("display", "block");
+				$(".myradio").css("display", "flex");
 				$(".select").css("display", "none");
 				$(".select_all").css("display", "none");
 				$(".comName").css("left", "0px");
-				$(".list").css("margin-top","152px");
+				$(".list").css("margin-top","70px");
 				
 				$(":checkbox[name='hh']").prop("checked", false);
 	    }
@@ -852,12 +485,12 @@
 						$(".select-btn").text("选择");
 						$(".back").css("display", "block");
 						$("footer").css("display","none");
-						$(".filterBox").css("display","block")
-						$(".searchBox").css("display", "block");
+						// $(".searchBox").css("display", "block");
+						$(".myradio").css("display", "flex");
 						$(".select").css("display", "none");
 						$(".select_all").css("display", "none");
-						$(".comName").css("left", "0px");
-						$(".list").css("margin-top","152px");
+						$(".comName").css("left", "0px")
+						(".list").css("margin-top","70px");
 					}
 				}
 			});

@@ -176,36 +176,8 @@
 		
 		<!-- 业务合同 -->
 		<ul class="deal-ul">
-			<li class="wait">
-				<span>待业者确认 <span class="mybadge mui-badge mui-badge-danger"></span></span>
-				<div>
-						<span class="wait-li"></span>
-						<img src="../../../img/next.png" alt="">
-				</div>
-			</li>
-			<li class="freeback">
-				<span>业者退回</span>
-				<div>
-						<span class="freeback-li"></span>
-						<img src="../../../img/next.png" alt="">
-				</div>
-			</li>
-			<li class="waitclerk">
-				<span>等待业务员确认</span>
-				<div>
-						<span class="waitclerk-li"></span>
-						<img src="../../../img/next.png" alt="">
-				</div>
-			</li>
-			<li class="clerkback">
-				<span>业务员退回</span>
-				<div>
-						<span class="clerkback-li"></span>
-						<img src="../../../img/next.png" alt="">
-				</div>
-			</li>
 			<li class="waitcom">
-				<span>待商秘公司审核</span>
+				<span>待商秘公司确认  <span class="mybadge mui-badge mui-badge-danger"></span></span>
 				<div>
 						<span class="waitcom-li"></span>
 						<img src="../../../img/next.png" alt="">
@@ -487,26 +459,6 @@
 	});
 	
 	// =======业务合同============
-	$(".deal-ul .wait").click(() => {
-		sessionStorage.setItem("addtype", "9");
-		sessionStorage.setItem("income_status", 2);
-		location.href = './dealList_a.html';
-	});
-	$(".deal-ul .freeback").click(() => {
-		sessionStorage.setItem("addtype", "9");
-		sessionStorage.setItem("income_status", 3);
-		location.href = './dealList_a.html';
-	});
-	$(".deal-ul .waitclerk").click(() => {
-		sessionStorage.setItem("addtype", "9");
-		sessionStorage.setItem("income_status", 4);
-		location.href = './dealList_a.html';
-	});
-	$(".deal-ul .clerkback").click(() => {
-		sessionStorage.setItem("addtype", "9");
-		sessionStorage.setItem("income_status", 5);
-		location.href = './dealList_a.html';
-	});
 	$(".deal-ul .waitcom").click(() => {
 		sessionStorage.setItem("addtype", "9");
 		sessionStorage.setItem("income_status", 6);
@@ -635,7 +587,7 @@
 		
 		// 业务合同
 		else if(enterType==9) {
-				mui.post(urlDns + '/control_app/ms/fptt_ht/main',{
+				mui.post(urlDns + '/share_app/ms_zg_ywy/ht/index',{
 				    tel_app:tel_app,
 				    pass_app:pass_app,
 				    code_app:code_app
@@ -651,24 +603,20 @@
 						}
 					}
 					else {
-						if(data.uu2 > 0) {
+						if(data.bb6 > 0) {
 							$(".deal-ul .mybadge").css("display","inline-block")
-							$(".deal-ul .mybadge").text(data.uu2)
+							$(".deal-ul .mybadge").text(data.bb6)
 							$(".input_deal .mybadge").css("display","inline-block")
-							$(".input_deal .mybadge").text(data.uu2)
+							$(".input_deal .mybadge").text(data.bb6)
 						}
 						else { 
 							$(".deal-ul .mybadge").css("display","none")
 							$(".input_deal .mybadge").css("display","none")
 						}
 						
-						$(".deal-ul .wait-li").text(data.uu2);
-						$(".deal-ul .freeback-li").text(data.uu3);
-						$(".deal-ul .waitclerk-li").text(data.uu4);
-						$(".deal-ul .clerkback-li").text(data.uu5);
-						$(".deal-ul .waitcom-li").text(data.uu6);
-						$(".deal-ul .nopass-li").text(data.uu7);
-						$(".deal-ul .pass-li").text(data.uu1);
+						$(".deal-ul .waitcom-li").text(data.bb6);
+						$(".deal-ul .nopass-li").text(data.bb7);
+						$(".deal-ul .pass-li").text(data.bb1);
 					}
 				})
 				

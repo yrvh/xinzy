@@ -110,7 +110,7 @@
         success: function(data) {
             layer.close(index);
             if (data.result == 1) {
-                console.log(data.text)
+                // console.log(data.text)
                 $(".itemContent").html(data.text);
                 if ($(document.body).height() < $(window).height() - 185) {
                     // 减掉的64是除了$(".cont")以外其他元素的高度

@@ -159,7 +159,7 @@
 
 <body>
     <header>
-        个人信息<span class="pageNum" style="color:rgb(153, 153, 153)"></span>
+        个人信息<span class="pageNum" style="color:rgb(153, 153, 153)">(1/4)</span>
         <div class="next">下一页</div>
     </header>
     <!-- 个人基本信息 -->
@@ -229,9 +229,9 @@
 	console.log(pass_app)
 	console.log(code_app)
 	
-	// 提示框
+	// 是否弹出提示框
 	var comfirmTip = sessionStorage.getItem("comfirmTip");
-	console.log(comfirmTip)
+	
 	if (comfirmTip == 1) {
 	    $(".bgBlack").css("display", "block");
 	}
@@ -261,7 +261,7 @@
 	    pass_app: pass_app,
 	    code_app: code_app
 	}, function(data) {
-	    // console.log(JSON.stringify(data))
+			// console.log(JSON.stringify(data))
 	    if (data.result == 0) {
 	        // 需要重新登录
 	        if (window.plus) {
@@ -270,20 +270,9 @@
 	            document.addEventListener('plusready', goToLogin, false);
 	        }
 	    } else {
-	        if (data.dlregid > 0) {
-	            // 代理注册
-	            if (data.ishave_dw == 1 && data.xytype) {
-	                // 有单位
-	                $(".pageNum").text("(1/5)");
-	            }
-	            else {
-	                // 无单位和 合作伙伴
-	                $(".pageNum").text("(1/4)");
-	            }
-	
-	        }
-	        // // 储存一个协议id，退回时要提交该参数  
-	        // sessionStorage.setItem("xyid", data.xyid);
+	        //if (data.dlregid > 0) {
+					//	$(".pageNum").text("(1/4)");
+	        //}
 	        $("#realName").text(data.realname);
 	        $("#tel").text(data.tel);
 	        $("#email").text(data.email);

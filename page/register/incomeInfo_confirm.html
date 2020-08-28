@@ -286,7 +286,7 @@
 <body>
     <header>
         <div class="pre">上一页</div>
-        收入纳税信息<span class="pageNum" style="color:rgb(153, 153, 153)"></span>
+        收入纳税信息<span class="pageNum" style="color:rgb(153, 153, 153)">(3/4)</span>
         <div class="next">下一页</div>
     </header>
     <section class="incomeBox">
@@ -373,8 +373,6 @@
 	var tel = sessionStorage.getItem("tel");
 	// 判断和单位的协议是文本还是图片
 	let xytype;
-	// 判断业者是否有单位
-	var ishave_dw;
 	
 	// 加载页面初始数据=============================================================
 	$.ajaxSettings.async = false;
@@ -393,10 +391,6 @@
 	            document.addEventListener('plusready', goToLogin, false);
 	        }
 	    } else {
-				console.log(data.ishave_dw)
-				console.log(data.xytype)
-				localStorage.setItem("ishave_dw", data.ishave_dw);
-				localStorage.setItem("userType", data.userType);
 				if (data.zzsjntype == 1) {
 						$(".valueAddedTitle").text("增值税（按月）");
 				} else if (data.zzsjntype == 2) {
@@ -404,26 +398,20 @@
 				} else if (data.zzsjntype == 3) {
 						$(".valueAddedTitle").text("增值税（按年）");
 				}
-				if (data.dlregid == 0) {
-						// 自行注册
-						$(".next").css("display", "none");
-						$(".btnBox").css("display", "block");
-				}
-				if (data.dlregid > 0) {
-						// 代理注册
-						$(".next").css("display", "block");
-						$(".btnBox").css("display", "none");
-						if (data.ishave_dw == 1 && data.xytype) {
-								// 有单位
-								$(".pageNum").text("(3/5)");
-						}
-						else {
-								// 无单位 和合作伙伴
-								$(".pageNum").text("(3/4)");
-						}
-				}	
-				xytype = data.xytype
-				ishave_dw = data.ishave_dw
+				// 部分代理注册和自行注册直接展示 下一页
+				$(".next").css("display", "block");
+				$(".btnBox").css("display", "none");
+				// if (data.dlregid == 0) {
+				// 		// 自行注册
+				// 		$(".next").css("display", "none");
+				// 		$(".btnBox").css("display", "block");
+				// }
+				// if (data.dlregid > 0) {
+				// 		// 代理注册
+				// 		$(".next").css("display", "block");
+				// 		$(".btnBox").css("display", "none");
+				// 		// $(".pageNum").text("(3/4)");
+				// }
 				// console.log("收入范围：" + data.monthsy)
 						// 收入范围
 				$(".incomeNum").text(data.monthsy);
@@ -443,203 +431,179 @@
 	
 	});
 	
-	
-	
-	// 点击  下一页==================================================
+	// 点击  下一页
 	$(".next").click(() => {
-		console.log(nextUrl)
-	    location.href = nextUrl;
+	    location.href = "./businessComContract_comfirm.html";
 	});
 	
-	// 下一页的跳转地址
-	var nextUrl;
-	
-	if (ishave_dw == 1) {   // 有单位
-	    sessionStorage.setItem("ishave_dw", 1);
-	    // xytype为1，协议是文本，为2是图片
-	    if (xytype == 1) {
-	        nextUrl = "./twoContract_confirm.html";   // 有单位业者,协议是文字的拿到这个路径
-	    }
-	    else if (xytype == 2) {
-	        nextUrl = "./twoContractImg_confirm.html";   // 有单位业者,协议是图片的拿到这个路径
-	    }
-			else {
-				nextUrl = "./businessComContract_comfirm.html";   // 合作伙伴拿到的是这个路径
-			}
-	
-	}
-	if (ishave_dw == 0) {
-	    sessionStorage.setItem("ishave_dw", 0);
-	    nextUrl = "./businessComContract_comfirm.html";   // 无单位业者   拿到的是这个角色
-	}
 	
 	
+	// // 自行注册:点击同意  商秘公司的协议================================================
+	// $(".agree").click(() => {
+	//     $.post(urlDns + "/user_app/yz/check", {
+	//         tel_app: tel_app,
+	//         pass_app: pass_app,
+	//         code_app: code_app
+	//     }, function(data) {
+	//         if (data.result == 0) {
+	//             // 需要重新登录
+	//             if (window.plus) {
+	//                 goToLogin("./login.html");
+	//             } else {
+	//                 document.addEventListener('plusready', goToLogin, false);
+	//             }
+	//         } else {
+	//             // sessionStorage.clear();
+	//             // $(".success").css("display", "block");
+	//             // setTimeout(() => {
+	//             //     $(".success").css("display", "none");
+	//             //     location.href = "./login.html";
+	//             // }, 1000);
+	//             getContrat()   // 获取三方协议
+	//         }
 	
-	// 点击同意 商秘公司的协议
-	$(".agree").click(() => {
-	    $.post(urlDns + "/user_app/yz/check", {
-	        tel_app: tel_app,
-	        pass_app: pass_app,
-	        code_app: code_app
-	    }, function(data) {
-	        if (data.result == 0) {
-	            // 需要重新登录
-	            if (window.plus) {
-	                goToLogin("./login.html");
-	            } else {
-	                document.addEventListener('plusready', goToLogin, false);
-	            }
-	        } else {
-	            // sessionStorage.clear();
-	            // $(".success").css("display", "block");
-	            // setTimeout(() => {
-	            //     $(".success").css("display", "none");
-	            //     location.href = "./login.html";
-	            // }, 1000);
-	            getContrat()   // 获取三方协议
-	        }
+	//     });
 	
-	    });
+	// });
 	
-	});
+	// // 自行注册:点击退回  商务秘书公司协议
+	// $(".refuse").click(() => {
+	//     sessionStorage.setItem("type", "return");
+	//     location.href = "../textPage.html";
+	// });
 	
-	// 退回
-	$(".refuse").click(() => {
-	    sessionStorage.setItem("type", "return");
-	    location.href = "../textPage.html";
-	});
+	// // 弹出三方协议
+	// function getContrat() {
+	//     $(".threeBoxBg").css("display", "block");
 	
-	// 弹出三方协议
-	function getContrat() {
-	    $(".threeBoxBg").css("display", "block");
+	//     var threeContractPost = $.ajax({
+	//         url: urlDns + "/user_app/yz/check_3_xieyiUI",
+	//         type: 'post',
+	//         dataType: "json",
+	//         data: {
+	//             "tel_app": tel_app,
+	//             "pass_app": pass_app,
+	//             "code_app": code_app
+	//         },
+	//         timeout: 120000, //2分钟超时
+	//         //请求成功
+	//         success: function(data) {
+	//             // console.log(JSON.stringify(data));
+	//             if (data.result == 0) {
+	//                 location.reload();
+	//             } else {
+	// 								$(".cont").html(data.text);
+	//             }
 	
-	    var threeContractPost = $.ajax({
-	        url: urlDns + "/user_app/yz/check_3_xieyiUI",
-	        type: 'post',
-	        dataType: "json",
-	        data: {
-	            "tel_app": tel_app,
-	            "pass_app": pass_app,
-	            "code_app": code_app
-	        },
-	        timeout: 120000, //2分钟超时
-	        //请求成功
-	        success: function(data) {
-	            // console.log(JSON.stringify(data));
-	            if (data.result == 0) {
-	                location.reload();
-	            } else {
-									$(".cont").html(data.text);
-	            }
+	//         },
+	//         error: function(XMLHttpRequest, textStatus, errorThrown) {
+	//             if (textStatus == 'timeout') {
+	//                 threeContractPost.abort();
+	//                 alert("请求超时");
+	//                 $(".threeBoxBg").css("display", "none");
+	//             }
+	//             if (textStatus == 'error') {
+	//                 threeContractPost.abort();　
+	//                 $(".threeBoxBg").css("display", "none");
+	//                 alert("请求错误" + errorThrown);
 	
-	        },
-	        error: function(XMLHttpRequest, textStatus, errorThrown) {
-	            if (textStatus == 'timeout') {
-	                threeContractPost.abort();
-	                alert("请求超时");
-	                $(".threeBoxBg").css("display", "none");
-	            }
-	            if (textStatus == 'error') {
-	                threeContractPost.abort();　
-	                $(".threeBoxBg").css("display", "none");
-	                alert("请求错误" + errorThrown);
+	//             }
+	//         }
+	//     });
+	// }
 	
-	            }
-	        }
-	    });
-	}
+	// // 点击签订 三方协议
+	// $(".agreeThree").click(() => {
+	//     var userType = localStorage.getItem("userType");
+	//     var agreeContractPost = $.ajax({
+	//         url: urlDns + "/user_app/yz/check_3_xieyi",
+	//         type: 'post',
+	//         dataType: "json",
+	//         data: {
+	//             "tel_app": tel_app,
+	//             "pass_app": pass_app,
+	//             "code_app": code_app
+	//         },
+	//         timeout: 120000, //2分钟超时
+	//         //请求成功
+	//         success: function(data) {
+	//             // console.log(JSON.stringify(data));
+	//             if (data.result == 0) {
+	//                 location.reload();
+	//             } 
+	// 						else {
+	//                 // 合作伙伴
+	//                 if (userType == 11) {
+	//                     // 审核全部完成，进入首页
+	//                     location.href = "../../cooperation/page/index.html";
+	//                 }
 	
-	// 点击签订 三方协议
-	$(".agreeThree").click(() => {
-	    var userType = localStorage.getItem("userType");
-	    var agreeContractPost = $.ajax({
-	        url: urlDns + "/user_app/yz/check_3_xieyi",
-	        type: 'post',
-	        dataType: "json",
-	        data: {
-	            "tel_app": tel_app,
-	            "pass_app": pass_app,
-	            "code_app": code_app
-	        },
-	        timeout: 120000, //2分钟超时
-	        //请求成功
-	        success: function(data) {
-	            // console.log(JSON.stringify(data));
-	            if (data.result == 0) {
-	                location.reload();
-	            } 
-							else {
-	                // 合作伙伴
-	                if (userType == 11) {
-	                    // 审核全部完成，进入首页
-	                    location.href = "../../cooperation/page/index.html";
-	                }
+	//                 // 业者
+	//                 if (userType == 1) {
+	//                     location.href = "../../index.html";
+	//                 }
 	
-	                // 业者
-	                if (userType == 1) {
-	                    location.href = "../../index.html";
-	                }
+	//             }
+	//         },
+	//         error: function(XMLHttpRequest, textStatus, errorThrown) {
+	//             layer.close(index);
+	//             if (textStatus == 'timeout') {
+	//                 agreeContractPost.abort();
+	//                 alert("请求超时");
+	//             }
+	//             if (textStatus == 'error') {
+	//                 agreeContractPost.abort();
+	//                 alert("请求错误" + errorThrown);
+	//             }
+	//         }
+	//     });
+	// })
 	
-	            }
-	        },
-	        error: function(XMLHttpRequest, textStatus, errorThrown) {
-	            layer.close(index);
-	            if (textStatus == 'timeout') {
-	                agreeContractPost.abort();
-	                alert("请求超时");
-	            }
-	            if (textStatus == 'error') {
-	                agreeContractPost.abort();
-	                alert("请求错误" + errorThrown);
-	            }
-	        }
-	    });
-	})
+	// // 不签订 三方协议
+	// $(".disagreeThree").click(() => {
+	//     var userType = localStorage.getItem("userType");
+	//     var agreeContractPost = $.ajax({
+	//         url: urlDns + "/user_app/yz/uncheck_3_xieyi",
+	//         type: 'post',
+	//         dataType: "json",
+	//         data: {
+	//             "tel_app": tel_app,
+	//             "pass_app": pass_app,
+	//             "code_app": code_app
+	//         },
+	//         timeout: 120000, //2分钟超时
+	//         //请求成功
+	//         success: function(data) {
+	//             // console.log(JSON.stringify(data));
+	//             if (data.result == 0) {
+	//                 location.reload();
+	//             } else {
+	//                 // 合作伙伴
+	//                 if (userType == 11) {
+	//                     // 审核全部完成，进入首页
+	//                     location.href = "../../cooperation/page/index.html";
+	//                 }
 	
-	// 不签订 三方协议
-	$(".disagreeThree").click(() => {
-	    var userType = localStorage.getItem("userType");
-	    var agreeContractPost = $.ajax({
-	        url: urlDns + "/user_app/yz/uncheck_3_xieyi",
-	        type: 'post',
-	        dataType: "json",
-	        data: {
-	            "tel_app": tel_app,
-	            "pass_app": pass_app,
-	            "code_app": code_app
-	        },
-	        timeout: 120000, //2分钟超时
-	        //请求成功
-	        success: function(data) {
-	            // console.log(JSON.stringify(data));
-	            if (data.result == 0) {
-	                location.reload();
-	            } else {
-	                // 合作伙伴
-	                if (userType == 11) {
-	                    // 审核全部完成，进入首页
-	                    location.href = "../../cooperation/page/index.html";
-	                }
-	
-	                // 业者
-	                if (userType == 1) {
-	                    location.href = "../../index.html";
-	                }
-	            }
-	        },
-	        error: function(XMLHttpRequest, textStatus, errorThrown) {
-	            layer.close(index);
-	            if (textStatus == 'timeout') {
-	                agreeContractPost.abort();
-	                alert("请求超时");
-	            }
-	            if (textStatus == 'error') {
-	                agreeContractPost.abort();
-	                alert("请求错误" + errorThrown);
-	            }
-	        }
-	    });
-	})
+	//                 // 业者
+	//                 if (userType == 1) {
+	//                     location.href = "../../index.html";
+	//                 }
+	//             }
+	//         },
+	//         error: function(XMLHttpRequest, textStatus, errorThrown) {
+	//             layer.close(index);
+	//             if (textStatus == 'timeout') {
+	//                 agreeContractPost.abort();
+	//                 alert("请求超时");
+	//             }
+	//             if (textStatus == 'error') {
+	//                 agreeContractPost.abort();
+	//                 alert("请求错误" + errorThrown);
+	//             }
+	//         }
+	//     });
+	// })
+
 </script>
 
 </html>

@@ -128,7 +128,7 @@
 	
 		// // 获取状态码
 		let income_status = sessionStorage.getItem("income_status");
-		if(income_status == 2){
+		if(income_status == 6){
 			$("footer").css("display","flex")
 		}
 		// 获取id
@@ -147,7 +147,7 @@
 	// 执行加载 协议的函数
 	function getCtraPplatform(){
 		let ajaxPost = $.ajax({
-			url: urlDns + "/control_app/yz/fptt_ht/showUI",
+			url: urlDns + "/share_app/ms_zg_ywy/ht/showUI",
 			type: 'post',
 			dataType: "json",
 			timeout: 120000, //2分钟超时
@@ -214,13 +214,13 @@
 		sessionStorage.setItem("itemid",detailId)
 		sessionStorage.setItem("title","退回理由")
 		sessionStorage.setItem("detail_content","")
-		sessionStorage.setItem("user_type","017")
-		location.href = "../../business_content.html";
+		sessionStorage.setItem("user_type","417")
+		location.href = "../business_content.html";
 	})
 	
 		// 点击通过
 		$(".pass").click(() => {
-			$.post(urlDns + '/control_app/yz/fptt_ht/check', {
+			$.post(urlDns + '/share_app/ms_zg_ywy/ht/check', {
 						id: detailId,
 						pass_app: pass_app,
 						tel_app: tel_app,

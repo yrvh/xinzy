@@ -355,7 +355,7 @@
 <body>
     <header>
         <div class="pre">上一页</div>
-        商户信息<span class="pageNum" style="color:rgb(153, 153, 153)"></span>
+        商户信息<span class="pageNum" style="color:rgb(153, 153, 153)">(2/4)</span>
         <div class="next">下一页</div>
     </header>
     <!-- 个人基本信息 -->
@@ -463,19 +463,11 @@
 	        } else {
 	            document.addEventListener('plusready', goToLogin, false);
 	        }
-	    } else {
-	        if (data.dlregid > 0) {
-	            // 代理注册
-	            if (data.ishave_dw == 1 && data.xytype) {
-	                // 有单位
-	                $(".pageNum").text("(2/5)");
-	            }
-	            else {
-	                // 无单位 和合作伙伴
-	                $(".pageNum").text("(2/4)");
-	            }
-	
-	        }
+	    } 
+			else {
+	        //if (data.dlregid > 0) {
+					//	$(".pageNum").text("(2/4)");	
+	        //}
 					bName = data.comname
 					pName = data.address
 	        // console.log(JSON.stringify(data));
