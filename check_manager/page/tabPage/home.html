@@ -70,13 +70,13 @@
 			
 			<div class="  tax-discount">
 				<img src="../../../img/taxesSetCheck.png" alt="" />
-				<div>税收优惠</div>
+				<div>税收政策</div>
 			</div>
 			
 			<div class="staff-mana">
 				<span class="mybadge mui-badge mui-badge-danger"></span>
 				<img src="../../../img/staff_manage.png" alt="">
-				<div>员工查询</div>
+				<div>公司管理</div>
 			</div>
 			
 			<!-- <div class="income-mana">
@@ -252,52 +252,31 @@
 			} 
 			else {
 				major_badge += data.wait_pay
-			
-				$.post(urlDns + "/share/bs_app/nssetting/index", {
-						pass_app: pass_app,
-						tel_app: tel_app,
-						code_app: code_app
+				mui.get(urlDns + "/share_app/ms_zg_ywy/ht/index", {
+					pass_app: pass_app,
+					tel_app: tel_app,
+					code_app: code_app
 				}, function(data) {
 					// console.log(JSON.stringify(data));
 					if (data.result == 0) {
-							// 需要重新登录
-							if (window.plus) {
-									goToLogin("../../../page/register/login.html");
-							} else {
-									document.addEventListener('plusready', goToLogin, false);
-							}
+						// 需要重新登录
+						if (window.plus) {
+							goToLogin("../../../page/register/login.html");
+						} 
+						else {
+							document.addEventListener('plusready', goToLogin, false);
+						}
 					} 
 					else {
-						major_badge += data.wait_check
-						mui.get(urlDns + "/share/bs_app/nssetting/index", {
-							pass_app: pass_app,
-							tel_app: tel_app,
-							code_app: code_app
-						}, function(data) {
-							// console.log("数据请求,响应了")
-							// console.log(JSON.stringify(data));
-							if (data.result == 0) {
-								// 需要重新登录
-								if (window.plus) {
-									goToLogin("../../../page/register/login.html");
-								} 
-								else {
-									document.addEventListener('plusready', goToLogin, false);
-								}
-							} 
-							else {
-								major_badge += data.bb6
-								if(major_badge > 0) {
-									$(".major-mana .mybadge").css("display","block")
-									$(". tax-check .mybadge").text(major_badge)
-								}
-								else { $(".major-mana .mybadge").css("display","none") }
-								
-							}
-						})
+						major_badge += data.bb6
+						if(major_badge > 0) {
+							$(".major-mana .mybadge").css("display","block")
+							$(".major-mana .mybadge").text(major_badge)
+						}
+						else { $(".major-mana .mybadge").css("display","none") }
 						
 					}
-				});
+				})
 			}
 		});
 	})

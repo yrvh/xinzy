@@ -43,12 +43,12 @@
 
 <body>
 	<header>
-			<img class="back" src="../../../img/back_black.png" alt=""> 公司信息
+			<img class="back" src="../../../img/back_black.png" alt=""> 发票详情
 	</header>
 	<div class="the-place"></div>
 	<ul class="invocie-info">
 		<li class="company">
-				<span>接受服务的单位</span>
+				<span>发票抬头</span>
 				<div>
 						<span class="company-li"></span>
 						<img src="../../../img/next.png" alt="">
@@ -73,25 +73,31 @@
 						<span class="address-li"></span>
 				</div>
 		</li>
-		<li class="service-name">
+		<li class="service">
 				<span>劳动、服务名称</span>
 				<div>
-						<span class="service-name-li"></span>
+						<span class="service-li"></span>
 				</div>
 		</li>
 	</ul>
 	
 	<ul class="base-info">
 		<li class="pay-amount">
-			<span>报税金额</span>
+			<span>开票金额</span>
 			<div>
 				<span class="pay-amount-li">10000</span>
 			</div>
 		</li>
 		<li class="pay-date">
-			<span>报税日期</span>
+			<span>开票日期</span>
 			<div>
 				<span class="pay-date-li"></span>
+			</div>
+		</li>
+		<li class="description">
+			<span>备注</span>
+			<div>
+				<span class="description-li"></span>
 			</div>
 		</li>
 	</ul>
@@ -115,12 +121,15 @@
 	});
 	// 返回之前要执行的操作 函数
 	function backActive() {
-		// sessionStorage.removeItem("income_status");
+		sessionStorage.removeItem("detailId");
 	}
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
 	
+	// 获取id
+	let detailId = sessionStorage.getItem("detailId")
+	console.log(detailId)
 	$(function() {
 	    var index = layer.load(1, {
 	        // 数组中第一个参数是button的透明度
@@ -128,19 +137,20 @@
 	        shade: [0.3, "white"]
 	    });
 	    var getData = $.ajax({
-	        url: urlDns + "/control_app/ms/info/showInfo_step01",
+	        url: urlDns + "/control_app/share/fp/showUI",
 	        type: 'post',
 	        dataType: "json",
 	        timeout: 120000, //2分钟超时
 	        data: {
-	            "pass_app": pass_app,
-	            "tel_app": tel_app,
-	            "code_app": code_app
+						"id": 514,
+	          "pass_app": pass_app,
+	          "tel_app": tel_app,
+	          "code_app": code_app
 	        },
 	        //请求成功
 	        success: function(data) {
-	            console.log(data.cname)
-	            console.log(JSON.stringify(data));
+	            console.log(data.descripton)
+	            // console.log(JSON.stringify(data));
 	            layer.close(index);
 	            if (data.result == 0) {
 	                // 需要重新登录
@@ -149,53 +159,18 @@
 	                } else {
 	                    document.addEventListener('plusready', goToLogin, false);
 	                }
-	            } else {
-	                if (data.icon != "/img/R.png") {
-	                    console.log(data.icon)
-	                    $(".logo").attr("src", data.icon);
-	                } else {
-	                    $(".logo").attr("src", "../../../img/com_default_Icon.png");
-	                }
-	                $("#creditNum").text(data.xycode);
-	                $("#name").text(data.cname);
-	                $("#businessName").text(data.cname_py);
-	                $("#type").text(data.cTypeName);
-	                $(".rangeText").text(data.area);
-	                $(".addressText").text(data.address);
-	                $("#telephone").text(data.tel);
-	                $("#date").text(data.creattime);
-	                $(".scope").text(data.businessRange);
-	                $(".mainBusiness").text(data.zybusiness);
-	                $("#registerUnit").text(data.registerCompany);
-	                $("#getDate").text(data.getCartTime);
-	
-	                console.log(data.ishavelxr)
-	                if (data.ishavelxr == 1) {
-	                    // 启用了联系人
-	                    $(".contacts").css("display", "block");
-	                    // 法人信息
-	                    console.log(data.realname_fr)
-	                    $("#ceoName").text(data.realname_fr);
-	                    $("#ceoCertifiType").text("身份证");
-	                    $("#ceoNum").text(data.idcard_fr);
-	                    $("#ceotTel").text(data.tel_fr);
-	                    $("#ceoEmail").text(data.email_fr);
-	                    // 联系人信息
-	                    $("#contactsName").text(data.realname);
-	                    $("#ceoCertifiType").text("身份证");
-	                    $("#certificatesNum").text(data.idcard);
-	                    $("#contactsTel").text(data.usertel);
-	                    $("#contactsEmail").text(data.email);
-	                } else {
-	                    // 未启用联系人，没有联系人信息
-	                    $(".contacts").css("display", "none");
-	                    // 法人信息
-	                    $("#ceoName").text(data.realname);
-	                    $("#ceoCertifiType").text("身份证");
-	                    $("#ceoNum").text(data.idcard);
-	                    $("#ceotTel").text(data.usertel);
-	                    $("#ceoEmail").text(data.email);
-	                }
+	            } 
+							else {
+	              $(".company-li").text(data.ttname)
+	              $(".code-li").text(data.xycode)
+	              $(".email-li").text(data.email)
+	              $(".address-li").text(data.yjaddress)
+	              $(".service-li").text(data.title)
+								
+	              $(".pay-amount-li").text(data.money)
+	              $(".pay-date-li").text(data.adddate)
+	              $(".description-li").text(data.descripton)
+								
 	            }
 	
 	        },

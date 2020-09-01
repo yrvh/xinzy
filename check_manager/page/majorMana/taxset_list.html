@@ -569,14 +569,14 @@
 
 	// 渲染标题
 	if (income_status == 0) {
-		$("header span").text("修改待审核");
+		$("header span").text("待申报");
 		$(".select-btn").css("display","block")
 	}
 	if (income_status == 1) {
-		$("header span").text("服务中");
+		$("header span").text("申报成功");
 	}
 	if (income_status == 2) {
-		$("header span").text("审核退回");
+		$("header span").text("申报失败");
 	}
 
 	

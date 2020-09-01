@@ -532,12 +532,12 @@
 	
 	getInfoList()   //调用函数初始化 界面上要展示的数据列表 
 	
-	function getInfoList(name='',startdate='',enddate='',sfid='',yzid='') {
-
+	function getInfoList(name='',startdate='',enddate='',sfid='',yztype='',yzid='') {
+		// console.log(income_status)
 		// 请求数据
 		mui.post(urlDns + "/control_app/ms/fr_zg/fp/list", {
 			// 状态
-			income_status: income_status,
+			status: income_status,
 			// 第几页
 			page: page,
 			// 一页的条数
@@ -550,12 +550,13 @@
 			// 过滤条件的单位ID
 			sfid,
 			// 过滤条件的业者ID
+			yztype,
 			yzid,
 			pass_app: pass_app,
 			tel_app: tel_app,
 			code_app: code_app
 		}, function(data) {
-			console.log(JSON.stringify(data));
+			// console.log(JSON.stringify(data));
 			if (data.result == 0) {
 				// 需要重新登录
 				if (window.plus) {
@@ -573,12 +574,12 @@
 									<span class="comName">${data.rows[i].yzname}</span>
 									<div class="href" detailId="${data.rows[i].id}">
 											<span class="time">${data.rows[i].addtime}</span>
-											<img src="../../img/next.png" alt="">
+											<img src="../../../img/next.png" alt="">
 									</div>
 							</div>
 							<div class="amount">
 									<span>${data.rows[i].ttname}</span>
-									<span>${data.rows[i].money}</span>
+									<span></span>
 							</div>
 					</div>
 					`;
@@ -742,13 +743,13 @@
 	})
 
 	// 跳转详情页面
-	// $(document).on("click", ".list .href", function(e) {
-	// 	var detailId = $(this).attr("detailId");
-	// 	console.log(detailId)
-	// 	sessionStorage.setItem('detailId', detailId);
-	// 	// page.chooseType();
-	// 	location.href = "./invoice_query_detail.html";
-	// });
+	$(document).on("click", ".list .href", function(e) {
+		var detailId = $(this).attr("detailId");
+		console.log(detailId)
+		sessionStorage.setItem('detailId', detailId);
+		// page.chooseType();
+		location.href = "./invoice_query_detail.html";
+	});
 	
 	
 	// ================================================

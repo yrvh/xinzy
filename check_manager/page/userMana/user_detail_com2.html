@@ -49,9 +49,7 @@
 		
 		.info-title { line-height: 50px; font-weight: 800; font-size: 17px;}
 		
-		.com-license,.corp-email,.account-num,.comfree-contract,
-		.per-IDcardImg,.account-num,.income-scope,.taxes-type,.taxes-added,
-		.taxes-income,.com-range,.com-license,.account-num{border: none !important;}
+		ul>li:last-of-type {border: none !important;}
 		
 		.select-back {
 			position: absolute;
@@ -61,7 +59,6 @@
 			top: 0;
 			left: 5px;
 		}
-		.account-info {display: none;}
 	</style>
 </head>
 
@@ -77,47 +74,6 @@
 
 	<!-- 公司基本信息 -->
 	<div class="company-info">
-		<ul class="account-info">
-			<li class="account-bank">
-					<span>开户行</span>
-					<div>
-							<span class="account-bank-li"></span>
-					</div>
-			</li>
-			<li class="account-name">
-					<span>开户名</span>
-					<div>
-							<span class="account-name-li"></span>
-					</div>
-			</li>
-			<li class="account-num">
-					<span>账号</span>
-					<div>
-							<span class="account-num-li"></span>
-					</div>
-			</li>
-		</ul>
-		
-		<ul class="accountdg-info">
-			<li class="accountdg-bank">
-					<span>开户行</span>
-					<div>
-							<span class="accountdg-bank-li"></span>
-					</div>
-			</li>
-			<li class="accountdg-name">
-					<span>开户名</span>
-					<div>
-							<span class="accountdg-name-li"></span>
-					</div>
-			</li>
-			<li class="accountdg-num">
-					<span>账号</span>
-					<div>
-							<span class="accountdg-num-li"></span>
-					</div>
-			</li>
-		</ul>
 	</div>
 	
 	
@@ -140,31 +96,105 @@
 	});
 	// 返回之前要执行的操作 函数
 	function backActive() {
-		sessionStorage.removeItem("kh_name_sr")
-		sessionStorage.removeItem("khh_sr")
-		sessionStorage.removeItem("code_sr")
-		sessionStorage.removeItem("id_sr")
 		
-		sessionStorage.removeItem("ishave_yhcard_dg")
-		sessionStorage.removeItem("kh_name_dg")
-		sessionStorage.removeItem("khh_dg")
-		sessionStorage.removeItem("code_dg")
-		sessionStorage.removeItem("id_dg")
 	}
 	
+	
+	var pass_app = localStorage.getItem("pass_app");
+	var tel_app = localStorage.getItem("tel_app");
+	var code_app = localStorage.getItem("code_app");
 	// 获得传递过来的数据
 	let ishave_yhcard_dg = sessionStorage.getItem("ishave_yhcard_dg")
 	
+// 获取用户id
+	let detailId = sessionStorage.getItem("detailId")
+	
+	// 获得 公司类型的用户  其详细信息
+	getDetail()
 
-	// 渲染页面
-	// $(".account-bank-li").text( sessionStorage.getItem("kh_name_sr") );
-	// $(".account-name-li").text( sessionStorage.getItem("khh_sr") );
-	// $(".account-num-li").text( sessionStorage.getItem("code_sr"));
-
-	if(ishave_yhcard_dg==1) {
-		$(".accountdg-bank-li").text( sessionStorage.getItem("kh_name_dg") );
-		$(".accountdg-name-li").text( sessionStorage.getItem("khh_dg") );
-		$(".accountdg-num-li").text( sessionStorage.getItem("code_dg") );
+	
+	// 定义请求详情的函数
+	function getDetail() {
+		// console.log(detailId)
+		var index = layer.load(1, {
+				// 数组中第一个参数是button的透明度
+				// 第二个是背景颜色
+				shade: [0.3, "white"]
+		});
+		var getData = $.ajax({
+				url: urlDns + '/control_app/ms/fr/user/dw/showUI',
+				type: 'post',
+				dataType: "json",
+				timeout: 120000, //2分钟超时
+				data: {
+						"pass_app": pass_app,
+						"tel_app": tel_app,
+						"code_app": code_app,
+						"id": detailId
+				},
+				//请求成功
+				success: function(data) {
+					// console.log("公司详情页请求了2222")
+					// console.log(JSON.stringify(data));
+					layer.close(index);
+					if (data.result == 0) {
+							// 需要重新登录
+							if (window.plus) {
+									goToLogin("../../../page/register/login.html");
+							} else {
+									document.addEventListener('plusready', goToLogin, false);
+							}
+					} 
+					else {
+						// let yhcards = "卡号|开户行|老李;卡号|开户行|老张"
+						let yhcards = data.yhcards
+						let card_arr = []
+						// 将字符串拆成二维数组
+						yhcards.split(";").forEach((item,index) => {
+							card_arr.push( item.split("|") )
+						})
+						
+						// 将银行账户数据渲染到页面
+						let htmlStr = ""
+						for (let i = 0; i < card_arr.length; i++) {
+							htmlStr +=`
+								<ul class="account-info">
+									<li class="account-bank">
+											<span>开户行</span>
+											<div>
+													<span class="account-bank-li">${card_arr[i][0]}</span>
+											</div>
+									</li>
+									<li class="account-name">
+											<span>开户名</span>
+											<div>
+													<span class="account-name-li">${card_arr[i][2]}</span>
+											</div>
+									</li>
+									<li class="account-num">
+											<span>账号</span>
+											<div>
+													<span class="account-num-li">${card_arr[i][1]}</span>
+											</div>
+									</li>
+								</ul>
+							`;
+						}
+						$(".company-info").append(htmlStr);
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+						layer.close(index);
+						if (textStatus == 'timeout') {
+								getData.abort();　
+								alert("请求超时");
+						}
+						if (textStatus == 'error') {
+								getData.abort();　
+								alert("请求错误" + errorThrown);
+						}
+				}
+		});
 	}
 	
 

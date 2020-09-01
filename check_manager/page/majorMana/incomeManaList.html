@@ -424,8 +424,8 @@
 			<div class="dialog-money">总金额:&nbsp;&nbsp; ¥&nbsp;&nbsp;<span></span></div>
 			<div class="dialog-tel">
 				电话号: 
-				<input id="input-tel"  type="text" maxlength="11" name="userNum"  placeholder="请输入手机号..." />
-				<span class="clear-tel">清空</span>
+				<input id="input-tel" disabled  type="text" maxlength="11" name="userNum"  placeholder="请输入手机号..." />
+				<!-- <span class="clear-tel">清空</span> -->
 			</div>
 			<div class="dialog-code">验证码: <input id="input-code" type="text" name="verify" placeholder="输入验证码..." /><span class="get-code">获取验证码</span></div>
 			<div class="dialog-btn">
@@ -582,23 +582,23 @@
 		$("header span").text("待业者确认");
 	}
 	if (income_status == 3) {
-		$("header span").text("业者审核未通过");
+		$("header span").text("业者退回");
 	}
 	if (income_status == 2) {
-		$("header span").text("等待秘书公司确认");
+		$("header span").text("待秘书公司确认");
 	}
 	if (income_status == 5) {
-		$("header span").text("商秘公司审核未通过");
+		$("header span").text("秘书公司退回");
 	}
 	if (income_status == 6) {
-		$("header span").text("等待业务员发起支付");
+		$("header span").text("待发起支付");
 	}
 	if (income_status == 7) {
 		$("header span").text("待支付");
 		$(".select-btn").css("display","block")
 	}
 	if (income_status == 8) {
-		$("header span").text("已支付");
+		$("header span").text("用户已收款");
 	}
 
 	
@@ -1301,6 +1301,7 @@
 						$(".select_all").css("display", "none");
 						$(".comName").css("left", "0px");
 						$(".list").css("margin-top","152px");
+						getInfoList()   // 重新请求 列表数据
 					}
 				});
 		}

@@ -261,14 +261,14 @@
 	
 	// 渲染标题
 	if (income_status == 6) {
-		$("header span").text("待商秘公司确认");
+		$("header span").text("待确认");
 		$(".select-btn").css("display","block")
 	}
 	else if (income_status == 7) {
-		$("header span").text("商秘公司退回");
+		$("header span").text("已退回");
 	}
 	else if (income_status == 1) {
-		$("header span").text("商秘公司通过");
+		$("header span").text("已确认");
 	}
 
 	
@@ -292,7 +292,7 @@
 			tel_app: tel_app,
 			code_app: code_app
 		}, function(data) {
-			console.log(JSON.stringify(data));
+			// console.log(JSON.stringify(data));
 			if (data.result == 0) {
 				// 需要重新登录
 				if (window.plus) {
@@ -616,6 +616,7 @@
 						$(".select_all").css("display", "none");
 						$(".comName").css("left", "0px");
 						// $(".list").css("margin-top","152px");
+						getInfoList()   // 重新获取列表
 					}
 				}
 			});

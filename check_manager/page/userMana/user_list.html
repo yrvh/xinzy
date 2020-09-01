@@ -373,17 +373,17 @@
 	if(addtype==1) {
 		$(".selectFreeType").css("display","flex")
 		if (income_status == 7) {
-			$("header span").text("待主管审核");
+			$("header span").text("待审核");
 			$(".select-btn").css("display","block")
 		}
 		if (income_status == 3) {
 			$("header span").text("待完善资料");
 		}
 		if (income_status == 4) {
-			$("header span").text("待业者确认资料");
+			$("header span").text("待业者确认");
 		}
 		if (income_status == 44) {
-			$("header span").text("业者退回资料");
+			$("header span").text("业者退回");
 		}
 		if (income_status == 111) {
 			$("header span").text("待设置服务费用");
@@ -410,16 +410,16 @@
 			$("header span").text("营销员审核退回");
 		}
 		if (income_status == 8) {
-			$("header span").text("服务中");
+			$("header span").text("审核通过");
 		}
 		if (income_status == 77) {
-			$("header span").text("主管审核退回");
+			$("header span").text("审核退回");
 		}
 	}
 	if(addtype==2) {
 		$(".selectFreeType").css("display","none")
 		if (income_status == 1) {
-			$("header span").text("待主管审核");
+			$("header span").text("待审核");
 			$(".select-btn").css("display","block")
 		}
 		if (income_status == 3) {
@@ -435,26 +435,26 @@
 			$("header span").text("待营销员确认");
 		}
 		if (income_status == 8) {
-			$("header span").text("服务中");
+			$("header span").text("审核通过");
 		}
 		if (income_status == 11) {
-			$("header span").text("审核主管退回");
+			$("header span").text("审核退回");
 		}
 	}
 	if(addtype==11) {
 		$(".selectFreeType").css("display","none")
 		if (income_status == 7) {
-			$("header span").text("待主管审核");
+			$("header span").text("待审核");
 			$(".select-btn").css("display","block")
 		}
 		if (income_status == 3) {
 			$("header span").text("待完善资料");
 		}
 		if (income_status == 4) {
-			$("header span").text("待合作伙伴确认资料");
+			$("header span").text("待合作伙伴确认");
 		}
 		if (income_status == 44) {
-			$("header span").text("合作伙伴退回资料");
+			$("header span").text("合作伙伴退回");
 		}
 		if (income_status == 33) {
 			$("header span").text("待完善个人信息");
@@ -472,10 +472,10 @@
 			$("header span").text("营销员审核退回");
 		}
 		if (income_status == 8) {
-			$("header span").text("服务中");
+			$("header span").text("审核通过");
 		}
 		if (income_status == 77) {
-			$("header span").text("主管审核退回");
+			$("header span").text("审核退回");
 		}
 	}
 

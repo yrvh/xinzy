@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../../js/mui.min.js"></script>
     <link rel="stylesheet" href="../../css/mui.min.css">
-    <title>纳税记录</title>
+    <title>报税管理</title>
 		
 		<style type="text/css">
 			body {
@@ -157,7 +157,7 @@
 
 <body>
     <header>
-        <img class="back" src="../../img/back_black.png" alt=""> 纳税记录
+        <img class="back" src="../../img/back_black.png" alt=""> 报税管理
     </header>
 
     <section class="contBox">
@@ -354,6 +354,26 @@
 	        });
 	    }
 	});
+	$.post(urlDns + "/share/bs_end_app/showUI", {
+	    id:59,
+	    pass_app: pass_app,
+	    tel_app: tel_app,
+	    code_app: code_app
+	}, (data) => {
+	    console.log(JSON.stringify(data));
+	    if (data.result == 0) {
+	        // 需要重新登录
+	        if (window.plus) {
+	            goToLogin("../register/login.html");
+	        } else {
+	            document.addEventListener('plusready', goToLogin, false);
+	        }
+	    } 
+			else {
+				
+			}
+		}
+	)
 </script>
 
 </html>

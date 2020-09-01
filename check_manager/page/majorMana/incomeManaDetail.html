@@ -11,7 +11,7 @@
 	<title>审核主管--收入管理--信息详情</title>
 	
 	<style type="text/css">
-		body { margin: 0; padding: 0; font-size: 16px; color: #333333; }
+		body { margin: 0; padding: 0; font-size: 16px; color: #333333; background-color: #fafafa;}
 		
 		header { position: fixed;
 			top: 0; left: 0; text-align: center; width: 100%;
@@ -21,7 +21,7 @@
 		
 		.back { width: 20px; height: 20px; position: absolute; top: 12px; left: 5px; color: #7EB6FF; }		
 		
-		.the-place { width: 100%; height: 44px; }
+		.the-place { width: 100%; height: 44px; margin-bottom: 20px;}
 		
 		.com-status { width: 100%; line-height: 44px; background-color: #fff; margin: 20px 0; padding: 0 15px;}
 		
@@ -39,10 +39,106 @@
 		
 		.pay-amount-li { font-weight: 700; color: #0062CC; }
 		.ul-title{padding-left: 14px; background-color: #eee; font-size: 14px;}
+		
+		.base-info{ margin-bottom: 20px;}
+		.deal-ul{ margin-bottom: 60px;}
+		.con-dialog { width: 200px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
+		
+		
+		/* 展示退回 原因的容器 start*/
+		.returnTitle,
+		.returnCont {
+			background-color: #fff;
+		    display: none;
+		    width: 100%;
+		    font-size: 14px;
+		    padding: 0 2.5%;
+				line-height: 30px;
+		}
+		.returnCont {
+			margin-bottom: 30px;
+		}
+		
+		
+		/* --------- 弹出平台协议的样式------  */
+		.ctra-dialog {background-color: #FFF; display: none; position: fixed; width: 100%; height: 100vh; overflow-y: auto; left: 0; top: 0; z-index: 120;}
+			
+		.ctra-header {
+				position: fixed;
+				top: 0;
+				left: 0;
+				text-align: center;
+				width: 100%;
+				height: 44px;
+				line-height: 44px;
+				background-color: white;
+				box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+				font-weight: bold;
+				font-size: 16px;
+		}
+		
+		.ctra-header>img {
+				position: absolute;
+				top: 12px;
+				left: 5px;
+				width: 20px;
+				height: 20px;
+		}
+		p {margin: 0;}
+		.itemContent {
+				width: 100%;
+				/* height: calc(100vh - 20px); */
+				margin-top: 40px;
+				padding: 15px 8px 0 15px;
+		}
+		.type-title{
+		 display: none;	margin: 60px 0 20px; border: 1px solid #7EB6FF; color: #7EB6FF; height: 44px; line-height: 44px; font-size: 18px; text-align: center;
+		}
+		
+		.select-back {
+			position: absolute;
+			width: 80px;
+			/* line-height: 46px; */
+			color: #7EB6FF;
+			top: 0;
+			left: 5px;
+		}
+		
+		.imgBox {
+			width: 96%;
+			height: 40vh;
+			border: 1px solid #aaaaaa;
+			margin: 20px auto;
+		}
+		
+		.imgBox>img {
+		    width: 100%;
+		    height: 100%;
+		}
 	</style>
 </head>
 
 <body>
+	<!-- 装 每个协议的容器 -->
+	<div class="ctra-dialog">
+		<header class="ctra-header">
+		  <!-- <img class="back" src="../../img/back_black.png" alt=""> 慧业通服务平台条款 -->
+			<div class="back select-back"> <<返回 </div>
+			<span class="title-span">协议详情</span>
+		</header>
+		<div class="type-title"></div>
+		<div class="itemContent">
+		
+		</div>
+		<!-- 图片预览放大的功能 -->
+		<!-- <section class="imgzoom_pack">
+			<div class="imgzoom_x">X</div>
+			<div class="imgzoom_img"><img src="" /></div>
+		</section> -->
+	</div>
+	
+	
+	
 	<header>
 			<img class="back" src="../../../img/back_black.png" alt=""> 收入信息
 	</header>
@@ -94,15 +190,15 @@
 	<div class="ul-title">内容详情:</div>
 	<ul class="base-info">
 		<li class="service-name">
-				<span>劳务、服务名称</span>
+				<span>项目名称</span>
 				<div>
 						<span class="service-name-li"></span>
 				</div>
 		</li>
 		<li class="service-con">
-				<span>劳务、服务内容</span>
+				<span>项目内容</span>
 				<div>
-						<span class="service-con-li"></span>
+						<span class="service-con-li con-dialog" id="con-dialog"></span>
 						<img src="../../../img/next.png" alt="">
 				</div>
 		</li>
@@ -119,18 +215,36 @@
 				</div>
 		</li>
 	</ul>
+	
+	<ul class="deal-ul">
+		<li class="deal">
+				<span>业务合同</span>
+				<div>
+						<span class="deal-li"></span>
+						<img class="nextImg" src="../../../img/next.png" alt="">
+				</div>
+		</li>
+	</ul>
 
+	<!-- 审核退回时显示 -->
+	<div class="returnTitle">退回原因：</div>
+	<div class="returnCont">艾斯黛肯就7593245723948573294</div>
 </body>
 <script src="../../../js/jquery-3.3.1.js"></script>
 <script src="../../../js/urlDns.js"></script>
 <script src="../../../js/layer/layer.js"></script>
 
 <script type="text/javascript">
-	
 	mui.init({
 		beforeback: function() {
-			backActive()
-			return true
+			if(is_agree){
+				backActive()
+				return false
+			}
+			else{ 
+				// history.go(-2)
+				return true 
+			}
 		}
 	})
 	// 返回=======================
@@ -139,17 +253,49 @@
 	});
 	// 返回之前要执行的操作 函数
 	function backActive() {
+		// sessionStorage.removeItem("incomeDetailId");
 		// sessionStorage.removeItem("income_status");
+		if(is_agree) {
+			$(".ctra-dialog").css("display","none")
+			is_agree = false
+		}
 	}
+		
+	// 用户是否处在 条款详情页
+	var is_agree = false 
+	
+	// mui.init({
+	// 	beforeback: function() {
+	// 		backActive()
+	// 		return true
+	// 	}
+	// })
+	// // 返回=======================
+	// $(".back").click(() => {
+	// 	mui.back();
+	// });
+	// // 返回之前要执行的操作 函数
+	// function backActive() {
+	// 	// sessionStorage.removeItem("income_status");
+	// }
+	
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
-
+	
+	// 获取进入的状态值
+	var income_status = sessionStorage.getItem("income_status")
+	if(income_status == 5){
+		$(".returnTitle").css("display","block")
+		$(".returnCont").css("display","block")
+	}
+	
 	// 获取id
 	var detailId = sessionStorage.getItem("detailId");
-	// 定义一个存储 劳动服务内容的变量
-	let detail_content = ''
 	
+	
+	let xy_type   // 协议类型
+	let imgs   // 协议内容
 	$(function() {
 	    var index = layer.load(1, {
 	        // 数组中第一个参数是button的透明度
@@ -169,7 +315,7 @@
 	        },
 	        //请求成功
 	        success: function(data) {
-	            // console.log(JSON.stringify(data));
+	            console.log(JSON.stringify(data));
 	            layer.close(index);
 	            if (data.result == 0) {
 	                // 需要重新登录
@@ -198,7 +344,9 @@
 								$(".service-cycle-li").text(data.zq);
 								$(".pay-amount-li").text(data.allmoney);
 								// formatMoney(data.allmoney,2,'¥')
-								detail_content = data.descripts
+								
+								xy_type = data.xy_type
+								imgs = data.imgs
 	            }
 	
 	        },
@@ -217,11 +365,44 @@
 	});
 	
 	// 劳动服务内容
-	$(".service-con").click(() => {
-		sessionStorage.setItem("title","劳动服务内容")
-		sessionStorage.setItem("detail_content",detail_content)
-		sessionStorage.setItem("user_type","411")
-	  location.href = "../business_content.html";
+	// $(".service-con").click(() => {
+	// 	sessionStorage.setItem("title","劳动服务内容")
+	// 	sessionStorage.setItem("detail_content",detail_content)
+	// 	sessionStorage.setItem("user_type","411")
+	//   location.href = "../business_content.html";
+	// });
+	
+	$("#con-dialog").click(()=>{
+		// 展示详细信息
+		mui.alert($("#con-dialog").html(),'详细内容','关闭','','div')
+	})
+	
+	
+	// 点击业务合同===========================
+	$(".deal").click(() => {
+	  is_agree = true
+	  $(".ctra-dialog").css("display","block")
+	  // if ($(document.body).height() < $(window).height() - 185) {
+	  //     // 减掉的64是除了$(".cont")以外其他元素的高度
+	  //     $(".itemContent").css("height", "calc(100vh - 64px)");
+	  // }
+	  if(xy_type==2) {
+	  	$(".itemContent").html(imgs);
+	  }
+	  else {
+	  	let htmlStr = "";
+	  	// let img_arr = imgs.split(",")
+	  	let len = imgs.length || 0
+	  	for (var i = 0; i < len; i++) {
+	  			htmlStr += `
+	  	<div class="imgBox" style="width: 96%; height: 70vh; border: 1px solid #aaaaaa;	margin: 10px auto;">
+	  			<img class="img-crt" src="${imgs[i]}" style="width:100%; height:100%;" alt="">
+	  	</div>
+	  	`;
+	  	}
+	  	$(".itemContent").html(htmlStr);
+	  }
 	});
+	
 </script>
 </html>

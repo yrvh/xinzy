@@ -261,11 +261,11 @@
 	
 	// 渲染标题
 	if (income_status == 2) {
-		$("header span").text("待业者确认");
+		$("header span").text("待确认");
 		$(".select-btn").css("display","block")
 	}
 	else if (income_status == 3) {
-		$("header span").text("业者退回");
+		$("header span").text("已退回");
 	}
 	else if (income_status == 4) {
 		$("header span").text("待业务员确认");
@@ -274,13 +274,13 @@
 		$("header span").text("业务员退回");
 	}
 	else if (income_status == 6) {
-		$("header span").text("待主管审核");
+		$("header span").text("待商秘公司确认");
 	}
 	else if (income_status == 7) {
-		$("header span").text("审核退回");
+		$("header span").text("商秘公司退回");
 	}
 	else if (income_status == 1) {
-		$("header span").text("审核通过");
+		$("header span").text("商秘公司已确认");
 	}
 
 	
@@ -627,6 +627,7 @@
 						$(".select_all").css("display", "none");
 						$(".comName").css("left", "0px");
 						// $(".list").css("margin-top","152px");
+						getInfoList()   // 重新发起请求,, 刷新列表的数据
 					}
 				}
 			});

@@ -37,6 +37,9 @@
 			
 			.mybadge {display: none;}
 			.change .mybadge { display: none; position: absolute; right: 0; top: 0;}
+			
+			
+			.waitclerk,.clerkback {display: none;}
 		</style>
 	</head>
 	<body>
@@ -61,7 +64,7 @@
 				</div>
 			</li>
 			<li class="freeback">
-				<span>业者退回</span>
+				<span>退回</span>
 				<div>
 						<span class="freeback-li"></span>
 						<img src="../../../img/next.png" alt="">
@@ -82,7 +85,7 @@
 			    </div>
 			</li>
 			<li class="pass">
-			    <span>商秘公司已确认</span>
+			    <span>用户已收款</span>
 			    <div>
 			        <span class="pass-li"></span>
 			        <img src="../../../img/next.png" alt="">
@@ -114,14 +117,21 @@
 		<!-- 业务合同 -->
 		<ul class="deal-ul">
 			<li class="wait">
-				<span>待业者确认 <span class="mybadge mui-badge mui-badge-danger"></span></span>
+				<span>待确认 <span class="mybadge mui-badge mui-badge-danger"></span></span>
 				<div>
 						<span class="wait-li"></span>
 						<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
+			<li class="pass">
+				<span>商秘公司已确认</span>
+				<div>
+						<span class="pass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
 			<li class="freeback">
-				<span>业者退回</span>
+				<span>已退回</span>
 				<div>
 						<span class="freeback-li"></span>
 						<img src="../../../img/next.png" alt="">
@@ -155,13 +165,7 @@
 						<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
-			<li class="pass">
-				<span>商秘公司通过</span>
-				<div>
-						<span class="pass-li"></span>
-						<img src="../../../img/next.png" alt="">
-				</div>
-			</li>
+			
 			
 		</ul>
 		
@@ -267,7 +271,7 @@
 	});
 	$(".income-ul .pass").click(() => {
 		sessionStorage.setItem("addtype", "2");
-		sessionStorage.setItem("income_status", 6);
+		sessionStorage.setItem("income_status", 8);
 		location.href = './incomeDetailList_a.html';
 	});
 	$(".income-ul .wait-startpay").click(() => {
@@ -338,7 +342,7 @@
 		    pass_app:pass_app,
 		    code_app:code_app
 		}, function(data) {
-			// console.log(JSON.stringify(data));
+			console.log(JSON.stringify(data));
 			if (data.result == 0) {
 				// 需要重新登录
 				if (window.plus) {
@@ -366,7 +370,7 @@
 					$(".income-ul .freeback-li").text(data.yz_nopass);
 					$(".income-ul .waitcom-li").text(data.yz_pass);
 					$(".income-ul .nopass-li").text(data.ms_nopass);
-					$(".income-ul .pass-li").text(data.ms_pass);
+					$(".income-ul .pass-li").text(data.bb_8);
 					// $(".income-ul .wait-startpay-li").text(data.ms_pass);
 					// $(".income-ul .wait-pay-li").text(data.ms_pass);
 					// $(".income-ul .proceeds-li").text(data.ms_pass);

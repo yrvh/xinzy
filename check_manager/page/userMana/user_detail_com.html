@@ -49,14 +49,13 @@
 		
 		.info-title { line-height: 50px; font-weight: 800; font-size: 17px;}
 		
-		.com-license,.corp-email,.account-num,.comfree-contract,
-		.per-IDcardImg,.income-scope,.taxes-type,.taxes-added,
-		.taxes-income,.agent-email{border: none !important;}
+		ul>li:last-of-type {border: none !important;}
 		
 		.personal,.individual,.income-info { display: none; }
 		.agent-info {display: none;}
 		
 		.con-dialog { width: 200px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
+		
 	</style>
 </head>
 
@@ -229,7 +228,7 @@
 			<li class="agent-type">
 					<span>证件类型</span>
 					<div>
-							<span class="agent-type-li"></span>
+							<span class="agent-type-li">身份证</span>
 					</div>
 			</li>
 			<li class="agent-number">
@@ -317,7 +316,6 @@
 				},
 				//请求成功
 				success: function(data) {
-					// console.log("公司详情页请求了")
 					// console.log(JSON.stringify(data));
 					layer.close(index);
 					if (data.result == 0) {
@@ -377,8 +375,10 @@
 						else { $(".corp-photo-li").text("未上传") }
 						$(".corp-tel-li").text(data.fr_tel)
 						$(".corp-email-li").text(data.fr_email)
+						
+						// 启用了联系人
 						if(data.ishave_lxr==1) {
-							$(".agent-info").css("dispaly","block")
+							$(".agent-info").css("display","block")
 							$(".agent-name-li").text(data.lxr_realname)
 							$(".agent-type-li").text("身份证")
 							$(".agent-number-li").text(data.lxr_idcard)
@@ -397,17 +397,6 @@
 							$(".agent-tel-li").text(data.lxr_tel)
 							$(".agent-email-li").text(data.lxr_email)
 						}
-						
-						// 保存银行相关的数据
-						// sessionStorage.setItem("kh_name_sr",data.kh_name_sr)
-						// sessionStorage.setItem("khh_sr",data.khh_sr)
-						// sessionStorage.setItem("code_sr",data.code_sr)
-						// sessionStorage.setItem("id_sr",data.id_sr)
-						sessionStorage.setItem("ishave_yhcard_dg",data.ishave_yhcard_dg)
-						sessionStorage.setItem("kh_name_dg",data.kh_name_dg)
-						sessionStorage.setItem("khh_dg",data.khh_dg)
-						sessionStorage.setItem("code_dg",data.code_dg)
-						sessionStorage.setItem("id_dg",data.id_dg)
 					}
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {

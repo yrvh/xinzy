@@ -46,7 +46,7 @@
         <div class="change">
             <div class="input_com">收入管理  <span class="mybadge mui-badge mui-badge-danger"></span></div>
             <div class="input_free">发票查询</div>
-						<div class="input_coop">报税审核  <span class="mybadge mui-badge mui-badge-danger"></span></div>
+						<div class="input_coop">报税查询  <span class="mybadge mui-badge mui-badge-danger"></span></div>
 						<div class="input_deal">业务合同  <span class="mybadge mui-badge mui-badge-danger"></span></div>
         </div>
     </header>
@@ -63,28 +63,28 @@
 				</div>
 			</li>
 			<li class="free-nopass">
-				<span>业者审核未通过</span>
+				<span>业者退回</span>
 				<div>
 						<span class="free-nopass-li"></span>
 						<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
 			<li class="com-check">
-				<span>待商秘公司确认</span>
+				<span>待秘书公司确认</span>
 				<div>
 						<span class="com-check-li"></span>
 						<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
 			<li class="com-nopass">
-				<span>商秘公司审核未通过</span>
+				<span>秘书公司退回</span>
 				<div>
 						<span class="com-nopass-li"></span>
 						<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
 			<li class="wait-salesman">
-				<span>待业务员发起支付</span>
+				<span>待发起支付</span>
 				<div>
 						<span class="wait-salesman-li"></span>
 						<img src="../../../img/next.png" alt="">
@@ -98,7 +98,7 @@
 				</div>
 			</li>
 			<li class="complete-pay">
-				<span>已支付</span>
+				<span>用户已收款</span>
 				<div>
 						<span class="complete-pay-li"></span>
 						<img src="../../../img/next.png" alt="">
@@ -147,56 +147,58 @@
 		</ul>
 		
 		
-		<!-- 报税审核 -->
+		<!-- 报税查询 -->
 		<ul class="tax-ul">
 			<li class="waitcheck">
-			    <span>修改待审核 <span class="mybadge mui-badge mui-badge-danger"></span></span>
+			    <span>待申报 <span class="mybadge mui-badge mui-badge-danger"></span></span>
 			    <div>
 			        <span class="waitcheck-li"></span>
 			        <img src="../../../img/next.png" alt="">
 			    </div>
 			</li>
+			<li class="nopass">
+					<span>申报失败</span>
+					<div>
+							<span class="nopass-li"></span>
+							<img src="../../../img/next.png" alt="">
+					</div>
+			</li>
 			<li class="pass">
-					<span>服务中</span>
+					<span>申报成功</span>
 					<div>
 							<span class="pass-li"></span>
 							<img src="../../../img/next.png" alt="">
 					</div>
 			</li>
 			
-			<li class="nopass">
-					<span>审核退回</span>
-					<div>
-							<span class="nopass-li"></span>
-							<img src="../../../img/next.png" alt="">
-					</div>
-			</li>
+			
 		    
 		</ul>
 		
 		<!-- 业务合同 -->
 		<ul class="deal-ul">
 			<li class="waitcom">
-				<span>待商秘公司确认  <span class="mybadge mui-badge mui-badge-danger"></span></span>
+				<span>待确认  <span class="mybadge mui-badge mui-badge-danger"></span></span>
 				<div>
 						<span class="waitcom-li"></span>
 						<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
-			<li class="nopass">
-				<span>商秘公司退回</span>
-				<div>
-						<span class="nopass-li"></span>
-						<img src="../../../img/next.png" alt="">
-				</div>
-			</li>
 			<li class="pass">
-				<span>商秘公司通过</span>
+				<span>已确认</span>
 				<div>
 						<span class="pass-li"></span>
 						<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
+			<li class="nopass">
+				<span>已退回</span>
+				<div>
+						<span class="nopass-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			
 		</ul>
 	</body>
 
@@ -283,7 +285,7 @@
 		$(".tax-ul").css("display","block");
 		$(".deal-ul").css("display","none");
 			
-		getInfo(11) // 重新获取报税审核
+		getInfo(11) // 重新获取报税查询
 	})
 	
 	$(".input_deal").click(()=>{
@@ -301,7 +303,7 @@
 		$(".tax-ul").css("display","none");
 		$(".deal-ul").css("display","block");
 			
-		getInfo(9) // 重新获取报税审核
+		getInfo(9) // 重新获取报税查询
 	})
 	
 	// 判断下一个 页面返回来是处在 收入  发票  报税
@@ -441,7 +443,7 @@
 		location.href = './invoice_query_list.html';
 	});
 	
-	// =======报税审核============
+	// =======报税查询============
 	$(".waitcheck").click(() => {
 		sessionStorage.setItem("addtype", "11");
 		sessionStorage.setItem("income_status", 0);
@@ -505,7 +507,7 @@
 						$(".input_com .mybadge").text(data.wait_pay)
 					}
 					else { 
-						$(".mybadge").css("display","none")
+						$(".income-ul .mybadge").css("display","none")
 						$(".input_com .mybadge").css("display","none")
 					}
 						
@@ -514,8 +516,8 @@
 				$(".com-check-li").text(data.wait_check);
 				$(".com-nopass-li").text(data.ms_nopass);
 				$(".wait-salesman-li").text(data.ms_send_pay);
-				$(".wait-pay-li").text(data.wait_pay);
-				$(".complete-pay-li").text(data.pay);
+				$(".wait-pay-li").text(data.bb_7);
+				$(".complete-pay-li").text(data.bb_8);
 				}
 					
 			});
@@ -547,7 +549,7 @@
 					}
 			})
 		}
-		// 报税审核
+		// 报税查询
 		else if(enterType==11){
 			console.log("函数执行了")
 			mui.get(urlDns + "/share/bs_app/nssetting/index", {

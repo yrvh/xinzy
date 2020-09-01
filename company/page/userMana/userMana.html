@@ -6,7 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<script src="../../../js/mui.min.js"></script>
 		<link rel="stylesheet" href="../../../css/mui.min.css">
-		<title>--单位--商户管理--</title>
+		<title>--单位--业者管理--</title>
 		
 		<style type="text/css">
 			body { margin: 0; padding: 0; color: #333333; }
@@ -43,14 +43,14 @@
    <header>
         <img class="back" src="../../../img/back_black.png" alt="">
         <div class="change">
-            <div class="input_free">商户管理  <span class="mybadge mui-badge mui-badge-danger"></span></div>
+            <div class="input_free">业者管理  <span class="mybadge mui-badge mui-badge-danger"></span></div>
 						<div class="input_deal">业务合同  <span class="mybadge mui-badge mui-badge-danger"></span></div>
         </div>
     </header>
 		<div class="occupy"></div>
 		
 		
-		<!-- 商户管理 -->
+		<!-- 业者管理 -->
 		<ul class="free-ul">
 			<li class="wait-comfirm">
 				<span>待确认 <span class="mybadge mui-badge mui-badge-danger"></span></span>
@@ -207,7 +207,7 @@
 	
 	
 	// 跳转到列表页
-	// ========商户管理=============
+	// ========业者管理=============
 	$(".free-ul .wait-comfirm").click(() => {
 		sessionStorage.setItem("income_status", 5);
 		location.href = './user_list.html';
@@ -260,14 +260,14 @@
 	// 请求数据的函数
 	
 	function getInfo(enterType) {
-		// 收入管理
-		if(enterType==2){
+		if(enterType==2){   // 业者管理
+		console.log("函数执行了")
 			mui.post(urlDns + "/control_app/sf/user/main",{
 			    tel_app:tel_app,
 			    pass_app:pass_app,
 			    code_app:code_app
 			}, function(data) {
-				// console.log(JSON.stringify(data));
+				console.log(JSON.stringify(data));
 				if (data.result == 0) {
 					// 需要重新登录
 					if (window.plus) {

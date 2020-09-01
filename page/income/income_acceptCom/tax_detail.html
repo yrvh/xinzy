@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script src="../../js/mui.min.js"></script>
+	<link rel="stylesheet" href="../../css/mui.min.css">
+	<script src="../../js/mescroll.min.js"></script>
+	<link rel="stylesheet" href="../../css/mescroll.min.css">
+	<title> 业者--报税管理--详情页面</title>
+	
+	<style type="text/css">
+		body { margin: 0; padding: 0; font-size: 16px; color: #333333; }
+		
+		header { position: fixed;
+			top: 0; left: 0; text-align: center; width: 100%;
+			height: 44px; line-height: 44px; background-color: white;
+			box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+			font-weight: bold; font-size: 16px; z-index: 99; }
+		header>div {
+			position: absolute;
+			top: 0;
+			right: 5px;
+			height: 44px;
+			line-height: 44px;
+		}
+		
+		header>div>span {
+			color: #999999;
+		}
+		
+		.back { width: 20px; height: 20px; position: absolute; top: 12px; left: 5px; color: #7EB6FF; }		
+		
+		.the-place { width: 100%; height: 44px; margin-bottom: 20px;}
+		
+		
+		.imgBox {
+			width: 96%;
+			height: 50vh;
+			border: 1px solid #aaaaaa;
+			margin: 10px auto;
+		}
+		
+		.imgBox>img {
+		    width: 100%;
+		    height: 100%;
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+			<img class="back" src="../../img/back_black.png" alt="">
+			<span class="title-span">完税证明</span>
+	</header>
+	<div class="the-place"></div>
+	<div class="content"></div>
+	
+	
+	
+</body>
+<script src="../../js/jquery-3.3.1.js"></script>
+<script src="../../js/urlDns.js"></script>
+<script src="../../js/layer/layer.js"></script>
+
+<script type="text/javascript">
+	
+	mui.init({
+		beforeback: function() {
+			backActive()
+			return true
+		}
+	})
+	// 返回=======================
+	$(".back").click(() => {
+		mui.back();
+	});
+	// 返回之前要执行的操作 函数
+	function backActive() {
+		sessionStorage.removeItem("detailId")
+	}
+	
+	var pass_app = localStorage.getItem("pass_app");
+	var tel_app = localStorage.getItem("tel_app");
+	var code_app = localStorage.getItem("code_app");
+	
+	
+	
+	// 获取id
+	let detailId = sessionStorage.getItem("detailId")
+	getDetail()
+	
+	// 定义请求详情的函数
+	function getDetail() {
+		$.post(urlDns + "/share/bs_end_app/showUI", {
+		    id:detailId,
+		    pass_app: pass_app,
+		    tel_app: tel_app,
+		    code_app: code_app
+		}, (data) => {
+		    console.log(JSON.stringify(data));
+		    if (data.result == 0) {
+		        // 需要重新登录
+		        if (window.plus) {
+		            goToLogin("../register/login.html");
+		        } else {
+		            document.addEventListener('plusready', goToLogin, false);
+		        }
+		    } 
+				else {
+					let htmlStr = "";
+					data = {"result":"1","imgs":['https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3207397593,265155905&fm=26&gp=0.jpg','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1598853338062&di=6079c666fd332545c8d4c607f342c634&imgtype=0&src=http%3A%2F%2Fimg0.imgtn.bdimg.com%2Fit%2Fu%3D1373169855%2C1438695195%26fm%3D214%26gp%3D0.jpg'],"imgs_size":0,"message":"获取数据成功!"}
+					let img_arr = data.imgs
+					if(img_arr==0){
+						$(".content").html("完税证明, 数据为空....");
+					}
+					else{
+						let len = img_arr.length || 0
+						for (var i = 0; i < len; i++) {
+							console.log(img_arr[i])
+								htmlStr += `
+						<div class="imgBox">
+								<img class="img-crt" src="${img_arr[i]}" alt="">
+						</div>
+						`;
+						}
+						$(".content").html(htmlStr);
+					}
+					
+				}
+			}
+		)
+		
+		// var getData = mui.ajax({
+		// 		url: urlDns + "/share/bs_end_app/showUI",
+		// 		type: 'post',
+		// 		dataType: "json",
+		// 		timeout: 120000, //2分钟超时
+		// 		data: {
+		// 				"pass_app": pass_app,
+		// 				"tel_app": tel_app,
+		// 				"code_app": code_app,
+		// 				"id": detailId
+		// 		},
+		// 		//请求成功
+		// 		success: function(data) {
+		// 				console.log(JSON.stringify(data));
+		// 				if (data.result == 0) {
+		// 						// 需要重新登录
+		// 						if (window.plus) {
+		// 								goToLogin("../../page/register/login.html");
+		// 						} else {
+		// 								document.addEventListener('plusready', goToLogin, false);
+		// 						}
+		// 				} 
+		// 				else {
+		// 					let htmlStr = "";
+		// 					data = {"result":"1","imgs":['https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3207397593,265155905&fm=26&gp=0.jpg','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1598853338062&di=6079c666fd332545c8d4c607f342c634&imgtype=0&src=http%3A%2F%2Fimg0.imgtn.bdimg.com%2Fit%2Fu%3D1373169855%2C1438695195%26fm%3D214%26gp%3D0.jpg'],"imgs_size":0,"message":"获取数据成功!"}
+		// 					let img_arr = data.imgs
+		// 					if(img_arr==0){
+		// 						$(".itemContent").html("完税证明, 数据为空....");
+		// 					}
+		// 					else{
+		// 						let len = img_arr.length || 0
+		// 						for (var i = 0; i < len; i++) {
+		// 							console.log(img_arr[i])
+		// 								htmlStr += `
+		// 						<div class="imgBox">
+		// 								<img class="img-crt" src="${img_arr[i]}" alt="">
+		// 						</div>
+		// 						`;
+		// 						}
+		// 						$(".itemContent").html(htmlStr);
+		// 					}
+							
+		// 				}
+		// 		},
+		// 		error: function(XMLHttpRequest, textStatus, errorThrown) {
+		// 				if (textStatus == 'timeout') {
+		// 						getData.abort();　
+		// 						alert("请求超时");
+		// 				}
+		// 				if (textStatus == 'error') {
+		// 						getData.abort();　
+								
+		// 						if(errorThrown==null){
+		// 							mui.alert('个人信息尚未完善!~','提示','关闭','','div')
+		// 						}
+		// 						else {
+		// 							alert("请求错误" + errorThrown);
+		// 						}
+		// 				}
+		// 		}
+		// });
+	}
+	
+</script>
+</html>

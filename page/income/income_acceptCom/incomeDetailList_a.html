@@ -318,16 +318,16 @@
 		$(".select-btn").css("display","block")
 	}
 	else if (income_status == 3) {
-		$("header span").text("业者退回");
+		$("header span").text("退回");
 	}
 	else if (income_status == 2) {
-		$("header span").text("待主管审核");
+		$("header span").text("待商秘公司确认");
 	}
 	else if (income_status == 5) {
-		$("header span").text("审核退回");
+		$("header span").text("商秘公司退回");
 	}
 	else if (income_status == 6) {
-		$("header span").text("审核通过");
+		$("header span").text("商秘公司已确认");
 	}
 
 	
@@ -341,7 +341,7 @@
 		// 请求数据
 		mui.post(urlDns + "/control_app/yz/zf/list", {
 			// 状态
-			stauts: income_status,
+			status: income_status,
 			// 第几页
 			page: page,
 			// 一页的条数
@@ -372,7 +372,7 @@
 								<input class="select" name="hh" value="beihai" type="checkbox">
 								<div class="comTime">
 										<span class="comName">${data.rows[i].comname}</span>
-										<div class="href" detailId="${data.rows[i].id}">
+										<div class="href" detailId="${data.rows[i].id}" comname="${data.rows[i].comname}">
 												<span class="time">${data.rows[i].zq}</span>
 												<img src="../../../img/next.png" alt="">
 										</div>
@@ -545,10 +545,11 @@
 
 	// 跳转详情页面
 	$(document).on("click", ".list .href", function(e) {
-	    var detailId = $(this).attr("detailId");
-			// console.log(detailId)
+	    let detailId = $(this).attr("detailId");
+			let comname = $(this).attr("comname")
 	    sessionStorage.setItem('incomeDetailId', detailId);
-	    // page.chooseType();
+	    sessionStorage.setItem('comname', comname);
+	    
 	    location.href = "./incomeDetail_a.html";
 	});
 	
@@ -688,6 +689,7 @@
 						$(".select_all").css("display", "none");
 						$(".comName").css("left", "0px");
 						$(".list").css("margin-top","108px");
+						getInfoList()   // 重新加载列表
 					}
 				}
 			});
