@@ -38,13 +38,11 @@
 		ul>li:last-of-type {border: none !important;}
 		.fwstyle { color: #0062CC; font-weight: 600;}
 		
-		.pay-amount-li { font-weight: 700; color: #0062CC; }
-		.ul-title{padding-left: 14px; background-color: #eee; font-size: 14px;}
-		
+		.info-title { line-height: 50px; font-weight: 800; font-size: 17px;}
 		.info-ul { margin: 20px 0; }
 		.deal-ul{ margin-bottom: 60px;}
 		
-		.con-dialog { width: 200px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
+		.con-dialog {text-align: right; width: 200px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
 		
 		footer {
 			position: fixed;
@@ -166,18 +164,33 @@
 			<img class="back" src="../../../img/back_black.png" alt=""> 收入信息
 	</header>
 	<div class="the-place"></div>
-	<!-- <div class="ul-title">收款方信息:</div> -->
 	<ul class="com-ul">
+		<div class="info-title">服务项目信息</div>
+		<li class="xname">
+				<span>项目名称</span>
+				<div>
+						<span class="xname-li"></span>
+				</div>
+		</li>
+		<li class="descripts">
+				<span>服务内容</span>
+				<div>
+					<span class="descripts-li con-dialog" id="descripts-dialog"></span>
+					<img class="nextImg" src="../../../img/next.png" alt="">
+				</div>
+		</li>
+		<li class="zq">
+				<span>服务周期</span>
+				<div>
+						<span class="zq-li"></span>
+				</div>
+		</li>
 		<li class="accptcom">
-				<span>接受服务的单位</span>
+				<span>付款方名称</span>
 				<div>
 						<span class="accptcom-li"></span>
 				</div>
 		</li>
-	</ul>
-	
-	<!-- <div class="ul-title">付款方信息:</div> -->
-	<ul class="info-ul">
 		<li class="fkcode">
 				<span>付款账号</span>
 				<div>
@@ -185,6 +198,29 @@
 						<img class="nextImg" src="../../../img/next.png" alt="">
 				</div>
 		</li>
+		<li class="com_yz_name">
+				<span>收款方商户名</span>
+				<div>
+						<span class="com_yz_name-li con-dialog" id="com_yz-dialog"></span>
+						<img class="nextImg" src="../../../img/next.png" alt="">
+				</div>
+		</li>
+		<li class="yhcard_dg_code">
+				<span>收款方账号</span>
+				<div>
+						<span class="yhcard_dg_code-li"></span>
+				</div>
+		</li>
+		<li class="fkmoney">
+				<span>付款金额</span>
+				<div>
+						<span class="fkmoney-li fwstyle"></span>
+				</div>
+		</li>
+	</ul>
+	
+	<ul class="info-ul">
+		<div class="info-title">收款方个人信息</div>
 		<li class="yzname">
 				<span>收款人</span>
 				<div>
@@ -198,41 +234,16 @@
 						<!-- <input class="skcard" disabled/> -->
 				</div>
 		</li>
-		<li class="xname">
-				<span>项目名称</span>
-				<div>
-						<span class="xname-li"></span>
-				</div>
-		</li>
-		<li class="descripts">
-				<span>项目内容</span>
-				<div>
-					<span class="descripts-li con-dialog" id="descripts-dialog"></span>
-					<img class="nextImg" src="../../../img/next.png" alt="">
-				</div>
-		</li>
-		<li class="zq">
-				<span>服务周期</span>
-				<div>
-						<span class="zq-li"></span>
-				</div>
-		</li>
-		<li class="fkmoney">
-				<span>付款金额</span>
-				<div>
-						<span class="fkmoney-li fwstyle"></span>
-				</div>
-		</li>
 		<li class="ysmoney">
-				<span>应得金额</span>
+				<span>税后净收入</span>
 				<div>
 						<span class="ysmoney-li fwstyle"></span>
 				</div>
 		</li>
 	</ul>
 	
-	<!-- <div class="ul-title">内容详情:</div> -->
 	<ul class="deal-ul">
+		<div class="info-title">该收入相关协议</div>
 		<li class="deal">
 				<span>业务合同</span>
 				<div>
@@ -332,13 +343,13 @@
 	let imgs   // 协议内容
 	// $.ajaxSettings.async = false;   // 取消ajax的异步请求,, 让协议加载完成之后再做监听
 	$(function() {
-		$.post(urlDns + "/control_app/yz/zf/editUI", {
+		$.post(urlDns + "/control_app/share/zf/showUI", { //  /control_app/yz/zf/editUI
 		    id: incomeDetailId,
 		    pass_app: pass_app,
 		    tel_app: tel_app,
 		    code_app: code_app
 		}, function(data) {
-		    // console.log(JSON.stringify(data))
+		    console.log(JSON.stringify(data))
 		    if (data.result == 0) {
 		        // 需要重新登录
 		        if (window.plus) {
@@ -350,18 +361,21 @@
 						xy_type = data.xy_type
 						imgs = data.imgs
 						// console.log(JSON.stringify(imgs))
-		        // $(".accptcom-li").text(data.comname);
-		        // $(".accptcom").attr("id", data.ttid);
+						// $(".accptcom").attr("id", data.ttid);
+						
+						$(".accptcom-li").text(data.ttname);
+						$(".com_yz_name-li").text(data.com_yz_name.name);
+						$(".yhcard_dg_code-li").text(data.yhcard_dg_code);
 						
 						$(".fkcode-li").text(data.fk_code);
 		        $(".yzname-li").text(data.yzname);
-		        $(".skcard-li").text(data.skcard);
+		        $(".skcard-li").text(data.yhcard_dg_code);
 						
 		        $(".xname-li").text(data.name);
 		        $(".descripts-li").text(data.descripts);
 		        $(".zq-li").text(data.zq);
-		        $(".fkmoney-li").text(data.fkmoney);
-						$(".ysmoney-li").text(data.ysmoney);
+		        $(".fkmoney-li").text('¥ ' + data.fkmoney);
+						$(".ysmoney-li").text('¥ ' + data.ysmoney);
 						
 		        if (data.reasons) {
 		            $(".returnCont").text(data.reasons);
@@ -381,6 +395,11 @@
 		mui.alert($("#descripts-dialog").html(),'项目内容','关闭','','div')
 	})
 	
+	// 点击 收款方商户名称
+	$("#com_yz-dialog-dialog").click(()=>{
+		// 展示详细信息
+		mui.alert($("#com_yz-dialog-dialog").html(),'收款方商户名称','关闭','','div')
+	})
 	
 	// 点击通过
 	$(".pass").click(() => {

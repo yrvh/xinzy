@@ -46,7 +46,7 @@
         <div class="change">
             <div class="input_com">收入管理  <span class="mybadge mui-badge mui-badge-danger"></span></div>
             <div class="input_free">发票查询</div>
-						<div class="input_coop">报税查询  <span class="mybadge mui-badge mui-badge-danger"></span></div>
+						<div class="input_coop">报税查询</div>
 						<div class="input_deal">业务合同  <span class="mybadge mui-badge mui-badge-danger"></span></div>
         </div>
     </header>
@@ -150,7 +150,7 @@
 		<!-- 报税查询 -->
 		<ul class="tax-ul">
 			<li class="waitcheck">
-			    <span>待申报 <span class="mybadge mui-badge mui-badge-danger"></span></span>
+			    <span>待申报</span>
 			    <div>
 			        <span class="waitcheck-li"></span>
 			        <img src="../../../img/next.png" alt="">
@@ -500,11 +500,11 @@
 					}
 				} 
 				else {
-					if(data.wait_pay > 0) {
+					if(data.bb_7 > 0) {
 						$(".income-ul .mybadge").css("display","inline-block")
-						$(".income-ul .mybadge").text(data.wait_pay)
+						$(".income-ul .mybadge").text(data.bb_7)
 						$(".input_com .mybadge").css("display","inline-block")
-						$(".input_com .mybadge").text(data.wait_pay)
+						$(".input_com .mybadge").text(data.bb_7)
 					}
 					else { 
 						$(".income-ul .mybadge").css("display","none")
@@ -551,14 +551,12 @@
 		}
 		// 报税查询
 		else if(enterType==11){
-			console.log("函数执行了")
-			mui.get(urlDns + "/share/bs_app/nssetting/index", {
+			mui.get(urlDns + "/share/bs_app/index", {
 				pass_app: pass_app,
 				tel_app: tel_app,
 				code_app: code_app
 			}, function(data) {
-				console.log("数据请求,响应了")
-				console.log(JSON.stringify(data));
+				// console.log(JSON.stringify(data));
 				if (data.result == 0) {
 					// 需要重新登录
 					if (window.plus) {
@@ -569,20 +567,9 @@
 					}
 				} 
 				else {
-					if(data.wait_check > 0) {
-						$(".tax-ul .mybadge").css("display","inline-block")
-						$(".tax-ul .mybadge").text(data.wait_check)
-						$(".input_coop .mybadge").css("display","inline-block")
-						$(".input_coop .mybadge").text(data.wait_check)
-					}
-					else { 
-						$(".mybadge").css("display","none")
-						$(".input_coop .mybadge").css("display","none")
-					}
-							
-					$(".waitcheck-li").text(data.wait_check);
-					$(".pass-li").text(data.check);
-					$(".nopass-li").text(data.no_check);
+					$(".waitcheck-li").text(data.w_bs);
+					$(".pass-li").text(data.y_bs);
+					$(".nopass-li").text(data.n_bs);
 					}
 			});
 		}

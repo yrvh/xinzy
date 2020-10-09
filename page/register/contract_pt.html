@@ -74,7 +74,7 @@
             width: 100%;
             background-color: white;
             padding: 10px 15px;
-            margin-bottom: 70px;
+						margin: 60px 0;
             overflow: scroll;
         }
         
@@ -355,7 +355,7 @@
 
 <body>
     <header>
-        <img class="back" src="../../img/back_black.png" alt=""> 商务秘书公司协议<span class="pageNum" style="color:rgb(153, 153, 153)">(4/4)</span>
+        <img class="back" src="../../img/back_black.png" alt=""> 平台服务的协议<span class="pageNum" style="color:rgb(153, 153, 153)">(5/5)</span>
     </header>
     <!-- <div class="title">关于*****的协议书</div> -->
     <!-- <div class="first">甲方：<span></span></div> -->
@@ -429,12 +429,8 @@
 					// console.log(JSON.stringify(data))
 					ishave_dw = data.ishave_dw
 					userType = data.userType
-					// console.log(data.xy_mstext)
 					localStorage.setItem("userType", data.userType);
-					// console.log("获取的服务比例:"+ data.fpbili)
-					// console.log("获取协议内容:"+ data.xy_mstext)
-					// $("#serviceFee").val(data.fpbili);
-					$(".cont").html(data.xy_mstext);
+					$(".cont").html(data.xy_pt);
 					// 当协议内容不超过一页时
 					if ($(document.body).height() < $(window).height() - 50) {
 							// 减掉的114是除了$(".cont")以外其他元素的高度
@@ -473,7 +469,17 @@
                 //     location.href = "./login.html";
                 // }, 1000);
                 // // }
-                getContrat();
+								// 合作伙伴
+								if (userType == 11) {
+								  // 审核全部完成，进入首页
+								  location.href = "../../cooperation/page/index.html";
+								}
+								
+								// 业者
+								if (userType == 1) {
+								  location.href = "../../index.html";
+								}
+                // getContrat();
             }
 
         });
@@ -483,7 +489,7 @@
 
     // 弹出三方协议
     function getContrat() {
-        $(".threeBoxBg").css("display", "block");
+        // $(".threeBoxBg").css("display", "block");
 
         var threeContractPost = $.ajax({
             url: urlDns + "/user_app/yz/check_3_xieyiUI",
@@ -498,10 +504,22 @@
             //请求成功
             success: function(data) {
                 if (data.result == 0) {
-                    location.reload();
-                } else {
-
-                    $(".cont_t").html(data.text);
+                    // location.reload();
+										// 合作伙伴
+										if (userType == 11) {
+										  // 审核全部完成，进入首页
+										  location.href = "../../cooperation/page/index.html";
+										}
+										
+										// 业者
+										if (userType == 1) {
+										  location.href = "../../index.html";
+										}
+                } 
+								else {
+									$(".threeBoxBg").css("display", "block");
+									// console.log(data.text)
+                   $(".cont_t").html(data.text);
 
                 }
 

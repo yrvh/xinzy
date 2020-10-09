@@ -111,7 +111,6 @@
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
-	
 	// 用户管理
 	$(".user-mana").click(()=>{
 		mui.openWindow('../userMana/userMana.html')
@@ -251,7 +250,7 @@
 					}
 			} 
 			else {
-				major_badge += data.wait_pay
+				major_badge += data.bb_7
 				mui.get(urlDns + "/share_app/ms_zg_ywy/ht/index", {
 					pass_app: pass_app,
 					tel_app: tel_app,

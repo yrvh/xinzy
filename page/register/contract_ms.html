@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../../css/mui.min.css">
+    <title>线上签订协议</title>
+    <style>
+        html,
+        body {
+            width: 100%;
+            /* height: 100%; */
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 44px;
+            background-color: white;
+            box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+            text-align: center;
+            line-height: 44px;
+            font-weight: bold;
+        }
+        
+        header>img {
+            position: absolute;
+            top: 12px;
+            left: 5px;
+            width: 20px;
+            height: 20px;
+        }
+				.pre,
+				.next {
+				    position: absolute;
+				    top: 0;
+				    line-height: 44px;
+				    color: #7EB6FF;
+				    font-weight: 700;
+				}
+				
+				.pre {
+				    left: 10px;
+				}
+				
+				.next {
+				    right: 10px;
+				}
+				
+				
+        
+        .title {
+            width: 100%;
+            height: 50px;
+            background-color: white;
+            margin-top: 65px;
+            line-height: 50px;
+            font-size: 20px;
+            font-weight: 700;
+            padding: 5px 15px;
+            padding-bottom: 60px;
+        }
+        
+        .first,
+        .second {
+            width: 100%;
+            height: 30px;
+            background-color: white;
+            padding: 0 15px;
+            padding-bottom: 40px;
+            font-size: 14px;
+        }
+        
+        .serviceFeeBox {
+            width: 100%;
+            height: 50px;
+            background-color: white;
+            padding: 0 15px;
+            margin-top: 64px;
+            line-height: 50px;
+            font-size: 14px;
+        }
+        
+        .cont {
+					background-color: #009F95;
+            width: 100%;
+            background-color: white;
+            padding: 10px 15px;
+						margin: 60px 0;
+            overflow: scroll;
+        }
+        
+        p {
+            margin: 0;
+        }
+        
+        .btnBox {
+            bottom: 0;
+            left: 0;
+            display: flex;
+            width: 100%;
+            height: 50px;
+            background-color: white;
+            border-top: 1px solid #eeeeee;
+        }
+        
+        .position {
+            position: fixed;
+        }
+        
+        .refuse {
+            color: #7EB6FF;
+        }
+        
+        .refuse,
+        .agree {
+            width: calc((100% - 30px)/2);
+            height: 40px;
+            margin-top: 5px;
+            margin-left: 10px;
+            border-radius: 4px;
+            border: 1px solid rgb(204, 204, 204);
+            text-align: center;
+            line-height: 40px;
+        }
+        
+        .agree {
+            color: white;
+            background-color: #7EB6FF;
+            border-color: white;
+        }
+        
+        .black,
+        .black2,
+        .black3,
+        .black4 {
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(16, 16, 16, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9;
+            display: none;
+        }
+        /* .black3 {
+    display: block;
+} */
+        
+        #jqmeter-container {
+            width: 270px;
+            margin: 0 auto;
+            margin-top: calc((100vh - 20px)/2);
+        }
+        
+        .black>section,
+        .black3>section {
+            position: relative;
+            width: 270px;
+            height: 144px;
+            border-radius: 13px;
+            background-color: white;
+            margin: 0 auto;
+            margin-top: calc((100vh - 144px)/2);
+        }
+        
+        .cancel,
+        .downLoad,
+        .open,
+        .close {
+            position: absolute;
+            bottom: 0;
+            width: 50%;
+            height: 45px;
+            text-align: center;
+            line-height: 45px;
+            border-top: 1px solid #e7e7e7;
+        }
+        
+        .cancel,
+        .close {
+            left: 0;
+            color: #666666;
+        }
+        
+        .downLoad,
+        .open {
+            right: 0;
+            color: #7EB6FF;
+            border-left: 1px solid #e7e7e7;
+        }
+        
+        .openTips {
+            width: 100%;
+            height: 99px;
+            text-align: center;
+            line-height: 99px;
+            color: rgb(153, 153, 153);
+            font-size: 15px;
+        }
+        
+        .tipTitle {
+            width: 100%;
+            padding-top: 15px;
+            color: #030303;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .tipCont {
+            font-size: 12px;
+            color: rgb(153, 153, 153);
+            padding: 0 35px;
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        #serviceFee {
+            width: 50px;
+            height: 25px;
+            margin: 0;
+            padding: 0;
+            color: #7EB6FF;
+            text-align: center;
+        }
+        
+        .submit {
+            display: none;
+            width: calc(100% - 20px);
+            height: 40px;
+            border-radius: 4px;
+            background-color: #7EB6FF;
+            text-align: center;
+            line-height: 40px;
+            color: white;
+            margin: 5px 0 0 10px;
+        }
+        
+        .tipBox {
+            position: absolute;
+            top: calc((100vh - 144px)/2);
+            left: calc((100% - 270px)/2);
+            width: 270px;
+            height: 144px;
+            background-color: white;
+            border-radius: 13px;
+            text-align: center;
+            padding: 35px 30px 0 30px;
+            font-size: 14px;
+            color: rgb(153, 153, 153);
+        }
+        
+        .ok {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 45px;
+            text-align: center;
+            line-height: 45px;
+            color: #7EB6FF;
+            font-size: 16px;
+            border-top: 1px solid #e7e7e7
+        }
+        
+        .success {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+        }
+        
+        .success>img {
+            width: 120px;
+            height: 120px;
+            margin-left: calc((100% - 120px)/2);
+            margin-top: calc((100vh - 120px)/2);
+        }
+        
+        .threeBoxBg {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(16, 16, 16, 0.1);
+        }
+        
+        .threeBox {
+            position: absolute;
+            top: calc((100vh - 450px)/2);
+            left: calc((100% - 300px)/2);
+            width: 300px;
+            height: 450px;
+            background-color: white;
+            border-radius: 4px;
+        }
+        
+        .threeTitle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            background-color: #7EB6FF;
+            color: white;
+            font-size: 16px;
+            border-radius: 4px 4px 0 0;
+            z-index: 9;
+        }
+        
+        .scrollBox {
+            overflow: scroll;
+            padding-top: 70px;
+            width: 100%;
+            height: 390px;
+            /* background-color: pink; */
+        }
+        
+        .one,
+        .two,
+        .three,
+        .cont_t,
+        .agreeThreeBox {
+            padding: 0 12px 0 15px;
+        }
+        
+        .agreeThreeBox {
+            position: absolute;
+            display: flex;
+            justify-content: space-between;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+        }
+        
+        .disagreeThree,
+        .agreeThree {
+            width: 48%;
+            height: 40px;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 16px;
+            line-height: 40px;
+            box-sizing: border-box;
+        }
+        
+        .disagreeThree {
+            color: #7EB6FF;
+            border: 1px solid #cccccc;
+        }
+        
+        .agreeThree {
+            background-color: #7EB6FF;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="pre">上一页</div>
+        商务秘书公司协议<span class="pageNum" style="color:rgb(153, 153, 153)">(4/5)</span>
+        <div class="next">下一页</div>
+    </header>
+    <!-- <div class="title">关于*****的协议书</div> -->
+    <!-- <div class="first">甲方：<span></span></div> -->
+    <!-- <div class="second">乙方：<span></span></div> -->
+    <!-- <div class="serviceFeeBox">服务费用：按乙方总收入的<input disabled id="serviceFee" type="text" value="4.5">%收取</div> -->
+    <div class="cont"></div>
+
+    <!-- <div class="btnBox position">
+        <div class="refuse">退回</div>
+        <div class="agree">同意</div>
+    </div> -->
+    <div class="success">
+        <img src="../../img/success.png" alt="">
+    </div>
+    <div class="threeBoxBg">
+        <div class="threeBox">
+            <div class="threeTitle">授权划缴税款协议书</div>
+            <div class="scrollBox">
+                <!-- <div class="one">甲方：
+                    <span class="oneName">哈哈哈</span>
+                </div>
+                <div class="two">
+                    乙方：<span class="twoName">哈哈哈</span>
+                </div>
+                <div class="three">
+                    丙方：<span class="threeName">哈哈哈</span>
+                </div> -->
+                <div class="cont_t">
+                </div>
+            </div>
+            <div class="agreeThreeBox">
+                <div class="disagreeThree">不签订</div>
+                <div class="agreeThree">签订</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../../js/jquery-3.3.1.js"></script>
+<script src="../../js/layer/layer.js"></script>
+<script src="../../js/urlDns.js"></script>
+<!-- <script src="../../js/register/onLineContract.js"></script> -->
+<script>
+    var tel_app = localStorage.getItem("tel_app");
+    var pass_app = localStorage.getItem("pass_app");
+    var code_app = localStorage.getItem("code_app");
+
+    // 返回
+    $(".pre").click(() => {
+        history.back();
+    });
+
+    var tel = sessionStorage.getItem("tel");
+    let ishave_dw   // 是否有单位
+		let userType   // 角色类型
+		
+		// 获取协议的数据 内容
+    $.post(urlDns + "/user_app/yz/checkUI", {
+        tel: tel,
+        tel_app: tel_app,
+        pass_app: pass_app,
+        code_app: code_app
+    }, function(data) {
+        if (data.result == 0) {
+            // 需要重新登录
+            if (window.plus) {
+                goToLogin("./login.html");
+            } else {
+                document.addEventListener('plusready', goToLogin, false);
+            }
+        } else {
+					// console.log(JSON.stringify(data))
+					ishave_dw = data.ishave_dw
+					userType = data.userType
+					// console.log(data.xy_ms)
+					localStorage.setItem("userType", data.userType);
+					$(".cont").html(data.xy_ms);
+					// 当协议内容不超过一页时
+					if ($(document.body).height() < $(window).height() - 50) {
+							// 减掉的114是除了$(".cont")以外其他元素的高度
+							$(".cont").css("height", "calc(100vh - 184px)");
+							$(".cont").css("margin-bottom", "0");
+					}
+        }
+
+
+    });
+
+		// 点击  下一页
+		$(".next").click(() => {
+		    location.href = "./contract_pt.html";
+		});
+
+
+    // 同意按钮
+    $(".agree").click(() => {
+        $.post(urlDns + "/user_app/yz/check", {
+            tel: tel,
+            tel_app: tel_app,
+            pass_app: pass_app,
+            code_app: code_app
+        }, function(data) {
+            if (data.result == 0) {
+                // 需要重新登录
+                if (window.plus) {
+                    goToLogin("./login.html");
+                } else {
+                    document.addEventListener('plusready', goToLogin, false);
+                }
+            } else {
+                // // if (data.status == 1) {
+                // sessionStorage.clear();
+                // $(".success").css("display", "block");
+                // setTimeout(() => {
+                //     $(".success").css("display", "none");
+                //     location.href = "./login.html";
+                // }, 1000);
+                // // }
+                getContrat();
+            }
+
+        });
+
+    });
+
+
+    // 弹出三方协议
+    function getContrat() {
+        $(".threeBoxBg").css("display", "block");
+
+        var threeContractPost = $.ajax({
+            url: urlDns + "/user_app/yz/check_3_xieyiUI",
+            type: 'post',
+            dataType: "json",
+            data: {
+                "tel_app": tel_app,
+                "pass_app": pass_app,
+                "code_app": code_app
+            },
+            timeout: 120000, //2分钟超时
+            //请求成功
+            success: function(data) {
+                if (data.result == 0) {
+                    location.reload();
+                } else {
+
+                    $(".cont_t").html(data.text);
+
+                }
+
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                // console.log(textStatus)
+                if (textStatus == 'timeout') {
+                    threeContractPost.abort();
+                    alert("请求超时");
+                    $(".threeBoxBg").css("display", "none");
+                }
+                if (textStatus == 'error') {
+                    // console.log(errorThrown)
+                    threeContractPost.abort();　
+                    $(".threeBoxBg").css("display", "none");
+                    alert("请求错误" + errorThrown);
+
+                }
+            }
+        });
+    }
+
+    // 签订 三方协议
+    $(".agreeThree").click(() => {
+        var index = layer.load(1, {
+            // 数组中第一个参数是button的透明度
+            // 第二个是背景颜色
+            shade: [0.3, "white"]
+        });
+        var agreeContractPost = $.ajax({
+            url: urlDns + "/user_app/yz/check_3_xieyi",
+            type: 'post',
+            dataType: "json",
+            data: {
+                "tel_app": tel_app,
+                "pass_app": pass_app,
+                "code_app": code_app
+            },
+            timeout: 120000, //2分钟超时
+            //请求成功
+            success: function(data) {
+							// console.log("签订成功了bus")
+                // console.log(JSON.stringify(data));
+                layer.close(index);
+                if (data.result == 0) {
+                    location.reload();
+                } else {
+                    // 合作伙伴
+                    if (userType == 11) {
+                      // 审核全部完成，进入首页
+                      location.href = "../../cooperation/page/index.html";
+                    }
+
+                    // 业者
+                    if (userType == 1) {
+                      location.href = "../../index.html";
+                    }
+
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                layer.close(index);
+                if (textStatus == 'timeout') {
+                    agreeContractPost.abort();
+                    alert("请求超时");
+                }
+                if (textStatus == 'error') {
+                    agreeContractPost.abort();
+                    alert("请求错误" + errorThrown);
+                }
+            }
+        });
+    })
+
+    // 不签订 三方协议
+    $(".disagreeThree").click(() => {
+        var index = layer.load(1, {
+            // 数组中第一个参数是button的透明度
+            // 第二个是背景颜色
+            shade: [0.3, "white"]
+        });
+        var agreeContractPost = $.ajax({
+            url: urlDns + "/user_app/yz/uncheck_3_xieyi",
+            type: 'post',
+            dataType: "json",
+            data: {
+                "tel_app": tel_app,
+                "pass_app": pass_app,
+                "code_app": code_app
+            },
+            timeout: 120000, //2分钟超时
+            //请求成功
+            success: function(data) {
+                // console.log(JSON.stringify(data));
+                layer.close(index);
+                if (data.result == 0) {
+                    location.reload();
+                } else {
+                    // 合作伙伴
+                    if (userType == 11) {
+                        // 审核全部完成，进入首页
+                        location.href = "../../cooperation/page/index.html";
+                    }
+
+                    // 业者
+                    if (userType == 1) {
+                        location.href = "../../index.html";
+                    }
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                layer.close(index);
+                if (textStatus == 'timeout') {
+                    agreeContractPost.abort();
+                    alert("请求超时");
+                }
+                if (textStatus == 'error') {
+                    agreeContractPost.abort();
+                    alert("请求错误" + errorThrown);
+                }
+            }
+        });
+
+    })
+
+    // 点击退回
+    $(".refuse").click(() => {
+        sessionStorage.setItem("type", "return");
+        location.href = "../textPage.html";
+    });
+</script>
+
+</html>

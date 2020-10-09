@@ -115,10 +115,10 @@
 				<span class="discount-old-li"></span>
 			</div>
 		</li>
-		<li class="discount-per">
+		<li class="discount-now">
 			<span>优惠税率</span>
 			<div>
-				<span class="discount-per-li"></span>
+				<span class="discount-now-li"></span>
 			</div>
 		</li>
 		<li class="discount-extent">
@@ -171,13 +171,13 @@
 	let detailId = sessionStorage.getItem("detailId")
 	// console.log(detailId)
 
-
+getDetail()
 	
 	// 定义请求详情的函数
-	function getDetail(uType) {
+	function getDetail() {
 		// console.log(detailId)
 		var getData = mui.ajax({
-				url: urlDns + "/control_app/ms/fr/user/yz/showUI",
+				url: urlDns + "/control_app/ms/fr_zg/ns/yhzc/showUI",
 				type: 'post',
 				dataType: "json",
 				timeout: 120000, //2分钟超时
@@ -189,8 +189,7 @@
 				},
 				//请求成功
 				success: function(data) {
-						console.log("详情页数据 请求成功")
-						console.log(JSON.stringify(data));
+						// console.log(JSON.stringify(data));
 						if (data.result == 0) {
 								console.log("iggs没  res=0")
 								// 需要重新登录
@@ -201,17 +200,21 @@
 								}
 						}
 						else {
-							$(".tax-start-li").text(data.regState)
-							$(".tax-name-li").text(data.regState)
-							$(".tax-type-li").text(data.regState)
-							$(".tax-date-li").text(data.regState)
-							$(".tax-cycle-li").text(data.regState)
+							let yhsuilv,yhfd
+							!data.yhsuilv? (yhsuilv='免征'): (yhsuilv=data.yhsuilv)
+							!data.yhfd? (yhfd='免征'): (yhfd=data.yhfd)
 							
-							$(".discount-type-li").text(data.regState)
-							$(".discount-old-li").text(data.regState)
-							$(".discount-now-li").text(data.regState)
-							$(".discount-extent-li").text(data.regState)
-							$(".discount-range-li").text(data.regState)
+							$(".tax-start-li").text(data.status)
+							$(".tax-name-li").text(data.name)
+							$(".tax-type-li").text(data.fptypename)
+							$(".tax-date-li").text(data.endtime)
+							$(".tax-cycle-li").text(data.zq)
+							
+							$(".discount-type-li").text(data.yhname)
+							$(".discount-old-li").text(data.sv)
+							$(".discount-now-li").text(yhsuilv)
+							$(".discount-extent-li").text(yhfd)
+							$(".discount-range-li").text(data.endmoney01)
 							
 						}
 				},
@@ -233,13 +236,6 @@
 				}
 		});
 	}
-
-	
-	
-	// 点击 下一页
-	$(".select-btn").click(() => {
-		location.href = "./user_detail_free2.html"
-	})
 	
 </script>
 </html>

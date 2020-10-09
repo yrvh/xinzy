@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script src="../../../js/mui.min.js"></script>
+	<link rel="stylesheet" href="../../../css/mui.min.css">
+	<script src="../../../js/mescroll.min.js"></script>
+	<link rel="stylesheet" href="../../../css/mescroll.min.css">
+	<title>审核主管--基本政策--个税详情页面</title>
+	
+	<style type="text/css">
+		body { margin: 0; padding: 0; font-size: 16px; color: #333333; }
+		
+		header { position: fixed;
+			top: 0; left: 0; text-align: center; width: 100%;
+			height: 44px; line-height: 44px; background-color: white;
+			box-shadow: 0 2px 2px 0 rgba(231, 231, 231, 1);
+			font-weight: bold; font-size: 16px; z-index: 99; }
+		header>div {
+			position: absolute;
+			top: 0;
+			right: 5px;
+			height: 44px;
+			line-height: 44px;
+		}
+		
+		header>div>span {
+			color: #999999;
+		}
+		.select-btn { line-height: 44px; color: #7EB6FF; margin-right: 10px;}
+		
+		.back { width: 20px; height: 20px; position: absolute; top: 12px; left: 5px; color: #7EB6FF; }		
+		
+		.the-place { width: 100%; height: 44px; margin-bottom: 20px;}
+		
+		ul { list-style: none; padding: 0 15px; margin-bottom: 20px; background-color: #fff;}
+		
+		.ding {
+			border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 2px; box-sizing: border-box;
+		}
+		.ding>div { display: block;}
+		.small-title { font-size: 14px; font-weight: 600;line-height: 30px;}
+		.detail-content { height: 40px; line-height: 40px;}
+		.typeinfo {
+			border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; width: 100%; height: 46px; margin-bottom: 2px; box-sizing: border-box;
+		}
+		.typeinfo>div { display: flex; align-items: center;}
+		
+		li img { width: 25px; height: 25px; }
+		
+		li>div>span { color: rgb(153, 153, 153); }
+		
+		.info-title { line-height: 50px; font-weight: 800; font-size: 17px;}
+		ul>li:last-of-type {border: none !important;}
+		
+		
+		.row{ background-color: #ddd;}
+		
+	</style>
+</head>
+
+<body>
+	<header>
+			<img class="back" src="../../../img/back_black.png" alt="">
+			<span class="title-span">详情页面</span>
+	</header>
+	<div class="the-place"></div>
+	
+	
+	<!-- 定期定额--按月 -->
+	<ul class="ding-ul">
+		<div class="info-title">定期定额: 按月</div>
+		<li class="ding">
+			<div>
+				<div class="small-title">经营额范围</div>
+				<div class="range-a detail-content">大于200000元，且小于等于500000</div>
+			</div>
+			<div>
+				<div class="small-title">附征率</div>
+				<div class="per-a  detail-content">10%</div>
+			</div>
+		</li>
+		<li class="ding">
+			<div>
+				<div class="small-title">经营额范围</div>
+				<div class="range-a detail-content">大于200000元，且小于等于500000</div>
+			</div>
+			<div>
+				<div class="small-title">附征率</div>
+				<div class="per-a  detail-content">10%</div>
+			</div>
+		</li>
+		<li class="ding">
+			<div>
+				<div class="small-title">经营额范围</div>
+				<div class="range-a detail-content">大于200000元，且小于等于500000</div>
+			</div>
+			<div>
+				<div class="small-title">附征率</div>
+				<div class="per-a  detail-content">10%</div>
+			</div>
+		</li>
+		<li class="ding">
+			<div>
+				<div class="small-title">经营额范围</div>
+				<div class="range-a detail-content">大于200000元，且小于等于500000</div>
+			</div>
+			<div>
+				<div class="small-title">附征率</div>
+				<div class="per-a  detail-content">10%</div>
+			</div>
+		</li>
+		<li class="ding">
+			<div>
+				<div class="small-title">经营额范围</div>
+				<div class="range-a detail-content">大于200000元，且小于等于500000</div>
+			</div>
+			<div>
+				<div class="small-title">附征率</div>
+				<div class="per-a  detail-content">10%</div>
+			</div>
+		</li>
+	</ul>
+	<!-- 定期定额--按季 -->
+	<ul class="ding-ul">
+		<div class="info-title">定期定额: 按季</div>
+		<li class="ding">
+			<div>
+				<div class="small-title">经营额范围</div>
+				<div class="range-a detail-content">大于200000元，且小于等于500000</div>
+			</div>
+			<div>
+				<div class="small-title">附征率</div>
+				<div class="per-a  detail-content">10%</div>
+			</div>
+		</li>
+		<li class="ding">
+			<div>
+				<div class="small-title">经营额范围</div>
+				<div class="range-a detail-content">大于200000元，且小于等于500000</div>
+			</div>
+			<div>
+				<div class="small-title">附征率</div>
+				<div class="per-a  detail-content">10%</div>
+			</div>
+		</li>
+		<li class="ding">
+			<div>
+				<div class="small-title">经营额范围</div>
+				<div class="range-a detail-content">大于200000元，且小于等于500000</div>
+			</div>
+			<div>
+				<div class="small-title">附征率</div>
+				<div class="per-a  detail-content">10%</div>
+			</div>
+		</li>
+		<li class="ding">
+			<div>
+				<div class="small-title">经营额范围</div>
+				<div class="range-a detail-content">大于200000元，且小于等于500000</div>
+			</div>
+			<div>
+				<div class="small-title">附征率</div>
+				<div class="per-a  detail-content">10%</div>
+			</div>
+		</li>
+		<li class="ding">
+			<div>
+				<div class="small-title">经营额范围</div>
+				<div class="range-a detail-content">大于200000元，且小于等于500000</div>
+			</div>
+			<div>
+				<div class="small-title">附征率</div>
+				<div class="per-a  detail-content">10%</div>
+			</div>
+		</li>
+	</ul>
+	
+	<ul class="he-ul">
+		<div class="info-title">核定所得率: 行业类型</div>
+		<li class="typeinfo">
+			<span>工业、交通运输业、商业</span>
+			<div>
+				<span class="discount-type-li">5%</span>
+			</div>
+		</li>
+		<li class="typeinfo">
+			<span>建筑业</span>
+			<div>
+				<span class="discount-old-li">7%</span>
+			</div>
+		</li>
+		<li class="typeinfo">
+			<span>房地产开发业</span>
+			<div>
+				<span class="discount-now-li">20%</span>
+			</div>
+		</li>
+		<li class="typeinfo">
+			<span>饮食服务业</span>
+			<div>
+				<span class="discount-extent-li"></span>
+			</div>
+		</li>
+		<li class="typeinfo">
+			<span>娱乐业</span>
+			<div>
+				<span class="discount-range-li"></span>
+			</div>
+		</li>
+		<li class="typeinfo">
+			<span>其他行业</span>
+			<div>
+				<span class="discount-range-li"></span>
+			</div>
+		</li>
+	</ul>
+	<!-- 核定应税所得率--按年 -->
+	<ul class="he-ul">
+		<div class="info-title">核定所得率: 按年</div>
+		<li class="ding">
+			<div>
+				<div class="small-title">经营额范围</div>
+				<div class="range-a detail-content">大于200000元，且小于等于500000</div>
+			</div>
+			<div>
+				<div class="small-title">附征率</div>
+				<div class="per-a  detail-content">10%</div>
+			</div>
+		</li>
+		<li class="ding">
+			<div>
+				<div class="small-title">经营额范围</div>
+				<div class="range-a detail-content">大于200000元，且小于等于500000</div>
+			</div>
+			<div>
+				<div class="small-title">附征率</div>
+				<div class="per-a  detail-content">10%</div>
+			</div>
+		</li>
+		<li class="ding">
+			<div>
+				<div class="small-title">经营额范围</div>
+				<div class="range-a detail-content">大于200000元，且小于等于500000</div>
+			</div>
+			<div>
+				<div class="small-title">附征率</div>
+				<div class="per-a  detail-content">10%</div>
+			</div>
+		</li>
+		<li class="ding">
+			<div>
+				<div class="small-title">经营额范围</div>
+				<div class="range-a detail-content">大于200000元，且小于等于500000</div>
+			</div>
+			<div>
+				<div class="small-title">附征率</div>
+				<div class="per-a  detail-content">10%</div>
+			</div>
+		</li>
+		<li class="ding">
+			<div>
+				<div class="small-title">经营额范围</div>
+				<div class="range-a detail-content">大于200000元，且小于等于500000</div>
+			</div>
+			<div>
+				<div class="small-title">附征率</div>
+				<div class="per-a  detail-content">10%</div>
+			</div>
+		</li>
+	</ul>
+	
+	
+	
+</body>
+<script src="../../../js/jquery-3.3.1.js"></script>
+<script src="../../../js/urlDns.js"></script>
+<script src="../../../js/layer/layer.js"></script>
+
+<script type="text/javascript">
+	
+	mui.init({
+		beforeback: function() {
+			backActive()
+			return true
+		}
+	})
+	// 返回=======================
+	$(".back").click(() => {
+		mui.back();
+	});
+	// 返回之前要执行的操作 函数
+	function backActive() {
+		sessionStorage.removeItem("detailId")
+		sessionStorage.removeItem("detailType")
+	}
+	
+	var pass_app = localStorage.getItem("pass_app");
+	var tel_app = localStorage.getItem("tel_app");
+	var code_app = localStorage.getItem("code_app");
+	
+	// 获得到进入的 状态值
+	let income_status = sessionStorage.getItem("income_status");
+	
+	// 获取用户id和用户类型
+	let detailId = sessionStorage.getItem("detailId")
+	// console.log(detailId)
+
+getDetail()
+	
+	// 定义请求详情的函数
+	function getDetail() {
+		// console.log(detailId)
+		var getData = mui.ajax({
+				url: urlDns + "/control_app/ms/fr_zg/ns/yhzc/showUI",
+				type: 'post',
+				dataType: "json",
+				timeout: 120000, //2分钟超时
+				data: {
+						"pass_app": pass_app,
+						"tel_app": tel_app,
+						"code_app": code_app,
+						"id": detailId
+				},
+				//请求成功
+				success: function(data) {
+						// console.log(JSON.stringify(data));
+						if (data.result == 0) {
+								console.log("iggs没  res=0")
+								// 需要重新登录
+								if (window.plus) {
+										goToLogin("../../../page/register/login.html");
+								} else {
+										document.addEventListener('plusready', goToLogin, false);
+								}
+						}
+						else {
+							let yhsuilv,yhfd
+							!data.yhsuilv? (yhsuilv='免征'): (yhsuilv=data.yhsuilv)
+							!data.yhfd? (yhfd='免征'): (yhfd=data.yhfd)
+							
+							$(".tax-start-li").text(data.status)
+							$(".tax-name-li").text(data.name)
+							$(".tax-type-li").text(data.fptypename)
+							$(".tax-date-li").text(data.endtime)
+							$(".tax-cycle-li").text(data.zq)
+							
+							$(".discount-type-li").text(data.yhname)
+							$(".discount-old-li").text(data.sv)
+							$(".discount-now-li").text(yhsuilv)
+							$(".discount-extent-li").text(yhfd)
+							$(".discount-range-li").text(data.endmoney01)
+							
+						}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+						if (textStatus == 'timeout') {
+								getData.abort();　
+								alert("请求超时");
+						}
+						if (textStatus == 'error') {
+								getData.abort();　
+								
+								if(errorThrown==null){
+									mui.alert('基本信息尚未完善!~','提示','关闭','','div')
+								}
+								else {
+									alert("请求错误" + errorThrown);
+								}
+						}
+				}
+		});
+	}
+	
+</script>
+</html>

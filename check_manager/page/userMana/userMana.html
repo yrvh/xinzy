@@ -316,7 +316,6 @@
 	var pass_app = localStorage.getItem("pass_app");
 	var tel_app = localStorage.getItem("tel_app");
 	var code_app = localStorage.getItem("code_app");
-	
 	getInfo(1)
 	getInfo(11)
 	getInfo(2)
@@ -586,7 +585,8 @@
 		    code_app:code_app,
 				usertype: enterType
 		}, function(data) {
-			// console.log(JSON.stringify(data));
+			console.log("我的数据999999")
+			console.log(JSON.stringify(data));
 			if (data.result == 0) {
 				// 需要重新登录
 				if (window.plus) {

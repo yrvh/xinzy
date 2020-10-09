@@ -159,7 +159,7 @@
 
 <body>
     <header>
-        个人信息<span class="pageNum" style="color:rgb(153, 153, 153)">(1/4)</span>
+        个人信息<span class="pageNum" style="color:rgb(153, 153, 153)">(1/5)</span>
         <div class="next">下一页</div>
     </header>
     <!-- 个人基本信息 -->
@@ -254,14 +254,15 @@
 	var tel = sessionStorage.getItem("tel");
 	
 	// var userId = sessionStorage.getItem("userId");
-	
+	// console.log("vh张张张")
 	$.post(urlDns + "/user_app/yz/checkUI", {
 	    tel: tel,
 	    tel_app: tel_app,
 	    pass_app: pass_app,
 	    code_app: code_app
 	}, function(data) {
-			// console.log(JSON.stringify(data))
+			console.log(JSON.stringify(data))
+			console.log(999999)
 	    if (data.result == 0) {
 	        // 需要重新登录
 	        if (window.plus) {

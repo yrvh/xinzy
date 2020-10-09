@@ -136,7 +136,7 @@
 		
 
 		/* --------- 列表页: 主界面内容 start---------- */
-		.list { margin-top: 108px; margin-bottom: 20px; }
+		.list {  margin-bottom: 20px; }
 
 		.list>div { position: relative; width: 100%; background-color: #fff; margin-top: 10px;}
 
@@ -253,7 +253,6 @@
 			tel_app: tel_app,
 			code_app: code_app
 		}, function(data) {
-			console.log("优惠政策数据响应了")
 			console.log(JSON.stringify(data));
 			if (data.result == 0) {
 				// 需要重新登录
@@ -271,15 +270,15 @@
 						<div>
 								<input class="select" name="hh" value="beihai" type="checkbox">
 								<div class="comTime">
-										<span class="comName">${data.rows[i].name}</span>
+										<span class="comName">${data.rows[i].yhname}</span>
 										<div class="href" detailId="${data.rows[i].id}">
-												<span class="time">${data.rows[i].addtime}</span>
+												<span class="time">${data.rows[i].status}</span>
 												<img src="../../../img/next.png" alt="">
 										</div>
 								</div>
 								<div class="amount">
-										<span>${data.rows[i].yhname}</span>
-										<span>${data.rows[i].yhfd}</span>
+										<span>有效日期</span>
+										<span>${data.rows[i].endtime}</span>
 								</div>
 						</div>
 					`;
@@ -287,7 +286,7 @@
 				$(".list").append(htmlStr);
 			}
 		});
-	}
+	}	
 	
 	// ======================加载下一页===================================================
 	$(window).scroll(function() {
@@ -343,6 +342,7 @@
 				$(":checkbox[name='hh']").prop("checked", false);
 	    }
 	});
+	
 	// 全选按钮
 	let is_select_all = false
 	$(".select_all").click(() => {

@@ -2,7 +2,7 @@
 // var urlDns = "https://192.168.2.23";
 
 // 本地服务器
-// var urlDns = "https://192.168.2.9";
+// var urlDns = "https://192.168.2.113";
 
 // 阿里云服务器                                              
 // var urlDns = "https://jolongnet.cn";

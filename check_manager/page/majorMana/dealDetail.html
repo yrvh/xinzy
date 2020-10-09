@@ -160,33 +160,23 @@
 			//请求成功
 			success: function(data) {
 				// console.log(JSON.stringify(data))
-				let htmlStr = "";
-				let len = data.imgs.length || 0
-				for (var i = 0; i < len; i++) {
-						htmlStr += `
-				<div class="imgBox">
-						<img class="img-crt" src="${data.imgs[i]}" alt="">
-				</div>
-				`;
+				if(data.type==0) {
+					$(".itemContent").html(data.text);
 				}
-				$(".itemContent").html(htmlStr);
+				else {
+					let htmlStr = "";
+					let img_arr = data.imgs.split(",")
+					let len = img_arr.length || 0
+					for (var i = 0; i < len; i++) {
+							htmlStr += `
+					<div class="imgBox">
+							<img class="img-crt" src="${img_arr[i]}" alt="">
+					</div>
+					`;
+					}
+					$(".itemContent").html(htmlStr);
 					
-				// if(data.type==1) {
-				// 	$(".itemContent").html(data.text);
-				// }
-				// else {
-				// 	let htmlStr = "";
-				// 	let img_arr = data.imgUrls.split(",")
-				// 	let len = img_arr.length || 0
-				// 	for (var i = 0; i < len; i++) {
-				// 			htmlStr += `
-				// 	<div class="imgBox">
-				// 			<img class="img-crt" src="${img_arr[i]}" alt="">
-				// 	</div>
-				// 	`;
-				// 	}
-				// 	$(".itemContent").html(htmlStr);
-				// }
+				}
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				if (textStatus == 'timeout') {

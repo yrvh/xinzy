@@ -195,6 +195,7 @@
 	
 	// 获得到进入的 状态值
 	let income_status = sessionStorage.getItem("income_status");
+	console.log(income_status)
 	if(income_status==8 || income_status==77 || income_status==7 || income_status==4 || income_status==44){
 		$(".income-info").css("display","block")
 		$(".taxes-info").css("display","block")
@@ -202,9 +203,9 @@
 	
 	// 获取用户id和用户类型
 	let detailId = sessionStorage.getItem("detailId")
-	// console.log(detailId)
+	console.log(detailId)
 	let detailType = sessionStorage.getItem("detailType")
-	
+	console.log(detailType)
 	
 	// 控制显示哪个页面 1业者  11伙伴
 	if(detailType==1){
@@ -217,7 +218,7 @@
 	
 	// 定义请求详情的函数
 	function getDetail(uType) {
-		// console.log(detailId)
+		
 		var getData = mui.ajax({
 				url: urlDns + "/control_app/ms/fr/user/yz/showUI",
 				type: 'post',

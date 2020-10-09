@@ -252,29 +252,28 @@
 					if(page==1){ $(".list").html(''); }   // 发起请求之前,先清空页面
 					var htmlStr = "";
 					for (let i = 0; i < data.length; i++) {
-						htmlStr +=
-						`
-						<div>
-							<div class="comTime">
-								<div class="href" detailId="${data[i].id}" detailName="${data[i].name}">
-									<span class="time">
-									${
-										(function(){
-											if( data[i].type==1 ){ return "服务平台协议"}
-											else if( data[i].type==2 ){ return "业者与单位协议"}
-											else if( data[i].type==3 ){ return "单位与商秘公司协议"}
-											else if( data[i].type==4 ){ return "三方协议"}
-											else if( data[i].type==5 ){ return "业者与商秘公司协议"}
-											else if( data[i].type==11 ){ return "合作伙伴与商秘公司协议"}
-											else { return "空" }
-										})()
-									}
-									</span>
-									<img src="../../../img/next.png" alt="">
+						if([1,3,5,11].includes(data[i].type) ){
+							htmlStr +=
+							`
+							<div>
+								<div class="comTime">
+									<div class="href" detailId="${data[i].id}" detailName="${data[i].name}">
+										<span class="time">
+										${
+											(function(){
+												if( data[i].type==1 ){ return "服务平台协议"}
+												else if( data[i].type==3 ){ return "单位与商秘公司协议"}
+												else if( data[i].type==5 ){ return "业者与商秘公司协议"}
+												else if( data[i].type==11 ){ return "合作伙伴与商秘公司协议"}
+											})()
+										}
+										</span>
+										<img src="../../../img/next.png" alt="">
+									</div>
 								</div>
 							</div>
-						</div>
-						`;
+							`;
+						}
 					}
 					$(".list").append(htmlStr);
 				}

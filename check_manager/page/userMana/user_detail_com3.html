@@ -234,7 +234,6 @@
 									${
 										(function(){
 											if( data[i].type==1 ){ return "服务平台协议"}
-											else if( data[i].type==2 ){ return "业者与单位协议"}
 											else if( data[i].type==3 ){ return "单位与商秘公司协议"}
 											else if( data[i].type==4 ){ return "三方协议"}
 											else if( data[i].type==5 ){ return "业者与商秘公司协议"}
@@ -304,13 +303,27 @@
 					},
 			    //请求成功
 			    success: function(data) {
-						
 						if(data.type==1) {
 							$(".itemContent").html(data.text);
 						}
 						else {
-							console.log(data.type)
+							let htmlStr = "";
+							let img_arr = data.imgUrls.split(",")
+							let len = img_arr.length || 0
+							for (var i = 0; i < len; i++) {
+									htmlStr += `
+							<div class="imgBox">
+									<img class="img-crt" src="${img_arr[i]}" alt="">
+							</div>
+							`;
+							}
+							$(".itemContent").html(htmlStr);
 							
+						// if ($(document.body).height() < $(window).height() - 185) {
+						//     // 减掉的64是除了$(".cont")以外其他元素的高度
+						//     $(".itemContent").css("height", "calc(100vh - 64px)");
+						// } else {
+						//     $(".itemContent").css("height", "100%");
 						}
 						
 			    },

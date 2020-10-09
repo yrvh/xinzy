@@ -570,7 +570,7 @@
 	// 渲染标题
 	if (income_status == 0) {
 		$("header span").text("待申报");
-		$(".select-btn").css("display","block")
+		// $(".select-btn").css("display","block")
 	}
 	if (income_status == 1) {
 		$("header span").text("申报成功");
@@ -587,9 +587,9 @@
 	
 	function getInfoList(name='',startdate='',enddate='',sfid='',yztype='',yzid='',hhrid='',yxyid='',ywyid='') {
 		// 请求数据
-		mui.post(urlDns + "/share/bs_app/nssetting/list", {
+		mui.post(urlDns + "/share/bs_app/list", {
 			// 状态
-			status: income_status,
+			taxstatus: income_status,
 			// 第几页
 			page: page,
 			// 一页的条数
@@ -628,11 +628,15 @@
 						<div>
 								<input class="select" name="hh" value="beihai" type="checkbox">
 								<div class="comTime">
-										<span class="comName">${data.rows[i].realname}</span>
+										<span class="comName">${data.rows[i].username}</span>
 										<div class="href" detailId="${data.rows[i].id}">
-												<span class="time">${data.rows[i].tel}</span>
+												<span class="time">收入金额${data.rows[i].salesamount}</span>
 												<img src="../../../img/next.png" alt="">
 										</div>
+								</div>
+								<div class="amount">
+										<span>应纳金额</span>
+										<span>${data.rows[i].taxamount}</span>
 								</div>
 						</div>
 					`;

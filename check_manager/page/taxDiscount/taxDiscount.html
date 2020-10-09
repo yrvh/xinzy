@@ -91,13 +91,6 @@
 		
 		<!-- 优惠政策 -->
 		<ul class="discount-ul">
-			<li class="income-tax">
-			    <span>个人所得税</span>
-			    <div>
-			        <span></span>
-			        <img src="../../../img/next.png" alt="">
-			    </div>
-			</li>
 			<li class="added-tax">
 			    <span>增值税</span>
 			    <div>
@@ -105,6 +98,14 @@
 			        <img src="../../../img/next.png" alt="">
 			    </div>
 			</li>
+			<li class="income-tax">
+			    <span>个人所得税</span>
+			    <div>
+			        <span></span>
+			        <img src="../../../img/next.png" alt="">
+			    </div>
+			</li>
+			
 			
 			<li class="city-building">
 					<span>城市建设维护税</span>
@@ -210,7 +211,7 @@
 	$(".basic-ul .income-tax").click(() => {
 		sessionStorage.setItem("addtype", "2");
 		sessionStorage.setItem("income_status", 2);
-		location.href = './taxList.html';
+		location.href = './taxIncome.html';
 	});
 	$(".basic-ul .city-building").click(() => {
 		sessionStorage.setItem("addtype", "2");
