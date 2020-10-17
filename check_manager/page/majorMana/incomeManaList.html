@@ -388,16 +388,16 @@
 	.select-btn {display: none; line-height: 44px; color: #7EB6FF; margin-right: 10px;}
 	
 	.dialog-container { position: fixed; width: 100%; height: 100%; background-color: rgba(180,180,180,.8); left: 0; top: 0; z-index: 60; display: none; justify-content: center; align-items: center;}
-	.dialog { width: 80%; height: 340px; background-color: #fff; padding-left: 12px; }
+	.dialog { width: 80%; background-color: #fff; padding: 10px 1px 10px 12px; }
 	
 	.dialog>div { border-bottom: 1px solid #ddd; line-height: 48px; }
-	.dialog input {width: 50%; font-size: 15px; border: none; margin: 0 3px 0 0;}
+	.dialog input {width: 50%; font-size: 15px; border: none; margin: 0 3px 0 0; text-align: right;}
 	.dialog-title { font-size: 19px; font-weight: 800; padding: 14px 0 9px;}
 	/* .dialog-money { margin: 20px 0;} */
-	.dialog-tel {display: flex; align-items: center; justify-content: space-around;}
+	.dialog-tel {display: flex; align-items: center; justify-content: space-between;}
 	#input-tel { font-size: 17px; }
 	.clear-tel {color: #7EB6FF;}
-	.get-code {font-size: 12px; color: #7EB6FF; font-family: "Microsoft YaHei"; font-weight: 600;}
+	.get-code {font-size: 15px; color: #7EB6FF; font-family: "Microsoft YaHei"; font-weight: 600;}
 	.dialog-code {margin-bottom: 40px;}
 	.dialog-btn {
 		width: 100%;
@@ -410,9 +410,12 @@
 		justify-content: space-between;
 		overflow: hidden;
 	}
-	.cancel,.success {width: 50%;}
+	.cancel,.success,.paying {flex: 1;}
 	.cancel {color: #7EB6FF;}
 	.success { background-color: #7EB6FF; color: #fff; }
+	.paying { display: none; background-color: #ee6666; color: #fff;}
+	
+	.notpay {color: #ee3311; font-size: 20px; text-align: center; margin: 10px 0 30px; display: none;}
 	
 	</style>
 </head>
@@ -421,17 +424,21 @@
 	<div class="dialog-container">
 		<div class="dialog">
 			<div class="dialog-title">支付详情:</div>
-			<div class="dialog-money">总金额:&nbsp;&nbsp; ¥&nbsp;&nbsp;<span></span></div>
+			<div class="mfallmoney">账户余额:&nbsp;&nbsp; ¥&nbsp;&nbsp;<span></span></div>
+			<div class="dialog-money">支付总金额:&nbsp;&nbsp; ¥&nbsp;&nbsp;<span></span></div>
 			<div class="dialog-tel">
-				电话号: 
+				<span>电话号:</span> 
 				<input id="input-tel" disabled  type="text" maxlength="11" name="userNum"  placeholder="请输入手机号..." />
 				<!-- <span class="clear-tel">清空</span> -->
 			</div>
 			<div class="dialog-code">验证码: <input id="input-code" type="text" name="verify" placeholder="输入验证码..." /><span class="get-code">获取验证码</span></div>
+			<div class="notpay">余额不足!</div>
 			<div class="dialog-btn">
 				<div class="cancel">取消支付</div>
 				<div class="success">确认支付</div>
+				<div class="paying">支付中...</div>
 			</div>
+			
 		</div>
 	</div>
 	
@@ -599,6 +606,14 @@
 	}
 	if (income_status == 8) {
 		$("header span").text("用户已收款");
+	}
+	
+	if (income_status == 11) {
+		$("header span").text("支付中");
+	}
+	if (income_status == 12) {
+		$("header span").text("支付失败");
+		$(".select-btn").css("display","block")
 	}
 
 	
@@ -1187,8 +1202,14 @@
 						ids = data.ids // 保存ids
 						// 弹出提示框
 						$(".dialog-container").css("display","flex")
+						$(".mfallmoney span").text(data.mfallmoney)
 						$(".dialog-money span").text(data.allmoney)
 						$("#input-tel").val("*******"+tel_app.substring(7,11))   // 支付获取验证码默认是  当前注册用的手机号
+						if(Number(data.mfallmoney) < Number(data.allmoney) ){
+							$(".dialog-code").css("display","none")
+							$(".success").css("display","none")
+							$(".notpay").css("display","block")
+						}
 					}
 				});
 		}
@@ -1199,6 +1220,7 @@
 	// 获取验证码=============================================================
 	let msm   // 定义一个变量接收 验证码
 	let time = 60   // 定义一个计时器变量
+	var ttt   // 定时器
 	$(".get-code").on("click", get_code);   // 点击 "获取验证码"
 	
 	function get_code() {
@@ -1215,7 +1237,6 @@
 			tel_app: tel_app,
 			code_app: code_app
 			}, function(data) {
-			console.log("验证码 请求响应了")
 			console.log(JSON.stringify(data));
 			if (data.result == 0) {
 				// 需要重新登录
@@ -1224,7 +1245,7 @@
 				} else {
 					document.addEventListener('plusready', goToLogin, false);
 				}
-				mui.toast(data.message,{ duration:'4000', type:'div' })
+				mui.toast(data.message,{ duration:'5000', type:'div' })
 				$(".get-code").text("获取验证码");
 				$(".get-code").css("color", "#7EB6FF");
 				$(".get-code").on("click", get_code);
@@ -1233,11 +1254,11 @@
 				// 倒计时
 				$(".get-code").text(time + "秒");
 				$(".get-code").css("color", "gray");
-				var t = setInterval(() => {
+				ttt = setInterval(() => {
 					time = time - 1;
 					$(".get-code").text(time + "秒");
 					if (time < 1) {
-						clearInterval(t);
+						clearInterval(ttt);
 						$(".get-code").text("重新获取");
 						$(".get-code").css("color", "#7EB6FF");
 						$(".get-code").on("click", get_code);
@@ -1257,13 +1278,14 @@
 	$(".success").click(() => {   // 点击了确认支付
 		let telcode = $("#input-code").val()   // 定义一个变量 获取 输入的验证码
 		if (telcode == undefined){
-			mui.toast('验证码不能为空!',{ duration:'4000', type:'div' })
+			mui.toast('验证码不能为空!',{ duration:'8000', type:'div' })
 		}
 		else if(telcode != msm) {
-			console.log("验证码  不正确")
-			mui.toast('验证码不正确!',{ duration:'4000', type:'div' })
+			mui.toast('验证码不正确!',{ duration:'8000', type:'div' })
 		}
 		else {
+			$(".success").css("display","none")
+			$(".paying").css("display","block")
 			// 发起 最终支付 请求
 			$.post(urlDns + "/control_app/ms/fr_zg/zf_pay/pay", {
 				ids: ids,
@@ -1275,17 +1297,41 @@
 				}, function(data) {
 					console.log(JSON.stringify(data));
 					if (data.result == 0) {
-						// 需要重新登录
-						if (window.plus) {
-							goToLogin("../../../page/register/login.html");
-						} else {
-							document.addEventListener('plusready', goToLogin, false);
-						}
+						$(".success").css("display","block")
+						$(".paying").css("display","none")
+						clearInterval(ttt);   // 清除定时器==========
+						$(".get-code").text("重新获取");
+						$(".get-code").css("color", "#7EB6FF");
+						$(".get-code").on("click", get_code);
+						$("#input-code").val('')
+						$(".dialog-container").css("display","none")
+						// 弹出提示框
+						mui.toast(data.message,{ duration:'8000', type:'div' })
+						
+						// 回到页面的上一个状态
+						$(".select-btn").text("选择");
+						$(".back").css("display", "block");
+						$("footer").css("display","none");
+						$(".filterBox").css("display","block")
+						$(".searchBox").css("display", "block");
+						$(".select").css("display", "none");
+						$(".select_all").css("display", "none");
+						$(".comName").css("left", "0px");
+						$(".list").css("margin-top","152px");
+						getInfoList()   // 重新请求 列表数据
 					} 
-					else {
+					else if(data.result == 1){
+						$(".success").css("display","block")
+						$(".paying").css("display","none")
+						clearInterval(ttt);   // 清除定时器==========
+						$(".get-code").text("重新获取");
+						$(".get-code").css("color", "#7EB6FF");
+						$(".get-code").on("click", get_code);
+						$("#input-code").val('')
+						
 						$(".dialog-container").css("display","none")
 						// 弹出支付成功的提示框
-						mui.toast('支付成功!',{ duration:'5000', type:'div' })
+						mui.toast('做操成功! 正在支付中',{ duration:'15000', type:'div' })
 						
 						// 回到页面的上一个状态
 						$(".select-btn").text("选择");

@@ -97,6 +97,20 @@
 						<img src="../../../img/next.png" alt="">
 				</div>
 			</li>
+			<li class="paying">
+				<span>支付中</span>
+				<div>
+						<span class="paying-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
+			<li class="payfail">
+				<span>支付失败</span>
+				<div>
+						<span class="payfail-li"></span>
+						<img src="../../../img/next.png" alt="">
+				</div>
+			</li>
 			<li class="complete-pay">
 				<span>用户已收款</span>
 				<div>
@@ -406,6 +420,16 @@
 		sessionStorage.setItem("income_status", 7);
 		location.href = './incomeManaList.html';
 	});
+	$(".paying").click(() => {
+		sessionStorage.setItem("addtype", "2");
+		sessionStorage.setItem("income_status", 11);
+		location.href = './incomeManaList.html';
+	});
+	$(".payfail").click(() => {
+		sessionStorage.setItem("addtype", "2");
+		sessionStorage.setItem("income_status", 12);
+		location.href = './incomeManaList.html';
+	});
 	$(".complete-pay").click(() => {
 		sessionStorage.setItem("addtype", "2");
 		sessionStorage.setItem("income_status", 8);
@@ -489,7 +513,7 @@
 				tel_app: tel_app,
 				code_app: code_app
 			}, function(data) {
-				// console.log(JSON.stringify(data));
+				console.log(JSON.stringify(data));
 				if (data.result == 0) {
 					// 需要重新登录
 					if (window.plus) {
@@ -517,6 +541,8 @@
 				$(".com-nopass-li").text(data.ms_nopass);
 				$(".wait-salesman-li").text(data.ms_send_pay);
 				$(".wait-pay-li").text(data.bb_7);
+				$(".paying-li").text(data.bb_11);
+				$(".payfail-li").text(data.bb_12);
 				$(".complete-pay-li").text(data.bb_8);
 				}
 					

@@ -162,6 +162,7 @@
 			.registerBox {
 			    margin-top: 10px;
 			}
+			.con-dialog { width: 200px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
 		</style>
 </head>
 
@@ -182,7 +183,10 @@
         </div>
         <div>
             <span>商户名称</span>
-            <span><div id="businessName"></div></span>
+						<div>
+								<span class="con-dialog" id="businessName"></span>
+								<img src="../../../img/next.png" alt="">
+						</div>
         </div>
         <div>
             <span>类型</span>
@@ -236,11 +240,17 @@
         </div> -->
         <div>
             <span>开户行</span>
-            <span><div id="accountBank"></div></span>
+						<div>
+								<span class="con-dialog" id="accountBank"></span>
+								<img src="../../../img/next.png" alt="">
+						</div>
         </div>
         <div>
             <span>开户名</span>
-            <span><div id="accountName"></div></span>
+						<div>
+								<span class="con-dialog" id="accountName"></span>
+								<img src="../../../img/next.png" alt="">
+						</div>
         </div>
         <div class="last">
             <span>账号</span>
@@ -309,6 +319,23 @@
 	$(".photos").click(() => {
 	    location.href = "./certificate.html";
 	});
+	
+	// 商户名称
+	$("#businessName").click(()=>{
+		// 展示详细信息
+		mui.alert($("#businessName").html(),'详细内容','关闭','','div')
+	})
+	
+	// 开户行
+	$("#accountBank").click(()=>{
+		// 展示详细信息
+		mui.alert($("#accountBank").html(),'详细内容','关闭','','div')
+	})
+	// 开户名
+	$("#accountName").click(()=>{
+		// 展示详细信息
+		mui.alert($("#accountName").html(),'详细内容','关闭','','div')
+	})
 </script>
 
 </html>

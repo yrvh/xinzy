@@ -484,7 +484,7 @@
 	
 	getInfoList()   //调用函数初始化 界面上要展示的数据列表 
 	
-	function getInfoList(name='',sfid='',yztype='',hhrid='',yxyid='',ywyid='') {
+	function getInfoList(name='',sfid=0,yztype='',hhrid='',yxyid='',ywyid='') {
 		// console.log(page)
 		// 请求数据
 		mui.post(urlDns + "/control_app/ms/fr/user/list", {
@@ -496,7 +496,7 @@
 			// 一页的条数
 			rows: 20,
 			// 搜索框的内容
-			tel: name,
+			name: name,
 			// 过滤条件的单位ID
 			sfid,
 			// 过滤条件的业者ID
